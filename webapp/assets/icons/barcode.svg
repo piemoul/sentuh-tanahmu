@@ -1,0 +1,25 @@
+<svg height="512" viewBox="0 0 48 48" width="512" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <linearGradient id="linear-gradient" gradientUnits="userSpaceOnUse" x1="24" x2="24" y1="1.51" y2="47.902">
+    <stop offset="0" stop-color="#ffeef1"/>
+    <stop offset="1" stop-color="#ffc6cf"/>
+  </linearGradient>
+  <linearGradient id="linear-gradient-2" gradientUnits="userSpaceOnUse" x1="32" x2="32" y1="10.532" y2="36.45">
+    <stop offset="0" stop-color="#fd4685"/>
+    <stop offset="1" stop-color="#ff9d8c"/>
+  </linearGradient>
+  <linearGradient id="linear-gradient-3" x1="16" x2="16" xlink:href="#linear-gradient-2" y1="10.532" y2="36.45"/>
+  <linearGradient id="linear-gradient-6" x1="24" x2="24" xlink:href="#linear-gradient-2" y1="10.532" y2="36.45"/>
+  <g id="Layer_2" data-name="Layer 2">
+    <circle cx="24" cy="24" r="24" fill="url(#linear-gradient)"/>
+  </g>
+  <g id="Layer_3" data-name="Layer 3">
+    <path d="m36 28.25a.75.75 0 0 0 -.75.75v4a2.2531 2.2531 0 0 1 -2.25 2.25h-5a.75.75 0 0 0 0 1.5h5a3.7547 3.7547 0 0 0 3.75-3.75v-4a.75.75 0 0 0 -.75-.75z" fill="url(#linear-gradient-2)"/>
+    <path d="m12 19.75a.75.75 0 0 0 .75-.75v-4a2.2531 2.2531 0 0 1 2.25-2.25h5a.75.75 0 0 0 0-1.5h-5a3.7547 3.7547 0 0 0 -3.75 3.75v4a.75.75 0 0 0 .75.75z" fill="url(#linear-gradient-3)"/>
+    <path d="m33 11.25h-5a.75.75 0 0 0 0 1.5h5a2.2531 2.2531 0 0 1 2.25 2.25v4a.75.75 0 0 0 1.5 0v-4a3.7547 3.7547 0 0 0 -3.75-3.75z" fill="url(#linear-gradient-2)"/>
+    <path d="m20 35.25h-5a2.2531 2.2531 0 0 1 -2.25-2.25v-4a.75.75 0 0 0 -1.5 0v4a3.7547 3.7547 0 0 0 3.75 3.75h5a.75.75 0 0 0 0-1.5z" fill="url(#linear-gradient-3)"/>
+    <g fill="url(#linear-gradient-6)">
+      <path d="m19 31.75h10a2.7528 2.7528 0 0 0 2.75-2.75v-2.25h2.25a.75.75 0 0 0 0-1.5h-20a.75.75 0 0 0 0 1.5h2.25v2.25a2.7528 2.7528 0 0 0 2.75 2.75z"/>
+      <path d="m29 16.25h-10a2.7484 2.7484 0 0 0 -2.75 2.75v4.75h1.5v-4.75a1.25 1.25 0 0 1 1.25-1.25h10a1.25 1.25 0 0 1 1.25 1.25v4.75h1.5v-4.75a2.7484 2.7484 0 0 0 -2.75-2.75z"/>
+    </g>
+  </g>
+</svg>

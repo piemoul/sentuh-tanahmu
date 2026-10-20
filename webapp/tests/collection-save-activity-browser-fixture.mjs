@@ -1,0 +1,67 @@
+// Actual app and local API; every user, record, response and tile is synthetic.
+// The injected upstream transport cannot make network requests.
+import fs from 'node:fs';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {createHash} from 'node:crypto';
+import {createServer} from '../server.mjs';
+import {SessionStore} from '../private/session.mjs';
+import * as operations from '../private/operations.mjs';
+const root=new URL('../../',import.meta.url),port=4186,receipt=new URL('analysis/webapp/collection-save-activity-browser-transport.json',root);
+const modes=['ready','error-true','http-503','http-201','malformed','slow-success','slow-error'];
+const allowed=new Set(['account/account_summary','activity/GetUserActivity','activity/deleteUserActivity','collection/GetUserCollection','collection/GetPersilCollectionGroup','collection/GetCollectionId','Collection/AddCollectionBerkas','Collection/AddCollectionPersil','Collection/AddPersilCollectionGroup','Collection/AddPersilCollectionToGroup','Collection/DeleteCollectionBerkas/{path_argument_1}','Collection/DeleteCollectionPersil/{path_argument_1}','/berkas/CariBerkas','berkas/berkassop','berkas/getStatusCetak','legacy/GetParcelBoundaryById?persilid={value}']);
+const user={username:'penguji-sintetis',nama:'Penguji SINTETIS',nomorIndukKependudukan:'fixture-login-nik',statusVerifikasi:1,userLevel:2,isIkd:false,roleUser:'PERORANGAN'};
+const initialRows=[{userActivityId:'fixture-activity-file',activityType:'CariBerkas',contentId:'fixture-file:office',title:'Berkas SINTETIS',subTitle:'Uji simpan otomatis',createdAt:null},{userActivityId:'fixture-activity-parcel',activityType:'CariBidang',contentId:'fixture-parcel',title:'Bidang SINTETIS',subTitle:'Uji caption dan grup',createdAt:null},{userActivityId:'fixture-activity-login',activityType:'Login',contentId:null,title:'Login SINTETIS',subTitle:'Uji hapus gagal server',createdAt:null},{userActivityId:'fixture-duplicate',activityType:'Login',title:'Duplikat pertama SINTETIS'},{userActivityId:'fixture-duplicate',activityType:'Login',title:'Duplikat kedua SINTETIS'}];
+const initialGroups=[{collectionGroupId:'fixture-group-a',collectionGroupName:'SINTETIS Grup A',createdAt:null},{collectionGroupId:'fixture-group-b',collectionGroupName:'SINTETIS Grup B',createdAt:null}];
+const boundary={type:'FeatureCollection',features:[{type:'Feature',id:'fixture-feature-not-target',properties:{NIB:'SINTETIS-NIB',LUAS:120,TIPEHAK:'Hak Milik SINTETIS'},geometry:{type:'Polygon',coordinates:[[[106,-6],[106.0002,-6],[106.0002,-5.9998],[106,-5.9998],[106,-6]]]}}]};
+const token={tokenType:'Bearer',accessToken:'fixture-token-never-real',expiredAt:4e9};
+export function createCollectionSaveActivityFixture(){
+ const calls=[],unexpected=[],actions=[],pending=[],controls=[],tileRequests=[];let mode='ready',rows=structuredClone(initialRows),groups=structuredClone(initialGroups),sequence=0,autoAuth=true;
+ const sessions=new SessionStore(),create=sessions.create.bind(sessions);sessions.create=()=>{const session=create();if(autoAuth){autoAuth=false;session.user={...user};session.tokens={...token};}return session;};
+ const hash=file=>createHash('sha256').update(fs.readFileSync(new URL(file,root))).digest('hex');
+ const state=()=>({mode,rows:structuredClone(rows),groups:structuredClone(groups),calls:calls.length,writes:actions.length,pending:pending.length,unexpected:unexpected.length});
+ const snapshot=()=>({checkedAt:new Date().toISOString(),fixture:'save-activity-synthetic-loopback',port,inputs:['webapp/app.js','webapp/styles.css','webapp/collection-save-persil.js','webapp/private/api-client.mjs','webapp/private/operations.mjs'].filter(file=>fs.existsSync(new URL(file,root))).map(file=>({file,sha256:hash(file)})),calls,actions,controls,pendingResponses:pending.map(item=>item.id),unexpected,tileRequests,serverState:state(),productionRequests:0,providerRequests:0,networkTransportUsed:false,mapAdaptation:'Only the fixed OSM tile template is replaced with a local one-pixel fixture PNG. Maps are not assessed for real-provider acceptance here.'});
+ const persist=()=>fs.writeFileSync(receipt,JSON.stringify(snapshot(),null,2)+'\n');
+ const catalog=operations.getPublicCatalog().filter(op=>allowed.has(op.endpoint));
+ const registry={...operations,getPublicCatalog:()=>structuredClone(catalog),prepareOperation:(id,values,context)=>{if(!catalog.some(op=>op.id===id)){unexpected.push({kind:'catalog',id});persist();throw Object.assign(new Error('Outside synthetic fixture scope'),{status:403,code:'FIXTURE_REJECTED'});}return operations.prepareOperation(id,values,context);}};
+ const configuration={configured:true,origin:'https://sentuh.atrbpn.go.id/',reason:'SINTETIS LOKAL, tanpa BPN',applicationAuthorization:()=> 'AtrBpn fixture-only'};
+ const server=createServer({configuration,sessions,operations:registry,log:()=>{},transport:async(url,init)=>{
+  const values=init.body instanceof FormData?Object.fromEntries(init.body):{},call={sequence:++sequence,method:init.method,path:url.pathname,query:Object.fromEntries(url.searchParams),fields:Object.keys(values),values:Object.fromEntries(Object.entries(values).map(([key,value])=>[key,key==='Nik'?'[synthetic sign-in NIK]':value])),mode};calls.push(call);persist();
+  if(url.pathname==='/account/account_summary')return Response.json({error:false,data:{...user,nomorIdentitas:'different-summary-identity'}});
+  if(url.pathname==='/activity/GetUserActivity')return Response.json({error:true,data:rows});
+  if(url.pathname==='/collection/GetUserCollection')return Response.json({error:false,data:[{id:'fixture-saved-parcel',type:'PERSIL',contentId:'fixture-parcel',title:'Bidang Koleksi SINTETIS',subTitle:'SINTETIS',groupId:null,createdAt:null,email:null}]});
+  if(url.pathname==='/collection/GetPersilCollectionGroup')return Response.json({error:true,data:groups});
+  if(url.pathname==='/collection/GetCollectionId')return Response.json({error:true,message:null,data:'must-not-be-status-id'});
+  if(url.pathname.toLowerCase()==='/berkas/cariberkas')return Response.json({berkasId:'fixture-primary-file',nomor:12,tahun:2026,statusBerkas:1,namaProsedur:'Prosedur SINTETIS',kantor:{nama:'Kantor SINTETIS',tipeKantorId:3.9},parapihak:[],perjalananBerkas:[]});
+  if(url.pathname==='/berkas/berkassop')return Response.json({lewatTenggat:false,tipeProduk:'SINTETIS'});
+  if(url.pathname==='/berkas/getStatusCetak')return Response.json({error:false,message:'SINTETIS'});
+  if(url.pathname==='/legacy/GetParcelBoundaryById')return Response.json(boundary);
+  const write=init.method!=='GET'&&(url.pathname==='/activity/deleteUserActivity'||url.pathname.startsWith('/Collection/'));
+  if(!write){unexpected.push({kind:'transport',path:url.pathname});persist();throw new Error('Unexpected synthetic transport');}
+  const action={...call,id:'fixture-action-'+actions.length,completed:false};actions.push(action);const captured=mode;
+  const complete=()=>{const status=['http-503','slow-error'].includes(captured)?503:captured==='http-201'?201:200;action.status=status;action.completed=true;const accepted=status===200&&captured!=='malformed';if(accepted){if(url.pathname==='/activity/deleteUserActivity')rows=rows.filter(row=>(row.userActivityId??'')!==values.userActivityId);if(url.pathname==='/Collection/AddPersilCollectionGroup')groups.push({collectionGroupId:'fixture-created-group-'+actions.length,collectionGroupName:values.GroupName,createdAt:null});}persist();if(captured==='malformed')return Response.json({error:1,data:[]});return Response.json({error:captured==='error-true',message:'Respons SINTETIS',data:'fixture-new-collection-'+actions.length},{status});};
+  if(captured.startsWith('slow-'))return new Promise(resolve=>{const item={id:action.id,release:()=>{pending.splice(pending.indexOf(item),1);resolve(complete());persist();}};pending.push(item);persist();});
+  return complete();
+ }});
+ const json=(res,status,value)=>{res.writeHead(status,{'Content-Type':'application/json','Cache-Control':'no-store'});res.end(JSON.stringify(value));};
+ const panel='<aside id="fixture-controls"><strong>SIMPAN KOLEKSI / AKTIVITAS · SINTETIS LOKAL</strong><p>Semua akun, data, submit, dan tile hanya fixture lokal. Tidak terhubung ke server asli.</p><label>Mode respons sintetis<select id="fixture-mode">'+modes.map(value=>'<option>'+value+'</option>').join('')+'</select></label><button id="fixture-set-mode">Terapkan mode sintetis</button><button id="fixture-release">Lepaskan respons tertunda</button><button id="fixture-reset">Atur ulang sesi sintetis</button><details><summary>Status sintetis</summary><output id="fixture-status"></output></details></aside>';
+ const script=`const host=document.createElement('div');host.innerHTML=${JSON.stringify(panel)};const panel=host.firstElementChild,modal=document.getElementById('modal');document.body.append(panel);function place(){const parent=modal.open?modal:document.body;if(panel.parentElement!==parent)parent.append(panel);}new MutationObserver(place).observe(modal,{childList:true,attributes:true,attributeFilter:['open']});async function update(){const data=await(await fetch('/fixture/status')).json();document.getElementById('fixture-status').textContent=JSON.stringify(data);document.getElementById('fixture-release').disabled=!data.pending;}async function command(action){await fetch('/fixture/control',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action,mode:document.getElementById('fixture-mode').value})});if(action==='reset'){location.hash='/activity';location.reload();}else await update();}document.getElementById('fixture-set-mode').onclick=()=>command('mode');document.getElementById('fixture-release').onclick=()=>command('release');document.getElementById('fixture-reset').onclick=()=>command('reset');setInterval(update,700);await update();`;
+ const css='#fixture-controls{margin:12px;padding:12px;border:2px solid #205073;background:#edf6ff;font:12px system-ui;overflow-wrap:anywhere}#fixture-controls select,#fixture-controls button{max-width:100%;padding:7px;margin:4px;font:inherit}#fixture-status{display:block;white-space:pre-wrap;max-height:140px;overflow:auto}';
+ const listener=server.listeners('request')[0];server.removeAllListeners('request');
+ server.on('request',async(req,res)=>{
+  const url=new URL(req.url,'http://127.0.0.1:'+port);if(req.headers.host!=='127.0.0.1:'+port){res.writeHead(403);res.end();return;}
+  if(url.pathname==='/fixture/status'){json(res,200,state());return;}
+  if(url.pathname==='/fixture/control'&&req.method==='POST'){
+   if(req.headers.origin!=='http://127.0.0.1:'+port){json(res,403,{});return;}let bytes='';for await(const chunk of req){bytes+=chunk;if(bytes.length>2048){json(res,413,{});return;}}let value;try{value=JSON.parse(bytes);}catch{json(res,400,{});return;}if(!['mode','release','reset'].includes(value.action)||!modes.includes(value.mode)){json(res,400,{});return;}
+   controls.push({sequence:++sequence,...value});if(value.action==='mode')mode=value.mode;if(value.action==='release')pending[0]?.release();if(value.action==='reset'){for(const id of [...sessions.sessions.keys()])sessions.delete(id);autoAuth=true;mode='ready';rows=structuredClone(initialRows);groups=structuredClone(initialGroups);}persist();json(res,200,state());return;
+  }
+  if(url.pathname==='/fixture/controls.js'||url.pathname==='/fixture/controls.css'){res.writeHead(200,{'Content-Type':url.pathname.endsWith('.js')?'text/javascript':'text/css'});res.end(url.pathname.endsWith('.js')?script:css);return;}
+  if(url.pathname==='/'&&req.method==='GET'){const html=fs.readFileSync(new URL('webapp/index.html',root),'utf8').replace('</head>','<link rel="stylesheet" href="/fixture/controls.css"></head>').replace('</body>','<script type="module" src="/fixture/controls.js"></script></body>');res.setHeader('Content-Security-Policy',"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'");res.writeHead(200,{'Content-Type':'text/html; charset=utf-8'});res.end(html);return;}
+  if(url.pathname==='/assets/maps/official-map.js'){const module=fs.readFileSync(new URL('webapp/assets/maps/official-map.js',root),'utf8'),needle='https://tile.openstreetmap.org/{z}/{x}/{y}.png';if(module.split(needle).length!==2)throw new Error('Unexpected fixed tile source');res.writeHead(200,{'Content-Type':'text/javascript'});res.end(module.replace(needle,'/fixture/osm/{z}/{x}/{y}.png'));return;}
+  if(url.pathname.startsWith('/fixture/osm/')||url.pathname.startsWith('/api/maps/bhumi/')){tileRequests.push({path:url.pathname});persist();res.writeHead(200,{'Content-Type':'image/png'});res.end(Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a3ioAAAAASUVORK5CYII=','base64'));return;}
+  return listener(req,res);
+ });
+ const stop=()=>{for(const item of [...pending])item.release();persist();server.closeAllConnections();server.close();};
+ return{server,start:()=>new Promise(resolve=>server.listen(port,'127.0.0.1',()=>{persist();resolve(state());})),stop,snapshot};
+}
+if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){const fixture=createCollectionSaveActivityFixture();await fixture.start();console.log('Synthetic save/activity fixture on loopback4186, no providers.');process.once('SIGINT',fixture.stop);process.once('SIGTERM',fixture.stop);}

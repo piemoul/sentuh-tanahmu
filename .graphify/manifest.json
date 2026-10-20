@@ -1,0 +1,422 @@
+{
+  "scripts/analyze_artifact.py": {
+    "mtime": 1792483357506.6064,
+    "hash": "a263575afc41f1364e8c6d69eb174b46"
+  },
+  "scripts/analyze_route_spoofer.py": {
+    "mtime": 1792483357506.6064,
+    "hash": "4a20b5c72d1e94ca42a01fee72a64708"
+  },
+  "scripts/android-install-original-in-audit-emulator.ps1": {
+    "mtime": 1792483357507.6045,
+    "hash": "829fa497fae29dba4132741189ab5bde"
+  },
+  "scripts/android-runtime-inventory.ps1": {
+    "mtime": 1792483357508.605,
+    "hash": "2a18e171876d307372b9ba2a8b22873f"
+  },
+  "scripts/android-start-audit-emulator.ps1": {
+    "mtime": 1792483357508.605,
+    "hash": "bbf5fa38c613b3c0ac24ee235a1e7ee3"
+  },
+  "scripts/audit_native_integrity.py": {
+    "mtime": 1792483357509.6038,
+    "hash": "ec4922a97fad220649489761e75f5f64"
+  },
+  "scripts/package-webapp.ps1": {
+    "mtime": 1792483357510.6045,
+    "hash": "0ff0d243d3f002adb73dd282597046fb"
+  },
+  "scripts/prepare-repository-checkpoint.py": {
+    "mtime": 1792483357510.6045,
+    "hash": "bd524556944c24f55c6b495c78e23637"
+  },
+  "scripts/probe-upstream.mjs": {
+    "mtime": 1792483357510.6045,
+    "hash": "5e52c5f2af14c1ef1d8f08e30c868f8b"
+  },
+  "scripts/start-webapp-docker.ps1": {
+    "mtime": 1792483357512.1096,
+    "hash": "ec1e510b157bc012dfa79d42803c75ad"
+  },
+  "scripts/start-webapp.ps1": {
+    "mtime": 1792483357512.1096,
+    "hash": "50ae1839fffe3866c0f1d94b38ff68ed"
+  },
+  "scripts/stop-webapp-docker.ps1": {
+    "mtime": 1792483357513.1155,
+    "hash": "fcf4d99f1c039ea5c9e2988faf9fcace"
+  },
+  "scripts/stop-webapp.ps1": {
+    "mtime": 1792483357514.1155,
+    "hash": "96f5b67057b949042cc31438f1500422"
+  },
+  "scripts/unpack.py": {
+    "mtime": 1792483357514.1155,
+    "hash": "4ce7d081d030dd9e28393b65877aa454"
+  },
+  "scripts/verify-audit.py": {
+    "mtime": 1792483357515.1177,
+    "hash": "71de1a1e4c1732e9c2f640fb0e50194e"
+  },
+  "scripts/verify-extraction.py": {
+    "mtime": 1792483357516.114,
+    "hash": "70a976c87ebf02c804b4e3db055e764b"
+  },
+  "scripts/verify-http-callsite-audit.py": {
+    "mtime": 1792483357517.1184,
+    "hash": "a2e2ff8474e30d9bf30199632811cb32"
+  },
+  "webapp/app.js": {
+    "mtime": 1792483357518.6753,
+    "hash": "70470eb60d97fbb11cedba853de42b75"
+  },
+  "webapp/assets/maps/official-map.js": {
+    "mtime": 1792483357555.9316,
+    "hash": "ecf76ee1281157a0041e1581a25bcd7a"
+  },
+  "webapp/collection-save-persil.js": {
+    "mtime": 1792483357563.3,
+    "hash": "dd40de3f6342d09f3b29d045feb203b5"
+  },
+  "webapp/coordinate-comparison.js": {
+    "mtime": 1792483357563.3,
+    "hash": "ba91d5db5bc16f74932cd139163b0746"
+  },
+  "webapp/domain.js": {
+    "mtime": 1792483357564.3591,
+    "hash": "9bf3a21c89a19f6e9e139649819f5b46"
+  },
+  "webapp/gnss.js": {
+    "mtime": 1792483357565.362,
+    "hash": "6009f14b9fec0d0c2271224eda59a6f8"
+  },
+  "webapp/parcel-map.js": {
+    "mtime": 1792483357566.9062,
+    "hash": "620b9b1dc96acf78ace416934e91c5ed"
+  },
+  "webapp/private/activity-response.mjs": {
+    "mtime": 1792483357566.9062,
+    "hash": "0bec9809eaf81fd3dd031ab62d9d8f88"
+  },
+  "webapp/private/api-client.mjs": {
+    "mtime": 1792483357567.9119,
+    "hash": "cbb09b2ed804ca29ccbdded80f12f12c"
+  },
+  "webapp/private/bhumi-map-client.mjs": {
+    "mtime": 1792483357568.9197,
+    "hash": "c6e6771c4faf7f5870068ca23ec7892f"
+  },
+  "webapp/private/browser-map-configuration.mjs": {
+    "mtime": 1792483357568.9197,
+    "hash": "955f9acdf07296dad59133d62fbdbb47"
+  },
+  "webapp/private/browser-origin.mjs": {
+    "mtime": 1792483357569.9116,
+    "hash": "70fca9f8a790d3c4813bdb3c4d13c98c"
+  },
+  "webapp/private/build-operations.py": {
+    "mtime": 1792483357569.9116,
+    "hash": "7fa9d28dba812d612b6c38d6582e8a0b"
+  },
+  "webapp/private/calendar-reference.mjs": {
+    "mtime": 1792483357570.9104,
+    "hash": "718988cc5264f12b18d2cbc8c83114d6"
+  },
+  "webapp/private/collection-response.mjs": {
+    "mtime": 1792483357571.916,
+    "hash": "16b3fe1d537534fe574e9ca125e595fb"
+  },
+  "webapp/private/configuration.mjs": {
+    "mtime": 1792483357571.916,
+    "hash": "546c46b75bf4afd531c494bb09290c8f"
+  },
+  "webapp/private/http-api.mjs": {
+    "mtime": 1792483357571.916,
+    "hash": "2d65c0abeb0f1e357b9703e603e9f479"
+  },
+  "webapp/private/https-transport.mjs": {
+    "mtime": 1792483357573.421,
+    "hash": "fd85a1fad1f027d86415cb2bb59a3f47"
+  },
+  "webapp/private/news-response.mjs": {
+    "mtime": 1792483357573.421,
+    "hash": "7ab1fa089fe6453ad30d11aa1681eb67"
+  },
+  "webapp/private/operations-runtime.mjs": {
+    "mtime": 1792483357574.4243,
+    "hash": "d1746f6bfc97987361a258aaab546fd9"
+  },
+  "webapp/private/operations.mjs": {
+    "mtime": 1792483357575.4258,
+    "hash": "324398c014f3cd396b8091ae37109412"
+  },
+  "webapp/private/queue-calls-models.mjs": {
+    "mtime": 1792483357576.4263,
+    "hash": "c2ed355aa259a6979f510584295afcdd"
+  },
+  "webapp/private/queue-client.mjs": {
+    "mtime": 1792483357576.4263,
+    "hash": "c825f7abe4de15795cb2a1a5eeb62f97"
+  },
+  "webapp/private/queue-identity.mjs": {
+    "mtime": 1792483357577.438,
+    "hash": "5ad89b303334f1d79ab67d663f49eba2"
+  },
+  "webapp/private/queue-models.mjs": {
+    "mtime": 1792483357577.438,
+    "hash": "03ee63d417ff4db899c72703955649c6"
+  },
+  "webapp/private/queue-profile.mjs": {
+    "mtime": 1792483357578.4255,
+    "hash": "3df9960d908e712add2aed0261faef3a"
+  },
+  "webapp/private/queue-session.mjs": {
+    "mtime": 1792483357579.4255,
+    "hash": "012fbdd402a30b6131149bc75d225851"
+  },
+  "webapp/private/scan-response.mjs": {
+    "mtime": 1792483357579.4255,
+    "hash": "0fca5bfc525c8cffdf50d000f6575b4f"
+  },
+  "webapp/private/session.mjs": {
+    "mtime": 1792483357580.4255,
+    "hash": "92eabdeffaf090da9425689da5438a98"
+  },
+  "webapp/server.mjs": {
+    "mtime": 1792483357581.4258,
+    "hash": "a39394977b520434cf7d56e6b4beff98"
+  },
+  "webapp/tests/activity-delete-ui.test.mjs": {
+    "mtime": 1792483357583.4993,
+    "hash": "dee26f0dc2ec8c91535ea742a019290c"
+  },
+  "webapp/tests/backend.test.mjs": {
+    "mtime": 1792483357583.4993,
+    "hash": "160a333555adadf773188726303d5505"
+  },
+  "webapp/tests/bhumi-http.test.mjs": {
+    "mtime": 1792483357584.5044,
+    "hash": "3b6f11cbc3298ea32b143758eba081e7"
+  },
+  "webapp/tests/bhumi-map-client.test.mjs": {
+    "mtime": 1792483357585.505,
+    "hash": "1932829bbc9d9ebefea83e672ecbebf8"
+  },
+  "webapp/tests/browser-fixture.mjs": {
+    "mtime": 1792483357586.5054,
+    "hash": "f6d8fc6b20fcd5d0d89030d1b42b5acc"
+  },
+  "webapp/tests/browser-map-configuration.test.mjs": {
+    "mtime": 1792483357586.5054,
+    "hash": "380239f87161374c510976d9c8741b21"
+  },
+  "webapp/tests/catalog-integration.test.mjs": {
+    "mtime": 1792483357587.5056,
+    "hash": "21054bb369ff707624bebb6bb204a03b"
+  },
+  "webapp/tests/collection-browser-fixture.mjs": {
+    "mtime": 1792483357588.5051,
+    "hash": "1d7aeb00c04e605ae30afdbf400bd825"
+  },
+  "webapp/tests/collection-group-actions-browser-fixture.mjs": {
+    "mtime": 1792483357588.5051,
+    "hash": "1fffe60b66ad42066d1a63fc04991495"
+  },
+  "webapp/tests/collection-group-actions.test.mjs": {
+    "mtime": 1792483357589.5068,
+    "hash": "6a9fcc6c6676686b7919ed26a45e3478"
+  },
+  "webapp/tests/collection-group-create-browser-fixture.mjs": {
+    "mtime": 1792483357590.505,
+    "hash": "7876bf75235c54d5636611e8cd5816e5"
+  },
+  "webapp/tests/collection-group-create.test.mjs": {
+    "mtime": 1792483357590.505,
+    "hash": "531394af14d660bb619f14757bee1923"
+  },
+  "webapp/tests/collection-groups-browser-fixture.mjs": {
+    "mtime": 1792483357591.505,
+    "hash": "774f74be2193ec339b8994c0450eb8f1"
+  },
+  "webapp/tests/collection-item-actions-browser-fixture.mjs": {
+    "mtime": 1792483357591.505,
+    "hash": "d3a344c8aa65a2814e47165f74724f30"
+  },
+  "webapp/tests/collection-item-actions.test.mjs": {
+    "mtime": 1792483357592.505,
+    "hash": "3f29e78cb1e86ae637e5d54ad87dcdfa"
+  },
+  "webapp/tests/collection-response.test.mjs": {
+    "mtime": 1792483357592.505,
+    "hash": "eacb1e0490e2a81b974c7294dea1bfd3"
+  },
+  "webapp/tests/collection-save-activity-browser-fixture.mjs": {
+    "mtime": 1792483357594.0115,
+    "hash": "848edd3b5e2264238e3713873424acb7"
+  },
+  "webapp/tests/collection-save-activity.test.mjs": {
+    "mtime": 1792483357595.02,
+    "hash": "cfd5747d6754552ca16ca0b5a8487ff5"
+  },
+  "webapp/tests/collection-save-berkas-ui.test.mjs": {
+    "mtime": 1792483357595.02,
+    "hash": "2e95322190ab8956e0f740847bfb840e"
+  },
+  "webapp/tests/collection-save-persil-ui.test.mjs": {
+    "mtime": 1792483357596.029,
+    "hash": "089360a93d31a7f7a2a5d27666bf3ad8"
+  },
+  "webapp/tests/coordinate-comparison.test.mjs": {
+    "mtime": 1792483357596.029,
+    "hash": "d5887f374af0e4437a55c7760d6e13bf"
+  },
+  "webapp/tests/deployment.test.mjs": {
+    "mtime": 1792483357597.0164,
+    "hash": "442ac2e137147320271e863cb82b4f49"
+  },
+  "webapp/tests/domain.test.mjs": {
+    "mtime": 1792483357597.0164,
+    "hash": "8e5fcf418ccdbd086c00cc5f49c82870"
+  },
+  "webapp/tests/gnss.test.mjs": {
+    "mtime": 1792483357599.5818,
+    "hash": "904e50d3251ac2bf3b80cec02aeb862f"
+  },
+  "webapp/tests/https-transport.test.mjs": {
+    "mtime": 1792483357599.5818,
+    "hash": "5eef25437d0c74dd35f5434ad2591255"
+  },
+  "webapp/tests/information-simulation.test.mjs": {
+    "mtime": 1792483357600.5808,
+    "hash": "90a0077dda2fe0ad29322141dbae1a31"
+  },
+  "webapp/tests/map-entry-integration.test.mjs": {
+    "mtime": 1792483357601.5796,
+    "hash": "45cd5d6fe00c5545adc06c95c806248d"
+  },
+  "webapp/tests/map-pin-browser-fixture.mjs": {
+    "mtime": 1792483357602.5847,
+    "hash": "c9717b4e73eb6cff541d8fa51b554f8e"
+  },
+  "webapp/tests/network-diagnostics.test.mjs": {
+    "mtime": 1792483357602.5847,
+    "hash": "c3255ac070c612e0bc72b10174afdff5"
+  },
+  "webapp/tests/news-browser-fixture.mjs": {
+    "mtime": 1792483357602.5847,
+    "hash": "de3dc3e861de785b712ed22a45a4c095"
+  },
+  "webapp/tests/news-read.test.mjs": {
+    "mtime": 1792483357604.0886,
+    "hash": "45129e260502bc0bbf080de62b6a3fa0"
+  },
+  "webapp/tests/office-browser-fixture.mjs": {
+    "mtime": 1792483357604.0886,
+    "hash": "023fae00856b33281960aa2350ba4c6f"
+  },
+  "webapp/tests/office-configuration.test.mjs": {
+    "mtime": 1792483357605.0935,
+    "hash": "85b07e6d0e978981720dab56e596df59"
+  },
+  "webapp/tests/office-read.test.mjs": {
+    "mtime": 1792483357606.0945,
+    "hash": "efccf9a727380cc4afbb98ee03574a57"
+  },
+  "webapp/tests/official-map-browser-fixture.mjs": {
+    "mtime": 1792483357607.1064,
+    "hash": "9688d0956afed279ede3a9b912e6f2b1"
+  },
+  "webapp/tests/official-map.test.mjs": {
+    "mtime": 1792483357607.1064,
+    "hash": "1ede2daa27a95b5f252b1b9061488295"
+  },
+  "webapp/tests/operations.test.mjs": {
+    "mtime": 1792483357608.094,
+    "hash": "19418ea40c9b4539d877964c3e3df841"
+  },
+  "webapp/tests/osm-bhumi-browser-fixture.mjs": {
+    "mtime": 1792483357608.094,
+    "hash": "636f1a8c4c30bf469dee23ddba73252f"
+  },
+  "webapp/tests/parcel-map.test.mjs": {
+    "mtime": 1792483357609.0933,
+    "hash": "a3be40ac03f5b578fe37124992bc70b0"
+  },
+  "webapp/tests/queue-browser-fixture.mjs": {
+    "mtime": 1792483357610.1118,
+    "hash": "f4d73480158444c3325f6f11ecfac7b1"
+  },
+  "webapp/tests/queue-calls-models.test.mjs": {
+    "mtime": 1792483357610.1118,
+    "hash": "9ec549d748fdfab133eda0113093c27c"
+  },
+  "webapp/tests/queue-client.test.mjs": {
+    "mtime": 1792483357611.1072,
+    "hash": "9b9075ab6e67c75a2ff42dc9966df2e4"
+  },
+  "webapp/tests/queue-identity.test.mjs": {
+    "mtime": 1792483357611.1072,
+    "hash": "b613967c1e15c1829ce7c12324dd0d38"
+  },
+  "webapp/tests/queue-models.test.mjs": {
+    "mtime": 1792483357612.0935,
+    "hash": "79c466bac88a5f89a012058fa878dbdb"
+  },
+  "webapp/tests/queue-profile.test.mjs": {
+    "mtime": 1792483357613.094,
+    "hash": "c23a92328c69612784f27cdbbfcee100"
+  },
+  "webapp/tests/queue-session.test.mjs": {
+    "mtime": 1792483357613.094,
+    "hash": "ed7f50c0e0dfa9063d28d84c1166f779"
+  },
+  "webapp/tests/run-portable.mjs": {
+    "mtime": 1792483527987.542,
+    "hash": "d5915c9a263e1aaeaa1daea8b05e0353"
+  },
+  "webapp/tests/scan-response.test.mjs": {
+    "mtime": 1792483357613.094,
+    "hash": "c47d24d777bd55a19eb7052b8b4980ef"
+  },
+  "webapp/tests/searchfile-backend.test.mjs": {
+    "mtime": 1792483357615.1826,
+    "hash": "d02f4b3ca4a3f32c5ad6905ad67ff3f5"
+  },
+  "webapp/tests/server.test.mjs": {
+    "mtime": 1792483357615.1826,
+    "hash": "f6402d7e964dd98415f92a80359ebed3"
+  },
+  "webapp/tests/tls-configuration.test.mjs": {
+    "mtime": 1792483357616.1934,
+    "hash": "3ab54333433acd885c789f6e8825591f"
+  },
+  "DOCKER.md": {
+    "mtime": 1792483357504.6038,
+    "hash": "3f90e14b4b3ddb9e5c0bdd1f47b316a7"
+  },
+  "README.md": {
+    "mtime": 1792483514474.1787,
+    "hash": "f5a21338ac7c1b29b23f1e55f1b3402c"
+  },
+  "compose.yaml": {
+    "mtime": 1792483357503.5996,
+    "hash": "8665a614250570b4c1d56d810ff24df7"
+  },
+  "docs/ARCHITECTURE.md": {
+    "mtime": 1792483710747.0767,
+    "hash": "3ecb34e27b76c151d7b0044d33347c64"
+  },
+  "docs/VALIDATION.md": {
+    "mtime": 1792483527986.4033,
+    "hash": "ab7b6348aac87030f245c234fe8b8b81"
+  },
+  "webapp/README.md": {
+    "mtime": 1792483357581.4258,
+    "hash": "6bb4aa06daaa3165cb3d07272f120540"
+  },
+  "webapp/index.html": {
+    "mtime": 1792483357565.362,
+    "hash": "32a1736d85fb5a39700bdd125357c35f"
+  }
+}

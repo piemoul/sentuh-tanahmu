@@ -1,0 +1,87 @@
+name: sentuh-tanahku
+services:
+  webapp:
+    image: sentuh-tanahku-web:local
+    build:
+      context: .
+      dockerfile: Dockerfile
+    init: true
+    restart: unless-stopped
+    ports:
+      # Browser URL: http://localhost:4173; publish only on the host loopback.
+      - "127.0.0.1:4173:4173"
+    environment:
+      NODE_ENV: production
+      PORT: "4173"
+      BIND_HOST: "0.0.0.0"
+      PUBLIC_ORIGIN: "${SENTUH_PUBLIC_ORIGIN:-}"
+    volumes:
+      # Public frontend files can be refreshed during local QA without losing
+      # the backend's in-memory login session. Backend code remains in the image.
+      - type: bind
+        source: ./webapp/app.js
+        target: /app/webapp/app.js
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./webapp/styles.css
+        target: /app/webapp/styles.css
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./webapp/index.html
+        target: /app/webapp/index.html
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./webapp/gnss.js
+        target: /app/webapp/gnss.js
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./webapp/coordinate-comparison.js
+        target: /app/webapp/coordinate-comparison.js
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./webapp/parcel-map.js
+        target: /app/webapp/parcel-map.js
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./webapp/assets/maps/official-map.js
+        target: /app/webapp/assets/maps/official-map.js
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./analysis/unpacked/apk/config.arm64_v8a/lib/arm64-v8a/libapp.so
+        target: /app/analysis/unpacked/apk/config.arm64_v8a/lib/arm64-v8a/libapp.so
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./analysis/recovered/blutter-unique/pp.txt
+        target: /app/analysis/recovered/blutter-unique/pp.txt
+        read_only: true
+        bind:
+          create_host_path: false
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 100
+    mem_limit: 512m
+    cpus: 1.0
+    logging:
+      driver: json-file
+      options:
+        max-size: "5m"
+        max-file: "2"

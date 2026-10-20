@@ -1,0 +1,318 @@
+{
+  "checkedAt": "2026-10-20T08:00:53.988Z",
+  "tests": 549,
+  "pass": 549,
+  "fail": 0,
+  "cancelled": 0,
+  "skipped": 0,
+  "todo": 0,
+  "exitCode": 0,
+  "testFiles": [
+    "webapp/tests/activity-delete-ui.test.mjs",
+    "webapp/tests/backend.test.mjs",
+    "webapp/tests/bhumi-http.test.mjs",
+    "webapp/tests/bhumi-map-client.test.mjs",
+    "webapp/tests/browser-map-configuration.test.mjs",
+    "webapp/tests/catalog-integration.test.mjs",
+    "webapp/tests/collection-group-actions.test.mjs",
+    "webapp/tests/collection-group-create.test.mjs",
+    "webapp/tests/collection-item-actions.test.mjs",
+    "webapp/tests/collection-response.test.mjs",
+    "webapp/tests/collection-save-activity.test.mjs",
+    "webapp/tests/collection-save-berkas-ui.test.mjs",
+    "webapp/tests/collection-save-persil-ui.test.mjs",
+    "webapp/tests/coordinate-comparison.test.mjs",
+    "webapp/tests/deployment.test.mjs",
+    "webapp/tests/domain.test.mjs",
+    "webapp/tests/gnss.test.mjs",
+    "webapp/tests/https-transport.test.mjs",
+    "webapp/tests/information-simulation.test.mjs",
+    "webapp/tests/map-entry-integration.test.mjs",
+    "webapp/tests/network-diagnostics.test.mjs",
+    "webapp/tests/news-read.test.mjs",
+    "webapp/tests/office-configuration.test.mjs",
+    "webapp/tests/office-read.test.mjs",
+    "webapp/tests/official-map.test.mjs",
+    "webapp/tests/operations.test.mjs",
+    "webapp/tests/parcel-map.test.mjs",
+    "webapp/tests/queue-calls-models.test.mjs",
+    "webapp/tests/queue-client.test.mjs",
+    "webapp/tests/queue-identity.test.mjs",
+    "webapp/tests/queue-models.test.mjs",
+    "webapp/tests/queue-profile.test.mjs",
+    "webapp/tests/queue-session.test.mjs",
+    "webapp/tests/scan-response.test.mjs",
+    "webapp/tests/searchfile-backend.test.mjs",
+    "webapp/tests/server.test.mjs",
+    "webapp/tests/tls-configuration.test.mjs"
+  ],
+  "inputs": [
+    {
+      "file": "webapp/app.js",
+      "sha256": "ff995db7561750823c2d4361b649ea410484e11364e66248a7ec9b382a0d36f6"
+    },
+    {
+      "file": "webapp/collection-save-persil.js",
+      "sha256": "b5318271688487df7f7a629202372d855457aeca73806d008e2a9ef616d125db"
+    },
+    {
+      "file": "webapp/coordinate-comparison.js",
+      "sha256": "7445eff21d6f986e280e1a3516bd481d8947403d7cf49fa172d7de5d0826ae61"
+    },
+    {
+      "file": "webapp/domain.js",
+      "sha256": "7b4677e9b95e8c67c42afce4f6696a7f8bda1eb00e02656d672543220fb385b4"
+    },
+    {
+      "file": "webapp/gnss.js",
+      "sha256": "2534efcc1c36b63972be29dae3cc93d3d4e0a3688b6dc585f4c4fc773a75a8f5"
+    },
+    {
+      "file": "webapp/parcel-map.js",
+      "sha256": "ebceb65e0051fff4ed53ca6c54a348efea31e354ca3b4526cb0e01f165821b79"
+    },
+    {
+      "file": "webapp/private/activity-response.mjs",
+      "sha256": "2241b117b81448ebd208b69b85d8099a719e25b2a690737a66844dc2cf1ad9d4"
+    },
+    {
+      "file": "webapp/private/api-client.mjs",
+      "sha256": "edcddde61475eea611cb20318d3532010cf86cf9b663435e44739cb8eda9157c"
+    },
+    {
+      "file": "webapp/private/bhumi-map-client.mjs",
+      "sha256": "13b0260abeaf83c3e3d9d6c445104efed7f1e3b6f2d3b014c1267f1045c44ad7"
+    },
+    {
+      "file": "webapp/private/browser-map-configuration.mjs",
+      "sha256": "c223c34f17bfdebff1508493a7766a8ab74f955a674b6c844567db6f81402a4f"
+    },
+    {
+      "file": "webapp/private/browser-origin.mjs",
+      "sha256": "8ba5daae0bb459fad5809e59611799d4a259644bdd07d56f7a51106c7c3ebfca"
+    },
+    {
+      "file": "webapp/private/build-operations.py",
+      "sha256": "2304923f92eba69a7dcfb44b5256b9c9a40e40fa87ff6f9402cd66f6ea2175d3"
+    },
+    {
+      "file": "webapp/private/calendar-reference.mjs",
+      "sha256": "2223ed3a0d1e511069bd6a7e02693effcf78bbd60cffdfc2ca8e438754931004"
+    },
+    {
+      "file": "webapp/private/collection-response.mjs",
+      "sha256": "0261044516489efeb206513d727da4d7cc0e08d3cae1c28b828f60f4f2a425bd"
+    },
+    {
+      "file": "webapp/private/configuration.mjs",
+      "sha256": "a3183cfdaedf96fa140d7a0e67aeb0e4586cb303e2886240518408fe14ae4d0e"
+    },
+    {
+      "file": "webapp/private/http-api.mjs",
+      "sha256": "3f47c46e046d92ee8ac3c67ee7d84a3b632a7efb926071ccaf7b0f0dd1eae747"
+    },
+    {
+      "file": "webapp/private/https-transport.mjs",
+      "sha256": "484e7a36fa8d8ce6a7183315098d38a558ac0071d058a375a09b6caf65daf9c1"
+    },
+    {
+      "file": "webapp/private/news-response.mjs",
+      "sha256": "f0c19051f9f6272b126b91e329658baf062256289e2c24a6bad0bc79241cef9b"
+    },
+    {
+      "file": "webapp/private/operations-runtime.mjs",
+      "sha256": "a04504b747338b67316388199b8a8976f1ff52b931b464552e03fdd8fe6657c5"
+    },
+    {
+      "file": "webapp/private/operations.mjs",
+      "sha256": "0cb6515051805c29a755029790c60ca6593687fb7a59be30fdd3d67f208e8f17"
+    },
+    {
+      "file": "webapp/private/queue-calls-models.mjs",
+      "sha256": "fad7732392788a81be4a95ba1d8cdb15697af28a3789b0b3ddfecedc9d176b81"
+    },
+    {
+      "file": "webapp/private/queue-client.mjs",
+      "sha256": "bb25f6cf460401f58d37c8477824b27dfc8bed7320bd126a9f39e3324e64abd5"
+    },
+    {
+      "file": "webapp/private/queue-identity.mjs",
+      "sha256": "0af21a70ed39031a5eb560fd84887c0b08d9c9a7b56c27c1bd0615e1441eca4b"
+    },
+    {
+      "file": "webapp/private/queue-models.mjs",
+      "sha256": "909dd9a09be4e09de99a16a8541422cc72a93a188703a62ca4408dcc9772d322"
+    },
+    {
+      "file": "webapp/private/queue-profile.mjs",
+      "sha256": "2eb1bb44d8b84acc0d3cc6e0b0c46c24b8e7f32a6cb85a68c7ac552ce07cc590"
+    },
+    {
+      "file": "webapp/private/queue-session.mjs",
+      "sha256": "9282888268019db30437ac71cdda7db217bc2debd2e95d5f7117157fd6a8a13f"
+    },
+    {
+      "file": "webapp/private/scan-response.mjs",
+      "sha256": "7c183c0f96f34fc44385679b289b2c62cb09a8f3332e7adf73101ec7ac9bf836"
+    },
+    {
+      "file": "webapp/private/session.mjs",
+      "sha256": "02dfc4959b23aa67cf3114a45fd1c259bb909536dee5f71b1ad4966f7c1d088d"
+    },
+    {
+      "file": "webapp/server.mjs",
+      "sha256": "ca26aec45da91b31d1a530c44bd4ef3e040467ca1556ca5129459a03663c83e9"
+    },
+    {
+      "file": "webapp/tests/activity-delete-ui.test.mjs",
+      "sha256": "801af7d191bef28e9f6d906729d6fc3380da97873c47396b1f1ae48fca168dbb"
+    },
+    {
+      "file": "webapp/tests/backend.test.mjs",
+      "sha256": "634713a500f6d09f9852ee3dbfed283587965d18dead2f2024dc4dd907e0e57b"
+    },
+    {
+      "file": "webapp/tests/bhumi-http.test.mjs",
+      "sha256": "22af84df79616fec7e74933b28a678c019e4bacc82d775956fd6fe63583a142c"
+    },
+    {
+      "file": "webapp/tests/bhumi-map-client.test.mjs",
+      "sha256": "6c920d3f251724cbd8c3334dd294de8b87b85f8f1e399912edb9c7e2723b87c6"
+    },
+    {
+      "file": "webapp/tests/browser-map-configuration.test.mjs",
+      "sha256": "0064f67bbc281a7c122764e3cde8e08acdf16009d4077302547084ef11fed56b"
+    },
+    {
+      "file": "webapp/tests/catalog-integration.test.mjs",
+      "sha256": "4377f9e2888b545061e563bcc244cdf77a001dea16890f5b56907999f38e63ba"
+    },
+    {
+      "file": "webapp/tests/collection-group-actions.test.mjs",
+      "sha256": "71d32a9aac0223fba330248fd446148a966014eb6bee2ab53e785fd16af51cf4"
+    },
+    {
+      "file": "webapp/tests/collection-group-create.test.mjs",
+      "sha256": "088b04277d0b44be6bf90e3c73e64e51f8e015a9ad1cd20fc4d359fa9ef4adbf"
+    },
+    {
+      "file": "webapp/tests/collection-item-actions.test.mjs",
+      "sha256": "836b43fb4378960ef7aeb3a948e67ecd8f19f1b3d660a3ef5bf20a4c12cfd6fd"
+    },
+    {
+      "file": "webapp/tests/collection-response.test.mjs",
+      "sha256": "c531c739d124e49d91141b1722a614a4536afbe9dcee1cc6278f79cb4eb91137"
+    },
+    {
+      "file": "webapp/tests/collection-save-activity.test.mjs",
+      "sha256": "f05fb2f1beb6a458e8e442dc6524c44e76f5124b425068de8e03da7eed092b2a"
+    },
+    {
+      "file": "webapp/tests/collection-save-berkas-ui.test.mjs",
+      "sha256": "f1d741edc08a3917909a0fe40c781db11dc1c43e345a7bb86b50ad6a3a37aabf"
+    },
+    {
+      "file": "webapp/tests/collection-save-persil-ui.test.mjs",
+      "sha256": "2daf520ed77812bb9efcddbe43a0b22b1ca62f727d313d900a99064e9bab40f4"
+    },
+    {
+      "file": "webapp/tests/coordinate-comparison.test.mjs",
+      "sha256": "a9e6131b3629dc05fb1418678b598695f46dec351477265d7a1d2ad7968d9347"
+    },
+    {
+      "file": "webapp/tests/deployment.test.mjs",
+      "sha256": "3850e63835439842e3657ac2255783704bd8feffc9d40eb64af717eb1bea8b55"
+    },
+    {
+      "file": "webapp/tests/domain.test.mjs",
+      "sha256": "1325be368f94ce8cf4546125e3cc451f6ed0a3ce6390fa3aceedf665b48bc157"
+    },
+    {
+      "file": "webapp/tests/gnss.test.mjs",
+      "sha256": "d79d0cc1ebf36fd82236bfe165a6903bc381eed99a33ca285027d6d1ec0d937f"
+    },
+    {
+      "file": "webapp/tests/https-transport.test.mjs",
+      "sha256": "7f99b1d47f9df4e75f4dad4adf287da65afe5fc139ba0239a5e3aabe34a9f658"
+    },
+    {
+      "file": "webapp/tests/information-simulation.test.mjs",
+      "sha256": "91103d748a3e092c9b2357f111e8efee5414c7bf0c525e05c3d632f3d8f9a334"
+    },
+    {
+      "file": "webapp/tests/map-entry-integration.test.mjs",
+      "sha256": "fb8f97b492d209c17368c82f03d96e78056c714436d1c5924a287d409905ab87"
+    },
+    {
+      "file": "webapp/tests/network-diagnostics.test.mjs",
+      "sha256": "5fbfc3dd4e15bd089f7485694b96b3c9757987c718a8e52a4ff553b264e70b57"
+    },
+    {
+      "file": "webapp/tests/news-read.test.mjs",
+      "sha256": "3bcf0db8d10ba46c0b02379e0619d7bac80e809fca85fc796b8770dcafb967cd"
+    },
+    {
+      "file": "webapp/tests/office-configuration.test.mjs",
+      "sha256": "82cc8c0f46504ab6c52712f5e9ec62f5a64aaf49050c38763a23b3c6aa2ca3b1"
+    },
+    {
+      "file": "webapp/tests/office-read.test.mjs",
+      "sha256": "70c97cc3ed8e4860ce3e6263f40271a992146a68a97b56fda61d30bd108da4b3"
+    },
+    {
+      "file": "webapp/tests/official-map.test.mjs",
+      "sha256": "3282759e66227f022bcb42cb17ee36c7a35cf7851720a546e9915196c7166cf9"
+    },
+    {
+      "file": "webapp/tests/operations.test.mjs",
+      "sha256": "5fae919259da4ccd82ebd59c38475b546303304b918615890df58181a21d0a72"
+    },
+    {
+      "file": "webapp/tests/parcel-map.test.mjs",
+      "sha256": "b9c11c02916510e4ac526af9b682164527aad0371b0c637472effba758ca1369"
+    },
+    {
+      "file": "webapp/tests/queue-calls-models.test.mjs",
+      "sha256": "b6d81ca09d2c7c0ce11374d5edd81cb504587612a68b5ee0f31283b73945399e"
+    },
+    {
+      "file": "webapp/tests/queue-client.test.mjs",
+      "sha256": "7cdd1c9225d64f1491deaf35b9c97b38a20438097d374904ea62d358ca287ca3"
+    },
+    {
+      "file": "webapp/tests/queue-identity.test.mjs",
+      "sha256": "f231528e1f1792e6f64c0ab5ec7a31da00647907acec079046296075a1d1846b"
+    },
+    {
+      "file": "webapp/tests/queue-models.test.mjs",
+      "sha256": "d2c800bb4ef0e8070b0b694c7828c08ec809b9b9c48b5057021875f36eb6f734"
+    },
+    {
+      "file": "webapp/tests/queue-profile.test.mjs",
+      "sha256": "85f2780af19a5eb0721aa314fc343da8706755ce8f29a4645c1293ea652b2f92"
+    },
+    {
+      "file": "webapp/tests/queue-session.test.mjs",
+      "sha256": "5b161052c8d3f8809f046d4bf8f2573eb39e31a00d3d437a78d9c417dc3d0d2c"
+    },
+    {
+      "file": "webapp/tests/scan-response.test.mjs",
+      "sha256": "351294ffef9c4a4ed1efdcf866846858146569b120993865a18484fd89805ad9"
+    },
+    {
+      "file": "webapp/tests/searchfile-backend.test.mjs",
+      "sha256": "342f5519f2b04eb8989db9cbe7711a43c74cc16dcc8200192e0f86de54ba014a"
+    },
+    {
+      "file": "webapp/tests/server.test.mjs",
+      "sha256": "30b00ece51a67baeba6cf1ed0c752c0d3cff254b3821abb47d987478ef79c210"
+    },
+    {
+      "file": "webapp/tests/tls-configuration.test.mjs",
+      "sha256": "d515bf2e930f8945b0875f4116a90d76c8abad703e2cf8998ac5771e36cce751"
+    }
+  ],
+  "changedInputs": [],
+  "productionRequests": 0,
+  "scope": "Complete Node test suite, with mocked upstream transports. This is not production mutation acceptance."
+}

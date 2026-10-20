@@ -1,0 +1,3 @@
+id,latitude,longitude,name,source,accuracy_m,measured_at,crs
+same-id,0.123456789,1.987654321,UJI LOKAL A,browser,,,EPSG:4326
+same-id,0.987654321,2.123456789,UJI LOKAL B,survey,0.02,2026-10-18T00:00:00Z,EPSG:4326

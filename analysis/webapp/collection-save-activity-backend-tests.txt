@@ -1,0 +1,3311 @@
+TAP version 13
+# Subtest: every Activity type has a separate delete control and an untouched source index
+ok 1 - every Activity type has a separate delete control and an untouched source index
+  ---
+  duration_ms: 4.6697
+  type: 'test'
+  ...
+# Subtest: confirmation escapes the exact nullable title and does not use contentId
+ok 2 - confirmation escapes the exact nullable title and does not use contentId
+  ---
+  duration_ms: 4.7398
+  type: 'test'
+  ...
+# Subtest: cancel and Escape before confirmation send no requests
+ok 3 - cancel and Escape before confirmation send no requests
+  ---
+  duration_ms: 3.2307
+  type: 'test'
+  ...
+# Subtest: delegated confirmation sends exactly one multipart-operation value and explicit review flag
+ok 4 - delegated confirmation sends exactly one multipart-operation value and explicit review flag
+  ---
+  duration_ms: 3.2069
+  type: 'test'
+  ...
+# Subtest: delete preserves ID "" without trimming or routing substitution
+ok 5 - delete preserves ID "" without trimming or routing substitution
+  ---
+  duration_ms: 3.1036
+  type: 'test'
+  ...
+# Subtest: delete preserves ID "   " without trimming or routing substitution
+ok 6 - delete preserves ID "   " without trimming or routing substitution
+  ---
+  duration_ms: 2.9623
+  type: 'test'
+  ...
+# Subtest: delete preserves ID "a/:?\#%" without trimming or routing substitution
+ok 7 - delete preserves ID "a/:?\#%" without trimming or routing substitution
+  ---
+  duration_ms: 1.8888
+  type: 'test'
+  ...
+# Subtest: local in-place removal ignores service Boolean/body ({"status":200,"data":true})
+ok 8 - local in-place removal ignores service Boolean/body ({"status":200,"data":true})
+  ---
+  duration_ms: 4.5799
+  type: 'test'
+  ...
+# Subtest: local in-place removal ignores service Boolean/body ({"status":200,"data":false})
+ok 9 - local in-place removal ignores service Boolean/body ({"status":200,"data":false})
+  ---
+  duration_ms: 1.9019
+  type: 'test'
+  ...
+# Subtest: local in-place removal ignores service Boolean/body ({"status":503,"data":false})
+ok 10 - local in-place removal ignores service Boolean/body ({"status":503,"data":false})
+  ---
+  duration_ms: 2.2484
+  type: 'test'
+  ...
+# Subtest: local in-place removal ignores service Boolean/body ({"status":200,"data":{"error":true}})
+ok 11 - local in-place removal ignores service Boolean/body ({"status":200,"data":{"error":true}})
+  ---
+  duration_ms: 1.668
+  type: 'test'
+  ...
+# Subtest: ordinary network failure still removes locally without claiming server success or showing a toast
+ok 12 - ordinary network failure still removes locally without claiming server success or showing a toast
+  ---
+  duration_ms: 1.7913
+  type: 'test'
+  ...
+# Subtest: post-await CURRENT master is mutated in place, preserving survivor objects and order
+ok 13 - post-await CURRENT master is mutated in place, preserving survivor objects and order
+  ---
+  duration_ms: 1.6615
+  type: 'test'
+  ...
+# Subtest: null/missing typed IDs compare as empty strings and all empty duplicates disappear
+ok 14 - null/missing typed IDs compare as empty strings and all empty duplicates disappear
+  ---
+  duration_ms: 1.555
+  type: 'test'
+  ...
+# Subtest: String response is normalized once so rendered and dispatched rows share the mutated array
+ok 15 - String response is normalized once so rendered and dispatched rows share the mutated array
+  ---
+  duration_ms: 2.3854
+  type: 'test'
+  ...
+# Subtest: current category after await is preserved and the last browser page clamps to a valid page
+ok 16 - current category after await is preserved and the last browser page clamps to a valid page
+  ---
+  duration_ms: 4.3401
+  type: 'test'
+  ...
+# Subtest: pending deletion overlays duplicate IDs, not other IDs, and a second submit is ignored
+ok 17 - pending deletion overlays duplicate IDs, not other IDs, and a second submit is ignored
+  ---
+  duration_ms: 1.8925
+  type: 'test'
+  ...
+# Subtest: pending cancel closes only the dialog; the native controller still removes after await
+ok 18 - pending cancel closes only the dialog; the native controller still removes after await
+  ---
+  duration_ms: 1.8327
+  type: 'test'
+  ...
+# Subtest: pending escape closes only the dialog; the native controller still removes after await
+ok 19 - pending escape closes only the dialog; the native controller still removes after await
+  ---
+  duration_ms: 2.9042
+  type: 'test'
+  ...
+# Subtest: pending modal-close closes only the dialog; the native controller still removes after await
+ok 20 - pending modal-close closes only the dialog; the native controller still removes after await
+  ---
+  duration_ms: 2.4811
+  type: 'test'
+  ...
+# Subtest: AUTH_REQUIRED clears private state rather than reporting a successful deletion
+ok 21 - AUTH_REQUIRED clears private state rather than reporting a successful deletion
+  ---
+  duration_ms: 2.9657
+  type: 'test'
+  ...
+# Subtest: LOGIN_REQUIRED clears private state rather than reporting a successful deletion
+ok 22 - LOGIN_REQUIRED clears private state rather than reporting a successful deletion
+  ---
+  duration_ms: 1.5474
+  type: 'test'
+  ...
+# Subtest: SESSION_EXPIRED clears private state rather than reporting a successful deletion
+ok 23 - SESSION_EXPIRED clears private state rather than reporting a successful deletion
+  ---
+  duration_ms: 1.478
+  type: 'test'
+  ...
+# Subtest: SESSION_CHANGED clears private state rather than reporting a successful deletion
+ok 24 - SESSION_CHANGED clears private state rather than reporting a successful deletion
+  ---
+  duration_ms: 1.4624
+  type: 'test'
+  ...
+# Subtest: stale read replacement never mutates the new master
+ok 25 - stale read replacement never mutates the new master
+  ---
+  duration_ms: 1.5274
+  type: 'test'
+  ...
+# Subtest: invalid source indices, disabled metadata, anonymous/loading/disconnected views send no request
+ok 26 - invalid source indices, disabled metadata, anonymous/loading/disconnected views send no request
+  ---
+  duration_ms: 13.7463
+  type: 'test'
+  ...
+# Subtest: Cari Berkas office picker preserves the audited empty name and office types
+ok 27 - Cari Berkas office picker preserves the audited empty name and office types
+  ---
+  duration_ms: 90.1809
+  type: 'test'
+  ...
+# Subtest: state/catalog are local only; session cookie is HttpOnly; private code stays inaccessible
+ok 28 - state/catalog are local only; session cookie is HttpOnly; private code stays inaccessible
+  ---
+  duration_ms: 77.2164
+  type: 'test'
+  ...
+# Subtest: login requires Origin+CSRF and unicode CSRF does not throw
+ok 29 - login requires Origin+CSRF and unicode CSRF does not throw
+  ---
+  duration_ms: 24.5965
+  type: 'test'
+  ...
+# {"event":"upstream_finish","requestId":"2864ddde-b2b5-4ff1-b101-a9a710cbc619","stage":"response","networkCode":null,"elapsedMs":0,"status":200,"hostname":"sentuh.atrbpn.go.id","path":"/legacy/SertifikatTanahNew"}
+# {"event":"upstream_finish","requestId":"22e2167b-3656-4f37-b77c-92d3b55521e7","stage":"response","networkCode":null,"elapsedMs":0,"status":200,"hostname":"antre.atrbpn.go.id","path":"/be/api/fixture"}
+# {"event":"upstream_finish","requestId":"0abcfaf5-34bf-48af-aecd-18be5a5e703b","stage":"response","networkCode":null,"elapsedMs":0,"status":200,"hostname":"sentuh.atrbpn.go.id","path":"/PlotBidang/DaftarPlot"}
+# Subtest: public catalog and diagnostics never bootstrap a session; anonymous download returns 404
+ok 30 - public catalog and diagnostics never bootstrap a session; anonymous download returns 404
+  ---
+  duration_ms: 47.0485
+  type: 'test'
+  ...
+# Subtest: main-client GET and bodyless POST carry audited form content type without inventing a body
+ok 31 - main-client GET and bodyless POST carry audited form content type without inventing a body
+  ---
+  duration_ms: 2.5263
+  type: 'test'
+  ...
+# Subtest: retrieved document bytes stay behind the originating session and become unavailable after logout
+ok 32 - retrieved document bytes stay behind the originating session and become unavailable after logout
+  ---
+  duration_ms: 79.9432
+  type: 'test'
+  ...
+# Subtest: SPS viewer sends encoded selected ID/alias with stored authorization and no main-client content headers
+ok 33 - SPS viewer sends encoded selected ID/alias with stored authorization and no main-client content headers
+  ---
+  duration_ms: 23.7368
+  type: 'test'
+  ...
+# Subtest: GetDocument requires more than 200 bytes and a PDF prefix while ignoring upstream MIME
+ok 34 - GetDocument requires more than 200 bytes and a PDF prefix while ignoring upstream MIME
+  ---
+  duration_ms: 5.6994
+  type: 'test'
+  ...
+# Subtest: GetDocument rejects non-200 PDF responses and keeps redirects and session failures explicit
+ok 35 - GetDocument rejects non-200 PDF responses and keeps redirects and session failures explicit
+  ---
+  duration_ms: 5.8143
+  type: 'test'
+  ...
+# Subtest: GetDocument JSON errors keep redacted diagnostics while other long non-PDF bodies never become previews
+ok 36 - GetDocument JSON errors keep redacted diagnostics while other long non-PDF bodies never become previews
+  ---
+  duration_ms: 12.3028
+  type: 'test'
+  ...
+# Subtest: GetDocument enforces the shared 20 MiB declared and streamed limits
+ok 37 - GetDocument enforces the shared 20 MiB declared and streamed limits
+  ---
+  duration_ms: 8.3613
+  type: 'test'
+  ...
+# Subtest: GetDocument keeps main-client refresh and exact form fields including an empty name
+ok 38 - GetDocument keeps main-client refresh and exact form fields including an empty name
+  ---
+  duration_ms: 21.7665
+  type: 'test'
+  ...
+# Subtest: document geometry applies both native encoders only to its q and leaves generic query encoding unchanged
+ok 39 - document geometry applies both native encoders only to its q and leaves generic query encoding unchanged
+  ---
+  duration_ms: 10.0961
+  type: 'test'
+  ...
+# Subtest: document geometry scope rejects unsupported transport and query overrides before any request
+ok 40 - document geometry scope rejects unsupported transport and query overrides before any request
+  ---
+  duration_ms: 2.7365
+  type: 'test'
+  ...
+# Subtest: document geometry refreshes the main session and preserves a direct four-list body through the HTTP API
+ok 41 - document geometry refreshes the main session and preserves a direct four-list body through the HTTP API
+  ---
+  duration_ms: 24.3792
+  type: 'test'
+  ...
+# Subtest: document geometry requires HTTP 200 JSON without creating downloads and leaves model validation to the frontend
+ok 42 - document geometry requires HTTP 200 JSON without creating downloads and leaves model validation to the frontend
+  ---
+  duration_ms: 32.4371
+  type: 'test'
+  ...
+# Subtest: GetDocument preview and download share session isolation, expiry and refresh invalidation
+ok 43 - GetDocument preview and download share session isolation, expiry and refresh invalidation
+  ---
+  duration_ms: 37.1293
+  type: 'test'
+  ...
+# Subtest: PDF MIME on unrelated main-client operations does not grant document preview
+ok 44 - PDF MIME on unrelated main-client operations does not grant document preview
+  ---
+  duration_ms: 21.8894
+  type: 'test'
+  ...
+# Subtest: SPS PDF detection ignores MIME but requires the exact nonempty leading bytes
+ok 45 - SPS PDF detection ignores MIME but requires the exact nonempty leading bytes
+  ---
+  duration_ms: 3.6145
+  type: 'test'
+  ...
+# Subtest: SPS viewer rejects statuses other than 200 and redirects without reading or exposing error bodies
+ok 46 - SPS viewer rejects statuses other than 200 and redirects without reading or exposing error bodies
+  ---
+  duration_ms: 3.051
+  type: 'test'
+  ...
+# Subtest: SPS viewer enforces the 20 MiB byte limit for declared and streamed response sizes
+ok 47 - SPS viewer enforces the 20 MiB byte limit for declared and streamed response sizes
+  ---
+  duration_ms: 6.6439
+  type: 'test'
+  ...
+# Subtest: SPS transport profile cannot widen paths, methods, origins, fields or authentication
+ok 48 - SPS transport profile cannot widen paths, methods, origins, fields or authentication
+  ---
+  duration_ms: 1.4843
+  type: 'test'
+  ...
+# Subtest: SPS preview and download remain private to their session and expire together
+ok 49 - SPS preview and download remain private to their session and expire together
+  ---
+  duration_ms: 50.9768
+  type: 'test'
+  ...
+# Subtest: SPS uses the stored expired token without main-client refresh and clears documents on upstream 401
+ok 50 - SPS uses the stored expired token without main-client refresh and clears documents on upstream 401
+  ---
+  duration_ms: 27.8038
+  type: 'test'
+  ...
+# Subtest: SPS transport logs omit query values, authorization, headers and rejected bytes
+ok 51 - SPS transport logs omit query values, authorization, headers and rejected bytes
+  ---
+  duration_ms: 1.203
+  type: 'test'
+  ...
+# Subtest: login sends exact audited form to mock only, rotates session, never returns tokens
+ok 52 - login sends exact audited form to mock only, rotates session, never returns tokens
+  ---
+  duration_ms: 12.2898
+  type: 'test'
+  ...
+# Subtest: authenticated account summary uses bearer and appVersion; own identity cannot be overridden
+ok 53 - authenticated account summary uses bearer and appVersion; own identity cannot be overridden
+  ---
+  duration_ms: 13.773
+  type: 'test'
+  ...
+# Subtest: unsupported and arbitrary operations never contact upstream; protected reads need login
+ok 54 - unsupported and arbitrary operations never contact upstream; protected reads need login
+  ---
+  duration_ms: 15.9907
+  type: 'test'
+  ...
+# Subtest: geotag rejects coordinate substitution before upstream access, including confirmed offline multipart
+ok 55 - geotag rejects coordinate substitution before upstream access, including confirmed offline multipart
+  ---
+  duration_ms: 39.5
+  type: 'test'
+  ...
+# Subtest: logout invalidates server tokens and old cookie
+ok 56 - logout invalidates server tokens and old cookie
+  ---
+  duration_ms: 26.4348
+  type: 'test'
+  ...
+# {"event":"upstream_fail","requestId":"d5badc56-cbe2-49b1-aee2-b7df9f0a3fb1","stage":"response_body","networkCode":null,"elapsedMs":1,"status":302,"hostname":"sentuh.atrbpn.go.id","path":"/auth/signin"}
+# {"event":"upstream_finish","requestId":"3c04d7ba-b1ea-45f7-9394-d5a076093bc7","stage":"response","networkCode":null,"elapsedMs":0,"status":200,"hostname":"sentuh.atrbpn.go.id","path":"/auth/refresh_token"}
+# Subtest: a delayed successful login cannot resurrect a session invalidated by logout
+ok 57 - a delayed successful login cannot resurrect a session invalidated by logout
+  ---
+  duration_ms: 32.5059
+  type: 'test'
+  ...
+# Subtest: upstream redirects are not followed and errors never expose application secrets
+ok 58 - upstream redirects are not followed and errors never expose application secrets
+  ---
+  duration_ms: 2.088
+  type: 'test'
+  ...
+# Subtest: refresh is exact normal old-token authorization, single-flight, server tokens stay private
+ok 59 - refresh is exact normal old-token authorization, single-flight, server tokens stay private
+  ---
+  duration_ms: 0.9282
+  type: 'test'
+  ...
+# {"event":"upstream_fail","requestId":"1d87ff04-29b1-4160-bc89-a0f96a5d48db","stage":"response","networkCode":null,"elapsedMs":1,"status":403,"hostname":"sentuh.atrbpn.go.id","path":"/account/example"}
+# {"event":"upstream_fail","requestId":"6adb89c4-7a1a-4268-8872-779cfb1af99d","stage":"response","networkCode":null,"elapsedMs":0,"status":403,"hostname":"sentuh.atrbpn.go.id","path":"/auth/signin"}
+# Subtest: sessions expire in memory, invalid artifact configuration fails closed
+ok 60 - sessions expire in memory, invalid artifact configuration fails closed
+  ---
+  duration_ms: 11.9068
+  type: 'test'
+  ...
+# Subtest: rejection diagnostics preserve safe code/message but remove echoed password and authorization
+ok 61 - rejection diagnostics preserve safe code/message but remove echoed password and authorization
+  ---
+  duration_ms: 2.0683
+  type: 'test'
+  ...
+# Subtest: protected upstream 401 expires authentication and existing downloads without rotating the browser cookie
+ok 62 - protected upstream 401 expires authentication and existing downloads without rotating the browser cookie
+  ---
+  duration_ms: 27.1955
+  type: 'test'
+  ...
+# Subtest: protected upstream 403 preserves authentication and downloads as a permission rejection
+ok 63 - protected upstream 403 preserves authentication and downloads as a permission rejection
+  ---
+  duration_ms: 19.0838
+  type: 'test'
+  ...
+# Subtest: 401 invalidation follows the transmitted auth mode, including malformed response bodies
+ok 64 - 401 invalidation follows the transmitted auth mode, including malformed response bodies
+  ---
+  duration_ms: 4.5697
+  type: 'test'
+  ...
+# Subtest: protected 401 remains a session failure even when reading its body fails
+ok 65 - protected 401 remains a session failure even when reading its body fails
+  ---
+  duration_ms: 1.0327
+  type: 'test'
+  ...
+# Subtest: expired credentials without a refresh token clear private state before protected transport
+ok 66 - expired credentials without a refresh token clear private state before protected transport
+  ---
+  duration_ms: 19.1585
+  type: 'test'
+  ...
+# Subtest: refresh 401 clears the session and never forwards the protected operation
+ok 67 - refresh 401 clears the session and never forwards the protected operation
+  ---
+  duration_ms: 16.7495
+  type: 'test'
+  ...
+# Subtest: a transient refresh failure keeps the session recoverable and blocks protected forwarding until refresh succeeds
+ok 68 - a transient refresh failure keeps the session recoverable and blocks protected forwarding until refresh succeeds
+  ---
+  duration_ms: 23.0991
+  type: 'test'
+  ...
+# Subtest: delayed JSON, ordinary document and SPS preview responses cannot return or populate downloads after logout and relogin
+ok 69 - delayed JSON, ordinary document and SPS preview responses cannot return or populate downloads after logout and relogin
+  ---
+  duration_ms: 80.2956
+  type: 'test'
+  ...
+# Subtest: a delayed 401 cannot clear a newer login or expose the old token in diagnostic text
+ok 70 - a delayed 401 cannot clear a newer login or expose the old token in diagnostic text
+  ---
+  duration_ms: 23.0425
+  type: 'test'
+  ...
+# Subtest: a stale request 401 preserves tokens renewed by a concurrent refresh
+ok 71 - a stale request 401 preserves tokens renewed by a concurrent refresh
+  ---
+  duration_ms: 1.7765
+  type: 'test'
+  ...
+# Subtest: a successful response delayed by concurrent refresh redacts both original and renewed credentials
+ok 72 - a successful response delayed by concurrent refresh redacts both original and renewed credentials
+  ---
+  duration_ms: 27.1679
+  type: 'test'
+  ...
+# Subtest: map configuration contains only fixed OSM provider metadata and never derives private authorization
+ok 73 - map configuration contains only fixed OSM provider metadata and never derives private authorization
+  ---
+  duration_ms: 56.6707
+  type: 'test'
+  ...
+# Subtest: anonymous, bootstrap-only and incomplete authentication cannot fetch a tile
+ok 74 - anonymous, bootstrap-only and incomplete authentication cannot fetch a tile
+  ---
+  duration_ms: 20.9884
+  type: 'test'
+  ...
+# Subtest: authenticated HTTP tile composes exact main token GET and isolated WMS PNG transport
+ok 75 - authenticated HTTP tile composes exact main token GET and isolated WMS PNG transport
+  ---
+  duration_ms: 26.7558
+  type: 'test'
+  ...
+# Subtest: strict XYZ and extra query guards reject before token, key or tile transport
+ok 76 - strict XYZ and extra query guards reject before token, key or tile transport
+  ---
+  duration_ms: 31.9951
+  type: 'test'
+  ...
+# Subtest: tile endpoint rejects other methods and browser execution cannot expose its internal token GET
+ok 77 - tile endpoint rejects other methods and browser execution cannot expose its internal token GET
+  ---
+  duration_ms: 53.0935
+  type: 'test'
+  ...
+# Subtest: tile origin gates reject foreign host, forged proxy and cross-site browser requests before upstream
+ok 78 - tile origin gates reject foreign host, forged proxy and cross-site browser requests before upstream
+  ---
+  duration_ms: 13.9174
+  type: 'test'
+  ...
+# Subtest: localhost and configured public origin work with separate origin-bound sessions and token caches
+ok 79 - localhost and configured public origin work with separate origin-bound sessions and token caches
+  ---
+  duration_ms: 16.9924
+  type: 'test'
+  ...
+# Subtest: concurrent HTTP tiles share one token future while subsequent reads reuse only that session cache
+ok 80 - concurrent HTTP tiles share one token future while subsequent reads reuse only that session cache
+  ---
+  duration_ms: 16.3368
+  type: 'test'
+  ...
+# Subtest: successful tile never exposes its secret query through public state, catalog, config or logs
+ok 81 - successful tile never exposes its secret query through public state, catalog, config or logs
+  ---
+  duration_ms: 26.3721
+  type: 'test'
+  ...
+# Subtest: WMS authentication rejection retries once, returns a sanitized local error and preserves main login
+ok 82 - WMS authentication rejection retries once, returns a sanitized local error and preserves main login
+  ---
+  duration_ms: 12.3809
+  type: 'test'
+  ...
+# Subtest: upstream token error or dedicated transport exception cannot reflect private messages or URLs
+ok 83 - upstream token error or dedicated transport exception cannot reflect private messages or URLs
+  ---
+  duration_ms: 30.058
+  type: 'test'
+  ...
+# Subtest: missing Bhumi private key does not substitute the public Google key or change main authentication
+ok 84 - missing Bhumi private key does not substitute the public Google key or change main authentication
+  ---
+  duration_ms: 10.5505
+  type: 'test'
+  ...
+# Subtest: main token GET authentication failure clears main state while ordinary WMS failures do not
+ok 85 - main token GET authentication failure clears main state while ordinary WMS failures do not
+  ---
+  duration_ms: 13.7635
+  type: 'test'
+  ...
+# Subtest: logout while main token GET is pending prevents key derivation and late tile publication
+ok 86 - logout while main token GET is pending prevents key derivation and late tile publication
+  ---
+  duration_ms: 18.1526
+  type: 'test'
+  ...
+# Subtest: logout while PNG GET is pending aborts transport and a late body cannot publish or contaminate a fresh session
+ok 87 - logout while PNG GET is pending aborts transport and a late body cannot publish or contaminate a fresh session
+  ---
+  duration_ms: 15.0153
+  type: 'test'
+  ...
+# Subtest: one browser abort cannot cancel another tile sharing the pending token request
+ok 88 - one browser abort cannot cancel another tile sharing the pending token request
+  ---
+  duration_ms: 16.4272
+  type: 'test'
+  ...
+# Subtest: HTTP disconnect aborts an in-flight PNG request and discards its late body
+ok 89 - HTTP disconnect aborts an in-flight PNG request and discards its late body
+  ---
+  duration_ms: 10.9916
+  type: 'test'
+  ...
+# Subtest: Bhumi constructor is lazy and malformed XYZ cannot derive keys or call main/tile transport
+ok 90 - Bhumi constructor is lazy and malformed XYZ cannot derive keys or call main/tile transport
+  ---
+  duration_ms: 4.7682
+  type: 'test'
+  ...
+# Subtest: XYZ web guards allow world and maximum zoom edges without coercion
+ok 91 - XYZ web guards allow world and maximum zoom edges without coercion
+  ---
+  duration_ms: 32.911
+  type: 'test'
+  ...
+# Subtest: missing inactive or revoked main session stops before all private configuration
+ok 92 - missing inactive or revoked main session stops before all private configuration
+  ---
+  duration_ms: 1.0817
+  type: 'test'
+  ...
+# Subtest: token uses main client exact GET; tile uses only fixed Bhumi URL Referer and no main credentials
+ok 93 - token uses main client exact GET; tile uses only fixed Bhumi URL Referer and no main credentials
+  ---
+  duration_ms: 2.7452
+  type: 'test'
+  ...
+# Subtest: native WMS query is stable one-pass escaping and bbox keeps double zero and axis order
+ok 94 - native WMS query is stable one-pass escaping and bbox keeps double zero and axis order
+  ---
+  duration_ms: 2.1383
+  type: 'test'
+  ...
+# Subtest: ensureFresh may replace main tokens in same authentication generation before token GET
+ok 95 - ensureFresh may replace main tokens in same authentication generation before token GET
+  ---
+  duration_ms: 1.1866
+  type: 'test'
+  ...
+# Subtest: native token envelope accepts error != true and a nonempty String without second JSON decode
+ok 96 - native token envelope accepts error != true and a nonempty String without second JSON decode
+  ---
+  duration_ms: 12.6485
+  type: 'test'
+  ...
+# Subtest: malformed token envelope and non200 reject before authkey or tile without aliases/coercion
+ok 97 - malformed token envelope and non200 reject before authkey or tile without aliases/coercion
+  ---
+  duration_ms: 7.0279
+  type: 'test'
+  ...
+# Subtest: token parser rejects accessors and echoed main credentials without evaluating getters
+ok 98 - token parser rejects accessors and echoed main credentials without evaluating getters
+  ---
+  duration_ms: 4.8184
+  type: 'test'
+  ...
+# Subtest: private authkey is lazy bounded String and all configuration exceptions are sanitized
+ok 99 - private authkey is lazy bounded String and all configuration exceptions are sanitized
+  ---
+  duration_ms: 3.8817
+  type: 'test'
+  ...
+# Subtest: token cache is per session and expires at the native 240-second boundary
+ok 100 - token cache is per session and expires at the native 240-second boundary
+  ---
+  duration_ms: 3.3165
+  type: 'test'
+  ...
+# Subtest: concurrent tiles deduplicate only their session token future
+ok 101 - concurrent tiles deduplicate only their session token future
+  ---
+  duration_ms: 27.7336
+  type: 'test'
+  ...
+# Subtest: failed shared token load is released so a later tile can recover
+ok 102 - failed shared token load is released so a later tile can recover
+  ---
+  duration_ms: 1.1731
+  type: 'test'
+  ...
+# Subtest: 401 and 403 retry once with a new WMS token while keeping main session intact
+ok 103 - 401 and 403 retry once with a new WMS token while keeping main session intact
+  ---
+  duration_ms: 2.9985
+  type: 'test'
+  ...
+# Subtest: a second 401/403 stops with local 502 and never clears main login
+ok 104 - a second 401/403 stops with local 502 and never clears main login
+  ---
+  duration_ms: 1.6707
+  type: 'test'
+  ...
+# Subtest: late failure of old T1 cannot evict T2 or start a third token request
+ok 105 - late failure of old T1 cannot evict T2 or start a third token request
+  ---
+  duration_ms: 3.0792
+  type: 'test'
+  ...
+# Subtest: simultaneous old-token failures share one replacement request
+ok 106 - simultaneous old-token failures share one replacement request
+  ---
+  duration_ms: 1.9765
+  type: 'test'
+  ...
+# Subtest: individual tile cancellation never aborts another waiter shared token future
+ok 107 - individual tile cancellation never aborts another waiter shared token future
+  ---
+  duration_ms: 1.9465
+  type: 'test'
+  ...
+# Subtest: explicit session invalidation rejects late token publish but a new owner can proceed
+ok 108 - explicit session invalidation rejects late token publish but a new owner can proceed
+  ---
+  duration_ms: 2.1229
+  type: 'test'
+  ...
+# Subtest: logout aborts pending token owner and cannot repopulate cache after a new login generation
+ok 109 - logout aborts pending token owner and cannot repopulate cache after a new login generation
+  ---
+  duration_ms: 4.396
+  type: 'test'
+  ...
+# Subtest: changing authenticationSignal without abort still replaces cache ownership
+ok 110 - changing authenticationSignal without abort still replaces cache ownership
+  ---
+  duration_ms: 1.2396
+  type: 'test'
+  ...
+# Subtest: close rejects in-flight read and future calls without retaining a global session list
+ok 111 - close rejects in-flight read and future calls without retaining a global session list
+  ---
+  duration_ms: 1.2532
+  type: 'test'
+  ...
+# Subtest: abort while ensureFresh pending prevents the token GET and tile request
+ok 112 - abort while ensureFresh pending prevents the token GET and tile request
+  ---
+  duration_ms: 0.992
+  type: 'test'
+  ...
+# Subtest: all redirects and followed/wrong-audience responses are rejected without a second destination
+ok 113 - all redirects and followed/wrong-audience responses are rejected without a second destination
+  ---
+  duration_ms: 4.6025
+  type: 'test'
+  ...
+# Subtest: only HTTP200 is an image success; no network or other HTTP retry is invented
+ok 114 - only HTTP200 is an image success; no network or other HTTP retry is invented
+  ---
+  duration_ms: 4.1224
+  type: 'test'
+  ...
+# Subtest: PNG MIME and signature guards return a fixed safe MIME instead of upstream header text
+ok 115 - PNG MIME and signature guards return a fixed safe MIME instead of upstream header text
+  ---
+  duration_ms: 9.5269
+  type: 'test'
+  ...
+# Subtest: plaintext credential echoes never become image bytes even after a PNG signature
+ok 116 - plaintext credential echoes never become image bytes even after a PNG signature
+  ---
+  duration_ms: 1.2728
+  type: 'test'
+  ...
+# Subtest: image byte bound applies to declared and streamed length, allowing exactly five MiB
+ok 117 - image byte bound applies to declared and streamed length, allowing exactly five MiB
+  ---
+  duration_ms: 14.4629
+  type: 'test'
+  ...
+# Subtest: body cancellation aborts pending reader and suppresses all image output
+ok 118 - body cancellation aborts pending reader and suppresses all image output
+  ---
+  duration_ms: 8.4921
+  type: 'test'
+  ...
+# Subtest: logout during tile body read cancels it and returns only local main-auth error
+ok 119 - logout during tile body read cancels it and returns only local main-auth error
+  ---
+  duration_ms: 1.5824
+  type: 'test'
+  ...
+# Subtest: late transport response after individual abort is cancelled instead of leaking resources
+ok 120 - late transport response after individual abort is cancelled instead of leaking resources
+  ---
+  duration_ms: 13.0744
+  type: 'test'
+  ...
+# Subtest: bounded timeout terminates a noncooperative transport wait and discards late response
+ok 121 - bounded timeout terminates a noncooperative transport wait and discards late response
+  ---
+  duration_ms: 23.4381
+  type: 'test'
+  ...
+# Subtest: shared token timeout cannot publish late and a later attempt gets a fresh owner
+ok 122 - shared token timeout cannot publish late and a later attempt gets a fresh owner
+  ---
+  duration_ms: 71.2152
+  type: 'test'
+  ...
+# Subtest: network/body/main errors and malicious codes never expose values in errors or fixed logs
+ok 123 - network/body/main errors and malicious codes never expose values in errors or fixed logs
+  ---
+  duration_ms: 3.5591
+  type: 'test'
+  ...
+# Subtest: main-client auth/ownership statuses use fixed local messages and do not mutate session
+ok 124 - main-client auth/ownership statuses use fixed local messages and do not mutate session
+  ---
+  duration_ms: 0.8207
+  type: 'test'
+  ...
+# Subtest: throwing log sink cannot change result or introduce upstream diagnostics
+ok 125 - throwing log sink cannot change result or introduce upstream diagnostics
+  ---
+  duration_ms: 0.7944
+  type: 'test'
+  ...
+# Subtest: default transport uses fetch with standard verified TLS and no custom identity options
+ok 126 - default transport uses fetch with standard verified TLS and no custom identity options
+  ---
+  duration_ms: 1.1528
+  type: 'test'
+  ...
+# Subtest: timeout configuration cannot remove or exceed the web maximum
+ok 127 - timeout configuration cannot remove or exceed the web maximum
+  ---
+  duration_ms: 0.4426
+  type: 'test'
+  ...
+# Subtest: map configuration uses fixed OSM and Bhumi routes without any Google or account key
+ok 128 - map configuration uses fixed OSM and Bhumi routes without any Google or account key
+  ---
+  duration_ms: 3.9585
+  type: 'test'
+  ...
+# Subtest: public map configuration never bootstraps a session or touches private authorization
+ok 129 - public map configuration never bootstraps a session or touches private authorization
+  ---
+  duration_ms: 62.2014
+  type: 'test'
+  ...
+# Subtest: HTML loads packaged Leaflet CSS and sends origin referrers without Google scripts or keys
+ok 130 - HTML loads packaged Leaflet CSS and sends origin referrers without Google scripts or keys
+  ---
+  duration_ms: 117.4989
+  type: 'test'
+  ...
+# Subtest: CSP permits only the exact OSM image host while scripts and API connections stay same-origin
+ok 131 - CSP permits only the exact OSM image host while scripts and API connections stay same-origin
+  ---
+  duration_ms: 0.4681
+  type: 'test'
+  ...
+# Subtest: every catalog entry reaches its intended mock transport or fails locally at its explicit boundary
+ok 132 - every catalog entry reaches its intended mock transport or fails locally at its explicit boundary
+  ---
+  duration_ms: 638.1291
+  type: 'test'
+  ...
+# Subtest: group action registry has exact scoped fields and keeps every write behind confirmation
+ok 133 - group action registry has exact scoped fields and keeps every write behind confirmation
+  ---
+  duration_ms: 3.831
+  type: 'test'
+  ...
+# Subtest: the two supplemental group DELETE IDs prepare a dynamic path and each ID remains one segment
+ok 134 - the two supplemental group DELETE IDs prepare a dynamic path and each ID remains one segment
+  ---
+  duration_ms: 5.9684
+  type: 'test'
+  ...
+# Subtest: DELETE ID input must be explicitly supplied as a String and cannot escape through dot paths
+ok 135 - DELETE ID input must be explicitly supplied as a String and cannot escape through dot paths
+  ---
+  duration_ms: 1.0352
+  type: 'test'
+  ...
+# Subtest: move retains the exact collection row ID including empty fallback and does not trim either ID
+ok 136 - move retains the exact collection row ID including empty fallback and does not trim either ID
+  ---
+  duration_ms: 1.5807
+  type: 'test'
+  ...
+# Subtest: wire actions use ordinary stored-account auth, exact methods, multipart order or an absent DELETE body
+ok 137 - wire actions use ordinary stored-account auth, exact methods, multipart order or an absent DELETE body
+  ---
+  duration_ms: 13.1372
+  type: 'test'
+  ...
+# Subtest: typed action exceptions reject noncanonical profile method auth encoding and parameter shapes before transport
+ok 138 - typed action exceptions reject noncanonical profile method auth encoding and parameter shapes before transport
+  ---
+  duration_ms: 10.9167
+  type: 'test'
+  ...
+# Subtest: HTTP200 action models preserve missing/null/empty String values and ignore the envelope error flag
+ok 139 - HTTP200 action models preserve missing/null/empty String values and ignore the envelope error flag
+  ---
+  duration_ms: 30.054
+  type: 'test'
+  ...
+# Subtest: non200 action responses and redirects fail without expanding success or changing unrelated business errors
+ok 140 - non200 action responses and redirects fail without expanding success or changing unrelated business errors
+  ---
+  duration_ms: 22.5725
+  type: 'test'
+  ...
+# Subtest: connection logs replace dynamic DELETE IDs with a fixed template on success and transport failure
+ok 141 - connection logs replace dynamic DELETE IDs with a fixed template on success and transport failure
+  ---
+  duration_ms: 2.5128
+  type: 'test'
+  ...
+# Subtest: HTTP action execution retains authentication Origin CSRF field and explicit confirmation guards
+ok 142 - HTTP action execution retains authentication Origin CSRF field and explicit confirmation guards
+  ---
+  duration_ms: 173.6784
+  type: 'test'
+  ...
+# Subtest: HTTP action output and diagnostics preserve redaction for tokens and dynamic IDs
+ok 143 - HTTP action output and diagnostics preserve redaction for tokens and dynamic IDs
+  ---
+  duration_ms: 31.7449
+  type: 'test'
+  ...
+# Subtest: HTTP DELETE 401 revokes the account and delayed action success cannot publish after logout
+ok 144 - HTTP DELETE 401 revokes the account and delayed action success cannot publish after logout
+  ---
+  duration_ms: 63.7005
+  type: 'test'
+  ...
+# Subtest: create-group registry retains the existing enabled write and explicit confirmation gate
+ok 145 - create-group registry retains the existing enabled write and explicit confirmation gate
+  ---
+  duration_ms: 4.7639
+  type: 'test'
+  ...
+# Subtest: yEb create response preserves nullable bool/String/String values without decoding or coercion
+ok 146 - yEb create response preserves nullable bool/String/String values without decoding or coercion
+  ---
+  duration_ms: 1.6601
+  type: 'test'
+  ...
+# Subtest: yEb rejects String roots, non-Map roots, and wrong nonnull field types
+ok 147 - yEb rejects String roots, non-Map roots, and wrong nonnull field types
+  ---
+  duration_ms: 1.0635
+  type: 'test'
+  ...
+# Subtest: create wire uses exact case, one multipart String field and ordinary stored account auth
+ok 148 - create wire uses exact case, one multipart String field and ordinary stored account auth
+  ---
+  duration_ms: 16.8538
+  type: 'test'
+  ...
+# Subtest: create transport exception cannot be reached with a different method profile auth path or field shape
+ok 149 - create transport exception cannot be reached with a different method profile auth path or field shape
+  ---
+  duration_ms: 18.8411
+  type: 'test'
+  ...
+# Subtest: only a typed HTTP200 create Map bypasses the generic error flag and unrelated requests stay unchanged
+ok 150 - only a typed HTTP200 create Map bypasses the generic error flag and unrelated requests stay unchanged
+  ---
+  duration_ms: 11.2229
+  type: 'test'
+  ...
+# Subtest: non200 create outcomes remain failures, including ordinary 201/204 and revoked sessions
+ok 151 - non200 create outcomes remain failures, including ordinary 201/204 and revoked sessions
+  ---
+  duration_ms: 11.5516
+  type: 'test'
+  ...
+# Subtest: invalid create HTTP200 bodies cannot leak raw values or fall back to list/object/String redecoding
+ok 152 - invalid create HTTP200 bodies cannot leak raw values or fall back to list/object/String redecoding
+  ---
+  duration_ms: 20.3516
+  type: 'test'
+  ...
+# Subtest: HTTP create retains auth Origin CSRF field and confirmation gates without automatic refresh calls
+ok 153 - HTTP create retains auth Origin CSRF field and confirmation gates without automatic refresh calls
+  ---
+  duration_ms: 140.6963
+  type: 'test'
+  ...
+# Subtest: HTTP create handles refreshed sessions, transport and malformed-model failures without losing a valid session
+ok 154 - HTTP create handles refreshed sessions, transport and malformed-model failures without losing a valid session
+  ---
+  duration_ms: 35.2662
+  type: 'test'
+  ...
+# Subtest: HTTP create output and logs retain credential redaction while dropping model extras
+ok 155 - HTTP create output and logs retain credential redaction while dropping model extras
+  ---
+  duration_ms: 15.4221
+  type: 'test'
+  ...
+# Subtest: delayed create HTTP success cannot publish after logout
+ok 156 - delayed create HTTP success cannot publish after logout
+  ---
+  duration_ms: 20.9578
+  type: 'test'
+  ...
+# Subtest: collection-item supplemental actions leave the original 170-shape corpus byte-identical to the prebatch baseline
+ok 157 - collection-item supplemental actions leave the original 170-shape corpus byte-identical to the prebatch baseline
+  ---
+  duration_ms: 25.426
+  type: 'test'
+  ...
+# Subtest: item DELETE registry exposes two exact main-session writes with required explicit String IDs and confirmation
+ok 158 - item DELETE registry exposes two exact main-session writes with required explicit String IDs and confirmation
+  ---
+  duration_ms: 1.4304
+  type: 'test'
+  ...
+# Subtest: item DELETE path adapters retain empty and exact IDs while containing special characters in one encoded segment
+ok 159 - item DELETE path adapters retain empty and exact IDs while containing special characters in one encoded segment
+  ---
+  duration_ms: 2.7411
+  type: 'test'
+  ...
+# Subtest: item DELETE wire uses the selected fixed endpoint without adding body query files or privileged credentials
+ok 160 - item DELETE wire uses the selected fixed endpoint without adding body query files or privileged credentials
+  ---
+  duration_ms: 9.8761
+  type: 'test'
+  ...
+# Subtest: item DELETE typed exception requires canonical path method encoding auth profile and empty caller parameters
+ok 161 - item DELETE typed exception requires canonical path method encoding auth profile and empty caller parameters
+  ---
+  duration_ms: 24.8414
+  type: 'test'
+  ...
+# Subtest: item DELETE accepts only HTTP200 typed yEb maps and never expands unrelated business-error handling
+ok 162 - item DELETE accepts only HTTP200 typed yEb maps and never expands unrelated business-error handling
+  ---
+  duration_ms: 42.6443
+  type: 'test'
+  ...
+# Subtest: item DELETE logs mask dynamic IDs on both success and network failure
+ok 163 - item DELETE logs mask dynamic IDs on both success and network failure
+  ---
+  duration_ms: 8.5736
+  type: 'test'
+  ...
+# Subtest: item DELETE HTTP execution keeps auth Origin CSRF field and boolean confirmation gates
+ok 164 - item DELETE HTTP execution keeps auth Origin CSRF field and boolean confirmation gates
+  ---
+  duration_ms: 208.9421
+  type: 'test'
+  ...
+# Subtest: item DELETE HTTP response and logs redact credentials while preserving recoverable failures
+ok 165 - item DELETE HTTP response and logs redact credentials while preserving recoverable failures
+  ---
+  duration_ms: 60.8695
+  type: 'test'
+  ...
+# Subtest: item DELETE HTTP 401 revokes private state and a delayed success cannot publish after logout
+ok 166 - item DELETE HTTP 401 revokes private state and a delayed success cannot publish after logout
+  ---
+  duration_ms: 61.5998
+  type: 'test'
+  ...
+# Subtest: item caption PUT registry retains exact id/caption String fields and raw service-level empty values
+ok 167 - item caption PUT registry retains exact id/caption String fields and raw service-level empty values
+  ---
+  duration_ms: 1.6066
+  type: 'test'
+  ...
+# Subtest: item caption wire is PUT multipart with exact ordered String fields and stored-account authorization
+ok 168 - item caption wire is PUT multipart with exact ordered String fields and stored-account authorization
+  ---
+  duration_ms: 1.7585
+  type: 'test'
+  ...
+# Subtest: item caption typed exception is restricted to canonical main-session PUT multipart and the exact two fields
+ok 169 - item caption typed exception is restricted to canonical main-session PUT multipart and the exact two fields
+  ---
+  duration_ms: 3.8194
+  type: 'test'
+  ...
+# Subtest: item caption PUT uses exact HTTP200 yEb semantics without String redecoding or widened generic success
+ok 170 - item caption PUT uses exact HTTP200 yEb semantics without String redecoding or widened generic success
+  ---
+  duration_ms: 10.7655
+  type: 'test'
+  ...
+# Subtest: item caption HTTP execution retains authentication CSRF Origin and explicit confirmation without logging body values
+ok 171 - item caption HTTP execution retains authentication CSRF Origin and explicit confirmation without logging body values
+  ---
+  duration_ms: 47.7338
+  type: 'test'
+  ...
+# Subtest: item caption HTTP 401 revokes private state and delayed success is isolated from logout
+ok 172 - item caption HTTP 401 revokes private state and delayed success is isolated from logout
+  ---
+  duration_ms: 30.1908
+  type: 'test'
+  ...
+# Subtest: collection registry keeps both enabled main-session GET reads parameter-free
+ok 173 - collection registry keeps both enabled main-session GET reads parameter-free
+  ---
+  duration_ms: 4.5166
+  type: 'test'
+  ...
+# Subtest: collection models preserve every known nullable String, order, duplicates and blank values
+ok 174 - collection models preserve every known nullable String, order, duplicates and blank values
+  ---
+  duration_ms: 2.023
+  type: 'test'
+  ...
+# Subtest: missing or null collection data is a successful empty native snapshot boundary
+ok 175 - missing or null collection data is a successful empty native snapshot boundary
+  ---
+  duration_ms: 0.7204
+  type: 'test'
+  ...
+# Subtest: collection models reject String JSON roots, nested shapes and malformed list records
+ok 176 - collection models reject String JSON roots, nested shapes and malformed list records
+  ---
+  duration_ms: 1.335
+  type: 'test'
+  ...
+# Subtest: each collection model field and both envelope fields reject non-null values of the wrong type
+ok 177 - each collection model field and both envelope fields reject non-null values of the wrong type
+  ---
+  duration_ms: 8.689
+  type: 'test'
+  ...
+# Subtest: collection wire reads use exact fixed URLs and stored credentials without a body or query
+ok 178 - collection wire reads use exact fixed URLs and stored credentials without a body or query
+  ---
+  duration_ms: 11.9647
+  type: 'test'
+  ...
+# Subtest: collection transport exception requires the canonical method profile auth path and empty parameters
+ok 179 - collection transport exception requires the canonical method profile auth path and empty parameters
+  ---
+  duration_ms: 5.3171
+  type: 'test'
+  ...
+# Subtest: only typed HTTP200 collection envelopes can bypass the generic business-error check
+ok 180 - only typed HTTP200 collection envelopes can bypass the generic business-error check
+  ---
+  duration_ms: 43.7437
+  type: 'test'
+  ...
+# Subtest: invalid collection HTTP200 bodies fail without raw fallback, String redecoding or reflected values
+ok 181 - invalid collection HTTP200 bodies fail without raw fallback, String redecoding or reflected values
+  ---
+  duration_ms: 18.6398
+  type: 'test'
+  ...
+# Subtest: collection HTTP execution keeps authentication Origin CSRF and parameter guards
+ok 182 - collection HTTP execution keeps authentication Origin CSRF and parameter guards
+  ---
+  duration_ms: 167.0235
+  type: 'test'
+  ...
+# Subtest: collection HTTP failures remain failures and a refreshed session can retry
+ok 183 - collection HTTP failures remain failures and a refreshed session can retry
+  ---
+  duration_ms: 77.9305
+  type: 'test'
+  ...
+# Subtest: collection HTTP output and logs retain existing credential redaction
+ok 184 - collection HTTP output and logs retain existing credential redaction
+  ---
+  duration_ms: 37.8399
+  type: 'test'
+  ...
+# Subtest: collection 401 and delayed HTTP success preserve session revocation and logout isolation
+ok 185 - collection 401 and delayed HTTP success preserve session revocation and logout isolation
+  ---
+  duration_ms: 48.6511
+  type: 'test'
+  ...
+# Subtest: save/activity batch keeps original corpus, six prior ledgers and 225 historical JSON byte-identical
+ok 186 - save/activity batch keeps original corpus, six prior ledgers and 225 historical JSON byte-identical
+  ---
+  duration_ms: 1515.2739
+  type: 'test'
+  ...
+# Subtest: Activity registry retains two existing IDs with native evidence, read-only GET and confirmed String multipart POST
+ok 187 - Activity registry retains two existing IDs with native evidence, read-only GET and confirmed String multipart POST
+  ---
+  duration_ms: 3.8882
+  type: 'test'
+  ...
+# Subtest: Activity decoder accepts data??message lists, one String decode, typed defaults and raw dates while discarding unknowns
+ok 188 - Activity decoder accepts data??message lists, one String decode, typed defaults and raw dates while discarding unknowns
+  ---
+  duration_ms: 1.4212
+  type: 'test'
+  ...
+# Subtest: Activity wire sends exact bodyless GET and one-field POST multipart under the stored account token
+ok 189 - Activity wire sends exact bodyless GET and one-field POST multipart under the stored account token
+  ---
+  duration_ms: 13.1201
+  type: 'test'
+  ...
+# Subtest: Activity native response exceptions require canonical main/session method encoding and exact caller parameters
+ok 190 - Activity native response exceptions require canonical main/session method encoding and exact caller parameters
+  ---
+  duration_ms: 29.8396
+  type: 'test'
+  ...
+# Subtest: Activity GET accepts only HTTP200, one native String decode and a typed list despite body.error
+ok 191 - Activity GET accepts only HTTP200, one native String decode and a typed list despite body.error
+  ---
+  duration_ms: 11.7835
+  type: 'test'
+  ...
+# Subtest: Activity DELETE ignores arbitrary HTTP200 bodies, MIME, envelope types and body size headers
+ok 192 - Activity DELETE ignores arbitrary HTTP200 bodies, MIME, envelope types and body size headers
+  ---
+  duration_ms: 4.2423
+  type: 'test'
+  ...
+# Subtest: Activity DELETE preserves non200 false and failure diagnostics while authentication and redirects keep shared gates
+ok 193 - Activity DELETE preserves non200 false and failure diagnostics while authentication and redirects keep shared gates
+  ---
+  duration_ms: 11.8077
+  type: 'test'
+  ...
+# Subtest: Activity-specific status and body exceptions never widen unrelated operations
+ok 194 - Activity-specific status and body exceptions never widen unrelated operations
+  ---
+  duration_ms: 7.1102
+  type: 'test'
+  ...
+# Subtest: Activity real HTTP execution retains login Origin CSRF strict fields and Boolean write confirmation
+ok 195 - Activity real HTTP execution retains login Origin CSRF strict fields and Boolean write confirmation
+  ---
+  duration_ms: 115.8345
+  type: 'test'
+  ...
+# Subtest: Activity HTTP false remains observable, refresh uses stored tokens, response/log credentials stay redacted
+ok 196 - Activity HTTP false remains observable, refresh uses stored tokens, response/log credentials stay redacted
+  ---
+  duration_ms: 36.498
+  type: 'test'
+  ...
+# Subtest: Activity HTTP 401 revokes state and delayed read/delete cannot publish after logout
+ok 197 - Activity HTTP 401 revokes state and delayed read/delete cannot publish after logout
+  ---
+  duration_ms: 50.868
+  type: 'test'
+  ...
+# Subtest: Activity delayed 401 cannot clear a concurrently refreshed token generation
+ok 198 - Activity delayed 401 cannot clear a concurrently refreshed token generation
+  ---
+  duration_ms: 1.2485
+  type: 'test'
+  ...
+# Subtest: Collection save/status registry stays bound to canonical proofs and exact String field order
+ok 199 - Collection save/status registry stays bound to canonical proofs and exact String field order
+  ---
+  duration_ms: 0.4391
+  type: 'test'
+  ...
+# Subtest: Collection saves inject only the stored sign-in NIK, preserve empty Strings, reject browser NIK and every alias fallback
+ok 200 - Collection saves inject only the stored sign-in NIK, preserve empty Strings, reject browser NIK and every alias fallback
+  ---
+  duration_ms: 3.7313
+  type: 'test'
+  ...
+# Subtest: Bookmark status sends ordered id/type query and keeps yEb.message distinct from data
+ok 201 - Bookmark status sends ordered id/type query and keeps yEb.message distinct from data
+  ---
+  duration_ms: 1.8533
+  type: 'test'
+  ...
+# Subtest: Both collection saves send exactly four ordered multipart Strings and return typed200 without caller policy reinterpretation
+ok 202 - Both collection saves send exactly four ordered multipart Strings and return typed200 without caller policy reinterpretation
+  ---
+  duration_ms: 1.3417
+  type: 'test'
+  ...
+# Subtest: Bookmark scopes reject extra headers/body/query/files aliases, changed encoding and direct NIK substitutions before transport
+ok 203 - Bookmark scopes reject extra headers/body/query/files aliases, changed encoding and direct NIK substitutions before transport
+  ---
+  duration_ms: 5.1222
+  type: 'test'
+  ...
+# Subtest: Bookmark save/status typed exceptions stay HTTP200 yEb-only and preserve null/empty/error:true fields
+ok 204 - Bookmark save/status typed exceptions stay HTTP200 yEb-only and preserve null/empty/error:true fields
+  ---
+  duration_ms: 17.6853
+  type: 'test'
+  ...
+# Subtest: Bookmark HTTP saves require stored sign-in NIK and explicit confirmation; browser aliases cannot send a write
+ok 205 - Bookmark HTTP saves require stored sign-in NIK and explicit confirmation; browser aliases cannot send a write
+  ---
+  duration_ms: 45.795
+  type: 'test'
+  ...
+# Subtest: Bookmark HTTP refresh/redaction/authentication and delayed logout isolation remain intact
+ok 206 - Bookmark HTTP refresh/redaction/authentication and delayed logout isolation remain intact
+  ---
+  duration_ms: 56.4021
+  type: 'test'
+  ...
+# Subtest: current scoped catalog selects exact authenticated status/save/removal operations
+ok 207 - current scoped catalog selects exact authenticated status/save/removal operations
+  ---
+  duration_ms: 7.7206
+  type: 'test'
+  ...
+# Subtest: renders native direct button without form/cancel and never writes while opening or rendering
+ok 208 - renders native direct button without form/cancel and never writes while opening or rendering
+  ---
+  duration_ms: 10.1314
+  type: 'test'
+  ...
+# Subtest: gate hides missing/non-int/-1 status (null)
+ok 209 - gate hides missing/non-int/-1 status (null)
+  ---
+  duration_ms: 4.6587
+  type: 'test'
+  ...
+# Subtest: gate hides missing/non-int/-1 status (undefined)
+ok 210 - gate hides missing/non-int/-1 status (undefined)
+  ---
+  duration_ms: 1.716
+  type: 'test'
+  ...
+# Subtest: gate hides missing/non-int/-1 status (-1)
+ok 211 - gate hides missing/non-int/-1 status (-1)
+  ---
+  duration_ms: 1.8675
+  type: 'test'
+  ...
+# Subtest: gate hides missing/non-int/-1 status (0)
+ok 212 - gate hides missing/non-int/-1 status (0)
+  ---
+  duration_ms: 2.7687
+  type: 'test'
+  ...
+# Subtest: gate hides missing/non-int/-1 status (1.5)
+ok 213 - gate hides missing/non-int/-1 status (1.5)
+  ---
+  duration_ms: 1.6874
+  type: 'test'
+  ...
+# Subtest: exact nonnull != -1 gate permits integer 0
+ok 214 - exact nonnull != -1 gate permits integer 0
+  ---
+  duration_ms: 1.6752
+  type: 'test'
+  ...
+# Subtest: exact nonnull != -1 gate permits integer 1
+ok 215 - exact nonnull != -1 gate permits integer 1
+  ---
+  duration_ms: 1.6664
+  type: 'test'
+  ...
+# Subtest: exact nonnull != -1 gate permits integer -2
+ok 216 - exact nonnull != -1 gate permits integer -2
+  ---
+  duration_ms: 1.7723
+  type: 'test'
+  ...
+# Subtest: exact nonnull != -1 gate permits integer 99
+ok 217 - exact nonnull != -1 gate permits integer 99
+  ---
+  duration_ms: 1.564
+  type: 'test'
+  ...
+# Subtest: authenticated token/session flag is required independently of profile data
+ok 218 - authenticated token/session flag is required independently of profile data
+  ---
+  duration_ms: 2.0695
+  type: 'test'
+  ...
+# Subtest: missing profile and unavailable connection disable or hide rather than invent verification
+ok 219 - missing profile and unavailable connection disable or hide rather than invent verification
+  ---
+  duration_ms: 1.5421
+  type: 'test'
+  ...
+# Subtest: automatic payload uses native primary IDs, num.toInt suffix, nullable Title and null-only Subtitle
+ok 220 - automatic payload uses native primary IDs, num.toInt suffix, nullable Title and null-only Subtitle
+  ---
+  duration_ms: 2.6492
+  type: 'test'
+  ...
+# Subtest: String office type is rejected rather than substituted for typed num-toInt model
+ok 221 - String office type is rejected rather than substituted for typed num-toInt model
+  ---
+  duration_ms: 1.4453
+  type: 'test'
+  ...
+# Subtest: initial GET sends only composite id; response message is saved ID, error:true and data are ignored
+ok 222 - initial GET sends only composite id; response message is saved ID, error:true and data are ignored
+  ---
+  duration_ms: 2.132
+  type: 'test'
+  ...
+# Subtest: null/empty status message leaves unsaved state even with nonempty data (null)
+ok 223 - null/empty status message leaves unsaved state even with nonempty data (null)
+  ---
+  duration_ms: 1.6449
+  type: 'test'
+  ...
+# Subtest: null/empty status message leaves unsaved state even with nonempty data ("")
+ok 224 - null/empty status message leaves unsaved state even with nonempty data ("")
+  ---
+  duration_ms: 2.9651
+  type: 'test'
+  ...
+# Subtest: status read runs once after a scheduled render and never writes
+ok 225 - status read runs once after a scheduled render and never writes
+  ---
+  duration_ms: 16.502
+  type: 'test'
+  ...
+# Subtest: collection nonnull initial ID "" skips GET and removes directly without confirmation
+ok 226 - collection nonnull initial ID "" skips GET and removes directly without confirmation
+  ---
+  duration_ms: 3.2779
+  type: 'test'
+  ...
+# Subtest: collection nonnull initial ID "  " skips GET and removes directly without confirmation
+ok 227 - collection nonnull initial ID "  " skips GET and removes directly without confirmation
+  ---
+  duration_ms: 1.7835
+  type: 'test'
+  ...
+# Subtest: collection nonnull initial ID "id/:?\#" skips GET and removes directly without confirmation
+ok 228 - collection nonnull initial ID "id/:?\#" skips GET and removes directly without confirmation
+  ---
+  duration_ms: 1.8446
+  type: 'test'
+  ...
+# Subtest: intentional delegated submit sends only three captured fields and explicit confirmation, never Nik
+ok 229 - intentional delegated submit sends only three captured fields and explicit confirmation, never Nik
+  ---
+  duration_ms: 1.9145
+  type: 'test'
+  ...
+# Subtest: save accepts nullable/empty data and preserves native saved-label/null-ID divergence (null)
+ok 230 - save accepts nullable/empty data and preserves native saved-label/null-ID divergence (null)
+  ---
+  duration_ms: 1.9355
+  type: 'test'
+  ...
+# Subtest: save accepts nullable/empty data and preserves native saved-label/null-ID divergence ()
+ok 231 - save accepts nullable/empty data and preserves native saved-label/null-ID divergence ()
+  ---
+  duration_ms: 1.7479
+  type: 'test'
+  ...
+# Subtest: save accepts nullable/empty data and preserves native saved-label/null-ID divergence (undefined)
+ok 232 - save accepts nullable/empty data and preserves native saved-label/null-ID divergence (undefined)
+  ---
+  duration_ms: 1.9624
+  type: 'test'
+  ...
+# Subtest: direct removal ignores typed error:true, resets local state and remains on detail
+ok 233 - direct removal ignores typed error:true, resets local state and remains on detail
+  ---
+  duration_ms: 2.9336
+  type: 'test'
+  ...
+# Subtest: network save failure preserves state, unlocks direct button and shows native fallback
+ok 234 - network save failure preserves state, unlocks direct button and shows native fallback
+  ---
+  duration_ms: 2.2887
+  type: 'test'
+  ...
+# Subtest: 201 save failure preserves state, unlocks direct button and shows native fallback
+ok 235 - 201 save failure preserves state, unlocks direct button and shows native fallback
+  ---
+  duration_ms: 1.719
+  type: 'test'
+  ...
+# Subtest: malformed save failure preserves state, unlocks direct button and shows native fallback
+ok 236 - malformed save failure preserves state, unlocks direct button and shows native fallback
+  ---
+  duration_ms: 1.8932
+  type: 'test'
+  ...
+# Subtest: string save failure preserves state, unlocks direct button and shows native fallback
+ok 237 - string save failure preserves state, unlocks direct button and shows native fallback
+  ---
+  duration_ms: 2.0543
+  type: 'test'
+  ...
+# Subtest: stored NIK absence maps exact native copy without inferring profile NIK or expiring session
+ok 238 - stored NIK absence maps exact native copy without inferring profile NIK or expiring session
+  ---
+  duration_ms: 1.9712
+  type: 'test'
+  ...
+# Subtest: a scoped safe typed failure message preserves empty String
+ok 239 - a scoped safe typed failure message preserves empty String
+  ---
+  duration_ms: 2.3051
+  type: 'test'
+  ...
+# Subtest: collection success calls only non-force rows reader; an already loaded cache performs no GET or mutation
+ok 240 - collection success calls only non-force rows reader; an already loaded cache performs no GET or mutation
+  ---
+  duration_ms: 2.6777
+  type: 'test'
+  ...
+# Subtest: unloaded Collection legacy callback may retry rows, never groups and never waits for the GET
+ok 241 - unloaded Collection legacy callback may retry rows, never groups and never waits for the GET
+  ---
+  duration_ms: 11.087
+  type: 'test'
+  ...
+# Subtest: search successful save has no Collection callback or cache insertion
+ok 242 - search successful save has no Collection callback or cache insertion
+  ---
+  duration_ms: 1.8895
+  type: 'test'
+  ...
+# Subtest: activity successful save has no Collection callback or cache insertion
+ok 243 - activity successful save has no Collection callback or cache insertion
+  ---
+  duration_ms: 1.9414
+  type: 'test'
+  ...
+# Subtest: Berkasku/shared unscoped BERKAS rendering has no bookmark control
+ok 244 - Berkasku/shared unscoped BERKAS rendering has no bookmark control
+  ---
+  duration_ms: 2.5137
+  type: 'test'
+  ...
+# Subtest: actual Search result renderer attaches the eligible bookmark and never exposes NIK
+ok 245 - actual Search result renderer attaches the eligible bookmark and never exposes NIK
+  ---
+  duration_ms: 2.5807
+  type: 'test'
+  ...
+# Subtest: actual collection detail loader attaches the shared bookmark using the fetched primary response
+ok 246 - actual collection detail loader attaches the shared bookmark using the fetched primary response
+  ---
+  duration_ms: 3.6011
+  type: 'test'
+  ...
+# Subtest: actual activity detail loader attaches the shared bookmark using the fetched primary response
+ok 247 - actual activity detail loader attaches the shared bookmark using the fetched primary response
+  ---
+  duration_ms: 2.6432
+  type: 'test'
+  ...
+# Subtest: late save after route cannot publish state, toast, record or callback
+ok 248 - late save after route cannot publish state, toast, record or callback
+  ---
+  duration_ms: 1.6472
+  type: 'test'
+  ...
+# Subtest: late save after epoch cannot publish state, toast, record or callback
+ok 249 - late save after epoch cannot publish state, toast, record or callback
+  ---
+  duration_ms: 1.4953
+  type: 'test'
+  ...
+# Subtest: late save after sequence cannot publish state, toast, record or callback
+ok 250 - late save after sequence cannot publish state, toast, record or callback
+  ---
+  duration_ms: 1.865
+  type: 'test'
+  ...
+# Subtest: late save after response cannot publish state, toast, record or callback
+ok 251 - late save after response cannot publish state, toast, record or callback
+  ---
+  duration_ms: 1.5422
+  type: 'test'
+  ...
+# Subtest: late save after owner cannot publish state, toast, record or callback
+ok 252 - late save after owner cannot publish state, toast, record or callback
+  ---
+  duration_ms: 1.7628
+  type: 'test'
+  ...
+# Subtest: late save after logout cannot publish state, toast, record or callback
+ok 253 - late save after logout cannot publish state, toast, record or callback
+  ---
+  duration_ms: 1.8842
+  type: 'test'
+  ...
+# Subtest: activity late success after close respects source/detail ownership
+ok 254 - activity late success after close respects source/detail ownership
+  ---
+  duration_ms: 1.8143
+  type: 'test'
+  ...
+# Subtest: activity late success after list respects source/detail ownership
+ok 255 - activity late success after list respects source/detail ownership
+  ---
+  duration_ms: 2.1233
+  type: 'test'
+  ...
+# Subtest: activity late success after selection respects source/detail ownership
+ok 256 - activity late success after selection respects source/detail ownership
+  ---
+  duration_ms: 1.5911
+  type: 'test'
+  ...
+# Subtest: collection late success after close respects source/detail ownership
+ok 257 - collection late success after close respects source/detail ownership
+  ---
+  duration_ms: 1.8723
+  type: 'test'
+  ...
+# Subtest: collection late success after list respects source/detail ownership
+ok 258 - collection late success after list respects source/detail ownership
+  ---
+  duration_ms: 1.8309
+  type: 'test'
+  ...
+# Subtest: collection late success after selection respects source/detail ownership
+ok 259 - collection late success after selection respects source/detail ownership
+  ---
+  duration_ms: 2.2279
+  type: 'test'
+  ...
+# Subtest: status read cannot overwrite an intentional newer write result
+ok 260 - status read cannot overwrite an intentional newer write result
+  ---
+  duration_ms: 2.6618
+  type: 'test'
+  ...
+# Subtest: stale auth rejection after dialog close cannot log out another view
+ok 261 - stale auth rejection after dialog close cannot log out another view
+  ---
+  duration_ms: 1.7929
+  type: 'test'
+  ...
+# Subtest: owned AUTH_REQUIRED clears private bookmark/source state
+ok 262 - owned AUTH_REQUIRED clears private bookmark/source state
+  ---
+  duration_ms: 15.7902
+  type: 'test'
+  ...
+# Subtest: owned LOGIN_REQUIRED clears private bookmark/source state
+ok 263 - owned LOGIN_REQUIRED clears private bookmark/source state
+  ---
+  duration_ms: 1.7417
+  type: 'test'
+  ...
+# Subtest: owned SESSION_EXPIRED clears private bookmark/source state
+ok 264 - owned SESSION_EXPIRED clears private bookmark/source state
+  ---
+  duration_ms: 2.6323
+  type: 'test'
+  ...
+# Subtest: owned SESSION_CHANGED clears private bookmark/source state
+ok 265 - owned SESSION_CHANGED clears private bookmark/source state
+  ---
+  duration_ms: 1.8461
+  type: 'test'
+  ...
+# Subtest: status ordinary failures are silent and do not invent saved status
+ok 266 - status ordinary failures are silent and do not invent saved status
+  ---
+  duration_ms: 1.809
+  type: 'test'
+  ...
+# Subtest: native canonical ledger remains pinned and staged UI imports no transport or document surface
+ok 267 - native canonical ledger remains pinned and staged UI imports no transport or document surface
+  ---
+  duration_ms: 53.0434
+  type: 'test'
+  ...
+# Subtest: visibility uses token presence and nullable-int status separately, never browser NIK
+ok 268 - visibility uses token presence and nullable-int status separately, never browser NIK
+  ---
+  duration_ms: 4.0323
+  type: 'test'
+  ...
+# Subtest: exact operation identity/capabilities and host ownership guard entry before API work
+ok 269 - exact operation identity/capabilities and host ownership guard entry before API work
+  ---
+  duration_ms: 42.693
+  type: 'test'
+  ...
+# Subtest: fresh sheet does precisely its own groups GET, defaults and native copy without main Batal
+ok 270 - fresh sheet does precisely its own groups GET, defaults and native copy without main Batal
+  ---
+  duration_ms: 8.3335
+  type: 'test'
+  ...
+# Subtest: Dart whitespace trim includes NEL/FEFF and retains zero-width-space and internal spacing
+ok 271 - Dart whitespace trim includes NEL/FEFF and retains zero-width-space and internal spacing
+  ---
+  duration_ms: 0.4831
+  type: 'test'
+  ...
+# Subtest: caption save preserves target ID, captures title and sends only public inputs with confirmation
+ok 272 - caption save preserves target ID, captures title and sends only public inputs with confirmation
+  ---
+  duration_ms: 6.7408
+  type: 'test'
+  ...
+# Subtest: blank caption fallback uses only first feature NIB with null/empty distinctions
+ok 273 - blank caption fallback uses only first feature NIB with null/empty distinctions
+  ---
+  duration_ms: 19.3209
+  type: 'test'
+  ...
+# Subtest: missing feature/target produces native prerequisite notices and no mutation; spaces IDs pass
+ok 274 - missing feature/target produces native prerequisite notices and no mutation; spaces IDs pass
+  ---
+  duration_ms: 41.5446
+  type: 'test'
+  ...
+# Subtest: save requires HTTP200 typed envelope error exactly false; failure retains editable state
+ok 275 - save requires HTTP200 typed envelope error exactly false; failure retains editable state
+  ---
+  duration_ms: 33.8384
+  type: 'test'
+  ...
+# Subtest: nullable/empty collection IDs skip optional assignment without warning or forced refresh
+ok 276 - nullable/empty collection IDs skip optional assignment without warning or forced refresh
+  ---
+  duration_ms: 10.3933
+  type: 'test'
+  ...
+# Subtest: group selection is read after primary await; caption is captured before it; choice remains active
+ok 277 - group selection is read after primary await; caption is captured before it; choice remains active
+  ---
+  duration_ms: 5.847
+  type: 'test'
+  ...
+# Subtest: group failure warns while primary save succeeds; no rollback or retry
+ok 278 - group failure warns while primary save succeeds; no rollback or retry
+  ---
+  duration_ms: 16.3032
+  type: 'test'
+  ...
+# Subtest: own group list accepts body error true, filters IDs without trim/dedup and uses nullable names
+ok 279 - own group list accepts body error true, filters IDs without trim/dedup and uses nullable names
+  ---
+  duration_ms: 5.9381
+  type: 'test'
+  ...
+# Subtest: nested create has its own form, native blank notice, editable input and disabled explicit buttons
+ok 280 - nested create has its own form, native blank notice, editable input and disabled explicit buttons
+  ---
+  duration_ms: 8.5754
+  type: 'test'
+  ...
+# Subtest: nested parsed error true/null/missing succeeds, while malformed/non200 stays open
+ok 281 - nested parsed error true/null/missing succeeds, while malformed/non200 stays open
+  ---
+  duration_ms: 25.8204
+  type: 'test'
+  ...
+# Subtest: nested create remains available during primary save, but late nested result cannot reopen saved form
+ok 282 - nested create remains available during primary save, but late nested result cannot reopen saved form
+  ---
+  duration_ms: 3.7378
+  type: 'test'
+  ...
+# Subtest: dismiss, route/session ownership and replacement suppress late primary effects and assignment
+ok 283 - dismiss, route/session ownership and replacement suppress late primary effects and assignment
+  ---
+  duration_ms: 15.7962
+  type: 'test'
+  ...
+# Subtest: authentication failure clears controller and delegates once without leaking raw JS exceptions
+ok 284 - authentication failure clears controller and delegates once without leaking raw JS exceptions
+  ---
+  duration_ms: 14.0302
+  type: 'test'
+  ...
+# Subtest: onSaved is not awaited and runs before host close; callback may not write parent saved ID
+ok 285 - onSaved is not awaited and runs before host close; callback may not write parent saved ID
+  ---
+  duration_ms: 4.2598
+  type: 'test'
+  ...
+# Subtest: identical coordinates do not establish presence or invent a direction
+ok 286 - identical coordinates do not establish presence or invent a direction
+  ---
+  duration_ms: 7.6046
+  type: 'test'
+  ...
+# Subtest: equatorial distance, cardinal direction and antimeridian use the shortest separation
+ok 287 - equatorial distance, cardinal direction and antimeridian use the shortest separation
+  ---
+  duration_ms: 0.5477
+  type: 'test'
+  ...
+# Subtest: invalid or projected reference coordinates are not silently interpreted as WGS84
+ok 288 - invalid or projected reference coordinates are not silently interpreted as WGS84
+  ---
+  duration_ms: 0.5835
+  type: 'test'
+  ...
+# Subtest: public origin accepts only an explicit HTTPS origin
+ok 289 - public origin accepts only an explicit HTTPS origin
+  ---
+  duration_ms: 2.1233
+  type: 'test'
+  ...
+# Subtest: browser origin resolution accepts only the configured public host and exact bound local hosts
+ok 290 - browser origin resolution accepts only the configured public host and exact bound local hosts
+  ---
+  duration_ms: 0.5486
+  type: 'test'
+  ...
+# Subtest: configured HTTPS host uses Secure cookie and exact origin; proxy headers confer no trust
+ok 291 - configured HTTPS host uses Secure cookie and exact origin; proxy headers confer no trust
+  ---
+  duration_ms: 123.4581
+  type: 'test'
+  ...
+# Subtest: public and local browser sessions retain exact origins, cookie flags and separate audiences
+ok 292 - public and local browser sessions retain exact origins, cookie flags and separate audiences
+  ---
+  duration_ms: 78.056
+  type: 'test'
+  ...
+# Subtest: coordinates preserve latitude/longitude bounds and reject misleading coercion
+ok 293 - coordinates preserve latitude/longitude bounds and reject misleading coercion
+  ---
+  duration_ms: 2.4567
+  type: 'test'
+  ...
+# Subtest: GeoJSON roundtrip preserves longitude-first coordinate order and user notes
+ok 294 - GeoJSON roundtrip preserves longitude-first coordinate order and user notes
+  ---
+  duration_ms: 0.8729
+  type: 'test'
+  ...
+# Subtest: GeoJSON rejects unsupported geometries, malformed objects and oversized collections atomically
+ok 295 - GeoJSON rejects unsupported geometries, malformed objects and oversized collections atomically
+  ---
+  duration_ms: 3.773
+  type: 'test'
+  ...
+# Subtest: cost estimator uses only caller rates, rejects overflow and blank/negative values
+ok 296 - cost estimator uses only caller rates, rejects overflow and blank/negative values
+  ---
+  duration_ms: 0.4353
+  type: 'test'
+  ...
+# Subtest: user-supplied text is safe in HTML contexts
+ok 297 - user-supplied text is safe in HTML contexts
+  ---
+  duration_ms: 0.3116
+  type: 'test'
+  ...
+# Subtest: retains original precision and measurement provenance; geotag mapping uses exact keys and axes
+ok 298 - retains original precision and measurement provenance; geotag mapping uses exact keys and axes
+  ---
+  duration_ms: 10.4477
+  type: 'test'
+  ...
+# Subtest: missing accuracy/time are unknown rather than invented; rejects invalid input and untransformed CRS
+ok 299 - missing accuracy/time are unknown rather than invented; rejects invalid input and untransformed CRS
+  ---
+  duration_ms: 0.7715
+  type: 'test'
+  ...
+# Subtest: CSV respects quoted cells, explicit axes and original precision
+ok 300 - CSV respects quoted cells, explicit axes and original precision
+  ---
+  duration_ms: 0.9259
+  type: 'test'
+  ...
+# Subtest: GeoJSON coordinates use longitude,latitude and exported provenance survives import
+ok 301 - GeoJSON coordinates use longitude,latitude and exported provenance survives import
+  ---
+  duration_ms: 0.9531
+  type: 'test'
+  ...
+# Subtest: NMEA validates checksum and hemispheres; never treats HDOP as accuracy
+ok 302 - NMEA validates checksum and hemispheres; never treats HDOP as accuracy
+  ---
+  duration_ms: 1.3824
+  type: 'test'
+  ...
+# Subtest: RMC date is UTC and invalid/simulated/estimated fixes are excluded
+ok 303 - RMC date is UTC and invalid/simulated/estimated fixes are excluded
+  ---
+  duration_ms: 2.2365
+  type: 'test'
+  ...
+# Subtest: application TLS context is scoped to exact main origin; verification and hostname remain strict
+ok 304 - application TLS context is scoped to exact main origin; verification and hostname remain strict
+  ---
+  duration_ms: 55.1334
+  type: 'test'
+  ...
+# Subtest: queue TLS profile selects only its exact audience and cannot alter certificate checks
+ok 305 - queue TLS profile selects only its exact audience and cannot alter certificate checks
+  ---
+  duration_ms: 9.6647
+  type: 'test'
+  ...
+# Subtest: FormData uses matching multipart boundary and exact file/form bytes without npm
+ok 306 - FormData uses matching multipart boundary and exact file/form bytes without npm
+  ---
+  duration_ms: 13.7623
+  type: 'test'
+  ...
+# Subtest: form encoding remains exact and request byte limit fails before network request
+ok 307 - form encoding remains exact and request byte limit fails before network request
+  ---
+  duration_ms: 2.2584
+  type: 'test'
+  ...
+# Subtest: compressed gzip response is decoded even when identity requested
+ok 308 - compressed gzip response is decoded even when identity requested
+  ---
+  duration_ms: 11.528
+  type: 'test'
+  ...
+# Subtest: compressed deflate response is decoded even when identity requested
+ok 309 - compressed deflate response is decoded even when identity requested
+  ---
+  duration_ms: 2.6517
+  type: 'test'
+  ...
+# Subtest: compressed br response is decoded even when identity requested
+ok 310 - compressed br response is decoded even when identity requested
+  ---
+  duration_ms: 3.8072
+  type: 'test'
+  ...
+# Subtest: redirect remains a single response; cancellation tears down incoming stream
+ok 311 - redirect remains a single response; cancellation tears down incoming stream
+  ---
+  duration_ms: 2.5891
+  type: 'test'
+  ...
+# Subtest: absolute deadline covers response body, not only receipt of headers
+ok 312 - absolute deadline covers response body, not only receipt of headers
+  ---
+  duration_ms: 42.1358
+  type: 'test'
+  ...
+# Subtest: caller abort after headers cancels the stream and native request
+ok 313 - caller abort after headers cancels the stream and native request
+  ---
+  duration_ms: 3.0434
+  type: 'test'
+  ...
+# Subtest: received body errors propagate without being converted to a successful truncated response
+ok 314 - received body errors propagate without being converted to a successful truncated response
+  ---
+  duration_ms: 11.3353
+  type: 'test'
+  ...
+# Subtest: late HEAD stream and request errors are handled after the bodyless response resolves
+ok 315 - late HEAD stream and request errors are handled after the bodyless response resolves
+  ---
+  duration_ms: 2.0096
+  type: 'test'
+  ...
+# Subtest: six simulation adapters keep explicit JSON main-service read contracts and one bounded array schema
+ok 316 - six simulation adapters keep explicit JSON main-service read contracts and one bounded array schema
+  ---
+  duration_ms: 10.4143
+  type: 'test'
+  ...
+# Subtest: all six native JSON bodies retain exact key case and raw strings on anonymous and session transport
+ok 317 - all six native JSON bodies retain exact key case and raw strings on anonymous and session transport
+  ---
+  duration_ms: 15.8584
+  type: 'test'
+  ...
+# Subtest: non-null selection strings and empty single-parcel Luas preserve native distinctions
+ok 318 - non-null selection strings and empty single-parcel Luas preserve native distinctions
+  ---
+  duration_ms: 2.6451
+  type: 'test'
+  ...
+# Subtest: simulation scalar fields reject numeric coercion unknown keys oversized text and NUL
+ok 319 - simulation scalar fields reject numeric coercion unknown keys oversized text and NUL
+  ---
+  duration_ms: 6.0864
+  type: 'test'
+  ...
+# Subtest: type2 rows validate exact non-null String fields and preserve input without mutation
+ok 320 - type2 rows validate exact non-null String fields and preserve input without mutation
+  ---
+  duration_ms: 1.9494
+  type: 'test'
+  ...
+# Subtest: type2 cannot become an opaque-object or prototype payload channel
+ok 321 - type2 cannot become an opaque-object or prototype payload channel
+  ---
+  duration_ms: 1.459
+  type: 'test'
+  ...
+# Subtest: type2 array bounds are explicit browser guards and sparse rows cannot serialize as null
+ok 322 - type2 array bounds are explicit browser guards and sparse rows cannot serialize as null
+  ---
+  duration_ms: 1.4967
+  type: 'test'
+  ...
+# Subtest: simulation execution retains local Origin CSRF allowlist and validation before transport
+ok 323 - simulation execution retains local Origin CSRF allowlist and validation before transport
+  ---
+  duration_ms: 109.4691
+  type: 'test'
+  ...
+# Subtest: manual parcel result uses the actual OSM/Bhumi renderer, camera and escaped map labels
+ok 324 - manual parcel result uses the actual OSM/Bhumi renderer, camera and escaped map labels
+  ---
+  duration_ms: 11.8232
+  type: 'test'
+  ...
+# Subtest: collection parcel detail retains real raster controls and all geometry bounds
+ok 325 - collection parcel detail retains real raster controls and all geometry bounds
+  ---
+  duration_ms: 9.2776
+  type: 'test'
+  ...
+# Subtest: KKPR polygon and multipolygon previews pass native exterior selections to the real raster renderer
+ok 326 - KKPR polygon and multipolygon previews pass native exterior selections to the real raster renderer
+  ---
+  duration_ms: 7.5091
+  type: 'test'
+  ...
+# Subtest: Activity document geometry reaches real raster preview without inventing identity facts
+ok 327 - Activity document geometry reaches real raster preview without inventing identity facts
+  ---
+  duration_ms: 7.8463
+  type: 'test'
+  ...
+# Subtest: certificate map loader preserves selected full ID and inserts the real raster after its guarded read
+ok 328 - certificate map loader preserves selected full ID and inserts the real raster after its guarded read
+  ---
+  duration_ms: 5.5793
+  type: 'test'
+  ...
+# Subtest: removed certificate slot cannot receive a late raster map
+ok 329 - removed certificate slot cannot receive a late raster map
+  ---
+  duration_ms: 18.8761
+  type: 'test'
+  ...
+# Subtest: transport diagnostics classify ENOTFOUND without logging credentials or raw causes
+ok 330 - transport diagnostics classify ENOTFOUND without logging credentials or raw causes
+  ---
+  duration_ms: 6.7917
+  type: 'test'
+  ...
+# Subtest: transport diagnostics classify EAI_AGAIN without logging credentials or raw causes
+ok 331 - transport diagnostics classify EAI_AGAIN without logging credentials or raw causes
+  ---
+  duration_ms: 0.7504
+  type: 'test'
+  ...
+# Subtest: transport diagnostics classify ECONNREFUSED without logging credentials or raw causes
+ok 332 - transport diagnostics classify ECONNREFUSED without logging credentials or raw causes
+  ---
+  duration_ms: 0.4753
+  type: 'test'
+  ...
+# Subtest: transport diagnostics classify UND_ERR_CONNECT_TIMEOUT without logging credentials or raw causes
+ok 333 - transport diagnostics classify UND_ERR_CONNECT_TIMEOUT without logging credentials or raw causes
+  ---
+  duration_ms: 0.4121
+  type: 'test'
+  ...
+# Subtest: transport diagnostics classify SELF_SIGNED_CERT_IN_CHAIN without logging credentials or raw causes
+ok 334 - transport diagnostics classify SELF_SIGNED_CERT_IN_CHAIN without logging credentials or raw causes
+  ---
+  duration_ms: 0.5037
+  type: 'test'
+  ...
+# Subtest: transport diagnostics classify CERT_HAS_EXPIRED without logging credentials or raw causes
+ok 335 - transport diagnostics classify CERT_HAS_EXPIRED without logging credentials or raw causes
+  ---
+  duration_ms: 0.4844
+  type: 'test'
+  ...
+# Subtest: transport diagnostics classify ERR_SSL_DECRYPTION_FAILED_OR_BAD_RECORD_MAC without logging credentials or raw causes
+ok 336 - transport diagnostics classify ERR_SSL_DECRYPTION_FAILED_OR_BAD_RECORD_MAC without logging credentials or raw causes
+  ---
+  duration_ms: 0.4823
+  type: 'test'
+  ...
+# Subtest: transport diagnostics classify ERR_SSL_TLSV13_ALERT_CERTIFICATE_REQUIRED without logging credentials or raw causes
+ok 337 - transport diagnostics classify ERR_SSL_TLSV13_ALERT_CERTIFICATE_REQUIRED without logging credentials or raw causes
+  ---
+  duration_ms: 0.4972
+  type: 'test'
+  ...
+# Subtest: transport diagnostics classify INVALID_CA without logging credentials or raw causes
+ok 338 - transport diagnostics classify INVALID_CA without logging credentials or raw causes
+  ---
+  duration_ms: 0.6216
+  type: 'test'
+  ...
+# Subtest: transport diagnostics classify UND_ERR_HEADERS_TIMEOUT without logging credentials or raw causes
+ok 339 - transport diagnostics classify UND_ERR_HEADERS_TIMEOUT without logging credentials or raw causes
+  ---
+  duration_ms: 0.7181
+  type: 'test'
+  ...
+# Subtest: unknown error code and raw stack are discarded; total timeout does not invent a network phase
+ok 340 - unknown error code and raw stack are discarded; total timeout does not invent a network phase
+  ---
+  duration_ms: 2.4867
+  type: 'test'
+  ...
+# Subtest: body timeout retains received HTTP status and reports response-body phase
+ok 341 - body timeout retains received HTTP status and reports response-body phase
+  ---
+  duration_ms: 29.8097
+  type: 'test'
+  ...
+# Subtest: successful transport logs one safe finish without response body; logging failures do not fail requests
+ok 342 - successful transport logs one safe finish without response body; logging failures do not fail requests
+  ---
+  duration_ms: 3.4469
+  type: 'test'
+  ...
+# Subtest: news registry retains exact native GET limits and optional-session read classification
+ok 343 - news registry retains exact native GET limits and optional-session read classification
+  ---
+  duration_ms: 4.4793
+  type: 'test'
+  ...
+# Subtest: native news model preserves five nullable raw strings and discards unused envelope and record fields
+ok 344 - native news model preserves five nullable raw strings and discards unused envelope and record fields
+  ---
+  duration_ms: 0.9535
+  type: 'test'
+  ...
+# Subtest: news model rejects non-list message, malformed records and every non-null non-String field without coercion
+ok 345 - news model rejects non-list message, malformed records and every non-null non-String field without coercion
+  ---
+  duration_ms: 1.2975
+  type: 'test'
+  ...
+# Subtest: news wire requests use only fixed main GET URLs and retain existing form header and stored-session behavior
+ok 346 - news wire requests use only fixed main GET URLs and retain existing form header and stored-session behavior
+  ---
+  duration_ms: 14.7268
+  type: 'test'
+  ...
+# Subtest: news transport scope rejects changed method auth profile path or query before forwarding
+ok 347 - news transport scope rejects changed method auth profile path or query before forwarding
+  ---
+  duration_ms: 6.9967
+  type: 'test'
+  ...
+# Subtest: news successful JSON and String bodies use message and ignore error flag while preserving native field types
+ok 348 - news successful JSON and String bodies use message and ignore error flag while preserving native field types
+  ---
+  duration_ms: 16.3376
+  type: 'test'
+  ...
+# Subtest: news accepts only HTTP200 and cannot turn other endpoints into message-envelope exceptions
+ok 349 - news accepts only HTTP200 and cannot turn other endpoints into message-envelope exceptions
+  ---
+  duration_ms: 10.852
+  type: 'test'
+  ...
+# Subtest: invalid success responses fail generically without reflecting model values or HTML
+ok 350 - invalid success responses fail generically without reflecting model values or HTML
+  ---
+  duration_ms: 6.8088
+  type: 'test'
+  ...
+# Subtest: news HTTP adapters preserve Origin CSRF and fixed parameter validation before optional-session requests
+ok 351 - news HTTP adapters preserve Origin CSRF and fixed parameter validation before optional-session requests
+  ---
+  duration_ms: 117.3161
+  type: 'test'
+  ...
+# Subtest: news execution refreshes existing sessions and failures remain retryable without reclassifying them as empty success
+ok 352 - news execution refreshes existing sessions and failures remain retryable without reclassifying them as empty success
+  ---
+  duration_ms: 30.9459
+  type: 'test'
+  ...
+# Subtest: news output redaction and transport logging do not disclose session data or returned URL contents
+ok 353 - news output redaction and transport logging do not disclose session data or returned URL contents
+  ---
+  duration_ms: 23.5536
+  type: 'test'
+  ...
+# Subtest: news 401 and delayed results keep existing session revocation and logout isolation
+ok 354 - news 401 and delayed results keep existing session revocation and logout isolation
+  ---
+  duration_ms: 45.4441
+  type: 'test'
+  ...
+# Subtest: calendar reference decodes the fixed synthetic CBC/PKCS7 vector
+ok 355 - calendar reference decodes the fixed synthetic CBC/PKCS7 vector
+  ---
+  duration_ms: 2.3844
+  type: 'test'
+  ...
+# Subtest: decoder owns its private key and IV copies
+ok 356 - decoder owns its private key and IV copies
+  ---
+  duration_ms: 1.2042
+  type: 'test'
+  ...
+# Subtest: decoded UTF-8 preserves text, empty plaintext and replacement characters
+ok 357 - decoded UTF-8 preserves text, empty plaintext and replacement characters
+  ---
+  duration_ms: 0.95
+  type: 'test'
+  ...
+# Subtest: malformed or oversized references fail without coercion or echoed input
+ok 358 - malformed or oversized references fail without coercion or echoed input
+  ---
+  duration_ms: 0.8711
+  type: 'test'
+  ...
+# Subtest: invalid padding becomes a generic reference error
+ok 359 - invalid padding becomes a generic reference error
+  ---
+  duration_ms: 0.4203
+  type: 'test'
+  ...
+# Subtest: factory requires exactly two 16-byte buffers
+ok 360 - factory requires exactly two 16-byte buffers
+  ---
+  duration_ms: 0.2956
+  type: 'test'
+  ...
+# Subtest: verified artifact configuration binds the native calendar literals privately
+ok 361 - verified artifact configuration binds the native calendar literals privately
+  ---
+  duration_ms: 219.1292
+  type: 'test'
+  ...
+# Subtest: unavailable artifact configuration does not expose a reference decoder
+ok 362 - unavailable artifact configuration does not expose a reference decoder
+  ---
+  duration_ms: 1.164
+  type: 'test'
+  ...
+# Subtest: office adapters prepare two read contracts with numeric location and fixed native nearby values
+ok 363 - office adapters prepare two read contracts with numeric location and fixed native nearby values
+  ---
+  duration_ms: 11.127
+  type: 'test'
+  ...
+# Subtest: calendar input remains two raw nonempty strings and cannot acquire arbitrary request fields
+ok 364 - calendar input remains two raw nonempty strings and cannot acquire arbitrary request fields
+  ---
+  duration_ms: 1.3948
+  type: 'test'
+  ...
+# Subtest: nearby JSON and decoded calendar form preserve native wire fields with anonymous or stored session auth
+ok 365 - nearby JSON and decoded calendar form preserve native wire fields with anonymous or stored session auth
+  ---
+  duration_ms: 15.3708
+  type: 'test'
+  ...
+# Subtest: exact office transport scopes reject alternate profiles methods auth encodings queries files and body shapes before forwarding
+ok 366 - exact office transport scopes reject alternate profiles methods auth encodings queries files and body shapes before forwarding
+  ---
+  duration_ms: 17.6573
+  type: 'test'
+  ...
+# Subtest: missing or malformed calendar reference configuration fails closed without disclosing helper errors
+ok 367 - missing or malformed calendar reference configuration fails closed without disclosing helper errors
+  ---
+  duration_ms: 1.5607
+  type: 'test'
+  ...
+# Subtest: calendar retry transforms the original reference anew and never transforms unrelated endpoints
+ok 368 - calendar retry transforms the original reference anew and never transforms unrelated endpoints
+  ---
+  duration_ms: 1.8951
+  type: 'test'
+  ...
+# Subtest: two office reads retain successful native envelopes including error true while normal failures remain failures
+ok 369 - two office reads retain successful native envelopes including error true while normal failures remain failures
+  ---
+  duration_ms: 16.7694
+  type: 'test'
+  ...
+# Subtest: office HTTP execution keeps Origin CSRF allowlist and field validation ahead of transport
+ok 370 - office HTTP execution keeps Origin CSRF allowlist and field validation ahead of transport
+  ---
+  duration_ms: 129.0506
+  type: 'test'
+  ...
+# Subtest: calendar optional-session execution refreshes first and keeps failures retryable with the original reference
+ok 371 - calendar optional-session execution refreshes first and keeps failures retryable with the original reference
+  ---
+  duration_ms: 33.8557
+  type: 'test'
+  ...
+# Subtest: office responses redact credential fields and values while transport logs omit payloads and credentials
+ok 372 - office responses redact credential fields and values while transport logs omit payloads and credentials
+  ---
+  duration_ms: 23.5853
+  type: 'test'
+  ...
+# Subtest: office unauthorized responses and delayed results retain existing session isolation
+ok 373 - office unauthorized responses and delayed results retain existing session isolation
+  ---
+  duration_ms: 47.9809
+  type: 'test'
+  ...
+# Subtest: configuration fixes OSM standard and same-origin Bhumi without any browser key
+ok 374 - configuration fixes OSM standard and same-origin Bhumi without any browser key
+  ---
+  duration_ms: 2.9733
+  type: 'test'
+  ...
+# Subtest: map uses exactly two raster layers in EPSG3857 with fixed camera, no geometry renderer
+ok 375 - map uses exactly two raster layers in EPSG3857 with fixed camera, no geometry renderer
+  ---
+  duration_ms: 2.9826
+  type: 'test'
+  ...
+# Subtest: OSM attribution/referrer/cache-friendly settings remain visible and overzoom uses native19
+ok 376 - OSM attribution/referrer/cache-friendly settings remain visible and overzoom uses native19
+  ---
+  duration_ms: 0.7888
+  type: 'test'
+  ...
+# Subtest: Bhumi URL wraps X and rejects invalid coordinates without requesting a fallback image
+ok 377 - Bhumi URL wraps X and rejects invalid coordinates without requesting a fallback image
+  ---
+  duration_ms: 10.7787
+  type: 'test'
+  ...
+# Subtest: strict camera rejects invalid/polar values rather than silently moving the requested center
+ok 378 - strict camera rejects invalid/polar values rather than silently moving the requested center
+  ---
+  duration_ms: 1.228
+  type: 'test'
+  ...
+# Subtest: optional bounds are strictly typed, ordered, geographic and within Mercator coverage
+ok 379 - optional bounds are strictly typed, ordered, geographic and within Mercator coverage
+  ---
+  duration_ms: 1.2471
+  type: 'test'
+  ...
+# Subtest: display pin uses extent midpoint and self-hosted accessible icon without source metadata
+ok 380 - display pin uses extent midpoint and self-hosted accessible icon without source metadata
+  ---
+  duration_ms: 1.3951
+  type: 'test'
+  ...
+# Subtest: initial view and reset fit a cloned extent with padding and capped zoom
+ok 381 - initial view and reset fit a cloned extent with padding and capped zoom
+  ---
+  duration_ms: 1.1803
+  type: 'test'
+  ...
+# Subtest: large, tiny and zero-span extents delegate to Leaflet fit without forcing native zoom
+ok 382 - large, tiny and zero-span extents delegate to Leaflet fit without forcing native zoom
+  ---
+  duration_ms: 1.8146
+  type: 'test'
+  ...
+# Subtest: legacy camera keeps native center and zoom while bounds refit after responsive resize
+ok 383 - legacy camera keeps native center and zoom while bounds refit after responsive resize
+  ---
+  duration_ms: 1.621
+  type: 'test'
+  ...
+# Subtest: controls scope zoom/pan/reset and toggle only Bhumi while keeping the base and attribution
+ok 384 - controls scope zoom/pan/reset and toggle only Bhumi while keeping the base and attribution
+  ---
+  duration_ms: 1.571
+  type: 'test'
+  ...
+# Subtest: OSM and Bhumi errors are separate, sanitized and never trigger another provider
+ok 385 - OSM and Bhumi errors are separate, sanitized and never trigger another provider
+  ---
+  duration_ms: 0.8489
+  type: 'test'
+  ...
+# Subtest: destroy removes listeners, map DOM, resize observation and ownership exactly once
+ok 386 - destroy removes listeners, map DOM, resize observation and ownership exactly once
+  ---
+  duration_ms: 0.9684
+  type: 'test'
+  ...
+# Subtest: constructor failure cleans partial DOM and leaves the owner reusable
+ok 387 - constructor failure cleans partial DOM and leaves the owner reusable
+  ---
+  duration_ms: 0.8057
+  type: 'test'
+  ...
+# Subtest: valid config requires no key, shares one loader and mounts both maps only after readiness
+ok 388 - valid config requires no key, shares one loader and mounts both maps only after readiness
+  ---
+  duration_ms: 7.726
+  type: 'test'
+  ...
+# Subtest: disconnected owners after pending config do not start loading a library
+ok 389 - disconnected owners after pending config do not start loading a library
+  ---
+  duration_ms: 1.1542
+  type: 'test'
+  ...
+# Subtest: disconnect or destroy while library is pending cannot create a late map
+ok 390 - disconnect or destroy while library is pending cannot create a late map
+  ---
+  duration_ms: 1.6056
+  type: 'test'
+  ...
+# Subtest: closed dialogs make no initial request, close cleans up and reopen remounts connected DOM
+ok 391 - closed dialogs make no initial request, close cleans up and reopen remounts connected DOM
+  ---
+  duration_ms: 1.9055
+  type: 'test'
+  ...
+# Subtest: hidden ancestors and changed camera release the old map and mount only current data
+ok 392 - hidden ancestors and changed camera release the old map and mount only current data
+  ---
+  duration_ms: 2.6817
+  type: 'test'
+  ...
+# Subtest: overlapping managers cannot claim the same pending owner
+ok 393 - overlapping managers cannot claim the same pending owner
+  ---
+  duration_ms: 1.3414
+  type: 'test'
+  ...
+# Subtest: malformed camera and config failures remain sanitized without loading tiles
+ok 394 - malformed camera and config failures remain sanitized without loading tiles
+  ---
+  duration_ms: 3.9893
+  type: 'test'
+  ...
+# Subtest: configuration read fixes same-origin credentials, no-store and abort signal
+ok 395 - configuration read fixes same-origin credentials, no-store and abort signal
+  ---
+  duration_ms: 1.1995
+  type: 'test'
+  ...
+# Subtest: redirected or failed configuration prevents library and tile creation
+ok 396 - redirected or failed configuration prevents library and tile creation
+  ---
+  duration_ms: 2.009
+  type: 'test'
+  ...
+# Subtest: default loader uses only packaged Leaflet classic script, nonce, and ready global L
+ok 397 - default loader uses only packaged Leaflet classic script, nonce, and ready global L
+  ---
+  duration_ms: 3.1588
+  type: 'test'
+  ...
+# Subtest: local library failure is sanitized and permits retry after reopening
+ok 398 - local library failure is sanitized and permits retry after reopening
+  ---
+  duration_ms: 9.2624
+  type: 'test'
+  ...
+# Subtest: 170 audited shapes plus the separate SPS viewer, two group DELETE and three item helpers remain distinct, immutable and explicit about readiness
+ok 399 - 170 audited shapes plus the separate SPS viewer, two group DELETE and three item helpers remain distinct, immutable and explicit about readiness
+  ---
+  duration_ms: 2.3421
+  type: 'test'
+  ...
+# Subtest: sign-in is represented by its dedicated login flow and cannot run through generic execution
+ok 400 - sign-in is represented by its dedicated login flow and cannot run through generic execution
+  ---
+  duration_ms: 0.9004
+  type: 'test'
+  ...
+# Subtest: public catalog is detached and does not expose internal evidence or credentials
+ok 401 - public catalog is detached and does not expose internal evidence or credentials
+  ---
+  duration_ms: 6.617
+  type: 'test'
+  ...
+# Subtest: execution is strictly allowlisted and ignores no unexpected URL or header fields
+ok 402 - execution is strictly allowlisted and ignores no unexpected URL or header fields
+  ---
+  duration_ms: 0.6592
+  type: 'test'
+  ...
+# Subtest: session identity is derived, required and cannot be changed to another account
+ok 403 - session identity is derived, required and cannot be changed to another account
+  ---
+  duration_ms: 2.2605
+  type: 'test'
+  ...
+# Subtest: collection status preserves the native BERKAS constant and does not masquerade as a content detail lookup
+ok 404 - collection status preserves the native BERKAS constant and does not masquerade as a content detail lookup
+  ---
+  duration_ms: 0.4581
+  type: 'test'
+  ...
+# Subtest: geotag contract remains inspectable but reference coordinates cannot replace a verified site visit
+ok 405 - geotag contract remains inspectable but reference coordinates cannot replace a verified site visit
+  ---
+  duration_ms: 0.3663
+  type: 'test'
+  ...
+# Subtest: KKPR lookup uses the active account identity and document lookups preserve field casing
+ok 406 - KKPR lookup uses the active account identity and document lookups preserve field casing
+  ---
+  duration_ms: 0.8771
+  type: 'test'
+  ...
+# Subtest: GetDocument retains an explicit empty profile name and exact q during form serialization
+ok 407 - GetDocument retains an explicit empty profile name and exact q during form serialization
+  ---
+  duration_ms: 39.3645
+  type: 'test'
+  ...
+# Subtest: document geometry is a q-only main-session read and preserves the full raw string before transport
+ok 408 - document geometry is a q-only main-session read and preserves the full raw string before transport
+  ---
+  duration_ms: 1.1041
+  type: 'test'
+  ...
+# Subtest: analog certificate detail preserves its exact GET query and uses only the authenticated session header
+ok 409 - analog certificate detail preserves its exact GET query and uses only the authenticated session header
+  ---
+  duration_ms: 1.6912
+  type: 'test'
+  ...
+# Subtest: GET body remains a GET body and shared service auth remains disabled until implemented
+ok 410 - GET body remains a GET body and shared service auth remains disabled until implemented
+  ---
+  duration_ms: 0.8782
+  type: 'test'
+  ...
+# Subtest: application authorization and fixed recovered URL constants cannot be user supplied
+ok 411 - application authorization and fixed recovered URL constants cannot be user supplied
+  ---
+  duration_ms: 0.532
+  type: 'test'
+  ...
+# Subtest: all enabled adapters prepare locally without inventing nested models or network activity
+ok 412 - all enabled adapters prepare locally without inventing nested models or network activity
+  ---
+  duration_ms: 1.3017
+  type: 'test'
+  ...
+# Subtest: SPS viewer uses only the selected metadata ID and alias under an explicit session profile
+ok 413 - SPS viewer uses only the selected metadata ID and alias under an explicit session profile
+  ---
+  duration_ms: 0.5885
+  type: 'test'
+  ...
+# Subtest: camera uses arithmetic mean including closure rather than center of bounds
+ok 414 - camera uses arithmetic mean including closure rather than center of bounds
+  ---
+  duration_ms: 3.6098
+  type: 'test'
+  ...
+# Subtest: holes, multipolygon parts and all features contribute to camera in source order
+ok 415 - holes, multipolygon parts and all features contribute to camera in source order
+  ---
+  duration_ms: 0.601
+  type: 'test'
+  ...
+# Subtest: native camera does not unwrap antimeridian coordinates
+ok 416 - native camera does not unwrap antimeridian coordinates
+  ---
+  duration_ms: 0.3347
+  type: 'test'
+  ...
+# Subtest: preview camera uses zoom17; document camera uses zoom18
+ok 417 - preview camera uses zoom17; document camera uses zoom18
+  ---
+  duration_ms: 0.5157
+  type: 'test'
+  ...
+# Subtest: geographic CRS is accepted and projected or malformed geometry is rejected
+ok 418 - geographic CRS is accepted and projected or malformed geometry is rejected
+  ---
+  duration_ms: 1.0296
+  type: 'test'
+  ...
+# Subtest: feature and cumulative vertex bounds reject large responses without partial rendering
+ok 419 - feature and cumulative vertex bounds reject large responses without partial rendering
+  ---
+  duration_ms: 21.9341
+  type: 'test'
+  ...
+# Subtest: card contains only camera JSON and escaped labels, with no custom map geometry
+ok 420 - card contains only camera JSON and escaped labels, with no custom map geometry
+  ---
+  duration_ms: 2.2057
+  type: 'test'
+  ...
+# Subtest: tiny and zero-span source extents retain exact bounds without inventing an area
+ok 421 - tiny and zero-span source extents retain exact bounds without inventing an area
+  ---
+  duration_ms: 2.1685
+  type: 'test'
+  ...
+# Subtest: empty and invalid data produce safe notices and cannot start a map
+ok 422 - empty and invalid data produce safe notices and cannot start a map
+  ---
+  duration_ms: 0.6115
+  type: 'test'
+  ...
+# Subtest: calls use required body.data only and ignore error/message even when flags look unsuccessful
+ok 423 - calls use required body.data only and ignore error/message even when flags look unsuccessful
+  ---
+  duration_ms: 4.5424
+  type: 'test'
+  ...
+# Subtest: all six model fields are required Strings even when id/tipe are discarded
+ok 424 - all six model fields are required Strings even when id/tipe are discarded
+  ---
+  duration_ms: 1.9076
+  type: 'test'
+  ...
+# Subtest: calls preserve raw text, order and duplicates while removing identity/type/private extras
+ok 425 - calls preserve raw text, order and duplicates while removing identity/type/private extras
+  ---
+  duration_ms: 0.7567
+  type: 'test'
+  ...
+# Subtest: raw JSON is decoded once; direct/nested arrays or String wrappers are not envelopes
+ok 426 - raw JSON is decoded once; direct/nested arrays or String wrappers are not envelopes
+  ---
+  duration_ms: 0.5547
+  type: 'test'
+  ...
+# Subtest: model guards reject sparse arrays, non-record rows, inherited fields and known accessors
+ok 427 - model guards reject sparse arrays, non-record rows, inherited fields and known accessors
+  ---
+  duration_ms: 0.7317
+  type: 'test'
+  ...
+# Subtest: target DateTime syntax accepts compact dates, partial times and offset variants
+ok 428 - target DateTime syntax accepts compact dates, partial times and offset variants
+  ---
+  duration_ms: 0.6436
+  type: 'test'
+  ...
+# Subtest: invalid syntax is rejected instead of falling back to host Date.parse
+ok 429 - invalid syntax is rejected instead of falling back to host Date.parse
+  ---
+  duration_ms: 0.6612
+  type: 'test'
+  ...
+# Subtest: overflow components normalize across months, leap days, clocks and large offsets
+ok 430 - overflow components normalize across months, leap days, clocks and large offsets
+  ---
+  duration_ms: 1.4962
+  type: 'test'
+  ...
+# Subtest: microseconds truncate after six digits and retain pre-epoch fractions exactly
+ok 431 - microseconds truncate after six digits and retain pre-epoch fractions exactly
+  ---
+  duration_ms: 0.7484
+  type: 'test'
+  ...
+# Subtest: years zero, 99 and negative years have no JavaScript constructor century bias
+ok 432 - years zero, 99 and negative years have no JavaScript constructor century bias
+  ---
+  duration_ms: 0.6255
+  type: 'test'
+  ...
+# Subtest: instant bounds retain the full SDK microsecond range without Number rounding
+ok 433 - instant bounds retain the full SDK microsecond range without Number rounding
+  ---
+  duration_ms: 0.5344
+  type: 'test'
+  ...
+# Subtest: naive dates remain normalized civil components with no invented UTC epoch
+ok 434 - naive dates remain normalized civil components with no invented UTC epoch
+  ---
+  duration_ms: 0.2881
+  type: 'test'
+  ...
+# Subtest: naive output is unchanged across backend timezone settings, including a DST gap
+ok 435 - naive output is unchanged across backend timezone settings, including a DST gap
+  ---
+  duration_ms: 380.6197
+  type: 'test'
+  ...
+# Subtest: one invalid row rejects the whole list and errors never contain payload or date text
+ok 436 - one invalid row rejects the whole list and errors never contain payload or date text
+  ---
+  duration_ms: 0.5391
+  type: 'test'
+  ...
+# Subtest: queue construction is lazy; missing bundle configuration only fails actual GET
+ok 437 - queue construction is lazy; missing bundle configuration only fails actual GET
+  ---
+  duration_ms: 10.8065
+  type: 'test'
+  ...
+# Subtest: list uses only exact Directus GET and one-pass native query escaping
+ok 438 - list uses only exact Directus GET and one-pass native query escaping
+  ---
+  duration_ms: 37.9756
+  type: 'test'
+  ...
+# Subtest: full selected detail ID keeps colon and encodes remaining accepted text without truncation
+ok 439 - full selected detail ID keeps colon and encodes remaining accepted text without truncation
+  ---
+  duration_ms: 2.3013
+  type: 'test'
+  ...
+# Subtest: detail URL separators percent forms controls dot segments and malformed inputs stop before auth
+ok 440 - detail URL separators percent forms controls dot segments and malformed inputs stop before auth
+  ---
+  duration_ms: 1.1597
+  type: 'test'
+  ...
+# Subtest: all 2xx statuses with JSON payload use strict native models and preserve every row
+ok 441 - all 2xx statuses with JSON payload use strict native models and preserve every row
+  ---
+  duration_ms: 23.5362
+  type: 'test'
+  ...
+# Subtest: JSON MIME gate permits application/json text/json and +json but never sniffs body
+ok 442 - JSON MIME gate permits application/json text/json and +json but never sniffs body
+  ---
+  duration_ms: 2.9047
+  type: 'test'
+  ...
+# Subtest: empty transport body fails envelope without treating it as successful empty list
+ok 443 - empty transport body fails envelope without treating it as successful empty list
+  ---
+  duration_ms: 0.705
+  type: 'test'
+  ...
+# Subtest: business, nullable error defaults, wrong schemas and JSON strings never trigger retry
+ok 444 - business, nullable error defaults, wrong schemas and JSON strings never trigger retry
+  ---
+  duration_ms: 4.3962
+  type: 'test'
+  ...
+# Subtest: raw detail JSON preserves integer/double codes and wide counts and omits applicant token
+ok 445 - raw detail JSON preserves integer/double codes and wide counts and omits applicant token
+  ---
+  duration_ms: 1.9086
+  type: 'test'
+  ...
+# Subtest: all native eligible HTTP statuses have at most four attempts and nominal 1/3/5-second delays
+ok 446 - all native eligible HTTP statuses have at most four attempts and nominal 1/3/5-second delays
+  ---
+  duration_ms: 10.7322
+  type: 'test'
+  ...
+# Subtest: retry success uses same credential generation and stops immediately
+ok 447 - retry success uses same credential generation and stops immediately
+  ---
+  duration_ms: 0.9561
+  type: 'test'
+  ...
+# Subtest: queue 401/403 and other noneligible status errors preserve main auth and stay local HTTP502
+ok 448 - queue 401/403 and other noneligible status errors preserve main auth and stay local HTTP502
+  ---
+  duration_ms: 1.2187
+  type: 'test'
+  ...
+# Subtest: JSON parse or UTF-8 errors override otherwise retryable status
+ok 449 - JSON parse or UTF-8 errors override otherwise retryable status
+  ---
+  duration_ms: 1.2317
+  type: 'test'
+  ...
+# Subtest: unsafe redirect or previously followed response is rejected without forwarding bearer
+ok 450 - unsafe redirect or previously followed response is rejected without forwarding bearer
+  ---
+  duration_ms: 2.2792
+  type: 'test'
+  ...
+# Subtest: native GET redirect statuses follow only the canonical same-endpoint slash with unchanged identity
+ok 451 - native GET redirect statuses follow only the canonical same-endpoint slash with unchanged identity
+  ---
+  duration_ms: 2.5033
+  type: 'test'
+  ...
+# Subtest: canonical detail redirect preserves full colon ID and never adds query or body
+ok 452 - canonical detail redirect preserves full colon ID and never adds query or body
+  ---
+  duration_ms: 0.6898
+  type: 'test'
+  ...
+# Subtest: Panggilan uses its own data-only model and same scoped canonical GET transport
+ok 453 - Panggilan uses its own data-only model and same scoped canonical GET transport
+  ---
+  duration_ms: 2.5152
+  type: 'test'
+  ...
+# Subtest: redirect cannot change identity, endpoint, audience, scheme, port or add credentials/fragment
+ok 454 - redirect cannot change identity, endpoint, audience, scheme, port or add credentials/fragment
+  ---
+  duration_ms: 1.7573
+  type: 'test'
+  ...
+# Subtest: redirect query re-encoding retains the exact decoded identity without a second transformation
+ok 455 - redirect query re-encoding retains the exact decoded identity without a second transformation
+  ---
+  duration_ms: 0.6606
+  type: 'test'
+  ...
+# Subtest: canonical redirect loops and more than five hops stop without transport retry
+ok 456 - canonical redirect loops and more than five hops stop without transport retry
+  ---
+  duration_ms: 1.1484
+  type: 'test'
+  ...
+# Subtest: retry after canonical redirect restarts the original GET with the same bearer generation
+ok 457 - retry after canonical redirect restarts the original GET with the same bearer generation
+  ---
+  duration_ms: 1.2619
+  type: 'test'
+  ...
+# Subtest: cancellation after redirect prevents the next hop and cancels redirect response body
+ok 458 - cancellation after redirect prevents the next hop and cancels redirect response body
+  ---
+  duration_ms: 1.5562
+  type: 'test'
+  ...
+# Subtest: recognized bounded network failures retry; unknown TLS and format exceptions do not
+ok 459 - recognized bounded network failures retry; unknown TLS and format exceptions do not
+  ---
+  duration_ms: 4.3744
+  type: 'test'
+  ...
+# Subtest: wrapped timeout is retryable while explicit cancellation is not
+ok 460 - wrapped timeout is retryable while explicit cancellation is not
+  ---
+  duration_ms: 0.9497
+  type: 'test'
+  ...
+# Subtest: abort before GET does not derive credentials or call transport
+ok 461 - abort before GET does not derive credentials or call transport
+  ---
+  duration_ms: 0.3949
+  type: 'test'
+  ...
+# Subtest: abort while awaiting transport suppresses late success and cancels its body
+ok 462 - abort while awaiting transport suppresses late success and cancels its body
+  ---
+  duration_ms: 20.789
+  type: 'test'
+  ...
+# Subtest: abort at response handoff cancels the unconsumed body and never retries
+ok 463 - abort at response handoff cancels the unconsumed body and never retries
+  ---
+  duration_ms: 1.3415
+  type: 'test'
+  ...
+# Subtest: abort while reader is pending cancels the stream and never retries
+ok 464 - abort while reader is pending cancels the stream and never retries
+  ---
+  duration_ms: 1.6126
+  type: 'test'
+  ...
+# Subtest: abort during retry sleep stops subsequent GET
+ok 465 - abort during retry sleep stops subsequent GET
+  ---
+  duration_ms: 1.7591
+  type: 'test'
+  ...
+# Subtest: recognized body stream network error can retry and recover
+ok 466 - recognized body stream network error can retry and recover
+  ---
+  duration_ms: 1.1071
+  type: 'test'
+  ...
+# Subtest: decompressed response cap rejects declared or actual over-limit body without retry
+ok 467 - decompressed response cap rejects declared or actual over-limit body without retry
+  ---
+  duration_ms: 24.2984
+  type: 'test'
+  ...
+# Subtest: logs omit input identities and selected IDs, bearer values, response fields and error messages
+ok 468 - logs omit input identities and selected IDs, bearer values, response fields and error messages
+  ---
+  duration_ms: 1.8562
+  type: 'test'
+  ...
+# Subtest: broken diagnostic logger cannot turn successful GET into a retry
+ok 469 - broken diagnostic logger cannot turn successful GET into a retry
+  ---
+  duration_ms: 0.535
+  type: 'test'
+  ...
+# Subtest: queue read identity is taken from verified summary fields, never a sign-in alias
+ok 470 - queue read identity is taken from verified summary fields, never a sign-in alias
+  ---
+  duration_ms: 1.8298
+  type: 'test'
+  ...
+# Subtest: only native profile levels 2 and 3 add a profile identity
+ok 471 - only native profile levels 2 and 3 add a profile identity
+  ---
+  duration_ms: 3.3094
+  type: 'test'
+  ...
+# Subtest: IKD true skips automatic profile insertion and unknown eligible IKD state fails
+ok 472 - IKD true skips automatic profile insertion and unknown eligible IKD state fails
+  ---
+  duration_ms: 1.5301
+  type: 'test'
+  ...
+# Subtest: native read join and duplicate keys keep raw values without a second encode or trimming
+ok 473 - native read join and duplicate keys keep raw values without a second encode or trimming
+  ---
+  duration_ms: 0.4839
+  type: 'test'
+  ...
+# Subtest: both empty guards remain distinct from nonempty comma-joined strings
+ok 474 - both empty guards remain distinct from nonempty comma-joined strings
+  ---
+  duration_ms: 0.2917
+  type: 'test'
+  ...
+# Subtest: managed identity storage records require the native types with a safe integer web bound
+ok 475 - managed identity storage records require the native types with a safe integer web bound
+  ---
+  duration_ms: 0.7264
+  type: 'test'
+  ...
+# Subtest: profile identifier cannot silently coerce a non-String summary value
+ok 476 - profile identifier cannot silently coerce a non-String summary value
+  ---
+  duration_ms: 0.3457
+  type: 'test'
+  ...
+# Subtest: native missing/null/true error short-circuits data validation for both envelopes
+ok 477 - native missing/null/true error short-circuits data validation for both envelopes
+  ---
+  duration_ms: 4.4628
+  type: 'test'
+  ...
+# Subtest: successful empty list differs from failure and empty detail constructs native defaults
+ok 478 - successful empty list differs from failure and empty detail constructs native defaults
+  ---
+  duration_ms: 0.5931
+  type: 'test'
+  ...
+# Subtest: envelopes use exact error/data keys with no message, status, nested envelope, or case aliases
+ok 479 - envelopes use exact error/data keys with no message, status, nested envelope, or case aliases
+  ---
+  duration_ms: 0.4575
+  type: 'test'
+  ...
+# Subtest: every list String field keeps raw text and defaults only for null or absence
+ok 480 - every list String field keeps raw text and defaults only for null or absence
+  ---
+  duration_ms: 1.2557
+  type: 'test'
+  ...
+# Subtest: list kode_booking requires String members and never reuses detail scalar conversion
+ok 481 - list kode_booking requires String members and never reuses detail scalar conversion
+  ---
+  duration_ms: 0.8635
+  type: 'test'
+  ...
+# Subtest: list preserves all rows and duplicate IDs, returns detached models, and does not mutate input
+ok 482 - list preserves all rows and duplicate IDs, returns detached models, and does not mutate input
+  ---
+  duration_ms: 2.2685
+  type: 'test'
+  ...
+# Subtest: detail String fields and all nested models are strict and do not accept aliases
+ok 483 - detail String fields and all nested models are strict and do not accept aliases
+  ---
+  duration_ms: 3.5475
+  type: 'test'
+  ...
+# Subtest: nested absent/null objects default but malformed records are rejected
+ok 484 - nested absent/null objects default but malformed records are rejected
+  ---
+  duration_ms: 1.1306
+  type: 'test'
+  ...
+# Subtest: applicant token is type validated, omitted from public data, and absent from errors
+ok 485 - applicant token is type validated, omitted from public data, and absent from errors
+  ---
+  duration_ms: 0.6173
+  type: 'test'
+  ...
+# Subtest: booking scalar strings booleans and missing/null values follow exact native branches
+ok 486 - booking scalar strings booleans and missing/null values follow exact native branches
+  ---
+  duration_ms: 0.9825
+  type: 'test'
+  ...
+# Subtest: booking conversion never invokes custom object toString or getters
+ok 487 - booking conversion never invokes custom object toString or getters
+  ---
+  duration_ms: 0.6485
+  type: 'test'
+  ...
+# Subtest: decoded booking numbers require raw JSON instead of guessing int versus double
+ok 488 - decoded booking numbers require raw JSON instead of guessing int versus double
+  ---
+  duration_ms: 1.0121
+  type: 'test'
+  ...
+# Subtest: booking signed64 integers remain exact across Smi, Mint, and JS precision boundaries
+ok 489 - booking signed64 integers remain exact across Smi, Mint, and JS precision boundaries
+  ---
+  duration_ms: 0.6076
+  type: 'test'
+  ...
+# Subtest: double booking codes retain signed zero, decimal .0, scientific thresholds and round-trip digits
+ok 490 - double booking codes retain signed zero, decimal .0, scientific thresholds and round-trip digits
+  ---
+  duration_ms: 0.6247
+  type: 'test'
+  ...
+# Subtest: all 1079 frozen C++ reference vectors match queue raw-double conversion
+ok 491 - all 1079 frozen C++ reference vectors match queue raw-double conversion
+  ---
+  duration_ms: 24.2951
+  type: 'test'
+  ...
+# Subtest: jumlah_berkas accepts typed safe integers, preserves signs, and rejects arbitrary coercion
+ok 492 - jumlah_berkas accepts typed safe integers, preserves signs, and rejects arbitrary coercion
+  ---
+  duration_ms: 0.5924
+  type: 'test'
+  ...
+# Subtest: raw native int counts are lossless JSON-safe number or wide decimal text; raw doubles fail
+ok 493 - raw native int counts are lossless JSON-safe number or wide decimal text; raw doubles fail
+  ---
+  duration_ms: 0.7525
+  type: 'test'
+  ...
+# Subtest: raw parser preserves envelope short-circuit even when unused numbers exceed model bounds
+ok 494 - raw parser preserves envelope short-circuit even when unused numbers exceed model bounds
+  ---
+  duration_ms: 0.2851
+  type: 'test'
+  ...
+# Subtest: raw JSON failures and wrong body shapes produce sanitized errors
+ok 495 - raw JSON failures and wrong body shapes produce sanitized errors
+  ---
+  duration_ms: 2.546
+  type: 'test'
+  ...
+# Subtest: plain JSON record boundary rejects prototypes, sparse arrays and schema accessors
+ok 496 - plain JSON record boundary rejects prototypes, sparse arrays and schema accessors
+  ---
+  duration_ms: 0.8886
+  type: 'test'
+  ...
+# Subtest: raw unknown prototype keys never pollute or survive public normalization
+ok 497 - raw unknown prototype keys never pollute or survive public normalization
+  ---
+  duration_ms: 0.227
+  type: 'test'
+  ...
+# Subtest: queue profile validates full native ayb shape and returns only its read projection
+ok 498 - queue profile validates full native ayb shape and returns only its read projection
+  ---
+  duration_ms: 3.5538
+  type: 'test'
+  ...
+# Subtest: queue profile accepts shared successful 2xx status without inventing HTTP200-only behavior
+ok 499 - queue profile accepts shared successful 2xx status without inventing HTTP200-only behavior
+  ---
+  duration_ms: 1.4493
+  type: 'test'
+  ...
+# Subtest: queue profile consumes decoded objects only and never performs a second JSON decode
+ok 500 - queue profile consumes decoded objects only and never performs a second JSON decode
+  ---
+  duration_ms: 0.6589
+  type: 'test'
+  ...
+# Subtest: queue profile requires the main ApiClient successful error flag even with plausible identity data
+ok 501 - queue profile requires the main ApiClient successful error flag even with plausible identity data
+  ---
+  duration_ms: 0.5446
+  type: 'test'
+  ...
+# Subtest: queue profile preserves nullable envelope message semantics without exposing it
+ok 502 - queue profile preserves nullable envelope message semantics without exposing it
+  ---
+  duration_ms: 0.4521
+  type: 'test'
+  ...
+# Subtest: all fourteen native nullable Strings are validated even when absent from the output
+ok 503 - all fourteen native nullable Strings are validated even when absent from the output
+  ---
+  duration_ms: 5.0401
+  type: 'test'
+  ...
+# Subtest: both native nullable integers use a documented safe-number subset of signed64
+ok 504 - both native nullable integers use a documented safe-number subset of signed64
+  ---
+  duration_ms: 0.8632
+  type: 'test'
+  ...
+# Subtest: both native nullable Booleans reject coercion independently of eligibility
+ok 505 - both native nullable Booleans reject coercion independently of eligibility
+  ---
+  duration_ms: 0.7486
+  type: 'test'
+  ...
+# Subtest: missing nullable values become null and login aliases never supply a profile identity
+ok 506 - missing nullable values become null and login aliases never supply a profile identity
+  ---
+  duration_ms: 0.4556
+  type: 'test'
+  ...
+# Subtest: own data-property validation ignores unknown keys and refuses inherited profiles or accessors
+ok 507 - own data-property validation ignores unknown keys and refuses inherited profiles or accessors
+  ---
+  duration_ms: 0.6754
+  type: 'test'
+  ...
+# Subtest: queue profile errors contain no upstream identity or diagnostic values
+ok 508 - queue profile errors contain no upstream identity or diagnostic values
+  ---
+  duration_ms: 0.3182
+  type: 'test'
+  ...
+# Subtest: parsed profile composes with native read-only identity gates without enrolling identities
+ok 509 - parsed profile composes with native read-only identity gates without enrolling identities
+  ---
+  duration_ms: 0.4792
+  type: 'test'
+  ...
+# Subtest: queue reads require own login and reject browser NIK/profile before transport
+ok 510 - queue reads require own login and reject browser NIK/profile before transport
+  ---
+  duration_ms: 137.1662
+  type: 'test'
+  ...
+# Subtest: queue list uses backend summary identity and separate application bearer, then authorizes exact full ID
+ok 511 - queue list uses backend summary identity and separate application bearer, then authorizes exact full ID
+  ---
+  duration_ms: 52.3501
+  type: 'test'
+  ...
+# Subtest: verified summary cache is reused and browser aliases cannot override it
+ok 512 - verified summary cache is reused and browser aliases cannot override it
+  ---
+  duration_ms: 44.4085
+  type: 'test'
+  ...
+# Subtest: native profile branches without managed identities stop before queue transport
+ok 513 - native profile branches without managed identities stop before queue transport
+  ---
+  duration_ms: 46.0896
+  type: 'test'
+  ...
+# Subtest: unknown IKD and malformed summary fail without queue authorization
+ok 514 - unknown IKD and malformed summary fail without queue authorization
+  ---
+  duration_ms: 44.3494
+  type: 'test'
+  ...
+# Subtest: own server activity can authorize queue detail with full content ID and router precedence
+ok 515 - own server activity can authorize queue detail with full content ID and router precedence
+  ---
+  duration_ms: 96.6528
+  type: 'test'
+  ...
+# Subtest: queue service unauthorized response does not expire main login
+ok 516 - queue service unauthorized response does not expire main login
+  ---
+  duration_ms: 20.7178
+  type: 'test'
+  ...
+# Subtest: logout and fresh login discard all queue ID authorization
+ok 517 - logout and fresh login discard all queue ID authorization
+  ---
+  duration_ms: 20.2809
+  type: 'test'
+  ...
+# Subtest: logout cancels a live queue GET and prevents late result publication
+ok 518 - logout cancels a live queue GET and prevents late result publication
+  ---
+  duration_ms: 19.8647
+  type: 'test'
+  ...
+# Subtest: a changed backend profile invalidates old list ownership before another detail GET
+ok 519 - a changed backend profile invalidates old list ownership before another detail GET
+  ---
+  duration_ms: 79.333
+  type: 'test'
+  ...
+# Subtest: overlapping list requests cannot let an older response overwrite the latest authorized IDs
+ok 520 - overlapping list requests cannot let an older response overwrite the latest authorized IDs
+  ---
+  duration_ms: 22.0375
+  type: 'test'
+  ...
+# Subtest: pending internal summary cannot overwrite a newer backend profile observation
+ok 521 - pending internal summary cannot overwrite a newer backend profile observation
+  ---
+  duration_ms: 15.3379
+  type: 'test'
+  ...
+# Subtest: pending detail is rejected after a profile change revokes its list authorization
+ok 522 - pending detail is rejected after a profile change revokes its list authorization
+  ---
+  duration_ms: 20.8906
+  type: 'test'
+  ...
+# Subtest: main account rejection aborts a pending queue retry without another queue GET
+ok 523 - main account rejection aborts a pending queue retry without another queue GET
+  ---
+  duration_ms: 30.4743
+  type: 'test'
+  ...
+# Subtest: Panggilan derives its own account query without accepting browser identity or changing detail ownership
+ok 524 - Panggilan derives its own account query without accepting browser identity or changing detail ownership
+  ---
+  duration_ms: 49.3375
+  type: 'test'
+  ...
+# Subtest: Panggilan empty account identity stops before remote query as a documented web ownership guard
+ok 525 - Panggilan empty account identity stops before remote query as a documented web ownership guard
+  ---
+  duration_ms: 14.1576
+  type: 'test'
+  ...
+# Subtest: Scan classification accepts direct maps and one JSON String, preserving routing values
+ok 526 - Scan classification accepts direct maps and one JSON String, preserving routing values
+  ---
+  duration_ms: 4.1532
+  type: 'test'
+  ...
+# Subtest: Scan classifier error true retains the same tuple as false; HTTP handling is external
+ok 527 - Scan classifier error true retains the same tuple as false; HTTP handling is external
+  ---
+  duration_ms: 0.3428
+  type: 'test'
+  ...
+# Subtest: Scan classifier preserves empty, whitespace and markup strings without coercing or executing them
+ok 528 - Scan classifier preserves empty, whitespace and markup strings without coercing or executing them
+  ---
+  duration_ms: 0.2038
+  type: 'test'
+  ...
+# Subtest: Scan classification rejects malformed, nested and doubly encoded bodies without another decode
+ok 529 - Scan classification rejects malformed, nested and doubly encoded bodies without another decode
+  ---
+  duration_ms: 0.9412
+  type: 'test'
+  ...
+# Subtest: Scan nullable error/message and required String data reject wrong types on both error branches
+ok 530 - Scan nullable error/message and required String data reject wrong types on both error branches
+  ---
+  duration_ms: 0.6322
+  type: 'test'
+  ...
+# Subtest: Scan classification ignores unknown properties and refuses accessors or inherited schema
+ok 531 - Scan classification ignores unknown properties and refuses accessors or inherited schema
+  ---
+  duration_ms: 0.4981
+  type: 'test'
+  ...
+# Subtest: Scan errors never expose input data or parser diagnostics
+ok 532 - Scan errors never expose input data or parser diagnostics
+  ---
+  duration_ms: 0.343
+  type: 'test'
+  ...
+# Subtest: Scan name follows nama then email then dash, preserving empty/whitespace and ignoring login aliases
+ok 533 - Scan name follows nama then email then dash, preserving empty/whitespace and ignoring login aliases
+  ---
+  duration_ms: 0.8232
+  type: 'test'
+  ...
+# Subtest: Scan name requires a decoded current-summary envelope and no second JSON decode or login fallback
+ok 534 - Scan name requires a decoded current-summary envelope and no second JSON decode or login fallback
+  ---
+  duration_ms: 0.7096
+  type: 'test'
+  ...
+# Subtest: Scan name validates the whole ayb projection before using even an available name
+ok 535 - Scan name validates the whole ayb projection before using even an available name
+  ---
+  duration_ms: 2.0548
+  type: 'test'
+  ...
+# Subtest: Scan name refuses known accessors without executing them and ignores unknown private extras
+ok 536 - Scan name refuses known accessors without executing them and ignores unknown private extras
+  ---
+  duration_ms: 0.7117
+  type: 'test'
+  ...
+# Subtest: Scan profile errors use their own sanitized code and never expose upstream fields
+ok 537 - Scan profile errors use their own sanitized code and never expose upstream fields
+  ---
+  duration_ms: 0.3959
+  type: 'test'
+  ...
+# Subtest: CariBerkas alone retains its four native nullable form keys for search and detail callers
+ok 538 - CariBerkas alone retains its four native nullable form keys for search and detail callers
+  ---
+  duration_ms: 4.6758
+  type: 'test'
+  ...
+# Subtest: CariBerkas wire distinguishes bare null keys, empty values and existing text
+ok 539 - CariBerkas wire distinguishes bare null keys, empty values and existing text
+  ---
+  duration_ms: 15.6285
+  type: 'test'
+  ...
+# Subtest: only the audited session/form envelopes may retain error:true
+ok 540 - only the audited session/form envelopes may retain error:true
+  ---
+  duration_ms: 13.6643
+  type: 'test'
+  ...
+# Subtest: Berkas response exceptions retain HTTP, redirect, parse, session and size boundaries
+ok 541 - Berkas response exceptions retain HTTP, redirect, parse, session and size boundaries
+  ---
+  duration_ms: 11.9684
+  type: 'test'
+  ...
+# Subtest: execute preserves audited search/print responses while retaining redaction and local validation
+ok 542 - execute preserves audited search/print responses while retaining redaction and local validation
+  ---
+  duration_ms: 109.2255
+  type: 'test'
+  ...
+# Subtest: logout during a delayed CariBerkas response still prevents delivery or session resurrection
+ok 543 - logout during a delayed CariBerkas response still prevents delivery or session resurrection
+  ---
+  duration_ms: 33.7724
+  type: 'test'
+  ...
+# Subtest: health explicitly distinguishes local reconstruction from official backend
+ok 544 - health explicitly distinguishes local reconstruction from official backend
+  ---
+  duration_ms: 136.642
+  type: 'test'
+  ...
+# Subtest: source, raw artifact evidence, and environment files are not public
+ok 545 - source, raw artifact evidence, and environment files are not public
+  ---
+  duration_ms: 17.375
+  type: 'test'
+  ...
+# Subtest: rejects traversal, malformed URL and mutating requests
+ok 546 - rejects traversal, malformed URL and mutating requests
+  ---
+  duration_ms: 17.3809
+  type: 'test'
+  ...
+# Subtest: local browser app and modules have correct response types and isolation
+ok 547 - local browser app and modules have correct response types and isolation
+  ---
+  duration_ms: 65.3305
+  type: 'test'
+  ...
+# Subtest: verified APK TLS context stays private and is restricted to the exact production origin
+ok 548 - verified APK TLS context stays private and is restricted to the exact production origin
+  ---
+  duration_ms: 117.7587
+  type: 'test'
+  ...
+# Subtest: missing artifacts provide neither application authorization nor client TLS identity
+ok 549 - missing artifacts provide neither application authorization nor client TLS identity
+  ---
+  duration_ms: 2.0462
+  type: 'test'
+  ...
+1..549
+# tests 549
+# suites 0
+# pass 549
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2226.4886

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-20",
+  "nodeVersion": "24.21.0",
+  "workspaceFullSuite": {
+    "tests": 549,
+    "pass": 549,
+    "fail": 0,
+    "receipt": "analysis/webapp/collection-save-activity-backend-tests.json"
+  },
+  "actualFunctionRegressions": {
+    "suites": 23,
+    "checks": 1190,
+    "fail": 0,
+    "receipt": "analysis/webapp/collection-save-activity-regressions.json"
+  },
+  "sourceOnlyPortableSuite": {
+    "executed": 544,
+    "pass": 544,
+    "fail": 0,
+    "filteredPrivateEvidenceChecks": 5,
+    "nodeSkippedMetric": 0,
+    "command": "cd webapp && npm run test:portable",
+    "runner": "webapp/tests/run-portable.mjs"
+  },
+  "sourceHash": "ff995db7561750823c2d4361b649ea410484e11364e66248a7ec9b382a0d36f6",
+  "productionMutationAcceptance": false,
+  "newBackendDeploymentPerformed": false,
+  "persilSaveModuleWired": false,
+  "scope": "Local synthetic implementation tests and static native evidence. The portable run filters only the five exact evidence test names; full app/runtime/server parity is not established."
+}

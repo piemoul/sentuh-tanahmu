@@ -1,0 +1,30 @@
+# Bounded project architecture map, not a crawl of reverse engineering evidence.
+analysis/
+.git/
+.graphify/
+tools/
+environment/
+node_modules/
+webapp/node_modules/
+webapp/test-results/
+# Preserve authored webapp/assets/maps/official-map.js; exclude bundled artwork/vendor code.
+webapp/assets/icons/
+webapp/assets/fonts/
+webapp/assets/vendor/
+webapp/assets/images/
+webapp/data/
+docs/SOURCE-MANIFEST.json
+*.xapk
+*.apk
+*.so
+*.dex
+*.png
+*.jpg
+*.webp
+*.svg
+*.ttf
+*.otf
+*.csv
+*.log
+.env
+.env.*

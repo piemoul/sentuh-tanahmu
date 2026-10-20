@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS_PRIVACY_REVIEW",
+  "checkedAtUtc": "2026-10-20T08:20:19.688388+00:00",
+  "scope": "Independent source-only publication candidate review; Git index and history remain coordinator-owned. This is not a claim that the raw Graphify portability checker passed.",
+  "candidateFilesScanned": 328,
+  "utf8FilesScanned": 312,
+  "binaryAssetsReviewed": {
+    "png": 14,
+    "ttf": 2,
+    "pngMetadata": "Only software/timestamps and EXIF image dimensions; no GPS, serial or user-comment tags."
+  },
+  "ignoredGraphifyIntermediates": 130,
+  "forbiddenArtifactFilesFound": 0,
+  "confirmedPrivateDataOrSecretFindings": 0,
+  "highSignalPatternMatches": {
+    "privateKey": 0,
+    "apiTokenPrefix": 0,
+    "jwt": 0,
+    "googleKey": 0,
+    "personalEmail": 0,
+    "personalPhone": 0,
+    "personalWorkstationPath": 0,
+    "signedQuery": 0
+  },
+  "classifiedNonPrivateMatches": [
+    "Reserved fixture/example email addresses and a malformed credential-URL test.",
+    "Dummy government IDs, numeric precision/size boundaries and synthetic timestamps.",
+    "Synthetic credential sentinels in tests/fixtures and their grounded graph citations.",
+    "Four base64 one-pixel test PNG literals.",
+    "Seven synthetic request UUIDs in sanitized backend test diagnostics.",
+    "Ninety-six broad phone-regex matches were decimal fractions of generated graph-layout coordinates in scene.json and its embedded HTML copy."
+  ],
+  "graphify": {
+    "nodes": 1200,
+    "links": 2857,
+    "structuredSourcePathFieldsChecked": 6363,
+    "nonRelativeOrBackslashSourcePathsFound": 0,
+    "graphCopiesMatch": true,
+    "offlineStudioExternalScriptOrStylesheetUrls": 0,
+    "rawPortableCheckOk": false,
+    "rawPortableIssueCount": 981,
+    "allIssuesAreCitationQuotes": true,
+    "issueFiles": {
+      "graph.json": 327,
+      "ontology/citations.json": 327,
+      "studio/ontology/citations.json": 327
+    },
+    "actualMachinePathIssuesInQuotes": 0,
+    "explanation": "Retained raw tool non-pass: API routes and relative import strings quoted from source were classified as absolute/escaped paths. No derived graph or citation was changed by this reviewer."
+  },
+  "artifacts": [
+    {
+      "file": ".graphify/graph.json",
+      "bytes": 2943668,
+      "sha256": "ba2e650e74de51cd3e9651ba96c37fc234e9e2c6da1ebe1781e3ab8a8c0ad5b3"
+    },
+    {
+      "file": ".graphify/GRAPH_REPORT.md",
+      "bytes": 16274,
+      "sha256": "df68de516d3688e863f1286645eb2c8dd39f39f4b6ce1de6a93b26f9ceb475e5"
+    },
+    {
+      "file": ".graphify/manifest.json",
+      "bytes": 13287,
+      "sha256": "855ea96d5d80fabe1e829f4209bac220211c21306b52fa90f576a2e64e1ad186"
+    },
+    {
+      "file": ".graphify/cost.json",
+      "bytes": 448,
+      "sha256": "46f3a451207657cf6a470ac620187d416c269f5cc831c90845cf59bd46280b27"
+    },
+    {
+      "file": ".graphify/.graphify_runtime.json",
+      "bytes": 598,
+      "sha256": "a2fbd39944a449d09d9b35968929cab8794bdcf1f9164f159cb8873b10e703db"
+    },
+    {
+      "file": ".graphify/portable-check.json",
+      "bytes": 227643,
+      "sha256": "07d3a6d8eca2003d6f009d4951e08fd021e08d31bb227cb47d7f7d9e23bbe9ab"
+    },
+    {
+      "file": ".graphify/ontology/citations.json",
+      "bytes": 1299629,
+      "sha256": "0b3b525a9566e339c9a2ab8ab2130c0e0aa1959ed080f72930949f21d025e60f"
+    },
+    {
+      "file": ".graphify/studio/index.html",
+      "bytes": 448,
+      "sha256": "a89ac60f1ba6e5efbb5f93563328f77d2a51e1d1b860f26ba436a9ee7d4d4db8"
+    },
+    {
+      "file": ".graphify/studio/studio.html",
+      "bytes": 5217704,
+      "sha256": "ee032f01d21fa0dcb5f286bd988a4eb4c82636b204f3ce487a55fddce5d1230c"
+    },
+    {
+      "file": ".graphify/studio/LICENSE.graphify",
+      "bytes": 1068,
+      "sha256": "36ecff6bbb97aca1be64e95f42538cf796adde5864edac583e620643c096931a"
+    }
+  ],
+  "portableTests": {
+    "runnerInspected": "webapp/tests/run-portable.mjs",
+    "filter": "Five exact anchored evidence test names; child exit status propagates.",
+    "execution": "Coordinator-reported 544 pass, zero fail; this reviewer did not execute tests or network operations.",
+    "privateEvidenceCheckCount": 5
+  },
+  "knownScopeLimits": [
+    "PERSIL module remains staged and unwired. Full application/runtime/server parity is unverified.",
+    "Local raw APK/pool evidence is intentionally excluded; full native-evidence tests require the original analysis environment.",
+    "Review uses pattern scans and targeted source/configuration/asset checks; the coordinator must ensure the final Git index contains only publication candidates."
+  ],
+  "reviewerNetworkRequests": 0,
+  "reviewerGitOperations": 0
+}

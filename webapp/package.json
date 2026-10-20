@@ -1,0 +1,16 @@
+{
+  "name": "sentuh-tanahku-local-web",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Browser reconstruction from Sentuh Tanahku 6.1.5 artifact evidence",
+  "scripts": {
+    "start": "node --openssl-legacy-provider server.mjs",
+    "test": "node --openssl-legacy-provider --test tests/*.test.mjs",
+    "check": "node --check server.mjs && node --check app.js && node --check domain.js && node --check gnss.js && node --check private/api-client.mjs && node --check private/operations.mjs",
+    "test:portable": "node tests/run-portable.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

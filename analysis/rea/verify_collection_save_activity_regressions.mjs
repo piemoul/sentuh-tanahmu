@@ -1,0 +1,36 @@
+// Current-source VM regressions. Prior release receipts are immutable.
+import fs from 'node:fs';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {createHash} from 'node:crypto';
+import {spawn} from 'node:child_process';
+const root=fileURLToPath(new URL('../../',import.meta.url));
+const hash=file=>createHash('sha256').update(fs.readFileSync(path.join(root,file))).digest('hex');
+const predecessor='analysis/webapp/collection-item-actions-regressions.json';
+const previous=JSON.parse(fs.readFileSync(path.join(root,predecessor),'utf8'));
+const files=previous.suites.map(suite=>suite.file);
+if(files.length!==23||new Set(files).size!==23)throw Error('Expected twenty-three distinct prior suites');
+const inputFiles=['webapp/app.js','webapp/styles.css','webapp/parcel-map.js','webapp/assets/maps/official-map.js','webapp/private/operations.mjs','webapp/private/api-client.mjs','webapp/private/collection-response.mjs','webapp/private/activity-response.mjs'];
+const inputs=inputFiles.map(file=>({file,sha256:hash(file)}));
+const baselineFile='analysis/webapp/collection-save-activity-baseline.json';
+const baseline=JSON.parse(fs.readFileSync(path.join(root,baselineFile),'utf8'));
+if(baseline.historical.length!==225||baseline.native.length!==6)throw Error('Expected frozen prebatch baseline');
+const protectedEntries=[baseline.requestCorpus,...baseline.native,...baseline.historical];
+const changedBefore=protectedEntries.filter(entry=>hash(entry.file)!==entry.sha256).map(entry=>entry.file);
+const run=file=>new Promise(resolve=>{
+  const child=spawn(process.execPath,[file],{cwd:root,windowsHide:true,stdio:['ignore','pipe','pipe']});let stdout='',stderr='';
+  child.stdout.setEncoding('utf8').on('data',chunk=>stdout+=chunk);
+  child.stderr.setEncoding('utf8').on('data',chunk=>stderr+=chunk);
+  child.once('error',error=>resolve({file,exitCode:null,error:error.name}));
+  child.once('close',exitCode=>{let report;try{report=JSON.parse(stdout);}catch{}resolve({file,harnessHash:hash(file),exitCode,...(report?{report}:{stdout}),...(stderr?{stderr}:{})});});
+});
+const suites=await Promise.all(files.map(run));
+const changedInputs=inputs.filter(entry=>hash(entry.file)!==entry.sha256).map(entry=>entry.file);
+const historicalChanged=[...new Set([...changedBefore,...protectedEntries.filter(entry=>hash(entry.file)!==entry.sha256).map(entry=>entry.file)])];
+const failedSuites=suites.filter(suite=>suite.exitCode!==0||!suite.report||!Number.isInteger(suite.report.passed)||suite.report.failed>0||suite.report.sha256!==inputs[0].sha256).map(suite=>suite.file);
+const draft=process.argv.includes('--draft');
+const report={checkedAt:new Date().toISOString(),draft,predecessor:{file:predecessor,sha256:hash(predecessor)},baseline:{file:baselineFile,sha256:hash(baselineFile),historicalCount:225,nativeLedgers:6,originalCorpusRecords:170},inputs,passed:suites.reduce((sum,suite)=>sum+(suite.report?.passed??0),0),failedSuites,changedInputs,historicalChanged,productionRequests:0,providerRequests:0,scope:'Twenty-three unchanged-behavior legacy actual-function VM suites with current helper/state fixture bindings for collection saves and Activity. Focused new Node suites are separate. No production/provider requests or all-menu parity claim.',suites};
+const output='analysis/webapp/collection-save-activity-regressions'+(draft?'-draft':'')+'.json';
+fs.writeFileSync(path.join(root,output),JSON.stringify(report,null,2)+'\n');
+console.log(JSON.stringify({suites:suites.length,passed:report.passed,failedSuites,changedInputs,historicalChanged,sourceHash:inputs[0].sha256,output,draft}));
+if(failedSuites.length||changedInputs.length||historicalChanged.length)process.exitCode=1;

@@ -1,0 +1,11 @@
+{
+  "checkedAt": "2026-10-20",
+  "url": "http://127.0.0.1:4188/",
+  "observedVisibleSummary": {
+    "nodes": 1200,
+    "edges": 2857,
+    "groups": 58
+  },
+  "graphSha256": "ba2e650e74de51cd3e9651ba96c37fc234e9e2c6da1ebe1781e3ab8a8c0ad5b3",
+  "scope": "Final static Studio loaded in the in-app browser and its visible summary matched the graph. This is not an application/server behavior test."
+}

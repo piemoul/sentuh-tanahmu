@@ -1,0 +1,2380 @@
+{
+  "schema_version": 1,
+  "package": "id.go.bpn.sentuh",
+  "version": "6.1.5",
+  "artifact_sha256": "bbc7f3bde07502916f00915afe55028a391efd57a5d47e5b30bd820aabd4a683",
+  "scope": "Bounded native widget construction and selected response models; not all screens or all runtime states.",
+  "runtime_visual_parity": "unverified: original APK stopped at integrity warning S5 in emulator; no successful authenticated screenshot oracle",
+  "counts": {
+    "navigation_items": 29,
+    "top_level_max": 5,
+    "home_service_items": 7,
+    "response_models": 5,
+    "audited_request_shapes": 170
+  },
+  "groups": [
+    {
+      "id": "beranda.laci",
+      "label": "Laci",
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-008c0e34.asm.txt",
+          "addresses": [
+            "0x8c0e74"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "beranda.layanan",
+      "label": "Layanan",
+      "evidence": [
+        {
+          "file": "analysis/recovered/blutter-unique/pp.txt",
+          "pool_offsets": [
+            "0x1d898"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "beranda.informasi",
+      "label": "Informasi",
+      "evidence": [
+        {
+          "file": "analysis/recovered/blutter-unique/pp.txt",
+          "pool_offsets": [
+            "0x1d8b0"
+          ]
+        }
+      ]
+    }
+  ],
+  "navigation": [
+    {
+      "id": "beranda",
+      "label": "Beranda",
+      "parent": null,
+      "order": 0,
+      "kind": "navigation_item",
+      "icon_asset": {
+        "asset": "assets/images/icons/home.png",
+        "path": "analysis/unpacked/apk/id.go.bpn.sentuh/assets/flutter_assets/assets/images/icons/home.png",
+        "sha256": "584de81c6af304767f3988626a44dd4b96a3866d901847dba0d724341d023221"
+      },
+      "callback_addresses": [
+        "0x8bfb0c",
+        "0xd9aa0c"
+      ],
+      "original_route": {
+        "named_route": null,
+        "widget_or_state": "bao.xCb / bao.yCb",
+        "external_url": null
+      },
+      "proposed_browser_route": "/beranda",
+      "access": {
+        "client_gate": "item constructed unconditionally",
+        "server_required_role": "not established"
+      },
+      "operation_links": [
+        {
+          "operation_id": "post-account-account-summary-d2939c",
+          "endpoint": "account/account_summary",
+          "method": "POST",
+          "readiness_at_generation": "ready_unverified",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        }
+      ],
+      "evidence_level": "widget_construction",
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-008befe8.asm.txt",
+          "addresses": [
+            "0x8bf198"
+          ]
+        },
+        {
+          "file": "analysis/recovered/request-callsites/range-008bf7a0.asm.txt",
+          "addresses": [
+            "0x8bf93c",
+            "0x8bf970",
+            "0x8bf9c0",
+            "0x8bfa80",
+            "0x8bfae0"
+          ]
+        },
+        {
+          "file": "analysis/recovered/request-callsites/range-00d9aa90.asm.txt",
+          "addresses": [
+            "0xd9aacc",
+            "0xd9ab10",
+            "0xd9ab58"
+          ]
+        }
+      ],
+      "runtime_observed": false,
+      "native_or_parity_gaps": [],
+      "notes": [
+        "Tab order is conditional: without predicate, Beranda / Scan / Profil. Selected and unselected PNGs are distinct."
+      ]
+    },
+    {
+      "id": "koleksi",
+      "label": "Koleksi",
+      "parent": null,
+      "order": 1,
+      "kind": "navigation_item",
+      "icon_asset": {
+        "asset": "assets/images/icons/bookmark.png",
+        "path": "analysis/unpacked/apk/id.go.bpn.sentuh/assets/flutter_assets/assets/images/icons/bookmark.png",
+        "sha256": "f5835361fab5eb8c4299053d9370dd8825d83f1be1233057938ce90c6260485b"
+      },
+      "callback_addresses": [
+        "0x8bfb0c",
+        "0xd9aa0c"
+      ],
+      "original_route": {
+        "named_route": null,
+        "widget_or_state": "tbo.BEb / tbo._CEb",
+        "external_url": null
+      },
+      "proposed_browser_route": "/koleksi",
+      "access": {
+        "client_gate": "profile predicate 0x8bf78c must return true",
+        "server_required_role": "not established"
+      },
+      "operation_links": [
+        {
+          "operation_id": "post-collection-addcollectionberkas-d92664",
+          "endpoint": "Collection/AddCollectionBerkas",
+          "method": "POST",
+          "readiness_at_generation": "ready_unverified",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "post-collection-addcollectionpersil-daae30",
+          "endpoint": "Collection/AddCollectionPersil",
+          "method": "POST",
+          "readiness_at_generation": "ready_unverified",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "post-collection-addpersilcollectiontogroup-da897c",
+          "endpoint": "Collection/AddPersilCollectionToGroup",
+          "method": "POST",
+          "readiness_at_generation": "ready_unverified",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "post-collection-addpersilcollectiongroup-da8f20",
+          "endpoint": "Collection/AddPersilCollectionGroup",
+          "method": "POST",
+          "readiness_at_generation": "ready_unverified",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "get-collection-getcollectionid-d25250",
+          "endpoint": "collection/GetCollectionId",
+          "method": "GET",
+          "readiness_at_generation": "ready_unverified",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "get-collection-getusercollection-d31a50",
+          "endpoint": "collection/GetUserCollection",
+          "method": "GET",
+          "readiness_at_generation": "ready_unverified",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "get-collection-getpersilcollectiongroup-d31fbc",
+          "endpoint": "collection/GetPersilCollectionGroup",
+          "method": "GET",
+          "readiness_at_generation": "ready_unverified",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        }
+      ],
+      "evidence_level": "widget_construction",
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-008befe8.asm.txt",
+          "addresses": [
+            "0x8bf2ec"
+          ]
+        },
+        {
+          "file": "analysis/recovered/request-callsites/range-008bf7a0.asm.txt",
+          "addresses": [
+            "0x8bf93c",
+            "0x8bf970",
+            "0x8bf9c0",
+            "0x8bfa80",
+            "0x8bfae0"
+          ]
+        },
+        {
+          "file": "analysis/recovered/request-callsites/range-00d9aa90.asm.txt",
+          "addresses": [
+            "0xd9aacc",
+            "0xd9ab10",
+            "0xd9ab58"
+          ]
+        }
+      ],
+      "runtime_observed": false,
+      "native_or_parity_gaps": [],
+      "notes": [
+        "Tab order is conditional: without predicate, Beranda / Scan / Profil. Selected and unselected PNGs are distinct."
+      ]
+    },
+    {
+      "id": "scan",
+      "label": "Scan",
+      "parent": null,
+      "order": 2,
+      "kind": "navigation_item",
+      "icon_asset": {
+        "asset": "assets/images/scan.png",
+        "path": "analysis/unpacked/apk/id.go.bpn.sentuh/assets/flutter_assets/assets/images/scan.png",
+        "sha256": "c502277c199b6b339911a80c79d606d5da3476dcf6352d732634fb95d757795b"
+      },
+      "callback_addresses": [
+        "0x8bfb0c",
+        "0xd9aa0c"
+      ],
+      "original_route": {
+        "named_route": null,
+        "widget_or_state": "center action; placeholder Xta in page array",
+        "external_url": null
+      },
+      "proposed_browser_route": "/scan",
+      "access": {
+        "client_gate": "item constructed unconditionally",
+        "server_required_role": "not established"
+      },
+      "operation_links": [],
+      "evidence_level": "widget_construction",
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-008befe8.asm.txt",
+          "addresses": [
+            "0xd9ab10"
+          ]
+        },
+        {
+          "file": "analysis/recovered/request-callsites/range-008bf7a0.asm.txt",
+          "addresses": [
+            "0x8bf93c",
+            "0x8bf970",
+            "0x8bf9c0",
+            "0x8bfa80",
+            "0x8bfae0"
+          ]
+        },
+        {
+          "file": "analysis/recovered/request-callsites/range-00d9aa90.asm.txt",
+          "addresses": [
+            "0xd9aacc",
+            "0xd9ab10",
+            "0xd9ab58"
+          ]
+        }
+      ],
+      "runtime_observed": false,
+      "native_or_parity_gaps": [
+        "camera/scanner and native scan result workflows not reproduced"
+      ],
+      "notes": [
+        "Tab order is conditional: without predicate, Beranda / Scan / Profil. Selected and unselected PNGs are distinct."
+      ]
+    },
+    {
+      "id": "aktivitas",
+      "label": "Aktivitas",
+      "parent": null,
+      "order": 3,
+      "kind": "navigation_item",
+      "icon_asset": {
+        "asset": "assets/images/icons/activity.png",
+        "path": "analysis/unpacked/apk/id.go.bpn.sentuh/assets/flutter_assets/assets/images/icons/activity.png",
+        "sha256": "012955d24a60eb145e0feab96bcba079f49757bcda331b7f6f348f317a9fdbf2"
+      },
+      "callback_addresses": [
+        "0x8bfb0c",
+        "0xd9aa0c"
+      ],
+      "original_route": {
+        "named_route": null,
+        "widget_or_state": "TXn.Syb",
+        "external_url": null
+      },
+      "proposed_browser_route": "/aktivitas",
+      "access": {
+        "client_gate": "profile predicate 0x8bf78c must return true",
+        "server_required_role": "not established"
+      },
+      "operation_links": [
+        {
+          "operation_id": "get-api-antrian-saya-d1eb1c",
+          "endpoint": "api/antrian/saya",
+          "method": "GET",
+          "readiness_at_generation": "inspect_only",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        }
+      ],
+      "evidence_level": "widget_construction",
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-008befe8.asm.txt",
+          "addresses": [
+            "0x8bf548"
+          ]
+        },
+        {
+          "file": "analysis/recovered/request-callsites/range-008bf7a0.asm.txt",
+          "addresses": [
+            "0x8bf93c",
+            "0x8bf970",
+            "0x8bf9c0",
+            "0x8bfa80",
+            "0x8bfae0"
+          ]
+        },
+        {
+          "file": "analysis/recovered/request-callsites/range-00d9aa90.asm.txt",
+          "addresses": [
+            "0xd9aacc",
+            "0xd9ab10",
+            "0xd9ab58"
+          ]
+        }
+      ],
+      "runtime_observed": false,
+      "native_or_parity_gaps": [],
+      "notes": [
+        "Tab order is conditional: without predicate, Beranda / Scan / Profil. Selected and unselected PNGs are distinct."
+      ]
+    },
+    {
+      "id": "profil",
+      "label": "Profil",
+      "parent": null,
+      "order": 4,
+      "kind": "navigation_item",
+      "icon_asset": {
+        "asset": "assets/images/icons/user.png",
+        "path": "analysis/unpacked/apk/id.go.bpn.sentuh/assets/flutter_assets/assets/images/icons/user.png",
+        "sha256": "da6905625db6c73849c21c8f6e4ca662ed3409260935d5b3f34c61ac43c28982"
+      },
+      "callback_addresses": [
+        "0x8bfb0c",
+        "0xd9aa0c"
+      ],
+      "original_route": {
+        "named_route": null,
+        "widget_or_state": "bdo.UHb / bdo.VHb",
+        "external_url": null
+      },
+      "proposed_browser_route": "/profil",
+      "access": {
+        "client_gate": "item constructed unconditionally",
+        "server_required_role": "not established"
+      },
+      "operation_links": [
+        {
+          "operation_id": "post-account-account-summary-d2939c",
+          "endpoint": "account/account_summary",
+          "method": "POST",
+          "readiness_at_generation": "ready_unverified",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        }
+      ],
+      "evidence_level": "widget_construction",
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-008befe8.asm.txt",
+          "addresses": [
+            "0x8bf6d4"
+          ]
+        },
+        {
+          "file": "analysis/recovered/request-callsites/range-008bf7a0.asm.txt",
+          "addresses": [
+            "0x8bf93c",
+            "0x8bf970",
+            "0x8bf9c0",
+            "0x8bfa80",
+            "0x8bfae0"
+          ]
+        },
+        {
+          "file": "analysis/recovered/request-callsites/range-00d9aa90.asm.txt",
+          "addresses": [
+            "0xd9aacc",
+            "0xd9ab10",
+            "0xd9ab58"
+          ]
+        }
+      ],
+      "runtime_observed": false,
+      "native_or_parity_gaps": [],
+      "notes": [
+        "Tab order is conditional: without predicate, Beranda / Scan / Profil. Selected and unselected PNGs are distinct."
+      ]
+    },
+    {
+      "id": "beranda.laci.sertipikatku",
+      "label": "Sertipikatku",
+      "parent": "beranda.laci",
+      "order": 0,
+      "kind": "navigation_item",
+      "icon_asset": {
+        "asset": "assets/images/icons/svg/sertipikatku.svg",
+        "path": "analysis/unpacked/apk/id.go.bpn.sentuh/assets/flutter_assets/assets/images/icons/svg/sertipikatku.svg",
+        "sha256": "7bfa9c1e7ede6321c08df4b9f196eeaa4f118b42b1936bf00a1119c6406fa95a"
+      },
+      "callback_addresses": [
+        "0x8c1f54"
+      ],
+      "original_route": {
+        "named_route": null,
+        "widget_or_state": "GZn._PBb menu model",
+        "external_url": null
+      },
+      "proposed_browser_route": "/beranda/laci/sertipikatku",
+      "access": {
+        "client_gate": "guest variant opens login-required dialog",
+        "server_required_role": "not established"
+      },
+      "operation_links": [
+        {
+          "operation_id": "get-brankas-detailsertipikatnew-d43b54",
+          "endpoint": "Brankas/DetailSertipikatNew",
+          "method": "GET",
+          "readiness_at_generation": "ready_unverified",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "get-legacy-getinfosertifikat-d4340c",
+          "endpoint": "legacy/GetInfoSertifikat",
+          "method": "GET",
+          "readiness_at_generation": "inspect_only",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "get-legacy-sertifikattanahnew-d44dc0",
+          "endpoint": "Legacy/SertifikatTanahNew",
+          "method": "GET",
+          "readiness_at_generation": "ready_unverified",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        }
+      ],
+      "evidence_level": "widget_construction",
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-008c0e34.asm.txt",
+          "addresses": [
+            "0x8c0ed0"
+          ]
+        }
+      ],
+      "runtime_observed": false,
+      "native_or_parity_gaps": [],
+      "notes": [
+        "This GZn variant explicitly shows the login dialog. Authenticated route activation is a separate branch and is not inferred from the label."
+      ]
+    },
+    {
+      "id": "beranda.laci.aktaku",
+      "label": "Aktaku",
+      "parent": "beranda.laci",
+      "order": 1,
+      "kind": "navigation_item",
+      "icon_asset": {
+        "asset": "assets/images/icons/svg/akta.svg",
+        "path": "analysis/unpacked/apk/id.go.bpn.sentuh/assets/flutter_assets/assets/images/icons/svg/akta.svg",
+        "sha256": "e526635c53c5451858390846acac95302ce50918363fb7d46d0849500c2ca184"
+      },
+      "callback_addresses": [
+        "0x8c1860"
+      ],
+      "original_route": {
+        "named_route": null,
+        "widget_or_state": "GZn._PBb menu model",
+        "external_url": null
+      },
+      "proposed_browser_route": "/beranda/laci/aktaku",
+      "access": {
+        "client_gate": "guest variant opens login-required dialog",
+        "server_required_role": "not established"
+      },
+      "operation_links": [
+        {
+          "operation_id": "get-akta-getaktalist-d1ccc4",
+          "endpoint": "Akta/GetAktaList?nik={value}",
+          "method": "GET",
+          "readiness_at_generation": "ready_unverified",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        }
+      ],
+      "evidence_level": "widget_construction",
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-008c0e34.asm.txt",
+          "addresses": [
+            "0x8c0f20"
+          ]
+        }
+      ],
+      "runtime_observed": false,
+      "native_or_parity_gaps": [],
+      "notes": [
+        "This GZn variant explicitly shows the login dialog. Authenticated route activation is a separate branch and is not inferred from the label."
+      ]
+    },
+    {
+      "id": "beranda.laci.berkasku",
+      "label": "Berkasku",
+      "parent": "beranda.laci",
+      "order": 2,
+      "kind": "navigation_item",
+      "icon_asset": {
+        "asset": "assets/images/icons/svg/berkasku.svg",
+        "path": "analysis/unpacked/apk/id.go.bpn.sentuh/assets/flutter_assets/assets/images/icons/svg/berkasku.svg",
+        "sha256": "059100f3f99633bd3875403db5dfdfe81b7b06ed71d488dcd41f6d442e7de332"
+      },
+      "callback_addresses": [
+        "0x8c116c"
+      ],
+      "original_route": {
+        "named_route": null,
+        "widget_or_state": "GZn._PBb menu model",
+        "external_url": null
+      },
+      "proposed_browser_route": "/beranda/laci/berkasku",
+      "access": {
+        "client_gate": "guest variant opens login-required dialog",
+        "server_required_role": "not established"
+      },
+      "operation_links": [
+        {
+          "operation_id": "post-berkas-cariberkas-d88218",
+          "endpoint": "/berkas/CariBerkas",
+          "method": "POST",
+          "readiness_at_generation": "ready_unverified",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "post-berkas-getberkas-d15068",
+          "endpoint": "Berkas/GetBerkas",
+          "method": "POST",
+          "readiness_at_generation": "ready_unverified",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "post-berkas-getstatuscetak-d87ca8",
+          "endpoint": "berkas/getStatusCetak",
+          "method": "POST",
+          "readiness_at_generation": "ready_unverified",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "post-berkas-berkassop-d87ea8",
+          "endpoint": "berkas/berkassop",
+          "method": "POST",
+          "readiness_at_generation": "ready_unverified",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        }
+      ],
+      "evidence_level": "widget_construction",
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-008c0e34.asm.txt",
+          "addresses": [
+            "0x8c0f70"
+          ]
+        }
+      ],
+      "runtime_observed": false,
+      "native_or_parity_gaps": [],
+      "notes": [
+        "This GZn variant explicitly shows the login dialog. Authenticated route activation is a separate branch and is not inferred from the label."
+      ]
+    },
+    {
+      "id": "beranda.layanan.cari-bidang",
+      "label": "Cari Bidang",
+      "parent": "beranda.layanan",
+      "order": 0,
+      "kind": "navigation_item",
+      "icon_asset": {
+        "asset": "assets/images/icons/svg/location.svg",
+        "path": "analysis/unpacked/apk/id.go.bpn.sentuh/assets/flutter_assets/assets/images/icons/svg/location.svg",
+        "sha256": "2c38c2c7537e756399b173093ae346535ee455d02de9e99808086407456a0b7d"
+      },
+      "callback_addresses": [
+        "0x8c3484"
+      ],
+      "original_route": {
+        "named_route": null,
+        "widget_or_state": null,
+        "external_url": null
+      },
+      "proposed_browser_route": "/beranda/layanan/cari-bidang",
+      "access": {
+        "client_gate": "unknown",
+        "server_required_role": "not established"
+      },
+      "operation_links": [
+        {
+          "operation_id": "get-lokasibidang-getbypersilid-dad6f4",
+          "endpoint": "LokasiBidang/GetByPersilId",
+          "method": "GET",
+          "readiness_at_generation": "ready_unverified",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        }
+      ],
+      "evidence_level": "widget_construction",
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-008c2e68.asm.txt",
+          "addresses": [
+            "0x8c2f68",
+            "0x8c3194",
+            "0x8c31c4"
+          ]
+        },
+        {
+          "file": "analysis/recovered/request-callsites/range-00d9af5c.asm.txt",
+          "addresses": [
+            "0xd9afdc",
+            "0xd9b0f8",
+            "0xd9b180",
+            "0xd9b290"
+          ]
+        }
+      ],
+      "runtime_observed": false,
+      "native_or_parity_gaps": [
+        "native map/location; finding parcel ID from search not yet mapped"
+      ],
+      "notes": [
+        "Menu model stores icon +0xb, label +0xf, callback +0x1b. Seven entries are appended in this order."
+      ]
+    },
+    {
+      "id": "beranda.layanan.cari-berkas",
+      "label": "Cari Berkas",
+      "parent": "beranda.layanan",
+      "order": 1,
+      "kind": "navigation_item",
+      "icon_asset": {
+        "asset": "assets/images/icons/svg/find.svg",
+        "path": "analysis/unpacked/apk/id.go.bpn.sentuh/assets/flutter_assets/assets/images/icons/svg/find.svg",
+        "sha256": "f49f2538cc72776ddbcfc5473090acc3d51d7c0d39bda34a0fecc88b44898923"
+      },
+      "callback_addresses": [
+        "0x8c3418"
+      ],
+      "original_route": {
+        "named_route": null,
+        "widget_or_state": "route closure 0x8902a8",
+        "external_url": null
+      },
+      "proposed_browser_route": "/beranda/layanan/cari-berkas",
+      "access": {
+        "client_gate": "unknown",
+        "server_required_role": "not established"
+      },
+      "operation_links": [
+        {
+          "operation_id": "post-berkas-cariberkas-d88218",
+          "endpoint": "/berkas/CariBerkas",
+          "method": "POST",
+          "readiness_at_generation": "ready_unverified",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        }
+      ],
+      "evidence_level": "widget_construction",
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-008c2e68.asm.txt",
+          "addresses": [
+            "0x8c2fb8",
+            "0x8c3194",
+            "0x8c31c4"
+          ]
+        },
+        {
+          "file": "analysis/recovered/request-callsites/range-00d9af5c.asm.txt",
+          "addresses": [
+            "0xd9afdc",
+            "0xd9b0f8",
+            "0xd9b180",
+            "0xd9b290"
+          ]
+        }
+      ],
+      "runtime_observed": false,
+      "native_or_parity_gaps": [],
+      "notes": [
+        "Menu model stores icon +0xb, label +0xf, callback +0x1b. Seven entries are appended in this order."
+      ]
+    },
+    {
+      "id": "beranda.layanan.antrian",
+      "label": "Antrian Daring",
+      "parent": "beranda.layanan",
+      "order": 2,
+      "kind": "navigation_item",
+      "icon_asset": {
+        "asset": "assets/images/icons/svg/antre.svg",
+        "path": "analysis/unpacked/apk/id.go.bpn.sentuh/assets/flutter_assets/assets/images/icons/svg/antre.svg",
+        "sha256": "5bfbfdabc7120aceea4c2be6fe008ef3fdda77a8c503bd69f4e7250723a530e5"
+      },
+      "callback_addresses": [
+        "0x8c33ac"
+      ],
+      "original_route": {
+        "named_route": null,
+        "widget_or_state": "route closure 0x76eab4",
+        "external_url": null
+      },
+      "proposed_browser_route": "/beranda/layanan/antrian",
+      "access": {
+        "client_gate": "unknown",
+        "server_required_role": "not established"
+      },
+      "operation_links": [
+        {
+          "operation_id": "post-api-booking-d8b640",
+          "endpoint": "api/booking/",
+          "method": "POST",
+          "readiness_at_generation": "inspect_only",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "post-api-booking-limit-d8bf80",
+          "endpoint": "api/booking/limit/",
+          "method": "POST",
+          "readiness_at_generation": "inspect_only",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "get-api-antrian-path-argument-1-d1e130",
+          "endpoint": "api/antrian/{path_argument_1}",
+          "method": "GET",
+          "readiness_at_generation": "inspect_only",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "get-api-antrian-saya-d1eb1c",
+          "endpoint": "api/antrian/saya",
+          "method": "GET",
+          "readiness_at_generation": "inspect_only",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "get-api-antrian-d89cb4",
+          "endpoint": "api/antrian",
+          "method": "GET",
+          "readiness_at_generation": "inspect_only",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        }
+      ],
+      "evidence_level": "widget_construction",
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-008c2e68.asm.txt",
+          "addresses": [
+            "0x8c3008",
+            "0x8c3194",
+            "0x8c31c4"
+          ]
+        },
+        {
+          "file": "analysis/recovered/request-callsites/range-00d9af5c.asm.txt",
+          "addresses": [
+            "0xd9afdc",
+            "0xd9b0f8",
+            "0xd9b180",
+            "0xd9b290"
+          ]
+        }
+      ],
+      "runtime_observed": false,
+      "native_or_parity_gaps": [
+        "separate antre service/session audience not confirmed"
+      ],
+      "notes": [
+        "Menu model stores icon +0xb, label +0xf, callback +0x1b. Seven entries are appended in this order."
+      ]
+    },
+    {
+      "id": "beranda.layanan.swaplotting",
+      "label": "Swaplotting",
+      "parent": "beranda.layanan",
+      "order": 3,
+      "kind": "navigation_item",
+      "icon_asset": {
+        "asset": "assets/images/icons/svg/target.svg",
+        "path": "analysis/unpacked/apk/id.go.bpn.sentuh/assets/flutter_assets/assets/images/icons/svg/target.svg",
+        "sha256": "07c87baf7e17e152c40d1f17ae5823720e14e1ba446fdb0156c5658d6520cf69"
+      },
+      "callback_addresses": [
+        "0x8c3340"
+      ],
+      "original_route": {
+        "named_route": null,
+        "widget_or_state": "mCb (constant pp+0x1d840)",
+        "external_url": null
+      },
+      "proposed_browser_route": "/beranda/layanan/swaplotting",
+      "access": {
+        "client_gate": "unknown",
+        "server_required_role": "not established"
+      },
+      "operation_links": [
+        {
+          "operation_id": "post-apis-swaplottingterdaftar-d9f850",
+          "endpoint": "/apis/SwaplottingTerdaftar",
+          "method": "POST",
+          "readiness_at_generation": "inspect_only",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "post-apis-swaplottingbelumterdaftar-da0be8",
+          "endpoint": "/apis/SwaplottingBelumTerdaftar",
+          "method": "POST",
+          "readiness_at_generation": "inspect_only",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        }
+      ],
+      "evidence_level": "widget_construction",
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-008c2e68.asm.txt",
+          "addresses": [
+            "0x8c3058",
+            "0x8c3194",
+            "0x8c31c4"
+          ]
+        },
+        {
+          "file": "analysis/recovered/request-callsites/range-00d9af5c.asm.txt",
+          "addresses": [
+            "0xd9afdc",
+            "0xd9b0f8",
+            "0xd9b180",
+            "0xd9b290"
+          ]
+        }
+      ],
+      "runtime_observed": false,
+      "native_or_parity_gaps": [
+        "GPS/map/photo capture; official verification and role gates remain mandatory"
+      ],
+      "notes": [
+        "Menu model stores icon +0xb, label +0xf, callback +0x1b. Seven entries are appended in this order."
+      ]
+    },
+    {
+      "id": "beranda.layanan.info-layanan",
+      "label": "Info Layanan",
+      "parent": "beranda.layanan",
+      "order": 4,
+      "kind": "navigation_item",
+      "icon_asset": {
+        "asset": "assets/images/icons/svg/idea.svg",
+        "path": "analysis/unpacked/apk/id.go.bpn.sentuh/assets/flutter_assets/assets/images/icons/svg/idea.svg",
+        "sha256": "68e2ff1089bfc827bcc8040e07d3fe338b938dc54967370623ff1176e7ce259e"
+      },
+      "callback_addresses": [
+        "0x8c32d4"
+      ],
+      "original_route": {
+        "named_route": null,
+        "widget_or_state": "tao.YCb / tao._ZCb",
+        "external_url": null
+      },
+      "proposed_browser_route": "/beranda/layanan/info-layanan",
+      "access": {
+        "client_gate": "unknown",
+        "server_required_role": "not established"
+      },
+      "operation_links": [
+        {
+          "operation_id": "post-infolayanan-simulasitipe1-da2f48",
+          "endpoint": "InfoLayanan/SimulasiTipe1",
+          "method": "POST",
+          "readiness_at_generation": "inspect_only",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "post-infolayanan-simulasitipe4-da3f14",
+          "endpoint": "InfoLayanan/SimulasiTipe4",
+          "method": "POST",
+          "readiness_at_generation": "inspect_only",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "post-infolayanan-simulasitipe2-da3490",
+          "endpoint": "InfoLayanan/SimulasiTipe2",
+          "method": "POST",
+          "readiness_at_generation": "inspect_only",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "post-infolayanan-simulasitipe5-da4268",
+          "endpoint": "InfoLayanan/SimulasiTipe5",
+          "method": "POST",
+          "readiness_at_generation": "inspect_only",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "post-infolayanan-simulasitipe3-da3a30",
+          "endpoint": "InfoLayanan/SimulasiTipe3",
+          "method": "POST",
+          "readiness_at_generation": "inspect_only",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "post-infolayanan-simulasitipe6-da474c",
+          "endpoint": "InfoLayanan/SimulasiTipe6",
+          "method": "POST",
+          "readiness_at_generation": "inspect_only",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "get-infolayanan-getinfolayanandetail-d2f3c0",
+          "endpoint": "InfoLayanan/GetInfoLayananDetail?id={value}",
+          "method": "GET",
+          "readiness_at_generation": "ready_unverified",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "get-infolayanan-getinfolayanan-d2f77c",
+          "endpoint": "InfoLayanan/GetInfoLayanan",
+          "method": "GET",
+          "readiness_at_generation": "ready_unverified",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "get-infolayanan-getprovinsi-d2fc78",
+          "endpoint": "InfoLayanan/GetProvinsi",
+          "method": "GET",
+          "readiness_at_generation": "ready_unverified",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        }
+      ],
+      "evidence_level": "widget_construction",
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-008c2e68.asm.txt",
+          "addresses": [
+            "0x8c30a8",
+            "0x8c3194",
+            "0x8c31c4"
+          ]
+        },
+        {
+          "file": "analysis/recovered/request-callsites/range-00d9af5c.asm.txt",
+          "addresses": [
+            "0xd9afdc",
+            "0xd9b0f8",
+            "0xd9b180",
+            "0xd9b290"
+          ]
+        }
+      ],
+      "runtime_observed": false,
+      "native_or_parity_gaps": [],
+      "notes": [
+        "Menu model stores icon +0xb, label +0xf, callback +0x1b. Seven entries are appended in this order."
+      ]
+    },
+    {
+      "id": "beranda.layanan.mitra-kerja",
+      "label": "Mitra Kerja",
+      "parent": "beranda.layanan",
+      "order": 5,
+      "kind": "navigation_item",
+      "icon_asset": {
+        "asset": "assets/images/icons/svg/connection.svg",
+        "path": "analysis/unpacked/apk/id.go.bpn.sentuh/assets/flutter_assets/assets/images/icons/svg/connection.svg",
+        "sha256": "6968fc6f36391de42b61e1ca476b1ed4559d72d35b1637ce265928a35c3e1f64"
+      },
+      "callback_addresses": [
+        "0x8c3258"
+      ],
+      "original_route": {
+        "named_route": null,
+        "widget_or_state": "route closure 0x890004",
+        "external_url": null
+      },
+      "proposed_browser_route": "/beranda/layanan/mitra-kerja",
+      "access": {
+        "client_gate": "unknown",
+        "server_required_role": "not established"
+      },
+      "operation_links": [],
+      "evidence_level": "widget_construction",
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-008c2e68.asm.txt",
+          "addresses": [
+            "0x8c30f8",
+            "0x8c3194",
+            "0x8c31c4"
+          ]
+        },
+        {
+          "file": "analysis/recovered/request-callsites/range-00d9af5c.asm.txt",
+          "addresses": [
+            "0xd9afdc",
+            "0xd9b0f8",
+            "0xd9b180",
+            "0xd9b290"
+          ]
+        }
+      ],
+      "runtime_observed": false,
+      "native_or_parity_gaps": [
+        "role-specific partner workflow not fully reconstructed"
+      ],
+      "notes": [
+        "Menu model stores icon +0xb, label +0xf, callback +0x1b. Seven entries are appended in this order."
+      ]
+    },
+    {
+      "id": "beranda.layanan.buku-tamu",
+      "label": "Buku Tamu",
+      "parent": "beranda.layanan",
+      "order": 6,
+      "kind": "navigation_item",
+      "icon_asset": {
+        "asset": "assets/images/icons/svg/agenda.svg",
+        "path": "analysis/unpacked/apk/id.go.bpn.sentuh/assets/flutter_assets/assets/images/icons/svg/agenda.svg",
+        "sha256": "7db4fa17dc9126ea84da2e2e1ffde409df2ced1ea8434fc0273bd6b5a5b40adf"
+      },
+      "callback_addresses": [
+        "0x8c31ec"
+      ],
+      "original_route": {
+        "named_route": null,
+        "widget_or_state": "oBb (constant pp+0x1d7c8)",
+        "external_url": null
+      },
+      "proposed_browser_route": "/beranda/layanan/buku-tamu",
+      "access": {
+        "client_gate": "unknown",
+        "server_required_role": "not established"
+      },
+      "operation_links": [
+        {
+          "operation_id": "post-bukutamu-d99dd8",
+          "endpoint": "${TRb.AYi}bukutamu",
+          "method": "POST",
+          "readiness_at_generation": "inspect_only",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "get-bukutamu-d28bf4",
+          "endpoint": "${TRb.AYi}bukutamu",
+          "method": "GET",
+          "readiness_at_generation": "inspect_only",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        }
+      ],
+      "evidence_level": "widget_construction",
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-008c2e68.asm.txt",
+          "addresses": [
+            "0x8c3148",
+            "0x8c3194",
+            "0x8c31c4"
+          ]
+        },
+        {
+          "file": "analysis/recovered/request-callsites/range-00d9af5c.asm.txt",
+          "addresses": [
+            "0xd9afdc",
+            "0xd9b0f8",
+            "0xd9b180",
+            "0xd9b290"
+          ]
+        }
+      ],
+      "runtime_observed": false,
+      "native_or_parity_gaps": [],
+      "notes": [
+        "Menu model stores icon +0xb, label +0xf, callback +0x1b. Seven entries are appended in this order."
+      ]
+    },
+    {
+      "id": "beranda.informasi.kantor",
+      "label": "Kantor Pertanahan",
+      "parent": "beranda.informasi",
+      "order": 0,
+      "kind": "navigation_item",
+      "icon_asset": {
+        "asset": "assets/images/icons/svg/company.svg",
+        "path": "analysis/unpacked/apk/id.go.bpn.sentuh/assets/flutter_assets/assets/images/icons/svg/company.svg",
+        "sha256": "cb003e69c0fa009a1eed2042f438cfbc7a557c20880cc1cae5d0386b6082580b"
+      },
+      "callback_addresses": [
+        "0x8c2dfc"
+      ],
+      "original_route": {
+        "named_route": null,
+        "widget_or_state": null,
+        "external_url": null
+      },
+      "proposed_browser_route": "/beranda/informasi/kantor",
+      "access": {
+        "client_gate": "unknown",
+        "server_required_role": "not established"
+      },
+      "operation_links": [
+        {
+          "operation_id": "post-kantornearby-getkantornearby-d21a34",
+          "endpoint": "kantornearby/getkantornearby",
+          "method": "POST",
+          "readiness_at_generation": "inspect_only",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "post-account-addkantorfavorit-db757c",
+          "endpoint": "account/AddKantorFavorit",
+          "method": "POST",
+          "readiness_at_generation": "inspect_only",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "post-kantornearby-getcalendar-d2127c",
+          "endpoint": "KantorNearby/GetCalendar",
+          "method": "POST",
+          "readiness_at_generation": "ready_unverified",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "get-announcement-yuridis-bykantor-d0fb64",
+          "endpoint": "announcement/yuridis_byKantor?kantorId={value}",
+          "method": "GET",
+          "readiness_at_generation": "ready_unverified",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "get-legacy-kantah-d10364",
+          "endpoint": "legacy/Kantah?nama={value}&tipeKantor={value}",
+          "method": "GET",
+          "readiness_at_generation": "ready_unverified",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "get-announcement-sertipikat-hilang-bykantor-d10a9c",
+          "endpoint": "announcement/sertipikat_hilang_byKantor?kantorId={value}",
+          "method": "GET",
+          "readiness_at_generation": "ready_unverified",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "get-items-kantor-d1fa00",
+          "endpoint": "items/kantor?limit=1000&sort=nama",
+          "method": "GET",
+          "readiness_at_generation": "inspect_only",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "get-mitra-getkantorppat-d3af08",
+          "endpoint": "Mitra/GetKantorPPAT",
+          "method": "GET",
+          "readiness_at_generation": "ready_unverified",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "get-mitra-getppatlist-d3b428",
+          "endpoint": "Mitra/GetPPATList?kantorId={value}",
+          "method": "GET",
+          "readiness_at_generation": "ready_unverified",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "get-legacy-getpersilid-d74e4c",
+          "endpoint": "legacy/GetPersilId?jenishak={value}&nomorhak={value}&kantorid={value}&wilayahid={value}",
+          "method": "GET",
+          "readiness_at_generation": "inspect_only",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        },
+        {
+          "operation_id": "get-legacy-wilayah-d752bc",
+          "endpoint": "legacy/Wilayah?kantorid={value}&nama=",
+          "method": "GET",
+          "readiness_at_generation": "inspect_only",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        }
+      ],
+      "evidence_level": "widget_construction",
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-008c2648.asm.txt",
+          "addresses": [
+            "0x8c2724"
+          ]
+        }
+      ],
+      "runtime_observed": false,
+      "native_or_parity_gaps": [],
+      "notes": []
+    },
+    {
+      "id": "beranda.informasi.kalender",
+      "label": "Kalender Kantor Pertanahan",
+      "parent": "beranda.informasi",
+      "order": 1,
+      "kind": "navigation_item",
+      "icon_asset": {
+        "asset": "assets/images/icons/svg/calendar.svg",
+        "path": "analysis/unpacked/apk/id.go.bpn.sentuh/assets/flutter_assets/assets/images/icons/svg/calendar.svg",
+        "sha256": "a0ba22b4ea99175753ad24c3e89a1e78ebf6bf0d807591177ee8c727ac0db88c"
+      },
+      "callback_addresses": [
+        "0x8c2cd4"
+      ],
+      "original_route": {
+        "named_route": null,
+        "widget_or_state": null,
+        "external_url": null
+      },
+      "proposed_browser_route": "/beranda/informasi/kalender",
+      "access": {
+        "client_gate": "unknown",
+        "server_required_role": "not established"
+      },
+      "operation_links": [
+        {
+          "operation_id": "post-kantornearby-getcalendar-d2127c",
+          "endpoint": "KantorNearby/GetCalendar",
+          "method": "POST",
+          "readiness_at_generation": "ready_unverified",
+          "relationship": "feature association; not a proved widget-to-request call chain"
+        }
+      ],
+      "evidence_level": "widget_construction",
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-008c2648.asm.txt",
+          "addresses": [
+            "0x8c2774"
+          ]
+        }
+      ],
+      "runtime_observed": false,
+      "native_or_parity_gaps": [],
+      "notes": []
+    },
+    {
+      "id": "beranda.informasi.bantuan",
+      "label": "Bantuan",
+      "parent": "beranda.informasi",
+      "order": 2,
+      "kind": "external_link",
+      "icon_asset": {
+        "asset": "assets/images/icons/svg/customerservice.svg",
+        "path": "analysis/unpacked/apk/id.go.bpn.sentuh/assets/flutter_assets/assets/images/icons/svg/customerservice.svg",
+        "sha256": "f9b7081bb89680a50e3f4b3683a455d46a791c52a280faa0f45599e637b3ce1c"
+      },
+      "callback_addresses": [
+        "0x8c2bfc"
+      ],
+      "original_route": {
+        "named_route": null,
+        "widget_or_state": "DRb webview configuration",
+        "external_url": "https://bantuan.atrbpn.go.id/sentuhtanahku/"
+      },
+      "proposed_browser_route": "/beranda/informasi/bantuan",
+      "access": {
+        "client_gate": "unknown",
+        "server_required_role": "not established"
+      },
+      "operation_links": [],
+      "evidence_level": "widget_construction",
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-008c2648.asm.txt",
+          "addresses": [
+            "0x8c27c4"
+          ]
+        }
+      ],
+      "runtime_observed": false,
+      "native_or_parity_gaps": [],
+      "notes": [
+        "External target is a bundled constant; no network availability check performed."
+      ]
+    },
+    {
+      "id": "beranda.informasi.website",
+      "label": "Website",
+      "parent": "beranda.informasi",
+      "order": 3,
+      "kind": "external_link",
+      "icon_asset": {
+        "asset": "assets/images/icons/svg/internet.svg",
+        "path": "analysis/unpacked/apk/id.go.bpn.sentuh/assets/flutter_assets/assets/images/icons/svg/internet.svg",
+        "sha256": "f1f636bcc43d923377dbf886c00e21b3f588646a211d465fbf12515133f2d13e"
+      },
+      "callback_addresses": [
+        "0x8c2b18"
+      ],
+      "original_route": {
+        "named_route": null,
+        "widget_or_state": "DRb webview configuration",
+        "external_url": "https://www.atrbpn.go.id/"
+      },
+      "proposed_browser_route": "/beranda/informasi/website",
+      "access": {
+        "client_gate": "unknown",
+        "server_required_role": "not established"
+      },
+      "operation_links": [],
+      "evidence_level": "widget_construction",
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-008c2648.asm.txt",
+          "addresses": [
+            "0x8c2814"
+          ]
+        }
+      ],
+      "runtime_observed": false,
+      "native_or_parity_gaps": [],
+      "notes": [
+        "External target is a bundled constant; no network availability check performed."
+      ]
+    },
+    {
+      "id": "beranda.informasi.jdih",
+      "label": "JDIH",
+      "parent": "beranda.informasi",
+      "order": 4,
+      "kind": "external_link",
+      "icon_asset": {
+        "asset": "assets/images/icons/svg/internet.svg",
+        "path": "analysis/unpacked/apk/id.go.bpn.sentuh/assets/flutter_assets/assets/images/icons/svg/internet.svg",
+        "sha256": "f1f636bcc43d923377dbf886c00e21b3f588646a211d465fbf12515133f2d13e"
+      },
+      "callback_addresses": [
+        "0x8c2a34"
+      ],
+      "original_route": {
+        "named_route": null,
+        "widget_or_state": "DRb webview configuration",
+        "external_url": "https://jdih.atrbpn.go.id/"
+      },
+      "proposed_browser_route": "/beranda/informasi/jdih",
+      "access": {
+        "client_gate": "unknown",
+        "server_required_role": "not established"
+      },
+      "operation_links": [],
+      "evidence_level": "widget_construction",
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-008c2648.asm.txt",
+          "addresses": [
+            "0x8c2864"
+          ]
+        }
+      ],
+      "runtime_observed": false,
+      "native_or_parity_gaps": [],
+      "notes": [
+        "External target is a bundled constant; no network availability check performed."
+      ]
+    },
+    {
+      "id": "beranda.informasi.ppid",
+      "label": "PPID",
+      "parent": "beranda.informasi",
+      "order": 5,
+      "kind": "external_link",
+      "icon_asset": {
+        "asset": "assets/images/icons/svg/internet.svg",
+        "path": "analysis/unpacked/apk/id.go.bpn.sentuh/assets/flutter_assets/assets/images/icons/svg/internet.svg",
+        "sha256": "f1f636bcc43d923377dbf886c00e21b3f588646a211d465fbf12515133f2d13e"
+      },
+      "callback_addresses": [
+        "0x8c2950"
+      ],
+      "original_route": {
+        "named_route": null,
+        "widget_or_state": "DRb webview configuration",
+        "external_url": "https://ppid.atrbpn.go.id/"
+      },
+      "proposed_browser_route": "/beranda/informasi/ppid",
+      "access": {
+        "client_gate": "unknown",
+        "server_required_role": "not established"
+      },
+      "operation_links": [],
+      "evidence_level": "widget_construction",
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-008c2648.asm.txt",
+          "addresses": [
+            "0x8c28b4"
+          ]
+        }
+      ],
+      "runtime_observed": false,
+      "native_or_parity_gaps": [],
+      "notes": [
+        "External target is a bundled constant; no network availability check performed."
+      ]
+    },
+    {
+      "id": "profil.keamanan",
+      "label": "Akun dan Keamanan",
+      "parent": "profil",
+      "order": 0,
+      "kind": "navigation_item",
+      "icon_asset": {
+        "asset": "assets/images/ic_pengaturan_akun.png",
+        "path": "analysis/unpacked/apk/id.go.bpn.sentuh/assets/flutter_assets/assets/images/ic_pengaturan_akun.png",
+        "sha256": "c2f556b405a474f402d459da724ff6b347728190c197a20892541577fa706c66"
+      },
+      "callback_addresses": [
+        "0x93b7f8"
+      ],
+      "original_route": {
+        "named_route": null,
+        "widget_or_state": "bdo.VHb",
+        "external_url": null
+      },
+      "proposed_browser_route": "/profil/keamanan",
+      "access": {
+        "client_gate": "unknown",
+        "server_required_role": "not established"
+      },
+      "operation_links": [],
+      "evidence_level": "widget_construction",
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-0093ae80.asm.txt",
+          "addresses": [
+            "0x93aec8",
+            "0x93aee4"
+          ]
+        }
+      ],
+      "runtime_observed": false,
+      "native_or_parity_gaps": [
+        "Full target form, persistence, and platform behavior not reconstructed."
+      ],
+      "notes": []
+    },
+    {
+      "id": "profil.pengaturan",
+      "label": "Pengaturan",
+      "parent": "profil",
+      "order": 1,
+      "kind": "navigation_item",
+      "icon_asset": {
+        "asset": "assets/images/ic_setting.png",
+        "path": "analysis/unpacked/apk/id.go.bpn.sentuh/assets/flutter_assets/assets/images/ic_setting.png",
+        "sha256": "16ac9d0e2a1f1c9990c72918931b1b517e803c7dc14d2a4a9dc43d50edde884f"
+      },
+      "callback_addresses": [
+        "0x93bc10"
+      ],
+      "original_route": {
+        "named_route": null,
+        "widget_or_state": "bdo.VHb",
+        "external_url": null
+      },
+      "proposed_browser_route": "/profil/pengaturan",
+      "access": {
+        "client_gate": "unknown",
+        "server_required_role": "not established"
+      },
+      "operation_links": [],
+      "evidence_level": "widget_construction",
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-0093b9e0.asm.txt",
+          "addresses": [
+            "0x93babc",
+            "0x93bad8"
+          ]
+        }
+      ],
+      "runtime_observed": false,
+      "native_or_parity_gaps": [
+        "Full target form, persistence, and platform behavior not reconstructed."
+      ],
+      "notes": []
+    },
+    {
+      "id": "profil.keuntungan",
+      "label": "Keuntungan Pakai Sentuh Tanahku",
+      "parent": "profil",
+      "order": 2,
+      "kind": "navigation_item",
+      "icon_asset": {
+        "asset": "assets/images/ic_tentang.png",
+        "path": "analysis/unpacked/apk/id.go.bpn.sentuh/assets/flutter_assets/assets/images/ic_tentang.png",
+        "sha256": "41e840159b9f33453bafebc47a9fba0d16ce6d78ac64fef467e4d745eac46b45"
+      },
+      "callback_addresses": [
+        "0x93c89c"
+      ],
+      "original_route": {
+        "named_route": null,
+        "widget_or_state": "bdo.VHb",
+        "external_url": null
+      },
+      "proposed_browser_route": "/profil/keuntungan",
+      "access": {
+        "client_gate": "unknown",
+        "server_required_role": "not established"
+      },
+      "operation_links": [],
+      "evidence_level": "widget_construction",
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-0093bc78.asm.txt",
+          "addresses": [
+            "0x93bec4"
+          ]
+        }
+      ],
+      "runtime_observed": false,
+      "native_or_parity_gaps": [
+        "Full target form, persistence, and platform behavior not reconstructed."
+      ],
+      "notes": [],
+      "section_label": "Tentang"
+    },
+    {
+      "id": "profil.kontak",
+      "label": "Hubungi Kami",
+      "parent": "profil",
+      "order": 3,
+      "kind": "navigation_item",
+      "icon_asset": null,
+      "callback_addresses": [
+        "0x93c768"
+      ],
+      "original_route": {
+        "named_route": null,
+        "widget_or_state": "bdo.VHb",
+        "external_url": null
+      },
+      "proposed_browser_route": "/profil/kontak",
+      "access": {
+        "client_gate": "unknown",
+        "server_required_role": "not established"
+      },
+      "operation_links": [],
+      "evidence_level": "widget_construction",
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-0093bc78.asm.txt",
+          "addresses": [
+            "0x93bf6c"
+          ]
+        }
+      ],
+      "runtime_observed": false,
+      "native_or_parity_gaps": [
+        "Full target form, persistence, and platform behavior not reconstructed."
+      ],
+      "notes": [],
+      "icon_material": {
+        "pool": "0x31d80",
+        "font_family": "MaterialIcons",
+        "codepoint": "0xf7e4",
+        "match_text_direction": true
+      },
+      "section_label": "Tentang"
+    },
+    {
+      "id": "profil.faq",
+      "label": "Pusat Bantuan (FAQ)",
+      "parent": "profil",
+      "order": 4,
+      "kind": "navigation_item",
+      "icon_asset": null,
+      "callback_addresses": [
+        "0x93c678"
+      ],
+      "original_route": {
+        "named_route": null,
+        "widget_or_state": "bdo.VHb",
+        "external_url": null
+      },
+      "proposed_browser_route": "/profil/faq",
+      "access": {
+        "client_gate": "unknown",
+        "server_required_role": "not established"
+      },
+      "operation_links": [],
+      "evidence_level": "widget_construction",
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-0093bc78.asm.txt",
+          "addresses": [
+            "0x93c014"
+          ]
+        }
+      ],
+      "runtime_observed": false,
+      "native_or_parity_gaps": [
+        "Full target form, persistence, and platform behavior not reconstructed."
+      ],
+      "notes": [],
+      "icon_material": {
+        "pool": "0x31d80",
+        "font_family": "MaterialIcons",
+        "codepoint": "0xf7e4",
+        "match_text_direction": true
+      },
+      "section_label": "Tentang"
+    },
+    {
+      "id": "profil.privasi",
+      "label": "Kebijakan Privasi",
+      "parent": "profil",
+      "order": 5,
+      "kind": "navigation_item",
+      "icon_asset": {
+        "asset": "assets/images/ic_tentang.png",
+        "path": "analysis/unpacked/apk/id.go.bpn.sentuh/assets/flutter_assets/assets/images/ic_tentang.png",
+        "sha256": "41e840159b9f33453bafebc47a9fba0d16ce6d78ac64fef467e4d745eac46b45"
+      },
+      "callback_addresses": [
+        "0x93c588"
+      ],
+      "original_route": {
+        "named_route": null,
+        "widget_or_state": "bdo.VHb",
+        "external_url": null
+      },
+      "proposed_browser_route": "/profil/privasi",
+      "access": {
+        "client_gate": "unknown",
+        "server_required_role": "not established"
+      },
+      "operation_links": [],
+      "evidence_level": "widget_construction",
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-0093bc78.asm.txt",
+          "addresses": [
+            "0x93c0c8"
+          ]
+        }
+      ],
+      "runtime_observed": false,
+      "native_or_parity_gaps": [
+        "Full target form, persistence, and platform behavior not reconstructed."
+      ],
+      "notes": [],
+      "section_label": "Tentang"
+    },
+    {
+      "id": "profil.nilai",
+      "label": "Beri Kami Nilai",
+      "parent": "profil",
+      "order": 6,
+      "kind": "navigation_item",
+      "icon_asset": null,
+      "callback_addresses": [
+        "0x93c318"
+      ],
+      "original_route": {
+        "named_route": null,
+        "widget_or_state": "bdo.VHb",
+        "external_url": null
+      },
+      "proposed_browser_route": "/profil/nilai",
+      "access": {
+        "client_gate": "unknown",
+        "server_required_role": "not established"
+      },
+      "operation_links": [],
+      "evidence_level": "widget_construction",
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-0093bc78.asm.txt",
+          "addresses": [
+            "0x93c1c0"
+          ]
+        }
+      ],
+      "runtime_observed": false,
+      "native_or_parity_gaps": [
+        "Full target form, persistence, and platform behavior not reconstructed."
+      ],
+      "notes": [],
+      "icon_material": {
+        "pool": "0x31db8",
+        "font_family": "MaterialIcons",
+        "codepoint": "0xf3dc",
+        "match_text_direction": false
+      },
+      "section_label": "Tentang"
+    },
+    {
+      "id": "profil.keluar",
+      "label": "Keluar",
+      "parent": "profil",
+      "order": 7,
+      "kind": "navigation_item",
+      "icon_asset": null,
+      "callback_addresses": [
+        "0x93b094"
+      ],
+      "original_route": {
+        "named_route": null,
+        "widget_or_state": "bdo.VHb",
+        "external_url": null
+      },
+      "proposed_browser_route": "/profil/keluar",
+      "access": {
+        "client_gate": "unknown",
+        "server_required_role": "not established"
+      },
+      "operation_links": [],
+      "evidence_level": "pool_label_callback_pair_only",
+      "evidence": [
+        {
+          "file": "analysis/recovered/blutter-unique/pp.txt",
+          "pool_offsets": [
+            "0x31cd0"
+          ]
+        }
+      ],
+      "runtime_observed": false,
+      "native_or_parity_gaps": [
+        "Full target form, persistence, and platform behavior not reconstructed."
+      ],
+      "notes": []
+    }
+  ],
+  "response_models": [
+    {
+      "id": "berkas-list",
+      "endpoint": "Berkas/GetBerkas",
+      "parser": "0x708160",
+      "fields": [
+        {
+          "json_keys": [
+            "berkasId"
+          ],
+          "client_type": "String?",
+          "model_compressed_offset": "0x7",
+          "read_address": "0x708198"
+        },
+        {
+          "json_keys": [
+            "nama"
+          ],
+          "client_type": "String?",
+          "model_compressed_offset": "0xb",
+          "read_address": "0x70821c"
+        },
+        {
+          "json_keys": [
+            "namaProfile"
+          ],
+          "client_type": "String?",
+          "model_compressed_offset": "0xf",
+          "read_address": "0x7082a0"
+        },
+        {
+          "json_keys": [
+            "namaProsedur"
+          ],
+          "client_type": "String?",
+          "model_compressed_offset": "0x13",
+          "read_address": "0x708324"
+        },
+        {
+          "json_keys": [
+            "nomor"
+          ],
+          "client_type": "String?",
+          "model_compressed_offset": "0x17",
+          "read_address": "0x7083a8"
+        },
+        {
+          "json_keys": [
+            "status"
+          ],
+          "client_type": "String?",
+          "model_compressed_offset": "0x1b",
+          "read_address": "0x70842c"
+        },
+        {
+          "json_keys": [
+            "statusPengurusan"
+          ],
+          "client_type": "String?",
+          "model_compressed_offset": "0x1f",
+          "read_address": "0x7084b0"
+        },
+        {
+          "json_keys": [
+            "tipeKantorId"
+          ],
+          "client_type": "int?",
+          "model_compressed_offset": "0x23",
+          "read_address": "0x708534"
+        },
+        {
+          "json_keys": [
+            "statusNum"
+          ],
+          "client_type": "int?",
+          "model_compressed_offset": "0x27",
+          "read_address": "0x7085b8"
+        },
+        {
+          "json_keys": [
+            "allowGeotag"
+          ],
+          "client_type": "int?",
+          "model_compressed_offset": "0x2b",
+          "read_address": "0x70863c"
+        },
+        {
+          "json_keys": [
+            "isShared"
+          ],
+          "client_type": "int?",
+          "model_compressed_offset": "0x2f",
+          "read_address": "0x7086c0"
+        },
+        {
+          "json_keys": [
+            "nomorHak"
+          ],
+          "client_type": "String?",
+          "model_compressed_offset": "0x33",
+          "read_address": "0x708744"
+        },
+        {
+          "json_keys": [
+            "namaPemilikBerkas"
+          ],
+          "client_type": "String?",
+          "model_compressed_offset": "0x37",
+          "read_address": "0x7087c8"
+        },
+        {
+          "json_keys": [
+            "wilayah"
+          ],
+          "client_type": "String?",
+          "model_compressed_offset": "0x3b",
+          "read_address": "0x70884c"
+        },
+        {
+          "json_keys": [
+            "isPPAT"
+          ],
+          "client_type": "bool?",
+          "model_compressed_offset": "0x3f",
+          "read_address": "0x7088d0"
+        },
+        {
+          "json_keys": [
+            "readyToRating"
+          ],
+          "client_type": "bool?",
+          "model_compressed_offset": "0x43",
+          "read_address": "0x708938"
+        },
+        {
+          "json_keys": [
+            "sharedUntil"
+          ],
+          "client_type": "String?",
+          "model_compressed_offset": "0x47",
+          "read_address": "0x70899c"
+        }
+      ],
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-00708160.asm.txt",
+          "addresses": []
+        }
+      ],
+      "server_guarantee": false,
+      "notes": [
+        "HTTP response data list is mapped by closure 0x708100, which invokes 0x708160. No invented status-code descriptions."
+      ]
+    },
+    {
+      "id": "sertipikat-list",
+      "endpoint": "Legacy/SertifikatTanahNew",
+      "parser": "0x785d5c",
+      "fields": [
+        {
+          "json_keys": [
+            "BerakhirHak",
+            "berakhirHak"
+          ],
+          "client_type": "String?",
+          "model_compressed_offset": "0x7",
+          "read_address": "0x785d94"
+        },
+        {
+          "json_keys": [
+            "JenisHak",
+            "jenisHak"
+          ],
+          "client_type": "String?",
+          "model_compressed_offset": "0xb",
+          "read_address": "0x785e5c"
+        },
+        {
+          "json_keys": [
+            "Nama",
+            "nama"
+          ],
+          "client_type": "String?",
+          "model_compressed_offset": "0xf",
+          "read_address": "0x785f24"
+        },
+        {
+          "json_keys": [
+            "Nomor",
+            "nomor"
+          ],
+          "client_type": "String?",
+          "model_compressed_offset": "0x13",
+          "read_address": "0x785fec"
+        },
+        {
+          "json_keys": [
+            "SertifikatId",
+            "sertifikatId"
+          ],
+          "client_type": "String?",
+          "model_compressed_offset": "0x17",
+          "read_address": "0x7860b4"
+        },
+        {
+          "json_keys": [
+            "ValidSampai",
+            "validSampai"
+          ],
+          "client_type": "String?",
+          "model_compressed_offset": "0x1b",
+          "read_address": "0x78617c"
+        },
+        {
+          "json_keys": [
+            "ValidSejak",
+            "validSejak"
+          ],
+          "client_type": "String?",
+          "model_compressed_offset": "0x1f",
+          "read_address": "0x786244"
+        },
+        {
+          "json_keys": [
+            "StatusEl",
+            "statusEl"
+          ],
+          "client_type": "int?",
+          "model_compressed_offset": "0x23",
+          "read_address": "0x78630c"
+        },
+        {
+          "json_keys": [
+            "StatusProses"
+          ],
+          "client_type": "int?",
+          "model_compressed_offset": "0x27",
+          "read_address": "0x7863d0"
+        },
+        {
+          "json_keys": [
+            "Dibagikan"
+          ],
+          "client_type": "bool?",
+          "model_compressed_offset": "0x2b",
+          "read_address": "0x786494"
+        },
+        {
+          "json_keys": [
+            "DibagikanSampai"
+          ],
+          "client_type": "String?",
+          "model_compressed_offset": "0x2f",
+          "read_address": "0x786558"
+        },
+        {
+          "json_keys": [
+            "ProsesInfo"
+          ],
+          "client_type": "String?",
+          "model_compressed_offset": "0x33",
+          "read_address": "0x786620"
+        },
+        {
+          "json_keys": [
+            "StatusHT"
+          ],
+          "client_type": "String?",
+          "model_compressed_offset": "0x37",
+          "read_address": "0x7866e8"
+        }
+      ],
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-00785d5c.asm.txt",
+          "addresses": []
+        }
+      ],
+      "server_guarantee": false,
+      "notes": [
+        "Response is mapped through closure0x785cfc. Key alternatives are explicit uppercase-first, lowercase fallback on null. StatusProses/Dibagikan/ProsesInfo/StatusHT have no lowercase alternative in this parser."
+      ]
+    },
+    {
+      "id": "info-layanan-list",
+      "endpoint": "InfoLayanan/GetInfoLayanan",
+      "parser": "0x75f180",
+      "fields": [
+        {
+          "json_keys": [
+            "layananId"
+          ],
+          "client_type": "String?",
+          "model_compressed_offset": "0x7",
+          "read_address": "0x75f1b0"
+        },
+        {
+          "json_keys": [
+            "nama"
+          ],
+          "client_type": "String?",
+          "model_compressed_offset": "0xb",
+          "read_address": "0x75f210"
+        },
+        {
+          "json_keys": [
+            "deskripsi"
+          ],
+          "client_type": "String?",
+          "model_compressed_offset": "0xf",
+          "read_address": "0x75f270"
+        },
+        {
+          "json_keys": [
+            "grup"
+          ],
+          "client_type": "String?",
+          "model_compressed_offset": "0x13",
+          "read_address": "0x75f2d0"
+        },
+        {
+          "json_keys": [
+            "tipeSimulasi"
+          ],
+          "client_type": "int?",
+          "model_compressed_offset": null,
+          "read_address": "0x75f32c"
+        }
+      ],
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-0075f08c.asm.txt",
+          "addresses": [
+            "0x75f130",
+            "0x75f180",
+            "0x75f374",
+            "0x75f38c"
+          ]
+        }
+      ],
+      "server_guarantee": false,
+      "notes": [
+        "tipeSimulasi is read/type-checked but is not retained in the four-field aDb object in this builder."
+      ]
+    },
+    {
+      "id": "info-layanan-detail",
+      "endpoint": "InfoLayanan/GetInfoLayananDetail?id={value}",
+      "parser": "0x75eaa8",
+      "fields": [
+        {
+          "json_keys": [
+            "layananId"
+          ],
+          "client_type": "String?",
+          "model_compressed_offset": "0x7",
+          "read_address": "0x75ead8"
+        },
+        {
+          "json_keys": [
+            "nama"
+          ],
+          "client_type": "String?",
+          "model_compressed_offset": "0xb",
+          "read_address": "0x75eb38"
+        },
+        {
+          "json_keys": [
+            "persayaratan"
+          ],
+          "client_type": "List<String>?",
+          "model_compressed_offset": "0xf",
+          "read_address": "0x75eb98"
+        },
+        {
+          "json_keys": [
+            "penyelesaian"
+          ],
+          "client_type": "List<String>?",
+          "model_compressed_offset": "0x13",
+          "read_address": "0x75ec84"
+        },
+        {
+          "json_keys": [
+            "keterangan"
+          ],
+          "client_type": "List<String>?",
+          "model_compressed_offset": "0x17",
+          "read_address": "0x75ed70"
+        },
+        {
+          "json_keys": [
+            "tarif"
+          ],
+          "client_type": "String?",
+          "model_compressed_offset": "0x1b",
+          "read_address": "0x75ee6c"
+        },
+        {
+          "json_keys": [
+            "tipeSimulasi"
+          ],
+          "client_type": "int?",
+          "model_compressed_offset": "0x1f",
+          "read_address": "0x75eec8"
+        }
+      ],
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-0075eaa8.asm.txt",
+          "addresses": []
+        }
+      ],
+      "server_guarantee": false,
+      "notes": [
+        "Retain the original misspelling persayaratan. Each list is cast through a String-mapping closure."
+      ]
+    },
+    {
+      "id": "account-summary-navigation",
+      "endpoint": "account/account_summary",
+      "parser": "0x755604",
+      "fields": [
+        {
+          "json_keys": [
+            "roleUser"
+          ],
+          "client_type": "String?",
+          "model_compressed_offset": "0x17",
+          "read_address": "0x755840"
+        },
+        {
+          "json_keys": [
+            "statusVerifikasi"
+          ],
+          "client_type": "int?",
+          "model_compressed_offset": "0x27",
+          "read_address": "0x755a4c"
+        },
+        {
+          "json_keys": [
+            "isIkd"
+          ],
+          "client_type": "bool?",
+          "model_compressed_offset": "0x43",
+          "read_address": "0x755de8"
+        }
+      ],
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-00755604.asm.txt",
+          "addresses": []
+        }
+      ],
+      "server_guarantee": false,
+      "notes": [
+        "Only navigation-relevant subset documented here. This profile model differs from the sign-in user model layout. Envelope parser closure0x755570 calls0x755604."
+      ]
+    }
+  ],
+  "data_links": [
+    {
+      "from": "info-layanan-list",
+      "source_key": "layananId",
+      "to_operation": "get-infolayanan-getinfolayanandetail-d2f3c0",
+      "target_parameter": "id",
+      "evidence_level": "explicit_item_route_to_query_dataflow",
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-008e7038.asm.txt",
+          "addresses": [
+            "0x8e7098",
+            "0x8e70a8",
+            "0x8e745c"
+          ]
+        },
+        {
+          "file": "analysis/recovered/request-callsites/range-008e74ac.asm.txt",
+          "addresses": [
+            "0x8e750c",
+            "0x8e7550"
+          ]
+        },
+        {
+          "file": "analysis/recovered/request-callsites/range-0075ea30.asm.txt",
+          "addresses": [
+            "0x75ea68",
+            "0x75ea70",
+            "0x75ea88"
+          ]
+        },
+        {
+          "file": "analysis/recovered/request-callsites/range-00d2f200.asm.txt",
+          "addresses": [
+            "0xd2f250"
+          ]
+        },
+        {
+          "file": "analysis/recovered/http-callsite-audit/00d2f3c0.asm.txt",
+          "addresses": [
+            "0xd2f398",
+            "0xd2f3c0"
+          ]
+        }
+      ],
+      "null_behavior": "Original substitutes empty string if layananId null; browser should disable detail link for missing ID."
+    },
+    {
+      "from": "sertipikat-list",
+      "source_keys": [
+        "SertifikatId",
+        "sertifikatId"
+      ],
+      "target_widget": "OIb when StatusEl null/0; QIb otherwise",
+      "evidence_level": "explicit_item_to_route_dataflow",
+      "evidence": [
+        {
+          "file": "analysis/recovered/request-callsites/range-00958ff0.asm.txt",
+          "addresses": [
+            "0x95904c",
+            "0x959060"
+          ]
+        },
+        {
+          "file": "analysis/recovered/request-callsites/range-00955cd4.asm.txt",
+          "addresses": [
+            "0x955d1c",
+            "0x955d2c",
+            "0x955d80",
+            "0x955df4",
+            "0x955e0c",
+            "0x955f68"
+          ]
+        }
+      ],
+      "endpoint_continuation": "Partially traced; do not claim all cards use Brankas/DetailSertipikatNew."
+    },
+    {
+      "from": "berkas-list",
+      "source_key": "berkasId",
+      "target_parameter_candidates": [
+        "berkasId",
+        "berkasid"
+      ],
+      "evidence_level": "model_and_request_keys_separately_proved",
+      "endpoint_continuation": "List-click to CariBerkas/berkassop forwarding still unproved; do not auto-submit an inferred key mapping."
+    }
+  ],
+  "visibility_predicate": {
+    "function": "0x8bf78c",
+    "evidence": [
+      {
+        "file": "analysis/recovered/request-callsites/range-008bf7a0.asm.txt",
+        "addresses": [
+          "0x8bf7ac",
+          "0x8bf7d8",
+          "0x8bf804",
+          "0x8bf820",
+          "0x8bf850",
+          "0x8bf8e0"
+        ]
+      }
+    ],
+    "effect": "Koleksi and Aktivitas inserted only when predicate true; matching page array uses same predicate.",
+    "observed_checks": [
+      "obtains an object through state+0x27 then nested+0x13 and helper0x62d618",
+      "object+0x27 is nonnull and differs from tagged -1",
+      "object+0x17 compares with PERORANGAN",
+      "object+0x43 equals true or stringifies to true/1"
+    ],
+    "field_names": {
+      "0x17": "roleUser",
+      "0x27": "statusVerifikasi",
+      "0x43": "isIkd"
+    },
+    "profile_parser_evidence": [
+      {
+        "file": "analysis/recovered/request-callsites/range-00755570.asm.txt",
+        "addresses": [
+          "0x7555c4"
+        ]
+      },
+      {
+        "file": "analysis/recovered/request-callsites/range-00755604.asm.txt",
+        "addresses": [
+          "0x755840",
+          "0x755894",
+          "0x755a4c",
+          "0x755a9c",
+          "0x755de8",
+          "0x755e38"
+        ]
+      },
+      {
+        "file": "analysis/recovered/http-callsite-audit/00d2939c.asm.txt",
+        "addresses": [
+          "0xd2939c",
+          "0xd293ec",
+          "0xd29404"
+        ]
+      }
+    ],
+    "returns_true_when": "profile != null && roleUser == 'PERORANGAN' && statusVerifikasi != null && statusVerifikasi != -1 && !(isIkd == true || String(isIkd) == 'true' || String(isIkd) == '1')",
+    "implementation_note": "String comparison tokens true and 1 above denote literal strings. Local UI visibility does not grant server access. Profile values must come from account_summary; do not infer them from logged-in status.",
+    "server_authorization": "not established by local display condition"
+  },
+  "limits": [
+    "Original route names are obfuscated or constructed as widget closures; proposed browser routes are new local routes, not recovered native named routes.",
+    "170 request shapes are not 170 menus. Many native screens have multiple requests, and dynamic calls may be outside that direct-call denominator.",
+    "Multiple home implementations GYn._cAb, GZn._PBb, bao.yCb exist; successful runtime selection across account roles is not verified.",
+    "Original icons are traced assets, but exact padding/color/responsiveness and all interaction states are not certified.",
+    "No production calls, account credentials, or data changes made during this audit."
+  ]
+}

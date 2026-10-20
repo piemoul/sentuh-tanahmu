@@ -1,0 +1,19 @@
+# Explicit image allowlist: never send APKs, evidence, runtimes or local env to Docker.
+**
+!Dockerfile
+!webapp/
+!webapp/server.mjs
+!webapp/index.html
+!webapp/app.js
+!webapp/domain.js
+!webapp/gnss.js
+!webapp/coordinate-comparison.js
+!webapp/parcel-map.js
+!webapp/styles.css
+!webapp/manifest.json
+!webapp/private/
+!webapp/private/*.mjs
+!webapp/assets/
+!webapp/assets/**
+!webapp/data/
+!webapp/data/**

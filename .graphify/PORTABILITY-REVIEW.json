@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "toolResultPreserved": true,
+  "rawToolReport": "portable-check.json",
+  "rawToolReportSha256": "07d3a6d8eca2003d6f009d4951e08fd021e08d31bb227cb47d7f7d9e23bbe9ab",
+  "issueCount": 981,
+  "scope": "All findings are in citation quote strings, replicated in graph and citation sidecars. Quoted API routes and relative code/test literals are not graph file references.",
+  "classification": "quoted_source_literal_findings",
+  "checks": {
+    "allIssueJsonPathsEndWithQuote": true,
+    "personalMachinePathIssues": 0,
+    "actualGraphSourceFileReferencesAbsoluteOrEscapingRoot": 0
+  },
+  "decision": "Retain the genuine non-passing tool report and the grounded citations. Source references and manifest paths are relative; no private workstation paths are published. This manual review does not claim that the Graphify portable-check command passed."
+}

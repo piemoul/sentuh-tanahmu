@@ -1,0 +1,15 @@
+{
+  "runtime": "typescript",
+  "version": "0.17.1",
+  "node_version": "v24.21.0",
+  "package": "@sentropic/graphify",
+  "script": "dist/skill-runtime.js",
+  "module": "dist/index.js",
+  "cli": "dist/cli.js",
+  "runtime_info_sha256": "393997f91ddc2992d9ea013bb9bca7833faec8dfd0adaa3a18155905cea8dc75",
+  "runtime_script_sha256": "50e2946ef7a66516184d68a0a5d41b05ecc3116f8510e24e65b7af0144550e78",
+  "provenance": "Portable summary derived from actual runtime-info output. Full machine-local output retained outside this repository.",
+  "scope": "tracked",
+  "root": ".",
+  "stateDir": ".graphify"
+}

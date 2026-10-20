@@ -1,0 +1,31 @@
+# Validasi Antrian Daring dan Panggilan
+
+Daftar/detail Antrian dan tab Panggilan sudah diterapkan di [Cloudflare](https://sentuh.davay.space/#/queue) serta [localhost](http://localhost:4173/#/queue). Uji akun pengguna sendiri berhasil: kedua pembacaan mengikuti satu HTTP 308 ke endpoint canonical lalu mendapat **HTTP 200 pada percobaan pertama**. Respons daftar dan Panggilan kosong, dan UI menampilkan status kosong yang sesuai. Bukti ini tidak mencakup data terisi, detail produksi, booking, enrollment atau seluruh fungsi APK.
+
+[Rekap rilis](webapp/queue-verification-summary.json) mengikat sumber app SHA-256 91ca4fc5a1d1e61ec51a80d46839424d38b376e482e06e816ed651637af4279c dan stylesheet a4d9dcbd434c7bf90224d16213076027b29677058aafb2d2e770a9d1062e81b4. Angka pemeriksaan bukan jumlah fitur selesai. [Validasi rilis daftar/detail terdahulu](QUEUE-LIST-WEBAPP-VALIDATION-2026-10-19.md) tetap historis.
+
+## Request dan pengikat sesi
+
+Katalog memuat **171 operasi / 70 adapter aktif**. Daftar memakai GET api/antrian/saya, detail GET api/antrian/<ID utuh>, dan Panggilan GET api/notifikasi. Ketiganya menggunakan klien Directus privat pada origin tetap https://aplikasi.atrbpn.go.id, tanpa body GET. Browser tidak dapat memasok NIK, profil, managed identities, bearer, URL atau header upstream. Identitas berasal dari profil account_summary sesi backend sendiri, dengan validasi model dan cabang level/IKD; editor identitas/OTP belum diimplementasikan. Detail hanya menerima ID penuh dari daftar atau Aktivitas sesi yang sama. [Kontrak identitas](QUEUE-IDENTITY-FOLLOWUP.md), [profil](QUEUE-PROFILE-CONTRACT.md), dan [transport](QUEUE-TRANSPORT-FLOW.md) menjelaskan batasnya.
+
+Token akun main tidak diteruskan sebagai bearer Directus; queue 401 tidak otomatis menghapus login main. Konfigurasi bundle dan TLS hanya dipakai pada audience yang tetap, sertifikat selalu diverifikasi. Logout, expiry, pergantian sesi/profil dan respons lama mempunyai pengikat ownership serta pembatalan. NIK kosong tidak dikirim; untuk Panggilan ini adalah guard web yang lebih ketat daripada satu edge case native joined-empty.
+
+## Redirect dan Panggilan
+
+Build lama berhenti pada HTTP 308. [Perbaikan redirect](QUEUE-REDIRECT-FIX.md) kini membatasi tujuan ke origin yang sama, path asli atau path asli plus satu slash, serta ordered decoded query yang sama. Lima status redirect GET dikenali, maksimal lima hop; loop, perubahan identity/path/audience, credentials URL dan fragment ditolak. Retry kembali ke URL awal, dan bearer tetap satu generasi. Ini kebijakan web yang lebih sempit daripada redirect umum Dart.
+
+[Audit Panggilan](QUEUE-CALLS-FLOW.md) membuktikan api/notifikasi dan enam String wajib. error/message envelope diabaikan sesuai native, id/tipe divalidasi lalu dibuang. [Parser tanggal](QUEUE-CALLS-MODEL-CONTRACT.md) mempertahankan mikrodetik; tanggal tanpa zona diteruskan sebagai komponen lokal agar tidak dianggap UTC container. UI menampilkan Panggilan pengirim, HH:mm lokal, penerima dan pesan, diurutkan terbaru hingga mikrodetik. Kartu tidak menciptakan detail/mark-read. Autoload tab aktif, refresh, stable ties, retensi pesan setelah kegagalan biasa dan penjagaan respons terlambat merupakan adaptasi browser. DST, platform/range edge, seluruh locale dan piksel native belum setara penuh.
+
+Daftar/detail tetap mempertahankan ID utuh, urutan/field native dan kode booking int64 tanpa pembulatan. Token pemohon dibuang. [Audit dasar](QUEUE-FLOW.md) dan [model scalar](QUEUE-MODEL-FOLLOWUP.md) menjelaskan parser serta batas web. Booking, identitas tambahan dan socket belum tersedia. [Audit prasyarat booking](QUEUE-BOOKING-READS.md) baru merupakan bukti statis.
+
+## Pengujian sumber dan browser
+
+- **275 tes Node lulus**, nol gagal, termasuk 33 klien queue, 14 model Panggilan, 16 sesi queue, dan 12 parser Scan yang belum dihubungkan. [Receipt observasi](webapp/queue-calls-backend-tests.json) mencatat command, exit/count dan hash sumber/tes. Output tool terpotong sehingga transcript stdout penuh tidak tersimpan; angka ini tidak memakai log 239 tes historis.
+- [19 suite fungsi aktual](webapp/queue-regressions.json) lulus **906 pemeriksaan**, termasuk 102 queue/Panggilan dengan 52 panggilan API sintetis. Input dan laporan historis tidak berubah saat run; nol jaringan produksi. [Agregat lama 876 pemeriksaan](webapp/queue-list-regressions-2026-10-19.json) disimpan terpisah.
+- [Browser fixture](webapp/queue-calls-browser-checks.json) lulus **16 assertion DOM** dan 13 pengamatan skenario: login sintetis, redirect, urutan mikrodetik, waktu lokal, literal markup, kartu pasif, desktop/mobile, error yang mempertahankan pesan, retry kosong, refresh dan detail signed64. [Receipt transport](webapp/queue-calls-browser-transport.json) berisi **13 panggilan mock**, nol produksi; receipt ditulis per request sehingga tidak bergantung signal shutdown Windows. [Desktop](webapp/queue-calls-browser-desktop.jpg) dan [mobile](webapp/queue-calls-browser-mobile.jpg) adalah data sintetis. Fixture telah dihentikan, tab ditutup dan viewport dipulihkan. Bukti lama delapan assertion browser tetap terikat build terdahulu.
+
+## Deployment dan penerimaan produksi terbatas
+
+[Deployment](webapp/deployment-latest.json) mencocokkan tiga hash frontend dan 17 backend, container sehat/read-only, port host loopback, serta katalog 171/70. [Pemeriksaan akses](webapp/cloudflare-access-latest.json) lulus 22 assertion melalui 15 request anonim lokal/publik, termasuk gate login antrean dan Panggilan. Angka ini tidak memasukkan browser atau server resmi. Domain HTTPS dan localhost mempunyai sesi terpisah.
+
+Sesudah rebuild pengguna login sendiri. [Observasi browser produksi](webapp/queue-calls-live-browser.json) dan [log koneksi allowlist](webapp/queue-calls-live-connection.json) mencatat main account_summary HTTP 200, kemudian satu redirect dan HTTP 200 untuk masing-masing daftar/Panggilan. Tidak ada query, NIK, kredensial, cookie atau isi record dalam log tersimpan. [Daftar kosong](webapp/queue-live-empty.jpg) dan [Panggilan kosong](webapp/queue-calls-live-empty.jpg) menunjukkan hasil aktual. Sesi tetap terhubung. Detail dan data terisi masih fixture-only; tidak ada booking atau pengiriman geotag. **Goal keseluruhan tetap belum selesai.**
