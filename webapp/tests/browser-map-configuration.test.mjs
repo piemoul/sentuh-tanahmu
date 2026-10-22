@@ -29,9 +29,10 @@ test('HTML loads packaged Leaflet CSS and sends origin referrers without Google 
   const apiResponse=await fetch(base+'/api/state');await apiResponse.text();assert.equal(apiResponse.headers.get('referrer-policy'),'no-referrer');
   const head=await fetch(base+'/',{method:'HEAD'});assert.equal(head.status,200);assert.equal(await head.text(),'');assert.equal(head.headers.get('referrer-policy'),'strict-origin-when-cross-origin');
 });
-test('CSP permits only the exact OSM image host while scripts and API connections stay same-origin',()=>{
+test('CSP permits exact ATR/BPN, video thumbnail and OSM image hosts while scripts and API connections stay same-origin',()=>{
   assert.match(DEFAULT_CSP,/script-src 'self';/);assert.match(DEFAULT_CSP,/connect-src 'self';/);
   const images=DEFAULT_CSP.split(';').find(value=>value.trim().startsWith('img-src'));
-  assert.equal(images.trim(),"img-src 'self' data: blob: https://www.atrbpn.go.id https://tile.openstreetmap.org");
+  assert.equal(images.trim(),"img-src 'self' data: blob: https://www.atrbpn.go.id https://sentuh.atrbpn.go.id https://i.ytimg.com https://img.youtube.com https://tile.openstreetmap.org");
+  assert.deepEqual(DEFAULT_CSP.split(';').map(value=>value.trim()).filter(value=>value.startsWith('frame-src ')),['frame-src https://www.youtube-nocookie.com']);
   assert.doesNotMatch(DEFAULT_CSP,/unsafe-eval|script-src[^;]*unsafe-inline|googleapis|gstatic|https:\*/);
 });

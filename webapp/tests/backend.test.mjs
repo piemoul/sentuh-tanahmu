@@ -99,7 +99,7 @@ test('public catalog and diagnostics never bootstrap a session; anonymous downlo
 
 test('main-client GET and bodyless POST carry audited form content type without inventing a body', async () => {
   const calls = [];
-  const client = new ApiClient(fixtureConfig, { transport: async (url, init) => { calls.push({ url, ...init }); return jsonResponse({ data: [] }); } });
+  const client = new ApiClient(fixtureConfig, { transport: async (url, init) => { calls.push({ url, ...init }); return jsonResponse({ error: false, data: [] }); } });
   await client.request({ path: 'legacy/SertifikatTanahNew', query: { nik: user.nomorIndukKependudukan }, method: 'GET', encoding: 'none', auth: 'session', session: { tokens: token } });
   assert.equal(calls[0].headers['Content-Type'], 'application/x-www-form-urlencoded');
   assert.equal(calls[0].headers.Authorization, 'Bearer fixture-access-value');

@@ -1,6 +1,18 @@
 // Actual frontend functions; generated data and deferred in-process responses only.
 import fs from 'node:fs';
 import vm from 'node:vm';
+import {createCollectionSavePersil,collectionSavePersilEligible,collectionSavePersilEntry} from '../../webapp/collection-save-persil.js';
+// Bind the real new host helpers/module to legacy VM fixtures; assertions and
+// existing source-function renderers remain unchanged.
+function createPersilFixtureContext(...args){
+  const context=vm.createContext(...args);
+  Object.assign(context,{createCollectionSavePersil,collectionSavePersilEligible,collectionSavePersilEntry});
+  const dependencies=new Set(['nativeResponseObject','nativeAccountSummary','collectionTab','collectionGroupCreated']);
+  const declarations=String(source).split(/\r?\n/).filter(line=>/^(?:async )?function (?:persilMap\w+|resetPersilMaps|resetScanHost|scanDisposeLocation)\(/.test(line)||dependencies.has(line.match(/^(?:async )?function (\w+)\(/)?.[1])).join('\n');
+  vm.runInContext(declarations,context);
+  return context;
+}
+
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {OPERATIONS} from '../../webapp/private/operations.mjs';
@@ -17,7 +29,7 @@ function harness(){
   const slot={innerHTML:'initial',isConnected:true};
   const button={dataset:{kkprId:' selected-id : & + '},isConnected:true,disabled:false,textContent:'Lihat Dokumen',closest:selector=>selector==='dialog'?modal:{querySelector:()=>slot}};
   const state={authenticated:true,user:{username:'NOT-NAME'},operations:OPERATIONS.map(o=>({...o})),results:new Map(),points:[],activity:[]};
-  const c=vm.createContext({state,sessionEpoch:0, searchFileState: null, partnerFrame: null,detailSequence:0,flowResults:new Map(),flowDetail:null,htDetailData:null,flowQuery:'',comparison:null,comparisonSelection:{},pending:null,selected:null,
+  const c=createPersilFixtureContext({state,sessionEpoch:0, searchFileState: null, partnerFrame: null,detailSequence:0,flowResults:new Map(),flowDetail:null,htDetailData:null,flowQuery:'',comparison:null,comparisonSelection:{},pending:null,selected:null,
     ready:o=>o.enabled===true,write:o=>o.effect==='write',$:()=>modal,render:()=>{},toast:()=>{},record:(...args)=>records.push(args),icon:()=>'',notice:text=>text,
     document:{addEventListener:(event,handler)=>events[event]=handler},
     api:async(path,options)=>{calls.push({path,...options.body});return {result:options.body.operationId===profileOp.id?profile(' Profile & + '):pdf}}});

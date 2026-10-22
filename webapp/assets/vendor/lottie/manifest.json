@@ -1,0 +1,23 @@
+{
+  "package": "lottie-web",
+  "version": "5.13.0",
+  "source": "https://registry.npmjs.org/lottie-web/-/lottie-web-5.13.0.tgz",
+  "npmIntegrity": "sha512-+gfBXl6sxXMPe8tKQm7qzLnUy5DUPJPKIyRHwtpCpyUEYjHYRJC/5gjUvdkuO2c3JllrPtHXH5UJJK8LRYl5yQ==",
+  "archiveSha256": "00f306a9b5669abf9622c418b549681d1b858e0b7fa7ea6adc0772ca57c3fd4f",
+  "build": "build/player/esm/lottie_light.min.js",
+  "license": "MIT",
+  "outputs": [
+    {
+      "file": "webapp/assets/vendor/lottie/lottie-light.min.js",
+      "bytes": 364943,
+      "sha256": "f25f2342b7d307ed8b59907db43328b55f2b504780c6744b023d9249a0bc1a81"
+    },
+    {
+      "file": "webapp/assets/vendor/lottie/LICENSE.md",
+      "bytes": 1075,
+      "sha256": "9d8d4d8b4bb99572ee8b51025a30b8493d949798cac465c6c15b1b29420bcb06"
+    }
+  ],
+  "documentation": "https://github.com/airbnb/lottie-web/wiki/loadAnimation-options",
+  "scope": "Pinned local SVG player without expressions; no CDN or external animation assets."
+}

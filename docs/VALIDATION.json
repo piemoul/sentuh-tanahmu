@@ -1,31 +1,82 @@
 {
-  "schemaVersion": 1,
-  "checkedAt": "2026-10-20",
-  "nodeVersion": "24.21.0",
-  "workspaceFullSuite": {
-    "tests": 549,
-    "pass": 549,
+  "schemaVersion": 2,
+  "checkedAt": "2026-10-22T10:14:13.603Z",
+  "status": "PASS",
+  "nodeVersion": "v24.21.0",
+  "fullOriginalWorkspaceSuite": {
+    "tests": 2520,
+    "pass": 2520,
     "fail": 0,
-    "receipt": "analysis/webapp/collection-save-activity-backend-tests.json"
+    "skipped": 0,
+    "testFiles": 149,
+    "receiptSha256": "0b18ea1475705665f5346aa775446c48d3521de16eb80229102d33af18e6c6df",
+    "scope": "Retained full artifact-backed workspace run; all141 production runtime files still match exactly. Raw private/historical dependencies are not published."
   },
-  "actualFunctionRegressions": {
-    "suites": 23,
-    "checks": 1190,
-    "fail": 0,
-    "receipt": "analysis/webapp/collection-save-activity-regressions.json"
+  "publishedRuntime": {
+    "authoredFiles": 141,
+    "workspaceEqual": true
+  },
+  "publishedTests": {
+    "files": 149,
+    "allTestFilesByteIdentical": true
   },
   "sourceOnlyPortableSuite": {
-    "executed": 544,
-    "pass": 544,
+    "tests": 2488,
+    "pass": 2488,
     "fail": 0,
-    "filteredPrivateEvidenceChecks": 5,
-    "nodeSkippedMetric": 0,
-    "command": "cd webapp && npm run test:portable",
-    "runner": "webapp/tests/run-portable.mjs"
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "loadedTestFiles": 147,
+    "wholeFileExcludedCallbacks": 13,
+    "exactCallbackExclusions": 19,
+    "totalExcludedCallbacks": 32,
+    "runner": "webapp/tests/run-portable.mjs",
+    "scopeManifest": "docs/PORTABLE-TEST-SCOPE.json",
+    "runnerSha256": "aeaeeba2f8c905fb02a1efcc0c60eba90c35d157a62a1d7a9de22abc1a26ed19",
+    "externalTapSha256": "b877891bf197da1fc9671de095ca748994b768f9602f0ae862b70bf033196d61"
   },
-  "sourceHash": "ff995db7561750823c2d4361b649ea410484e11364e66248a7ec9b382a0d36f6",
+  "latestSyntheticBrowser": {
+    "checks": 14,
+    "functionalGroups": 11,
+    "domObservations": 156,
+    "receiptSha256": "bf61dd2ee3db47a2383959ed1949ccfd6848c8acac56c13a25fc6fefcd8b8209",
+    "scope": "Earlier current-runtime actual browser with synthetic transports; not rerun as part of publication."
+  },
+  "localhostRebuild": {
+    "performed": true,
+    "buildExitCode": 0,
+    "applyExitCode": 0,
+    "url": "http://localhost:4173",
+    "health": {
+      "status": "ok",
+      "app": "sentuh-tanahku-local"
+    },
+    "containerFiles": 136,
+    "publicAssetFiles": 89,
+    "backendFiles": 47,
+    "readOnlyRoot": true,
+    "nonroot": true,
+    "readOnlyBindMounts": 13,
+    "hostPort": "127.0.0.1:4173",
+    "existingCloudflareOriginPreserved": true,
+    "providerRequests": 0,
+    "productionWrites": 0,
+    "externalReceiptSha256": "ae18f668fce3dab0a0302a25d67f49ffd71e55d490a7459ff3fc452907dd25e0"
+  },
+  "catalog": {
+    "total": 176,
+    "enabled": 94,
+    "read": 74,
+    "write": 20
+  },
   "productionMutationAcceptance": false,
-  "newBackendDeploymentPerformed": false,
-  "persilSaveModuleWired": false,
-  "scope": "Local synthetic implementation tests and static native evidence. The portable run filters only the five exact evidence test names; full app/runtime/server parity is not established."
+  "fullMenuParity": false,
+  "persilSaveModuleWired": true,
+  "limitations": [
+    "Source-only suite intentionally narrower than full workspace suite",
+    "Original APK account-menu runtime unverified",
+    "No private APK artifacts, credentials, live account responses or runtime logs published",
+    "Geotag visit upload and notification-dependent final booking remain gated"
+  ]
 }

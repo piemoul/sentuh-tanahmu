@@ -1,6 +1,18 @@
 // Actual-source Berita/Pengumuman regression. Every API response is synthetic.
 import fs from 'node:fs';
 import vm from 'node:vm';
+import {createCollectionSavePersil,collectionSavePersilEligible,collectionSavePersilEntry} from '../../webapp/collection-save-persil.js';
+// Bind the real new host helpers/module to legacy VM fixtures; assertions and
+// existing source-function renderers remain unchanged.
+function createPersilFixtureContext(...args){
+  const context=vm.createContext(...args);
+  Object.assign(context,{createCollectionSavePersil,collectionSavePersilEligible,collectionSavePersilEntry});
+  const dependencies=new Set(['nativeResponseObject','nativeAccountSummary','collectionTab','collectionGroupCreated']);
+  const declarations=String(source).split(/\r?\n/).filter(line=>/^(?:async )?function (?:persilMap\w+|resetPersilMaps|resetScanHost|scanDisposeLocation)\(/.test(line)||dependencies.has(line.match(/^(?:async )?function (\w+)\(/)?.[1])).join('\n');
+  vm.runInContext(declarations,context);
+  return context;
+}
+
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {OPERATIONS} from '../../webapp/private/operations.mjs';
@@ -35,7 +47,7 @@ function harness(route='news', authenticated=true) {
   const state={authenticated,user:authenticated?{username:'synthetic-user'}:null,operations:OPERATIONS.filter(op=>['Berita/GetBerita?limit=8','Pengumuman/GetPengumuman?limit=5'].includes(op.endpoint)),results:new Map(),connection:{configured:true},loading:false,points:[],activity:[]};
   const modal={innerHTML:'',open:false,close(){this.open=false;}};
   class FixtureImage {constructor(news=true){this.news=news;this.hidden=false;}hasAttribute(name){return this.news&&name==='data-news-banner';}}
-  const c=vm.createContext({
+  const c=createPersilFixtureContext({
     state,URL,URLSearchParams,Map,Object,Array,JSON,String,Number,console,route,flowTab:'',flowResults:new Map(),sessionEpoch:0,
     flowDetail:null,htDetailData:null,flowQuery:'',flowPageIndex:0,detailSequence:0,comparison:null,comparisonSelection:{},pending:null,selected:null,search:'',group:'Semua',filter:'Semua',
     location:{hash:'#/'+route},routes:{dashboard:'Beranda',news:'Berita',announcements:'Pengumuman',account:'Profil'},window:{scrollTo(){}},

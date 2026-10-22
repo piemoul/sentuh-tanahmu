@@ -1,0 +1,30 @@
+# Perjalanan Berkas: layar riwayat dari snapshot detail
+
+Layar Perjalanan Berkas kini dibuka dari detail Berkasku, Koleksi Berkas, Aktivitas Berkas, dan hasil Cari Berkas. Entry memakai respons utama ABb yang sudah dimuat, bukan ID atau judul dari kartu daftar. Tidak ada endpoint baru, pembacaan ulang riwayat, atau perubahan backend/katalog.
+
+[Bukti RAb APK 6.1.5](BERKAS-JOURNEY-UI-FOLLOWUP.md) menentukan judul `Perjalanan Berkas · {nomor}` tanpa tambahan tahun; salinan empat field BBb; urutan sumber; placeholder kosong hanya untuk status String tepat `0`; serta prioritas tahap aktif: true terakhir, tanggal nonnull/nonkosong terakhir, lalu baris pertama. Tanggal spasi atau tidak valid tetap ikut pemilihan indeks. Nama null menjadi `-`, nama kosong tetap kosong, dan seluruh baris tetap dapat dijangkau. Angka marker hanya dipakai pada tahap berikutnya; glyph/painter dan tata letak responsif merupakan adaptasi browser, bukan bukti piksel native identik.
+
+Tanggal dan jam menerima String sumber yang sama. Baris tanggal disembunyikan untuk null/kosong; lainnya memakai `dd MMMM yyyy, HH:mm`, termasuk `-, -` untuk input tidak valid. Formatter tanggal sertipikat lama tetap identik. Formatter jam baru dikompilasi dari salinan reference Dart3.12.2/intl0.20.2 dengan perubahan nama dan output `HH:mm` saja; tidak memakai Date.parse atau konversi zona tambahan. [Verifikasi reference](webapp/berkas-journey-time-verification-final.json) membandingkan42 kasus dan17 tipe salah pada worker JS LA/Jakarta dengan oracle Dart lokal. Versi intl APK, seluruh grammar/DST, dan zona aktual VM Windows tetap belum dibuktikan. Kegagalan awal berupa ekspektasi metadata pola pemenang, bukan perbedaan tampilan jam, dipertahankan dalam receipt/preimage tersendiri.
+
+Host mempertahankan node detail asli dalam wrapper terhubung yang hidden/inert. Back mengembalikan node, input, listener, fokus dan scroll tanpa render atau API tambahan. Hasil SOP/SPS/status cetak yang sudah diminta boleh menyelesaikan slot induknya saat riwayat terbuka. Cari Berkas mempertahankan state pencarian/CAPTCHA dan scroll dokumen; tiga jalur lain memakai dialog yang sama. Escape pertama kembali ke detail; Escape berikutnya menutup dialog. Ini perilaku keyboard browser yang diuji, bukan klaim kesetaraan seluruh stack Flutter.
+
+Pemilik tampilan terikat pada sesi, navigasi, reader, respons utama, item dan sumber/tab/grup yang sama. Respons lama dan401 dari sumber yang pensiun ditolak. Pergantian route, refresh sumber, logout dan penutupan membersihkan layer miliknya; dialog pengganti tidak ikut disapu. List null atau integer utama di luar presisi aman memberi batas lokal, tidak direkayasa menjadi daftar kosong atau nomor baru. Tiga renderer lama—detail, ringkasan perjalanan dan selector ringkasan—tetap byte-identik; entry baru dipasang sesudah detail dimuat.
+
+## Pengujian dan delivery
+
+- [Node](webapp/berkas-journey-node-final.json):1959/1959, termasuk78 tes baru; seluruh109 berkas tes lama/support tetap identik.
+- [VM](webapp/berkas-journey-vm-final.json):1190 pada23 suite pemetaan yang sama. Original guard Mitra/Akta tetap dicatat terpisah sebagai gagal sebagaimana bukti sebelumnya; tidak disebut hijau atau diberi jumlah failure buatan.
+- [Browser aplikasi penuh](webapp/berkas-journey-browser-summary.json):18 pemeriksaan dengan39 pembacaan sintetis. Berkasku halaman2, Koleksi dan Aktivitas; Back tanpa request baru; SOP tertunda; null/kosong/status0; teks markup; tanggal invalid;125 baris dan tahap terakhir; keyboard; perpindahan route; desktop1280×720 dan mobile390×844. Tidak ada provider, sensor atau mutasi. Jalur Cari Berkas/CAPTCHA/scroll dokumen diuji oleh fungsi integrasi dan host aktual di Node; CAPTCHA browser tidak diselesaikan otomatis.
+- [Delivery terbaru](webapp/berkas-journey-delivery-retry.json) `passed:true`:114 runtime,109 berkas container (74 publik/35 backend); seluruh74 file localhost dan74 HTTPS cocok. Katalog176/87 aktif/73 baca/14 tulis tidak berubah. Container, image, waktu mulai dan backend tetap sama melalui mount frontend; tidak ada build/restart atau sesi diputus pada rilis ini.
+
+[Percobaan delivery pertama](webapp/berkas-journey-delivery-final.json) tetap gagal secara historis:109 hash container cocok,64 file localhost/HTTPS tercatat, lalu `TypeError: fetch failed`. Gate akhir process/input belum tercapai; receipt itu bukan bukti delivery lulus. [Pemeriksaan lanjutan](webapp/berkas-journey-delivery-network-followup.json) membaca10 file tersisa pada kedua origin secara berurutan dan semuanya HTTP200/hash cocok. Satu pengulangan verifier yang sama kemudian lulus lengkap. URL/penyebab error jaringan pertama tidak terekam dan tidak dipastikan; tidak ada sumber yang diubah untuk melewati kegagalan.
+
+[Baseline](webapp/berkas-journey-baseline.json), preimage aplikasi, [bukti CSS append](webapp/berkas-journey-styles-append.json), dan [koreksi scroll](webapp/berkas-journey-scroll-after.json) mempertahankan asal perubahan. Dua catatan instrumentasi browser—pembacaan status observe terlalu awal dan asumsi Escape menutup seluruh dialog—dipisahkan dari hasil fitur; tidak menyebabkan perubahan sumber atau pengulangan request bisnis.
+
+![Riwayat dengan data sintetis](webapp/berkas-journey-browser-desktop.jpg)
+
+## Batas penerimaan akun
+
+[Rating PPAT live](webapp/rating-ppat-read-live-summary.json) telah berhasil melalui sesi pengguna: satu GET HTTP200,3 grup/8 jawaban,184ms, tanpa Rating POST. Aktaku kosong sehingga entry dari Akta asli belum dapat diuji. Bukti tersebut dibekukan sebelum perubahan frontend ini dan tidak ditulis ulang menjadi bukti penerimaan Perjalanan Berkas.
+
+Fixture dan hash delivery tidak membuktikan bahwa setiap detail Berkas produksi atau seluruh role/menu sudah berjalan. Uji baca Perjalanan Berkas dengan akun asli harus dicatat terpisah. Piksel/painter native, runtime APK/perangkat, transaksi final, pengiriman Rating dan bagian menu yang belum dipetakan tetap belum selesai. Rilis ini tidak mengubah koordinat ukur menjadi bukti kunjungan atau menonaktifkan syarat kehadiran. Goal keseluruhan belum selesai.

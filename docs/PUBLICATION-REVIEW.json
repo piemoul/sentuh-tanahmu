@@ -1,117 +1,146 @@
 {
   "schemaVersion": 1,
-  "status": "PASS_PRIVACY_REVIEW",
-  "checkedAtUtc": "2026-10-20T08:20:19.688388+00:00",
-  "scope": "Independent source-only publication candidate review; Git index and history remain coordinator-owned. This is not a claim that the raw Graphify portability checker passed.",
-  "candidateFilesScanned": 328,
-  "utf8FilesScanned": 312,
-  "binaryAssetsReviewed": {
-    "png": 14,
-    "ttf": 2,
-    "pngMetadata": "Only software/timestamps and EXIF image dimensions; no GPS, serial or user-comment tags."
+  "reviewedAtUtc": "2026-10-22T10:26:21.036774+00:00",
+  "decision": "pass",
+  "scope": {
+    "mode": "Read-only git ls-files --cached --others --exclude-standard candidate union",
+    "candidateFiles": 790,
+    "rootSelectedFiles": 758,
+    "publicationGeneratedFiles": 11,
+    "graphifyFiles": 21,
+    "nonGraphifyFiles": 769,
+    "utf8TextFiles": 768,
+    "binaryAssetFiles": 22,
+    "nonGraphifyMarkdownFiles": 227,
+    "newNonGraphifyMarkdownFiles": 126,
+    "readPrivateEnvironmentOrLiveData": false,
+    "executedNetworkRequests": false,
+    "stagedOrCommitted": false,
+    "limitation": "Static source, metadata and artifact review; no external credential validity checks. Publication review JSON is a follow-on record and is excluded from aggregate digest to avoid self-reference.",
+    "excludedFromAggregateDigest": [
+      "docs/PUBLICATION-REVIEW.json"
+    ],
+    "metadataRefreshCheckedFiles": [
+      "docs/GRAPHIFY-BROWSER-CHECK.json",
+      "docs/SOURCE-MANIFEST.json"
+    ],
+    "followOnPublicationReviewSelfReportNotStabilityPinned": true
   },
-  "ignoredGraphifyIntermediates": 130,
-  "forbiddenArtifactFilesFound": 0,
-  "confirmedPrivateDataOrSecretFindings": 0,
-  "highSignalPatternMatches": {
-    "privateKey": 0,
-    "apiTokenPrefix": 0,
-    "jwt": 0,
-    "googleKey": 0,
-    "personalEmail": 0,
-    "personalPhone": 0,
-    "personalWorkstationPath": 0,
-    "signedQuery": 0
+  "findings": {
+    "privateCredentialFindings": 0,
+    "privateKeyJwtGoogleAwsGithubKeyPatternFindings": 0,
+    "personalWorkstationPathFindings": 0,
+    "personalContactOrLiveAccountIdentityFindings": 0,
+    "liveAccountPreciseLocationFindings": 0,
+    "forbiddenCandidatePathFindings": 0,
+    "unresolvedPrivacyFindings": 0
   },
-  "classifiedNonPrivateMatches": [
-    "Reserved fixture/example email addresses and a malformed credential-URL test.",
-    "Dummy government IDs, numeric precision/size boundaries and synthetic timestamps.",
-    "Synthetic credential sentinels in tests/fixtures and their grounded graph citations.",
-    "Four base64 one-pixel test PNG literals.",
-    "Seven synthetic request UUIDs in sanitized backend test diagnostics.",
-    "Ninety-six broad phone-regex matches were decimal fractions of generated graph-layout coordinates in scene.json and its embedded HTML copy."
-  ],
-  "graphify": {
-    "nodes": 1200,
-    "links": 2857,
-    "structuredSourcePathFieldsChecked": 6363,
-    "nonRelativeOrBackslashSourcePathsFound": 0,
-    "graphCopiesMatch": true,
-    "offlineStudioExternalScriptOrStylesheetUrls": 0,
-    "rawPortableCheckOk": false,
-    "rawPortableIssueCount": 981,
-    "allIssuesAreCitationQuotes": true,
-    "issueFiles": {
-      "graph.json": 327,
-      "ontology/citations.json": 327,
-      "studio/ontology/citations.json": 327
+  "contextualClassification": {
+    "exampleEmailsAndTestTokens": "Reserved example/test domains, explicit fixture sentinels, and adversarial URL userinfo inputs.",
+    "publicServiceContacts": "Official application service/support destinations, retained as public product bindings.",
+    "numericIdentifiersAndCoordinates": "Precision-bound examples, epoch timestamps, vendor numeric constants, synthetic test data and native initial map viewports.",
+    "runtimeConfiguration": "Extraction logic and source hashes/offsets only; required private artifact, pool, PKI and live session inputs are absent.",
+    "verificationIllustration": {
+      "classification": "Bundled fictional cartoon identity-card illustration, not a user-uploaded identity photograph. Root direct visual verification and exact native-asset hash proof supplied; local OCR used without exposing fields.",
+      "sha256": "10a1bf99a31d2bbbd9b6f6ddc45409032f006b1d8b4b70a0d74e148cd542c98e"
     },
-    "actualMachinePathIssuesInQuotes": 0,
-    "explanation": "Retained raw tool non-pass: API routes and relative import strings quoted from source were classified as absolute/escaped paths. No derived graph or citation was changed by this reviewer."
-  },
-  "artifacts": [
-    {
-      "file": ".graphify/graph.json",
-      "bytes": 2943668,
-      "sha256": "ba2e650e74de51cd3e9651ba96c37fc234e9e2c6da1ebe1781e3ab8a8c0ad5b3"
-    },
-    {
-      "file": ".graphify/GRAPH_REPORT.md",
-      "bytes": 16274,
-      "sha256": "df68de516d3688e863f1286645eb2c8dd39f39f4b6ce1de6a93b26f9ceb475e5"
-    },
-    {
-      "file": ".graphify/manifest.json",
-      "bytes": 13287,
-      "sha256": "855ea96d5d80fabe1e829f4209bac220211c21306b52fa90f576a2e64e1ad186"
-    },
-    {
-      "file": ".graphify/cost.json",
-      "bytes": 448,
-      "sha256": "46f3a451207657cf6a470ac620187d416c269f5cc831c90845cf59bd46280b27"
-    },
-    {
-      "file": ".graphify/.graphify_runtime.json",
-      "bytes": 598,
-      "sha256": "a2fbd39944a449d09d9b35968929cab8794bdcf1f9164f159cb8873b10e703db"
-    },
-    {
-      "file": ".graphify/portable-check.json",
-      "bytes": 227643,
-      "sha256": "07d3a6d8eca2003d6f009d4951e08fd021e08d31bb227cb47d7f7d9e23bbe9ab"
-    },
-    {
-      "file": ".graphify/ontology/citations.json",
-      "bytes": 1299629,
-      "sha256": "0b3b525a9566e339c9a2ab8ab2130c0e0aa1959ed080f72930949f21d025e60f"
-    },
-    {
-      "file": ".graphify/studio/index.html",
-      "bytes": 448,
-      "sha256": "a89ac60f1ba6e5efbb5f93563328f77d2a51e1d1b860f26ba436a9ee7d4d4db8"
-    },
-    {
-      "file": ".graphify/studio/studio.html",
-      "bytes": 5217704,
-      "sha256": "ee032f01d21fa0dcb5f286bd988a4eb4c82636b204f3ce487a55fddce5d1230c"
-    },
-    {
-      "file": ".graphify/studio/LICENSE.graphify",
-      "bytes": 1068,
-      "sha256": "36ecff6bbb97aca1be64e95f42538cf796adde5864edac583e620643c096931a"
+    "historicalTestReceipts": {
+      "files": 4,
+      "classification": "Synthetic test/source-corpus metadata, including per-test request UUID and fixed public endpoint/status event metadata. No raw production account headers, bodies or sessions.",
+      "productionRequestCount": 0,
+      "providerRequestCount": 0,
+      "productionMutationCount": 0
     }
-  ],
-  "portableTests": {
-    "runnerInspected": "webapp/tests/run-portable.mjs",
-    "filter": "Five exact anchored evidence test names; child exit status propagates.",
-    "execution": "Coordinator-reported 544 pass, zero fail; this reviewer did not execute tests or network operations.",
-    "privateEvidenceCheckCount": 5
   },
-  "knownScopeLimits": [
-    "PERSIL module remains staged and unwired. Full application/runtime/server parity is unverified.",
-    "Local raw APK/pool evidence is intentionally excluded; full native-evidence tests require the original analysis environment.",
-    "Review uses pattern scans and targeted source/configuration/asset checks; the coordinator must ensure the final Git index contains only publication candidates."
-  ],
-  "reviewerNetworkRequests": 0,
-  "reviewerGitOperations": 0
+  "graphify": {
+    "nodes": 1776,
+    "edges": 4656,
+    "communities": 101,
+    "structuredSourceReferenceOccurrences": 28293,
+    "distinctStructuredSourceFiles": 138,
+    "invalidStructuredSourceReferences": 0,
+    "nonQuoteAbsoluteOrPersonalPathReferences": 0,
+    "relativeManifestEntries": 146,
+    "storedCitationSidecarEntries": 2731,
+    "inlineGraphCitationEntries": 2730,
+    "newlyGroundedCitationsReportedByCli": 2277,
+    "portableToolOk": false,
+    "portableToolReportedFindings": 595,
+    "quoteOnlyFindings": 595,
+    "nonQuoteFindings": 0,
+    "perArtifactQuoteFindings": 119,
+    "artifactCopies": 5,
+    "distinctReportedLiteralValues": 57,
+    "independentClassification": "All findings target quote fields and represent slash-prefixed route/source literals or escaped code/regular-expression syntax, not structured filesystem references or private data. The genuine failing tool report remains unchanged; this review does not assert every aggregate Graphify quote is a verbatim current-source substring."
+  },
+  "hashes": {
+    "sourceManifestSha256": "3bcaa15946fd74648333ae5b64e5b45914ab2c62c9bfdf2e0f2bfac81759b8bb",
+    "selectedSourceDigestSha256": "a6d3483307bfc64eec452e12adbb23bef5088986411edac7aa359c8909a65de0",
+    "candidateDigestExcludingPublicationReviewSha256": "92db71c352a44b7aef20fce2e67a0e67c93810b50dbc50d64473392a0faf4858",
+    "graphifySha256": {
+      ".graphify/.graphify_runtime.json": "8214cd9b3fbe30327dec4c8364bf9611c83069f7cb160fdde138ead7cef231cc",
+      ".graphify/GRAPH_REPORT.md": "3949c6f6c60233708c8fad51b4a51a72c1948c0935def55095b53149448f01a8",
+      ".graphify/PORTABILITY-REVIEW.json": "f6e6cd9efbe9e7524620cbdc597457b82a426d82280d83e2d48237a324a0466d",
+      ".graphify/README.md": "ba2bff21685bd5e8e0862fb543cfbd218b53577d364c1e407e69ac0fe59f3439",
+      ".graphify/cost.json": "1604babdd5229135e7d727c771da2a87ac5ad8c8533439acb6f980254f0b8429",
+      ".graphify/graph.json": "2f46aec7622b6ad3a7515f78bef51b110e4e888d6d8f60901323c4c4692aa58c",
+      ".graphify/manifest.json": "2b3f81df91b9c152ee7a59b2adef329aebae087eab425f7a387f641826250615",
+      ".graphify/ontology/citations.json": "9d486d27cfc6b558854a2531a5837e8a7c378b905a21df9cf6ea870d759b061b",
+      ".graphify/portable-check.json": "f60d2991394fad03343a0d846da1099ae177907ce24334ade2db419061df0ad9",
+      ".graphify/studio/LICENSE.graphify": "36ecff6bbb97aca1be64e95f42538cf796adde5864edac583e620643c096931a",
+      ".graphify/studio/assets/index-CU5cXRnL.js": "9f3c82f03e0bc221ce30c1db1e92552dd663d86957f22d8f9fe4eecb535bd8d3",
+      ".graphify/studio/assets/index-DXHChN6Q.css": "7351f76af0cb7c1a0a3b749255484b6741b163d9be2bfc49d03514b82a82e64d",
+      ".graphify/studio/entities.json": "4964af11dd5be4ddf7761f55e5c523b99d13720d6ca237d68cbbdcc1a4d834cb",
+      ".graphify/studio/graph.json": "2f46aec7622b6ad3a7515f78bef51b110e4e888d6d8f60901323c4c4692aa58c",
+      ".graphify/studio/index.html": "a89ac60f1ba6e5efbb5f93563328f77d2a51e1d1b860f26ba436a9ee7d4d4db8",
+      ".graphify/studio/ontology/citations.json": "9d486d27cfc6b558854a2531a5837e8a7c378b905a21df9cf6ea870d759b061b",
+      ".graphify/studio/reconciliation-candidates.json": "4bf7c8639bc34bbbae5aef4aba3c724f9a425cbdc0416ab6384f7745ae1acb96",
+      ".graphify/studio/scene.json": "1130b4e42dfc7bc30f04089d4033bcda6b993b80a4a8faf3ec37de52afdc94e1",
+      ".graphify/studio/studio-template.html": "234ac5452936d587969bf7f895a5a910e2a69a92fc613af54377147e653ad563",
+      ".graphify/studio/studio.html": "f4d61846235fb3cd4cc1320366da97329a306bd23cc417efa26623a621f2e251",
+      ".graphify/studio/workspace-manifest.json": "77276575ab5fef50c1138aed08d0e3afbbe8af5bdde05f502d259f9cf3f7521b"
+    },
+    "historicalReceiptSha256": {
+      "analysis/webapp/collection-save-activity-backend-tests.json": "6050345410c1c577059622035bc6a17b21c4b8113a622905b70e8a395d773737",
+      "analysis/webapp/collection-save-activity-backend-tests.txt": "b894be2ef572ab207ced955488665354887432551496d4fedb64923d54067cae",
+      "analysis/webapp/collection-save-activity-baseline.json": "b5dfd746fdebad87cbe6f7789043d938803098aff5b484917373243cb5bfd47f",
+      "analysis/webapp/collection-save-activity-regressions.json": "2eb934b3757bf920a096763f4334a648419db0e3a6798b0281f11abf36bce614"
+    },
+    "publicationGeneratedMetadataSha256": {
+      ".gitattributes": "5a716586a049688ec7d27e647e36cdea6ef4744883975d1f8b60ca1c883a40ed",
+      ".graphifyignore": "a1afcd04e366c21b122c342a55a6a0ad4ddafe020b0008490e0640a5ce8cb094",
+      "analysis/CHECKPOINT-2026-10-22.md": "375ede8095b75c2b7d6aebe17bf8f50547d3cb59cfbc042e6149712b371bb967",
+      "docs/ARCHITECTURE.md": "b64655ea927698f03baa8e08f4dc279a0a963573b55f67d981314fb1b36e1cb4",
+      "docs/GRAPHIFY-BROWSER-CHECK.json": "8d70d14c0a794cc22a4bb677b4758f8d9b21edd297f703c75c372eb6a986705e",
+      "docs/PORTABLE-TEST-SCOPE.json": "4388a935d824bf1ed3dcced79215f84e0de02c9bc65416a5b274253c63c03de5",
+      "docs/PORTABLE-TEST-SCOPE.md": "30a634b38021233b5ec4e84a62316e588203db78883b2225806e9bee02f17c7a",
+      "docs/SOURCE-MANIFEST.json": "3bcaa15946fd74648333ae5b64e5b45914ab2c62c9bfdf2e0f2bfac81759b8bb",
+      "docs/VALIDATION.json": "070e4905f34477540fefb3deeab615796cc7bc992b7227280a21f6011d102b89",
+      "docs/VALIDATION.md": "5c2a06629bf39d4757a9593dff8261fed06e5ff6fdb28f2f0020d863378b830c"
+    }
+  },
+  "status": "PASS_PRIVACY_REVIEW",
+  "externalReviewSha256": "cc384d13035f42093620864e232c9b43a8d86131e3d0e13762e4b117054bbe62",
+  "formattingReview": {
+    "defaultGitDiffCheck": "Four cosmetic source-formatting findings retained to preserve exact authored test and vendor-license bytes",
+    "findings": [
+      {
+        "file": "analysis/POST-CAPTURE-WEBAPP-FOLLOWUP.md",
+        "kind": "blank line at EOF"
+      },
+      {
+        "file": "webapp/tests/swaplotting-submit-host.test.mjs",
+        "kind": "blank line at EOF"
+      },
+      {
+        "file": "webapp/assets/berkas-journey/time-LICENSE.txt",
+        "kind": "copyright trailing space"
+      },
+      {
+        "file": "webapp/assets/certificate-date/LICENSE.txt",
+        "kind": "copyright trailing space"
+      }
+    ],
+    "implementationChangedForFormatting": false
+  }
 }

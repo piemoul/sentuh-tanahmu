@@ -1,6 +1,18 @@
 // Independent review: execute functions extracted from the current app.js with local mocks.
 import fs from 'node:fs';
 import vm from 'node:vm';
+import {createCollectionSavePersil,collectionSavePersilEligible,collectionSavePersilEntry} from '../../webapp/collection-save-persil.js';
+// Bind the real new host helpers/module to legacy VM fixtures; assertions and
+// existing source-function renderers remain unchanged.
+function createPersilFixtureContext(...args){
+  const context=vm.createContext(...args);
+  Object.assign(context,{createCollectionSavePersil,collectionSavePersilEligible,collectionSavePersilEntry});
+  const dependencies=new Set(['nativeResponseObject','nativeAccountSummary','collectionTab','collectionGroupCreated']);
+  const declarations=String(source).split(/\r?\n/).filter(line=>/^(?:async )?function (?:persilMap\w+|resetPersilMaps|resetScanHost|scanDisposeLocation)\(/.test(line)||dependencies.has(line.match(/^(?:async )?function (\w+)\(/)?.[1])).join('\n');
+  vm.runInContext(declarations,context);
+  return context;
+}
+
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {parcelMapView} from '../../webapp/parcel-map.js';
@@ -10,7 +22,7 @@ const functions=['berkasBookmarkOperation','berkasBookmarkEnvelope','berkasBookm
 const modal={innerHTML:'',open:false,showModal(){this.open=true},close(){this.open=false},querySelectorAll(){return []}};
 const state={authenticated:true,operations:[{id:'profile',endpoint:'account/account_summary'},{id:'info',endpoint:'InfoLayanan/GetInfoLayananDetail?id={value}'}],results:new Map(),connection:{configured:true},loading:false};
 let clearCalls=0,renders=0,records=[],toasts=[];
-const context=vm.createContext({state,Map,Object,Number,Array,JSON,String,console,modal,parcelMapView,
+const context=createPersilFixtureContext({state,Map,Object,Number,Array,JSON,String,console,modal,parcelMapView,
  route:'files',window:{scrollTo(){}},flowResults:new Map(),htDetailData:null,flowQuery:'',flowPageIndex:0,detailSequence:0,sessionEpoch:0, searchFileState: null, partnerFrame: null,logoutPending:false,ready:()=>true,write:()=>false,
  redact:x=>x,esc:x=>String(x??'').replaceAll('<','&lt;'),json:JSON.stringify,icon:()=>'',badge:()=>'',empty:s=>s,notice:s=>s,humanField:x=>x,
  $:()=>modal,render:()=>{renders++},toast:s=>toasts.push(s),record:(...x)=>records.push(x),clearPrivate:()=>{clearCalls++;state.results.clear();context.flowResults.clear()},api:async()=>({result:{status:200,data:{}}})});

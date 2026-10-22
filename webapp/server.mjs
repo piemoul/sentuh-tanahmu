@@ -16,7 +16,7 @@ export function createServer(root = publicRoot, options = {}) {
   if (typeof root === 'object') { options = root; root = publicRoot; }
   const origin = publicOrigin(options.publicOrigin ?? process.env.PUBLIC_ORIGIN ?? '');
   const api = createApiHandler({ ...options, publicOrigin: origin });
-  const allowedFiles = new Set(['index.html', 'app.js', 'domain.js', 'gnss.js', 'coordinate-comparison.js', 'collection-save-persil.js', 'parcel-map.js', 'styles.css', 'manifest.json']);
+  const allowedFiles = new Set(['index.html', 'app.js', 'domain.js', 'gnss.js', 'coordinate-comparison.js', 'collection-save-persil.js', 'scan-controller.js', 'scan-camera.js', 'scan-location.js', 'parcel-map.js', 'styles.css', 'manifest.json']);
   const server = http.createServer(async (req, res) => {
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('Referrer-Policy', 'no-referrer');

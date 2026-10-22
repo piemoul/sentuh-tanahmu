@@ -36,3 +36,10 @@ analysis/route-spoofer/
 # Keep only the portable runtime proof from Graphify dotfile intermediates.
 .graphify/.graphify_*
 !.graphify/.graphify_runtime.json
+
+# Machine-local Graphify lifecycle state is never a portable project artifact.
+.graphify/branch.json
+.graphify/worktree.json
+.graphify/needs_update
+.graphify/transcripts/
+.graphify/converted/

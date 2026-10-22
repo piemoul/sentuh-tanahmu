@@ -1,15 +1,62 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "toolResultPreserved": true,
   "rawToolReport": "portable-check.json",
-  "rawToolReportSha256": "07d3a6d8eca2003d6f009d4951e08fd021e08d31bb227cb47d7f7d9e23bbe9ab",
-  "issueCount": 981,
-  "scope": "All findings are in citation quote strings, replicated in graph and citation sidecars. Quoted API routes and relative code/test literals are not graph file references.",
+  "rawToolReportSha256": "f60d2991394fad03343a0d846da1099ae177907ce24334ade2db419061df0ad9",
+  "toolExitCode": 1,
+  "toolPassed": false,
+  "issueCount": 595,
+  "scope": "All final tool findings occur in citation quote strings, replicated across five graph/citation outputs. API routes, container paths and relative code imports inside quoted source text are not structured graph file references.",
   "classification": "quoted_source_literal_findings",
   "checks": {
     "allIssueJsonPathsEndWithQuote": true,
     "personalMachinePathIssues": 0,
-    "actualGraphSourceFileReferencesAbsoluteOrEscapingRoot": 0
+    "structuredSourceFileOccurrences": 28293,
+    "distinctStructuredSourceFiles": 138,
+    "actualGraphSourceFileReferencesAbsoluteOrEscapingRoot": 0,
+    "missingStructuredSourceFiles": 0,
+    "manifestFiles": 146,
+    "manifestKeysAbsoluteOrEscapingRoot": 0,
+    "manifestContentHashMismatches": 0,
+    "graphMatchesStudioCopy": true,
+    "citationSidecarMatchesStudioCopy": true,
+    "graphNodes": 1776,
+    "graphEdges": 4656,
+    "sceneNodes": 1776,
+    "sceneEdges": 4656,
+    "communities": 101,
+    "newlyGroundedCitationsReportedByCli": 2277,
+    "citationNodes": 1515,
+    "storedCitationEntries": 2731,
+    "inlineCitationEntries": 2730
   },
-  "decision": "Retain the genuine non-passing tool report and the grounded citations. Source references and manifest paths are relative; no private workstation paths are published. This manual review does not claim that the Graphify portable-check command passed."
+  "manifestNormalization": {
+    "required": true,
+    "reason": "Installed Graphify 0.17.1 Windows manifest writer returns absolute Windows keys and merges older still-existing entries.",
+    "rawToolManifestRetainedOutsidePublication": true,
+    "rawInitialPortableScanRetainedOutsidePublication": true,
+    "normalization": "Only manifest metadata regenerated from the actual 146 detected files with relative keys and the same mtime/MD5 schema. Graph, ontology and Studio data were not directly edited."
+  },
+  "provenance": {
+    "runtime": "typescript",
+    "version": "0.17.1",
+    "scope": "tracked",
+    "baseCommit": "f2ea136",
+    "freshness": "Git hash is the pre-commit parent HEAD; tracked scope includes staged current source. Use manifest hashes for source freshness after the containing commit.",
+    "optionalFullDescriptions": 0,
+    "provisionalRationaleDescriptions": 33,
+    "powershellParserFailures": 8,
+    "assistantTokenCounters": "Unmetered zero placeholders, not evidence of zero assistant usage.",
+    "reportCapture": "Final portable-check output captured outside scan directory before copying into publication, to avoid recursive scanning of an earlier tool report."
+  },
+  "artifactSha256": {
+    "graph.json": "2f46aec7622b6ad3a7515f78bef51b110e4e888d6d8f60901323c4c4692aa58c",
+    "manifest.json": "2b3f81df91b9c152ee7a59b2adef329aebae087eab425f7a387f641826250615",
+    "studio/graph.json": "2f46aec7622b6ad3a7515f78bef51b110e4e888d6d8f60901323c4c4692aa58c",
+    "studio/scene.json": "1130b4e42dfc7bc30f04089d4033bcda6b993b80a4a8faf3ec37de52afdc94e1",
+    "studio/entities.json": "4964af11dd5be4ddf7761f55e5c523b99d13720d6ca237d68cbbdcc1a4d834cb",
+    "studio/studio.html": "f4d61846235fb3cd4cc1320366da97329a306bd23cc417efa26623a621f2e251",
+    "ontology/citations.json": "9d486d27cfc6b558854a2531a5837e8a7c378b905a21df9cf6ea870d759b061b"
+  },
+  "decision": "Retain the genuine non-passing tool report and the grounded citations. Structured source references and the normalized bounded manifest are relative and current. This manual review does not claim that Graphify portable-check passed."
 }

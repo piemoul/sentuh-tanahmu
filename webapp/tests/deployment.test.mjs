@@ -42,9 +42,10 @@ test('configured HTTPS host uses Secure cookie and exact origin; proxy headers c
   const stateResponse = await proxyRequest('/api/state', { headers: { Host: 'fixture.example.invalid' } });
   assert.equal(stateResponse.status, 200);
   const csp = stateResponse.headers.get('content-security-policy');
-  assert.match(csp, /(?:^|; )img-src 'self' data: blob: https:\/\/www\.atrbpn\.go\.id https:\/\/tile\.openstreetmap\.org;/);
+  assert.deepEqual(csp.split(';').map(value=>value.trim()).filter(value=>value.startsWith('img-src ')),["img-src 'self' data: blob: https://www.atrbpn.go.id https://sentuh.atrbpn.go.id https://i.ytimg.com https://img.youtube.com https://tile.openstreetmap.org"]);
+  assert.deepEqual(csp.split(';').map(value=>value.trim()).filter(value=>value.startsWith('frame-src ')),['frame-src https://www.youtube-nocookie.com']);
+  assert.match(csp, /(?:^|; )script-src 'self';/);
   assert.match(csp, /(?:^|; )connect-src 'self';/);
-  assert.ok(!csp.includes('img-src https:') && !csp.includes('frame-src https:'));
   assert.match(stateResponse.headers.get('set-cookie'), /; Secure$/);
   assert.ok(!/;\s*Domain=/i.test(stateResponse.headers.get('set-cookie')));
   const cookie = stateResponse.headers.get('set-cookie').split(';')[0];

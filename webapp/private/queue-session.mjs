@@ -2,6 +2,7 @@ import { ApiError } from './api-client.mjs';
 import { APP_VERSION } from './configuration.mjs';
 import { queueReadIdentityQuery, queueReadIdentityKeys } from './queue-identity.mjs';
 import { parseQueueProfileResponse } from './queue-profile.mjs';
+import {queuePrereadDate} from './queue-preread-models.mjs';
 
 const sameProfile = (a, b) => a && b && ['userLevel', 'isIkd', 'nomorIdentitas'].every(key => a[key] === b[key]);
 function activityQueueIds(result) {
@@ -32,7 +33,7 @@ export class QueueSessionReader {
   state(session) {
     let state = this.states.get(session);
     if (!state) {
-      state = { profile: null, listIds: new Set(), activityIds: new Set(), listSequence: 0, summarySequence: 0, controller: new AbortController() };
+      state = { profile: null, listIds: new Set(), activityIds: new Set(), listSequence: 0, summarySequence: 0, controller: new AbortController(), booking:{offices:null,locations:null,officeId:null,officeSequence:0,locationSequence:0,availabilitySequence:0,calendarSequence:0} };
       state.signal = AbortSignal.any([state.controller.signal, this.closeController.signal, session.authenticationSignal].filter(signal => signal instanceof AbortSignal));
       this.states.set(session, state);
     }
@@ -43,6 +44,47 @@ export class QueueSessionReader {
     if (state) { state.controller.abort(); this.states.delete(session); }
   }
   close() { this.closeController.abort(); }
+  bookingOffice(state,id){
+    const rows=state.booking.offices?.filter(row=>row.id===id);
+    if(typeof id!=='string'||!id.trim()||!rows||rows.length!==1)throw new ApiError(403,'QUEUE_OFFICE_NOT_OWNED','Pilih Kantor Pertanahan dari daftar terbaru sesi ini.');
+    return rows[0];
+  }
+  async preread(prepared,session,assertCurrentSession){
+    const state=this.state(session),b=state.booking,kind=prepared.queuePrerequisite;
+    const active=()=>{assertCurrentSession();if(!session.tokens||session.active===false||this.states.get(session)!==state||state.signal.aborted)throw new ApiError(401,'SESSION_EXPIRED','Sesi sudah berakhir. Silakan masuk kembali.');};
+    active();
+    if(!['offices','locations','availability'].includes(kind))throw new ApiError(409,'QUEUE_READ_SCOPE','Pembacaan pilihan antrean tidak sesuai kontrak.');
+    let sequence,officeSequence=b.officeSequence,locationSequence=b.locationSequence;
+    if(kind==='offices'){
+      sequence=++b.officeSequence;officeSequence=sequence;b.locationSequence++;b.availabilitySequence++;b.calendarSequence++;b.offices=null;b.locations=null;b.officeId=null;
+    }else if(kind==='locations'){
+      this.bookingOffice(state,prepared.queueOfficeId);sequence=++b.locationSequence;locationSequence=sequence;b.availabilitySequence++;b.calendarSequence++;b.locations=null;b.officeId=prepared.queueOfficeId;
+    }else{
+      try{queuePrereadDate(prepared.queueDate);}catch{throw new ApiError(400,'QUEUE_DATE_INVALID','Tanggal antrean harus berupa tanggal kalender yyyy-MM-dd.');}
+      const rows=b.locations?.filter(row=>row.id===prepared.queueLocationId);
+      if(!b.officeId||!rows||rows.length!==1)throw new ApiError(403,'QUEUE_LOCATION_NOT_OWNED','Pilih Lokasi Kerja dari kantor pada sesi ini.');
+      this.bookingOffice(state,b.officeId);sequence=++b.availabilitySequence;
+    }
+    const current=()=>{active();if(b.officeSequence!==officeSequence||kind==='locations'&&b.locationSequence!==sequence||kind==='availability'&&(b.locationSequence!==locationSequence||b.availabilitySequence!==sequence))throw new ApiError(409,'QUEUE_SELECTION_CHANGED','Pilihan antrean berubah. Muat kembali data pilihan terbaru.');};
+    const client=await this.clientPromise;current();await client.ensureFresh(session);current();
+    const queue=await this.queueClientPromise;current();
+    const result=await(kind==='offices'?queue.offices({signal:state.signal}):kind==='locations'?queue.locations(prepared.queueOfficeId,{signal:state.signal}):queue.availability(prepared.queueLocationId,prepared.queueDate,{signal:state.signal}));
+    current();if(kind==='offices')b.offices=structuredClone(result.data);else if(kind==='locations')b.locations=structuredClone(result.data);
+    return {...result,data:{error:false,data:result.data}};
+  }
+  async calendar({officeId,year},session,assertCurrentSession){
+    assertCurrentSession();
+    if(!session.tokens||session.active===false)throw new ApiError(401,'LOGIN_REQUIRED','Masuk untuk membaca kalender antrean.');
+    if(typeof year!=='string'||!/^\d{4}$/.test(year)||year==='0000')throw new ApiError(400,'QUEUE_CALENDAR_YEAR','Tahun kalender harus berupa empat digit.');
+    const state=this.state(session),b=state.booking,office=this.bookingOffice(state,officeId);
+    if(b.officeId!==officeId)throw new ApiError(403,'QUEUE_OFFICE_NOT_SELECTED','Pilih Lokasi Kerja pada kantor ini terlebih dahulu.');
+    if(typeof office.kantor_id!=='string'||!office.kantor_id.trim()||office.kantor_id.length>1024||!office.kantor_id.isWellFormed()||/[\u0000-\u001f\u007f-\u009f]/.test(office.kantor_id))throw new ApiError(409,'QUEUE_CALENDAR_REFERENCE','Referensi kalender kantor belum tersedia.');
+    const sequence=++b.calendarSequence,officeSequence=b.officeSequence,locationSequence=b.locationSequence;
+    const current=()=>{assertCurrentSession();if(!session.tokens||session.active===false||this.states.get(session)!==state||state.signal.aborted)throw new ApiError(401,'SESSION_EXPIRED','Sesi sudah berakhir. Silakan masuk kembali.');if(b.calendarSequence!==sequence||b.officeSequence!==officeSequence||b.locationSequence!==locationSequence||b.officeId!==officeId)throw new ApiError(409,'QUEUE_SELECTION_CHANGED','Pilihan kantor berubah. Muat ulang kalender.');};
+    const client=await this.clientPromise;current();await client.ensureFresh(session);current();
+    const result=await client.request({path:'KantorNearby/GetCalendar',method:'POST',encoding:'form',auth:'optionalSession',session,body:{kantorId:office.kantor_id,tahun:year},query:{},queueCalendarDirect:true});
+    current();return result;
+  }
   observe(prepared, result, session) {
     if (!session?.tokens || !session.active) return;
     if (prepared.operation.endpoint === 'account/account_summary') {
@@ -60,6 +102,7 @@ export class QueueSessionReader {
     };
     current();
     const state = this.state(session);
+    if(prepared.queuePrerequisite)return this.preread(prepared,session,assertCurrentSession);
     const client = await this.clientPromise;
     await client.ensureFresh(session); current();
     let result;

@@ -7,13 +7,19 @@ environment/
 node_modules/
 webapp/node_modules/
 webapp/test-results/
+# Map production architecture; tests remain published and validated separately.
+webapp/tests/
 # Preserve authored webapp/assets/maps/official-map.js; exclude bundled artwork/vendor code.
 webapp/assets/icons/
 webapp/assets/fonts/
 webapp/assets/vendor/
+# Generated Dart formatter bundles; authored wrappers and provenance stay mapped.
+webapp/assets/certificate-date/vendor.js
+webapp/assets/berkas-journey/time-vendor.js
 webapp/assets/images/
 webapp/data/
-docs/SOURCE-MANIFEST.json
+# Generated publication/validation receipts are not architecture input.
+docs/*.json
 *.xapk
 *.apk
 *.so

@@ -2,6 +2,18 @@
 // No production requests, credentials, or parallel implementation of the application.
 import fs from 'node:fs';
 import vm from 'node:vm';
+import {createCollectionSavePersil,collectionSavePersilEligible,collectionSavePersilEntry} from '../../webapp/collection-save-persil.js';
+// Bind the real new host helpers/module to legacy VM fixtures; assertions and
+// existing source-function renderers remain unchanged.
+function createPersilFixtureContext(...args){
+  const context=vm.createContext(...args);
+  Object.assign(context,{createCollectionSavePersil,collectionSavePersilEligible,collectionSavePersilEntry});
+  const dependencies=new Set(['nativeResponseObject','nativeAccountSummary','collectionTab','collectionGroupCreated']);
+  const declarations=String(source).split(/\r?\n/).filter(line=>/^(?:async )?function (?:persilMap\w+|resetPersilMaps|resetScanHost|scanDisposeLocation)\(/.test(line)||dependencies.has(line.match(/^(?:async )?function (\w+)\(/)?.[1])).join('\n');
+  vm.runInContext(declarations,context);
+  return context;
+}
+
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {parcelMapView} from '../../webapp/parcel-map.js';
@@ -51,7 +63,7 @@ function harness() {
   const searchInput = {focusCalls: 0, selections: [], focus() {this.focusCalls++}, setSelectionRange(a, b) {this.selections.push([a, b])}};
   const state = {authenticated: true, user: {username: 'fixture-only'}, operations: operations.map(o => ({...o})), results: new Map(), points: [], activity: [], selectedPoint: null, connection: {configured: true}};
   let selected = active();
-  const c = vm.createContext({
+  const c = createPersilFixtureContext({
     state, Map, Object, Number, Array, JSON, String, console, URLSearchParams, parcelMapView,
     flowResults: new Map(), flowPageIndex: 0, flowDetail: null, htDetailData: null, flowQuery: '',
     detailSequence: 0, sessionEpoch: 0, searchFileState: null, partnerFrame: null, comparison: null, comparisonSelection: {},

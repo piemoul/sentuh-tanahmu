@@ -1,10 +1,18 @@
 # Sentuh Tanahku — workspace analisis
 
-**Checkpoint source 20 Oktober 2026:** 549 tes Node dan 1.190 pemeriksaan regresi lulus. Toggle koleksi BERKAS dan penghapusan Aktivitas sudah terhubung; modul save PERSIL masih staged/belum terhubung ke UI. Backend checkpoint belum di-deploy. Lihat [status checkpoint](analysis/CHECKPOINT-2026-10-20.md), [arsitektur](docs/ARCHITECTURE.md), dan [peta Graphify](.graphify/GRAPH_REPORT.md). Catatan rilis di bawah merekam build-build sebelumnya.
+**Checkpoint 22 Oktober 2026:** source saat ini mencakup Buku Tamu/Simpan, Rating Berkas, Perjalanan Berkas, Rating PPAT, personal Swaplotting, Sertipikat Hilang/ulasan, Yuridis, pencarian bidang, integrasi Koleksi/PERSIL dan sinkronisasi sesi. Katalog **176 record / 94 aktif** bukan jumlah fitur yang sudah setara penuh dengan APK.
 
-Tes dari clone source: `cd webapp` lalu `npm run test:portable` (544 lulus, lima pemeriksaan artefak privat dikecualikan secara eksplisit). [Rincian validasi](docs/VALIDATION.md).
+Suite lengkap pada workspace analisis lulus **2.520/2.520 tes**. Uji Buku Tamu terbaru mencakup **14 pemeriksaan browser**, termasuk 11 kelompok DOM fungsional, menggunakan data dan transport sintetis. Penerimaan transaksi produksi dan seluruh menu 1:1 belum terbukti. [Status checkpoint](analysis/CHECKPOINT-2026-10-22.md), [arsitektur](docs/ARCHITECTURE.md), [validasi](docs/VALIDATION.md), dan [peta Graphify](.graphify/GRAPH_REPORT.md).
 
-**Publikasi source:** raw APK/ELF/pool, kredensial, PKI, .env, data akun dan log live tidak disertakan. Tautan proof/bukti historis tertentu merujuk workspace lokal dan tidak tersedia di repo. Untuk menjalankan integrasi asli, siapkan artefak/config lokal yang sah sesuai panduan; repo sendiri tidak membagikan akses layanan.
+Tes clone source: `cd webapp` lalu `npm run test:portable`. Runner menerapkan pengecualian bernama untuk bukti privat/historis yang tidak dipublikasikan; cakupannya lebih sempit daripada suite penuh. Seluruh source tes tetap disertakan. Lihat [scope portable](docs/PORTABLE-TEST-SCOPE.md).
+
+**Publikasi source:** APK/ELF/pool, PKI, kredensial, `.env`, sesi dan data akun/log live tidak disertakan. Sejumlah tautan bukti pada audit historis merujuk artefak lokal yang memang tidak tersedia dalam clone. Konfigurasi layanan asli memerlukan artefak lokal yang diprovisikan secara sah. Repo tidak membagikan akses layanan. Unggah geotag dan booking akhir yang memerlukan FCM tetap dibatasi.
+
+Docker Desktop melayani [localhost:4173](http://localhost:4173/). Rebuild/checkpoint lokal terbaru dicatat terpisah dalam `docs/VALIDATION.json`; hasil deployment tidak berarti penerimaan server BPN. Token sesi tetap berada di memori backend.
+
+## Catatan rilis historis sebelum checkpoint ini
+
+Angka tes, status adapter, dan batas fitur pada catatan berikut merekam sumber saat rilis masing-masing. Gunakan checkpoint di atas untuk status terbaru.
 
 **Aksi Item Koleksi:** Edit Caption dan hapus item root kini mengikuti [audit edit](analysis/COLLECTION-ITEM-EDIT.md) dan [audit delete](analysis/COLLECTION-ITEM-DELETE.md). Caption mengganti judul; edit memakai cache baris terkini, sedangkan delete menyaring snapshot sebelum request setelah lookup ID pertama. Keduanya tanpa GET. Clone edit mempertahankan perilaku native groupId lokal menjadi null; efek membership server belum terbukti. [Rekap rilis](analysis/webapp/collection-item-actions-verification-summary.json): 417 tes Node, 1190 pemeriksaan fungsi/23 suite (74 terfokus sudah termasuk), 53 uji browser sintetis. Docker/aset publik cocok; 176 skema/75 adapter. Tidak ada mutasi akun produksi. Seluruh parity dan submisi geotag belum selesai.
 
@@ -22,7 +30,7 @@ Workspace reverse engineering untuk **Sentuh Tanahku 6.1.5** (`id.go.bpn.sentuh`
 
 **Target terbaru:** webapp dengan fungsi Sentuh Tanahku dan input koordinat dari GNSS eksternal atau hasil pengukuran yang sebenarnya. Pengguna meminta audit seluruh parameter submit terlebih dahulu dan satu worker untuk pengujian APK end-to-end. Audit statis dan pengujian runtime dicatat terpisah; keberhasilan ekstraksi tidak berarti fungsi server telah teruji.
 
-**Status implementasi:** webapp mengikuti kelompok menu/aset APK, dengan login, pembacaan data, review payload, serta perbandingan koordinat lokal. Katalog memuat 176 bentuk request dan 75 adapter operasi, ditambah login khusus. [Daftar/detail Antrian dan Panggilan](analysis/QUEUE-WEBAPP-VALIDATION.md) sudah diterapkan. Uji akun sendiri menerima HTTP 200 untuk daftar dan Panggilan yang kosong; detail/data terisi produksi belum terbukti. Kesetaraan seluruh fungsi belum tercapai. Unggah geotag tetap nonaktif; aplikasi tidak mengganti bukti kunjungan fisik dengan koordinat jarak jauh. Kedua XAPK asli tetap utuh. Lihat [panduan webapp](webapp/README.md), [status pengujian](analysis/WEBAPP-PARITY-STATUS.md), dan [peta menu](analysis/official-menu-map.json).
+**Status implementasi:** webapp mengikuti kelompok menu/aset APK, dengan login, pembacaan data, review payload, serta perbandingan koordinat lokal. Katalog saat checkpoint 22 Oktober memuat 176 bentuk request dan 94 operasi aktif (74 baca, 20 tulis), ditambah login khusus. [Daftar/detail Antrian dan Panggilan](analysis/QUEUE-WEBAPP-VALIDATION.md) sudah diterapkan. Uji akun sendiri menerima HTTP 200 untuk daftar dan Panggilan yang kosong; detail/data terisi produksi belum terbukti. Kesetaraan seluruh fungsi belum tercapai. Unggah geotag tetap nonaktif; aplikasi tidak mengganti bukti kunjungan fisik dengan koordinat jarak jauh. Kedua XAPK asli tetap utuh. Lihat [panduan webapp](webapp/README.md), [status pengujian](analysis/WEBAPP-PARITY-STATUS.md), dan [peta menu](analysis/official-menu-map.json).
 
 ## Hasil yang sudah tersedia
 

@@ -3,7 +3,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
-import {OPERATIONS} from '../private/operations.mjs';
+import {OPERATIONS,prepareOperation} from '../private/operations.mjs';
+import {ApiClient} from '../private/api-client.mjs';
 
 const source=fs.readFileSync(new URL('../app.js',import.meta.url),'utf8'),lines=source.split(/\r?\n/);
 const names=['isBerkasDetail','nativeResponseObject','nativeAccountSummary','berkasBookmarkOperation','berkasBookmarkEnvelope','berkasBookmarkValues','berkasBookmarkEligible','berkasBookmarkCurrent','berkasBookmarkForDetail','berkasBookmarkButton','berkasBookmarkView','berkasBookmarkPaint','berkasBookmarkAuth','loadBerkasBookmarkStatus','berkasBookmarkCollectionChanged','submitBerkasBookmark','loadCollectionReader','berkasDetailView','collectionDetailView','searchFileResultView','loadCollectionDetail','loadActivityDetail'];
@@ -62,5 +63,35 @@ for(const reason of ['route','epoch','sequence','response','owner','logout'])tes
 for(const kind of ['activity','collection'])for(const reason of ['close','list','selection'])test(`${kind} late success after ${reason} respects source/detail ownership`,async()=>{const h=harness(kind),wait=deferred();h.setApi(()=>wait.promise);const work=h.click();if(reason==='close')h.modal.close();if(reason==='list')h.sourceOwner.response={...h.sourceOwner.response};if(reason==='selection'){if(kind==='collection')h.groups.selectedGroup={};else h.c.flowDetail={};}wait.resolve(reply());await work;assert.equal(h.owner.saved,false);assert.equal(h.toasts.length,0);});
 test('status read cannot overwrite an intentional newer write result',async()=>{const h=harness(),read=deferred();h.setApi(async(_,{body})=>body.operationId===STATUS?read.promise:reply({error:false,message:null,data:'saved-by-newer-write'}));const status=h.c.loadBerkasBookmarkStatus(h.owner);await h.click();read.resolve(reply({error:false,message:'stale-status-id',data:null}));await status;assert.equal(h.owner.savedId,'saved-by-newer-write');});
 test('stale auth rejection after dialog close cannot log out another view',async()=>{const h=harness('activity'),wait=deferred();h.setApi(()=>wait.promise);const work=h.click();h.modal.close();wait.reject(Object.assign(new Error('stale auth'),{code:'SESSION_EXPIRED'}));await work;assert.equal(h.state.authenticated,true);assert.equal(h.toasts.length,0);});
-for(const code of ['AUTH_REQUIRED','LOGIN_REQUIRED','SESSION_EXPIRED','SESSION_CHANGED'])test(`owned ${code} clears private bookmark/source state`,async()=>{const h=harness();h.setApi(async()=>{throw Object.assign(new Error('Synthetic expiry'),{code});});await h.click();assert.equal(h.state.authenticated,false);assert.equal(h.c.flowResults.size,0);assert.equal(h.state.results.size,0);});
+for(const code of ['AUTH_REQUIRED','LOGIN_REQUIRED','SESSION_EXPIRED'])test(`owned ${code} clears private bookmark/source state`,async()=>{const h=harness();h.setApi(async()=>{throw Object.assign(new Error('Synthetic expiry'),{code});});await h.click();assert.equal(h.state.authenticated,false);assert.equal(h.c.flowResults.size,0);assert.equal(h.state.results.size,0);});
+
+for(const phase of ['status','save'])test(`delayed ${phase} 401 after token refresh preserves private state and permits only intentional save retry`,async()=>{
+ const h=harness(),pending=deferred(),wire=[],errors=[],user=h.state.user,profile=h.state.results.get(h.profileId),sourceResponse=h.sourceOwner.response;
+ const oldTokens={tokenType:'Bearer',accessToken:'synthetic-before-refresh',refreshToken:'synthetic-refresh',expiredAt:4_000_000_000},newTokens={...oldTokens,accessToken:'synthetic-after-refresh'};
+ const session={active:true,user:{nomorIndukKependudukan:'synthetic-stored-signin-nik'},tokens:oldTokens};
+ const client=new ApiClient({configured:true,applicationAuthorization:()=> 'AtrBpn synthetic-application'},{log(){},transport:async(url,init)=>{wire.push({url,init});return wire.length===1?pending.promise:Response.json({error:true,message:null,data:'intentional-retry-id'});}});
+ h.setApi(async(_,{body})=>{const prepared=prepareOperation(body.operationId,body.values,{authenticated:true,user:session.user});try{return{result:await client.request({...prepared,base:prepared.service.baseUrl,session})};}catch(error){errors.push(error.code);throw error;}});
+ const work=phase==='status'?h.status():h.click();
+ assert.equal(wire.length,1);assert.equal(wire[0].init.headers.Authorization,'Bearer synthetic-before-refresh');
+ assert.equal(h.calls[0].options.body.operationId,phase==='status'?STATUS:SAVE);
+ assert.equal(h.owner.busy,phase==='save');
+ session.tokens=newTokens;pending.resolve(Response.json({error:false},{status:401}));await work;
+ assert.deepEqual(errors,['SESSION_CHANGED']);assert.equal(session.active,true);assert.equal(session.tokens,newTokens);
+ assert.equal(h.state.authenticated,true);assert.equal(h.state.user,user);assert.equal(h.state.results.get(h.profileId),profile);
+ assert.equal(h.c.flowResults.get('berkas:bookmark'),h.owner);assert.equal(h.sourceOwner.response,sourceResponse);
+ assert.equal(h.owner.saved,false);assert.equal(h.owner.savedId,null);assert.equal(h.owner.busy,false);
+ assert.equal(h.c.berkasBookmarkCurrent(h.owner),true);assert.equal(wire.length,1);assert.equal(h.calls.length,1);
+ assert.match(h.panel.innerHTML,/Simpan ke Koleksi/);assert.doesNotMatch(h.panel.innerHTML,/disabled/);
+ if(phase==='status')assert.equal(h.toasts.length,0);else assert.equal(h.toasts.at(-1),'Gagal menyimpan bookmark');
+ // A write is never replayed automatically after the stale 401. This explicit
+ // second click uses the newer token and the authoritative stored sign-in NIK.
+ await h.click();assert.equal(wire.length,2);assert.equal(h.calls.length,2);
+ assert.equal(wire[1].init.headers.Authorization,'Bearer synthetic-after-refresh');
+ assert.equal(h.calls[1].options.body.operationId,SAVE);assert.equal(h.calls[1].options.body.confirm,true);
+ assert.equal(Object.hasOwn(h.calls[1].options.body.values,'Nik'),false);
+ assert.equal(wire[1].init.body.get('Nik'),'synthetic-stored-signin-nik');
+ assert.equal(h.owner.saved,true);assert.equal(h.owner.savedId,'intentional-retry-id');assert.equal(h.owner.busy,false);
+ assert.equal(h.state.authenticated,true);assert.equal(h.state.user,user);assert.equal(h.state.results.get(h.profileId),profile);
+ assert.equal(h.c.flowResults.get('berkas:bookmark'),h.owner);assert.equal(h.sourceOwner.response,sourceResponse);
+});
 test('status ordinary failures are silent and do not invent saved status',async()=>{const h=harness();h.setApi(async()=>{throw new Error('synthetic status outage');});await h.status();assert.equal(h.owner.saved,false);assert.equal(h.toasts.length,0);assert.equal(h.records.length,0);});

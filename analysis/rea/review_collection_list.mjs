@@ -1,6 +1,18 @@
 // Execute current collection functions with synthetic DOM/API fixtures only.
 import fs from 'node:fs';
 import vm from 'node:vm';
+import {createCollectionSavePersil,collectionSavePersilEligible,collectionSavePersilEntry} from '../../webapp/collection-save-persil.js';
+// Bind the real new host helpers/module to legacy VM fixtures; assertions and
+// existing source-function renderers remain unchanged.
+function createPersilFixtureContext(...args){
+  const context=vm.createContext(...args);
+  Object.assign(context,{createCollectionSavePersil,collectionSavePersilEligible,collectionSavePersilEntry});
+  const dependencies=new Set(['nativeResponseObject','nativeAccountSummary','collectionTab','collectionGroupCreated']);
+  const declarations=String(source).split(/\r?\n/).filter(line=>/^(?:async )?function (?:persilMap\w+|resetPersilMaps|resetScanHost|scanDisposeLocation)\(/.test(line)||dependencies.has(line.match(/^(?:async )?function (\w+)\(/)?.[1])).join('\n');
+  vm.runInContext(declarations,context);
+  return context;
+}
+
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {OPERATIONS} from '../../webapp/private/operations.mjs';
@@ -18,7 +30,7 @@ let fixtureCalls=0;
 function harness(){
   const tasks=[],calls=[],records=[],toasts=[],supplements=[],modal={innerHTML:'',open:false,showModal(){this.open=true;},close(){this.open=false;}};
   const state={loading:false,authenticated:true,user:{username:'synthetic'},operations:OPERATIONS.map(op=>({...op})),results:new Map(),points:[],activity:[],connection:{configured:true},profileError:''};
-  const c=vm.createContext({state,Map,Object,Array,String,Number,JSON,Date,Intl,parcelMapView,
+  const c=createPersilFixtureContext({state,Map,Object,Array,String,Number,JSON,Date,Intl,parcelMapView,
     queueMicrotask:fn=>tasks.push(fn),window:{scrollTo(){}},document:{body:{classList:{remove(){}}}},location:{hash:'#/collections'},routes:{collections:'Koleksi',dashboard:'Beranda',account:'Profil'},search:'',group:'Semua',filter:'Semua',resetNewsNavigation:()=>{},flowResults:new Map(),flowDetail:null,htDetailData:null,flowQuery:'',flowPageIndex:0,flowTab:'koleksi',route:'collections',sessionEpoch:0,detailSequence:0,
     searchFileState:null,partnerFrame:null,comparison:null,comparisonSelection:{},pending:null,selected:null,
     $:()=>modal,icon:()=>'',empty:text=>`<p>${text}</p>`,notice:(text,kind)=>`<p class="notice ${kind||''}">${text}</p>`,head:(_a,title)=>`<h1>${title}</h1>`,humanField:key=>key,

@@ -1,0 +1,60 @@
+// Read-only evidence/metadata audit; never execute the reviewed finalizer.
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
+import {spawnSync} from 'node:child_process';
+import {OPERATIONS} from '../../webapp/private/operations.mjs';
+const suffix=process.argv.find(arg=>arg.startsWith('--suffix='))?.slice(9)??'final';assert.match(suffix,/^[a-z0-9-]+$/);
+const target=`analysis/webapp/personal-coordinate-finalizer-review-${suffix}.json`;assert.equal(fs.existsSync(target),false);
+const sha=file=>createHash('sha256').update(fs.readFileSync(file)).digest('hex'),pin=file=>({file,sha256:sha(file)}),json=file=>JSON.parse(fs.readFileSync(file));
+const writer='analysis/rea/finalize_personal_coordinate_entry.mjs',text=fs.readFileSync(writer,'utf8');
+const names=['personal-coordinate-entry-baseline','swaplotting-node-tests-coordinate-entry-final','personal-coordinate-entry-regressions-final','personal-coordinate-core-final','personal-coordinate-map-final','personal-coordinate-host-final','personal-coordinate-integration-review-css-final','personal-coordinate-integration-review-initial','personal-coordinate-browser-final','personal-coordinate-browser-transport-final','personal-coordinate-entry-image','personal-coordinate-entry-deployment','personal-coordinate-entry-public','personal-coordinate-entry-public-ui','personal-coordinate-delivery-writer-review'];
+const inputs=[writer,...names.map(name=>`analysis/webapp/${name}.json`),'analysis/rea/review_personal_coordinate_finalizer.mjs'].map(pin),all=new Map(names.map(name=>[name,json(`analysis/webapp/${name}.json`)]));
+const checks=[];const check=(name,run)=>{try{run();checks.push({name,passed:true});}catch(error){checks.push({name,passed:false,error:error.message.slice(0,400)});}};
+const verify=row=>assert.equal(sha(row.file),row.sha256,row.file);
+check('reviewed writer parses without executing and exclusively creates four new evidence outputs',()=>{
+ const result=spawnSync('tools/runtime/node.exe',['--check',writer],{encoding:'utf8'});assert.equal(result.status,0,result.stderr);
+ for(const file of ['analysis/webapp/personal-coordinate-entry-summary.json','analysis/PERSONAL-COORDINATE-ENTRY-RUNTIME.md','analysis/webapp/function-coverage-coordinate-entry.json','analysis/WEBAPP-FUNCTION-COVERAGE-COORDINATE-ENTRY.md'])assert.equal(fs.existsSync(file),false,file);
+ assert.match(text,/flag:'wx'/);assert.doesNotMatch(text,/\b(?:execSync|execFileSync|spawnSync|fetch|https\.request|http\.request)\s*\(/);
+});
+check('baseline protects79runtime44native1014history27docs; exact7runtimechanges plus1new frontend module',()=>{
+ const b=all.get('personal-coordinate-entry-baseline');assert.deepEqual(['runtime','native','historical','documents'].map(key=>b[key].length),[79,44,1014,27]);
+ for(const key of ['native','historical','documents'])b[key].forEach(verify);[b.catalog,b.requestCorpus,b.testSnapshots,b.predecessor].forEach(verify);
+ const changed=b.runtime.filter(row=>sha(row.file)!==row.sha256).map(row=>row.file).sort();assert.deepEqual(changed,['webapp/app.js','webapp/styles.css',...['model','controller','map','view','host'].map(name=>`webapp/assets/swaplotting/${name}.js`)].sort());
+ assert.equal(fs.existsSync('webapp/assets/swaplotting/coordinate-entry.js'),true);const snapshots=json(b.testSnapshots.file);assert.equal(snapshots.files.length,82);snapshots.files.forEach(row=>verify(row.snapshot));
+});
+check('catalog176/84/92 remains byte-identical, enabled71reads13writes; final sensitive writes remain disabled',()=>{
+ assert.equal(OPERATIONS.length,176);assert.equal(OPERATIONS.filter(row=>row.enabled).length,84);assert.equal(OPERATIONS.filter(row=>!row.enabled).length,92);assert.equal(OPERATIONS.filter(row=>row.enabled&&row.effect==='read').length,71);assert.equal(OPERATIONS.filter(row=>row.enabled&&row.effect==='write').length,13);
+ for(const id of ['post-apis-swaplottingterdaftar-d9f850','post-apis-swaplottingbelumterdaftar-da0be8','post-geotag-uploadgeotag-d96b98','post-api-booking-d8b640','post-api-booking-limit-d8bf80'])assert.equal(OPERATIONS.find(row=>row.id===id)?.enabled,false,id);
+});
+check('currentCSS Node1636/86files204pins and VM1190/23suites70pins are source-current separate evidence',()=>{
+ const n=all.get('swaplotting-node-tests-coordinate-entry-final'),v=all.get('personal-coordinate-entry-regressions-final');assert.equal(n.tests,1636);assert.equal(n.pass,1636);assert.equal(n.fail,0);assert.equal(n.exitCode,0);assert.equal(n.testFiles.length,86);assert.equal(n.inputs.length,204);assert.equal(v.passed,1190);assert.equal(v.suites.length,23);assert.equal(v.inputs.length,70);assert.deepEqual(v.failedSuites,[]);
+ for(const r of [n,v]){r.inputs.forEach(verify);assert.deepEqual(r.changedInputs,[]);assert.equal(r.inputs.find(row=>row.file==='webapp/styles.css').sha256,sha('webapp/styles.css'));}
+});
+check('CSS successor reuses11/56 historical checks with frozen predecessor pin, not a claimed rerun',()=>{
+ const r=all.get('personal-coordinate-integration-review-css-final');assert.equal(r.status,'PASS');verify(r.predecessor);verify(r.writer);assert.equal(r.predecessor.file,'analysis/webapp/personal-coordinate-integration-review-initial.json');assert.equal(r.inputs.length,26);r.inputs.forEach(verify);assert.equal(r.delta.changedFiles,1);assert.equal(r.delta.unchangedFiles,25);assert.equal(r.retainedResults.independentProbes.passed,11);assert.equal(r.retainedResults.independentProbes.rerun,false);assert.equal(r.retainedResults.focusedTests.passed,56);assert.equal(r.retainedResults.focusedTests.rerun,false);assert.equal(r.browserVisibilityDefect.pending,false);
+ assert.match(text,/verifyPin\(independent\.predecessor\)/);assert.match(text,/verifyPin\(independent\.writer\)/);assert.match(text,/historical|historis/);assert.match(text,/not rerun|tidak.*rerun|bukan.*rerun|were not rerun/);
+});
+check('browser41valid43raw2expectationcorrections and initialCSSfailure are retained; stopped fixture has no livevideo',()=>{
+ const b=all.get('personal-coordinate-browser-final'),t=all.get('personal-coordinate-browser-transport-final');assert.equal(b.passed,41);assert.equal(b.failed,0);assert.equal(b.checks.length,41);assert.equal(b.rawChecks.length,43);assert.equal(b.rawChecks.filter(row=>row.passed===false).length,2);assert.equal(b.assertionCorrections.length,2);b.inputs.forEach(verify);b.screenshots.forEach(verify);verify(b.transport);assert.equal(b.screenshots.length,2);assert.equal(b.shutdown.exitCode,0);assert.equal(b.shutdown.sessionId,75366);assert.equal(b.shutdown.listeners,0);assert.equal(t.stopped,true);assert.equal(t.pendingMaps,0);assert.equal(t.unexpected,0);assert.equal(t.productionProviderRequests,0);assert.equal(t.observations.at(-1).liveVideoTracks,0);assert.equal(t.observations.at(-1).closed,true);
+ for(const row of b.screenshots){const bytes=fs.readFileSync(row.file);assert.equal(bytes.readUInt16BE(0),0xffd8);}
+});
+check('image75 and readonly same-container deployment75 reflect45frontend30unchangedbackend; fresh image remains separate',()=>{
+ const i=all.get('personal-coordinate-entry-image'),d=all.get('personal-coordinate-entry-deployment'),p=all.get('personal-coordinate-entry-public');assert.equal(i.files.length,75);assert.equal(d.files.length,45);assert.equal(d.backendFiles.length,30);assert.equal(p.files.length,45);assert.equal(new Set(i.files.map(row=>row.name)).size,75);assert.deepEqual(i.files.map(row=>row.name).sort(),[...d.files,...d.backendFiles].map(row=>row.name).sort());assert.deepEqual(p.files.map(row=>row.name).sort(),d.files.map(row=>row.name).sort());
+ for(const r of [i,d,p]){assert.equal(r.currentRuntimeFiles,80);assert.equal(r.trackedRuntimeFiles,75);assert.equal(r.backendRestarted,false);assert.equal(r.catalogByteUnchanged,true);r.inputs.forEach(verify);}
+ for(const row of i.files){assert.equal(row.sourceHash,sha('webapp/'+row.name));assert.equal(row.imageHash,row.sourceHash);}
+ for(const row of [...d.files,...d.backendFiles]){assert.equal(row.sourceHash,sha('webapp/'+row.name));assert.equal(row.containerHash,row.sourceHash);assert.equal(row.deployedHash,row.sourceHash);}
+ for(const row of p.files){assert.equal(row.status,200);assert.equal(row.publicHash,sha('webapp/'+row.name));}
+ assert.equal(d.containerRecreated,false);assert.equal(d.container.readonly,true);assert.equal(d.container.health,'healthy');assert.equal(d.container.id,d.containerAfter.id);assert.equal(d.container.image,d.containerAfter.image);assert.equal(d.container.startedAt,d.containerAfter.startedAt);assert.equal(d.runningUsesFreshVerificationImage,d.runningImageId===i.imageId);assert.equal(d.runningUsesFreshVerificationImage,false);
+});
+check('publicUI derives two passed anonymous checks from actual schema and binds screenshot plus static-delivery receipt',()=>{
+ const r=all.get('personal-coordinate-entry-public-ui');assert.equal(r.status,'passed');assert.equal(r.anonymous,true);assert.equal(r.checks.length,2);assert.ok(r.checks.every(row=>row.passed));assert.equal(r.passed,undefined);r.inputs.forEach(verify);verify(r.screenshot);verify(r.sourceDelivery);
+ assert.match(text,/publicUiPassed\s*=\s*publicUi\.checks\.filter\(row=>row\.passed===true\)\.length/);assert.match(text,/verifyPin\(publicUi\.screenshot\)/);assert.match(text,/verifyPin\(publicUi\.sourceDelivery\)/);assert.doesNotMatch(text,/publicUi\.passed/);
+});
+check('writer keeps personal adaptation, synthetic media, no presence substitution and incomplete whole-goal limits',()=>{
+ for(const phrase of ['goalComplete:false','allNativeFunctions:false','allEndToEndTested:false','sessionValidityProven:false','backendRestarted:false','containerRecreated:false'])assert.ok(text.includes(phrase),phrase);
+ assert.match(text,/browser feature corroborated by separate official Bhumi help/);assert.match(text,/not a claim of native\s*6\.1\.5/);assert.match(text,/do not replace device GPS or Berkas/);assert.match(text,/not Android hardware/);assert.match(text,/Synthetic|synthetic/);
+});
+assert.ok(inputs.every(row=>sha(row.file)===row.sha256),'Review inputs changed');
+const failed=checks.filter(row=>!row.passed),report={schemaVersion:1,checkedAt:new Date().toISOString(),status:failed.length?'FAIL':'PASS',reviewKind:'Independent read-only review of native-review agent finalizer, actual metadata and source bindings. Reviewer authored core coordinate modules, not this finalizer.',inputs,checks,passed:checks.length-failed.length,failed:failed.length,materialFindings:failed,resolvedFindings:[{finding:'Public UI receipt has checks[] and status; no top-level passed.',resolution:'Author derives two successes from actual checks and binds nested screenshot/sourceDelivery.'},{finding:'Historical11/56 predecessor receipt could be freshly rebound without checking CSS successor predecessor SHA.',resolution:'Author now verifies independent.predecessor and independent.writer; current frozen hashes match.'}],retainedReviewAttempt:{receipt:pin('analysis/webapp/personal-coordinate-finalizer-review-initial.json'),classification:'Reviewer source-shape assertions expected checks.length instead of semantically correct checks.filter(passed).length, and omitted polished whitespace in native 6.1.5 wording. Both reviewer assertions corrected; no finalizer/source change.'},actions:{finalizerExecuted:false,testSuiteRuns:0,syntaxChecks:1,runtimeEdits:0,dockerActions:0,browserActions:0,networkRequests:0},limits:['Source/metadata review does not independently establish browser rendering, hardware, account/provider acceptance or all-native parity.','Full Node/VM/browser/delivery counts are verified existing receipts, not rerun or added together.'],writer:pin('analysis/rea/review_personal_coordinate_finalizer.mjs')};
+fs.writeFileSync(target,JSON.stringify(report,null,2)+'\n',{flag:'wx'});console.log(JSON.stringify({status:report.status,checks:checks.length,passed:report.passed,failed:report.failed,receipt:pin(target),findings:failed}));if(failed.length)process.exitCode=1;

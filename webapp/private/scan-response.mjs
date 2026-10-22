@@ -3,9 +3,10 @@ import {parseQueueProfileResponse} from './queue-profile.mjs';
 function invalid(kind) {
   throw Object.assign(new Error(kind === 'profile'
     ? 'Profil akun belum sesuai format pemindaian dokumen.'
+    : kind === 'metadata' ? 'Metadata dokumen belum sesuai format layanan.'
     : 'Respons pemindaian dokumen belum sesuai format layanan.'), {
     status:502,
-    code:kind === 'profile' ? 'SCAN_PROFILE_UNRECOGNIZED' : 'SCAN_CLASSIFICATION_UNRECOGNIZED',
+    code:kind === 'profile' ? 'SCAN_PROFILE_UNRECOGNIZED' : kind === 'metadata' ? 'SCAN_METADATA_UNRECOGNIZED' : 'SCAN_CLASSIFICATION_UNRECOGNIZED',
   });
 }
 
@@ -39,6 +40,21 @@ export function decodeScanClassification(responseBody) {
   if (message !== null && typeof message !== 'string') invalid('classification');
   if (typeof data !== 'string') invalid('classification');
   return {message:message ?? 'Unknown Error', data};
+}
+
+// Shared native GetDocumentType helper: unlike classification it does not
+// decode a second String. Return its typed envelope for existing UI consumers;
+// callers compute showRoute===1 and own the (true,false,'') failure fallback.
+export function decodeScanDocumentMetadata(body) {
+  try {
+    record(body);
+    const error = field(body, 'error'), data = record(field(body, 'data'));
+    const showRoute = field(data, 'showRoute'), type = field(data, 'type');
+    if (error !== null && typeof error !== 'boolean' || !Number.isSafeInteger(showRoute) || type !== null && typeof type !== 'string') invalid('metadata');
+    return {error:error ?? true, data:{showRoute, type:type ?? ''}};
+  } catch {
+    invalid('metadata');
+  }
 }
 
 // Server-owned, already decoded account_summary only. The shared validator

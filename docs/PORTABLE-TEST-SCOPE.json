@@ -1,0 +1,209 @@
+{
+  "schemaVersion": 1,
+  "scope": "Published source-only subset of the unchanged artifact-backed Node tests. Narrower than the full local native-evidence suite.",
+  "inventory": {
+    "testFiles": 149,
+    "fullLocalNativeTests": 2520,
+    "wholeFileExcludedCallbacks": 13,
+    "includedTestFiles": 147,
+    "exactCallbackExclusions": 19
+  },
+  "policy": "All 149 test files are published unchanged. No private fixture, recovered artifact, historical preimage, or substitute baseline is fabricated. Whole-file exclusions occur only for dependencies read at module initialization. Other omissions use exact callback names. Mixed evidence/implementation callbacks are omitted in full and do not count as implementation coverage.",
+  "excludedFiles": [
+    {
+      "file": "certificate-date-display.test.mjs",
+      "reason": "Reads a private historical app preimage at module initialization, before callback filtering. This also omits four implementation checks.",
+      "dependencies": [
+        "environment/certificate-date-runtime/app-before.js"
+      ],
+      "testNames": [
+        "three analog fields render Indonesian dates and keep year9999 without electronic sentinel",
+        "invalid, missing, null and offset date strings render a dash in analog date fields",
+        "loose parse is still strict about a valid calendar date and uses the recovered pattern order",
+        "no type coercion or HTML input reaches certificate display",
+        "analog date callsites retain their formatter and unrelated date renderers stay unchanged"
+      ]
+    },
+    {
+      "file": "swaplotting-model.test.mjs",
+      "reason": "Reads recovered APK form copy at module initialization, before callback filtering. This also omits seven other model checks.",
+      "dependencies": [
+        "analysis/recovered/swaplotting-followup/public-copy.json"
+      ],
+      "testNames": [
+        "public form copy and literal choice order match the independently frozen APK fixture",
+        "all three reads match the actual public catalog rather than synthesized endpoint metadata",
+        "disclaimer is direct nullable text, with only one conditional JSON String decode",
+        "full office typing precedes two-field projection and preserves IDs, ordering and duplicates",
+        "desa picks WilayahId and validates all Cyb fields without Kode substitution",
+        "own candidate is exclusively the level2/3 non-IKD account-summary contact projection",
+        "registered nine and unregistered fourteen predicates are raw nonempty/non-null only",
+        "camera retains fractional zoom; browser URL policy never turns arbitrary text into navigation"
+      ]
+    }
+  ],
+  "excludedTests": [
+    {
+      "file": "berkas-journey-integration.test.mjs",
+      "name": "legacy detail/collapsed renderers remain byte-identical to the preserved preimage",
+      "reason": "Historical renderer/preimage comparison.",
+      "dependencies": [
+        "environment/berkas-journey-runtime/app-before.js",
+        "analysis/webapp/berkas-journey-baseline.json"
+      ]
+    },
+    {
+      "file": "berkas-journey-time-display.test.mjs",
+      "name": "the new library differs only by names and HH:mm output; existing patterns/order stay exact",
+      "reason": "Private Dart oracle source comparison; actual shipped formatter cases remain included.",
+      "dependencies": [
+        "environment/certificate-date-oracle/lib/native_journey_time.dart",
+        "environment/certificate-date-oracle/lib/native_certificate_date.dart",
+        "environment/certificate-date-oracle/web/journey_time_main.dart",
+        "environment/certificate-date-oracle/web/main.dart",
+        "environment/certificate-date-oracle/bin/journey_time_oracle.dart",
+        "environment/certificate-date-oracle/bin/oracle.dart"
+      ]
+    },
+    {
+      "file": "berkas-rating-post.test.mjs",
+      "name": "Berkas Rating catalog record and later Buku Tamu delta remain exact; rawclientIDs stay unavailable",
+      "reason": "Historical catalog delta and implementation assertions share one callback; the entire callback is omitted.",
+      "dependencies": [
+        "analysis/webapp/berkas-rating-runtime-baseline.json"
+      ]
+    },
+    {
+      "file": "collection-save-activity.test.mjs",
+      "name": "save/activity batch keeps original corpus, six prior ledgers and 225 historical JSON byte-identical",
+      "reason": "Baseline references omitted recovered ledgers and historical local JSON receipts.",
+      "dependencies": [
+        "analysis/webapp/collection-save-activity-baseline.json",
+        "baseline-referenced private native ledgers and historical JSON receipts"
+      ]
+    },
+    {
+      "file": "collection-save-persil-ui.test.mjs",
+      "name": "native canonical ledger remains pinned and staged UI imports no transport or document surface",
+      "reason": "Recovered ledger hash and implementation source assertions share one callback.",
+      "dependencies": [
+        "analysis/recovered/collection-save-persil/flow.json"
+      ]
+    },
+    {
+      "file": "operations.test.mjs",
+      "name": "170 audited shapes plus the separate SPS viewer, two group DELETE and three item helpers remain distinct, immutable and explicit about readiness",
+      "reason": "Historical catalog delta and implementation assertions share one callback; the entire callback is omitted.",
+      "dependencies": [
+        "analysis/webapp/yuridis-runtime-baseline.json"
+      ]
+    },
+    {
+      "file": "office-configuration.test.mjs",
+      "name": "verified artifact configuration binds the native calendar literals privately",
+      "reason": "Requires verified private APK binary and recovered literal pool.",
+      "dependencies": [
+        "analysis/unpacked/apk/config.arm64_v8a/lib/arm64-v8a/libapp.so",
+        "analysis/recovered/blutter-unique/pp.txt"
+      ]
+    },
+    {
+      "file": "lost-review-post.test.mjs",
+      "name": "extension MIME matches all996 recovered defaults, with lookup-only trim/case and exact unknown fallback",
+      "reason": "Exhaustive comparison against omitted recovered MIME evidence.",
+      "dependencies": [
+        "analysis/recovered/lost-review-post-protocol/mime-table.json"
+      ]
+    },
+    {
+      "file": "lost-review-post.test.mjs",
+      "name": "catalog retains the audited post and later Yuridis delta against the96-file baseline with session and confirmation",
+      "reason": "Historical catalog delta and implementation assertions share one callback; the entire callback is omitted.",
+      "dependencies": [
+        "analysis/webapp/lost-review-post-baseline.json"
+      ]
+    },
+    {
+      "file": "queue-booking-backend.test.mjs",
+      "name": "quota registry changes only its existing record and retains all171 other records including disabled create beside later personal Swaplotting, Berkas Rating and Buku Tamu writers",
+      "reason": "Historical catalog delta and implementation assertions share one callback; the entire callback is omitted.",
+      "dependencies": [
+        "analysis/webapp/queue-booking-runtime-baseline.json"
+      ]
+    },
+    {
+      "file": "mitra-response.test.mjs",
+      "name": "catalog retains five Mitra records plus later Rating and Yuridis deltas with prior write IDs plus the selected Rating writer",
+      "reason": "Historical catalog delta and implementation assertions share one callback; the entire callback is omitted.",
+      "dependencies": [
+        "analysis/webapp/mitra-read-baseline.json"
+      ]
+    },
+    {
+      "file": "queue-models.test.mjs",
+      "name": "all 1079 frozen C++ reference vectors match queue raw-double conversion",
+      "reason": "Recovered native C++ reference-vector comparison.",
+      "dependencies": [
+        "analysis/recovered/queue-model-followup/double-vectors.json"
+      ]
+    },
+    {
+      "file": "rating-ppat-response.test.mjs",
+      "name": "catalog retains the Rating GET plus later Yuridis delta and prior write IDs plus the separately enabled Rating POST",
+      "reason": "Historical catalog delta and implementation assertions share one callback; the entire callback is omitted.",
+      "dependencies": [
+        "analysis/webapp/rating-ppat-read-baseline.json"
+      ]
+    },
+    {
+      "file": "rating-ppat-post.test.mjs",
+      "name": "catalog enables only the selected Rating writer, corrects GET reason only and keeps other169 records/prior14 write IDs intact beside later quota, personal Swaplotting, Berkas Rating and Buku Tamu deltas",
+      "reason": "Historical catalog delta and implementation assertions share one callback; the entire callback is omitted.",
+      "dependencies": [
+        "analysis/webapp/rating-ppat-write-baseline.json",
+        "environment/rating-ppat-write-before/webapp/private/operations.mjs"
+      ]
+    },
+    {
+      "file": "scan-controller.test.mjs",
+      "name": "Scan native ledger stays pinned and standalone module has no provider/profile/activation dependency",
+      "reason": "Recovered ledger hash and implementation source assertions share one callback.",
+      "dependencies": [
+        "analysis/recovered/scan-flow.json"
+      ]
+    },
+    {
+      "file": "swaplotting-read-backend.test.mjs",
+      "name": "catalog retains the office correction plus separately audited lost-review, Rating and Yuridis deltas",
+      "reason": "Historical operation-registry preimage comparison.",
+      "dependencies": [
+        "environment/swaplotting-read/operations-before.json"
+      ]
+    },
+    {
+      "file": "swaplotting-submit-backend.test.mjs",
+      "name": "catalog enables only the two scoped personal uploads and keeps172 other records including the prior generic Activity unchanged beside later Berkas Rating and Buku Tamu",
+      "reason": "Historical catalog delta and implementation assertions share one callback; the entire callback is omitted.",
+      "dependencies": [
+        "analysis/webapp/swaplotting-submit-runtime-baseline.json"
+      ]
+    },
+    {
+      "file": "tls-configuration.test.mjs",
+      "name": "verified APK TLS context stays private and is restricted to the exact production origin",
+      "reason": "Requires verified private APK TLS material; missing-artifact behavior remains included.",
+      "dependencies": [
+        "analysis/unpacked/apk/config.arm64_v8a/lib/arm64-v8a/libapp.so",
+        "analysis/recovered/blutter-unique/pp.txt"
+      ]
+    },
+    {
+      "file": "yuridis-backend.test.mjs",
+      "name": "catalog retains the Yuridis read/feed/post plus later Rating writer and GET reason deltas",
+      "reason": "Historical catalog delta and implementation assertions share one callback; the entire callback is omitted.",
+      "dependencies": [
+        "analysis/webapp/yuridis-runtime-baseline.json"
+      ]
+    }
+  ]
+}

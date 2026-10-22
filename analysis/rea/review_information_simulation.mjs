@@ -1,6 +1,18 @@
 // Actual Info Layanan simulation functions; all transport responses are synthetic.
 import fs from 'node:fs';
 import vm from 'node:vm';
+import {createCollectionSavePersil,collectionSavePersilEligible,collectionSavePersilEntry} from '../../webapp/collection-save-persil.js';
+// Bind the real new host helpers/module to legacy VM fixtures; assertions and
+// existing source-function renderers remain unchanged.
+function createPersilFixtureContext(...args){
+  const context=vm.createContext(...args);
+  Object.assign(context,{createCollectionSavePersil,collectionSavePersilEligible,collectionSavePersilEntry});
+  const dependencies=new Set(['nativeResponseObject','nativeAccountSummary','collectionTab','collectionGroupCreated']);
+  const declarations=String(source).split(/\r?\n/).filter(line=>/^(?:async )?function (?:persilMap\w+|resetPersilMaps|resetScanHost|scanDisposeLocation)\(/.test(line)||dependencies.has(line.match(/^(?:async )?function (\w+)\(/)?.[1])).join('\n');
+  vm.runInContext(declarations,context);
+  return context;
+}
+
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {OPERATIONS} from '../../webapp/private/operations.mjs';
@@ -15,7 +27,7 @@ let fixtureCalls=0;
 function harness(type=1){
  const requests=[],records=[],toasts=[],queued=[],modal={open:false,innerHTML:'',close(){this.open=false}};
  const state={authenticated:true,user:{username:'fixture'},operations:OPERATIONS.filter(op=>op.endpoint.startsWith('InfoLayanan/')).map(op=>({...op})),results:new Map(),connection:{configured:true},points:[],activity:[]};let form=null;
- const c=vm.createContext({state,Map,Object,String,Number,Array,JSON,URLSearchParams,route:'information',flowResults:new Map(),flowDetail:null,htDetailData:null,flowQuery:'',flowPageIndex:0,flowTab:'',sessionEpoch:0,detailSequence:0,searchFileState:null,partnerFrame:null,comparison:null,comparisonSelection:{},pending:null,selected:null,search:'',group:'Semua',filter:'Semua',location:{hash:'#/information'},routes:{information:'Info Layanan',dashboard:'Beranda',account:'Profil'},window:{scrollTo(){}},document:{body:{classList:{remove(){}}}},queueMicrotask:fn=>queued.push(fn),ready:op=>op.enabled===true,write:op=>op.effect==='write',$:selector=>selector==='#modal'?modal:selector==='#information-simulation-form'?form:null,esc,icon:()=>'',notice:value=>`<p class="notice">${value}</p>`,renderCalls:0,render:()=>{c.renderCalls++},record:(...v)=>records.push(v),toast:v=>toasts.push(v),api:(path,options)=>{fixtureCalls++;const pending=deferred();requests.push({path,options,...pending});return pending.promise}});
+ const c=createPersilFixtureContext({state,Map,Object,String,Number,Array,JSON,URLSearchParams,route:'information',flowResults:new Map(),flowDetail:null,htDetailData:null,flowQuery:'',flowPageIndex:0,flowTab:'',sessionEpoch:0,detailSequence:0,searchFileState:null,partnerFrame:null,comparison:null,comparisonSelection:{},pending:null,selected:null,search:'',group:'Semua',filter:'Semua',location:{hash:'#/information'},routes:{information:'Info Layanan',dashboard:'Beranda',account:'Profil'},window:{scrollTo(){}},document:{body:{classList:{remove(){}}}},queueMicrotask:fn=>queued.push(fn),ready:op=>op.enabled===true,write:op=>op.effect==='write',$:selector=>selector==='#modal'?modal:selector==='#information-simulation-form'?form:null,esc,icon:()=>'',notice:value=>`<p class="notice">${value}</p>`,renderCalls:0,render:()=>{c.renderCalls++},record:(...v)=>records.push(v),toast:v=>toasts.push(v),api:(path,options)=>{fixtureCalls++;const pending=deferred();requests.push({path,options,...pending});return pending.promise}});
  vm.runInContext(names.map(get).join('\n'),c);
  const h={c,state,requests,records,toasts,queued,get owner(){return c.getInformationState()},get frame(){return this.owner.detail},get sim(){return this.frame?.simulation},get form(){return form},seed(kind=type){const owner=c.getInformationState(),details={layananId:' RETURNED SERVICE + & / ',tipeSimulasi:kind},frame={item:{layananId:'WRONG LIST ID'},response:response(details),loading:false};owner.detail=frame;c.getInformationSimulation(frame,details);return frame},fill(overrides={}){const sim=this.sim;sim.provinceRows=provinces.map(x=>({...x}));sim.provinceAttempted=true;const defaults={WilayahId:'1',Jumlah:'002',Luas:'0012',NilaiPerMeter:'001200',Penggunaan:'pertanian',Prosedur:'konversi',Kewenangan:'Kantor Petanahan'},inputs=Object.fromEntries((fieldNames[sim.type]||[]).map(name=>[name,{isConnected:true,name,value:Object.hasOwn(overrides,name)?overrides[name]:defaults[name]}]));form={isConnected:true,elements:{namedItem:name=>inputs[name]||null},inputs};return form},view(){return c.informationSimulationView(this.owner,this.frame,this.frame.response.data.data)},async flush(){for(const fn of queued.splice(0))fn();await settle()},async resolve(promise,data=cost,index=requests.length-1){requests[index].resolve({result:response(data)});await promise;await settle()},async raw(promise,result,index=requests.length-1){requests[index].resolve({result});await promise;await settle()},async reject(promise,error,index=requests.length-1){requests[index].reject(error);await promise;await settle()}};h.seed(type);return h;
 }

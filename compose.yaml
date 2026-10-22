@@ -49,14 +49,38 @@ services:
         bind:
           create_host_path: false
       - type: bind
+        source: ./webapp/collection-save-persil.js
+        target: /app/webapp/collection-save-persil.js
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./webapp/scan-controller.js
+        target: /app/webapp/scan-controller.js
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./webapp/scan-camera.js
+        target: /app/webapp/scan-camera.js
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./webapp/scan-location.js
+        target: /app/webapp/scan-location.js
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
         source: ./webapp/parcel-map.js
         target: /app/webapp/parcel-map.js
         read_only: true
         bind:
           create_host_path: false
       - type: bind
-        source: ./webapp/assets/maps/official-map.js
-        target: /app/webapp/assets/maps/official-map.js
+        source: ./webapp/assets
+        target: /app/webapp/assets
         read_only: true
         bind:
           create_host_path: false

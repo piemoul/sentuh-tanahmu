@@ -1,6 +1,18 @@
 // Current source functions with synthetic DOM/API fixtures; never production data.
 import fs from 'node:fs';
 import vm from 'node:vm';
+import {createCollectionSavePersil,collectionSavePersilEligible,collectionSavePersilEntry} from '../../webapp/collection-save-persil.js';
+// Bind the real new host helpers/module to legacy VM fixtures; assertions and
+// existing source-function renderers remain unchanged.
+function createPersilFixtureContext(...args){
+  const context=vm.createContext(...args);
+  Object.assign(context,{createCollectionSavePersil,collectionSavePersilEligible,collectionSavePersilEntry});
+  const dependencies=new Set(['nativeResponseObject','nativeAccountSummary','collectionTab','collectionGroupCreated']);
+  const declarations=String(source).split(/\r?\n/).filter(line=>/^(?:async )?function (?:persilMap\w+|resetPersilMaps|resetScanHost|scanDisposeLocation)\(/.test(line)||dependencies.has(line.match(/^(?:async )?function (\w+)\(/)?.[1])).join('\n');
+  vm.runInContext(declarations,context);
+  return context;
+}
+
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {parcelMapView} from '../../webapp/parcel-map.js';
@@ -45,7 +57,7 @@ function harness() {
   };
   const selector = {focusCalls: 0, focus() {this.focusCalls++}, setSelectionRange() {}};
   const state = {authenticated: true, user: {username: 'fixture-only'}, operations: OPERATIONS.map(op => ({...op})), results: new Map(), activity: [{label: 'LOCAL-LOG-ONLY'}], points: [], connection: {configured: true}};
-  const c = vm.createContext({
+  const c = createPersilFixtureContext({
     state, Map, Object, Array, String, Number, JSON, Intl, console, URLSearchParams, parcelMapView, queueMicrotask: task => tasks.push(task),
     flowResults: new Map(), flowDetail: null, htDetailData: null, flowQuery: '', flowPageIndex: 0,
     detailSequence: 0, sessionEpoch: 0, searchFileState: null, partnerFrame: null, comparison: null, comparisonSelection: {}, pending: null, selected: null,
@@ -73,6 +85,16 @@ function harness() {
   for (const name of ['json','badge']) vm.runInContext(lines.find(line => line.startsWith(`const ${name}=`)).replace(`const ${name}=`, `globalThis.${name}=`), c);
   for (const line of lines.filter(line => /^document.addEventListener\('(click|change|input)'/.test(line) || line.startsWith("$('#modal').addEventListener('cancel'"))) vm.runInContext(line, c);
   return {c, state, modal, calls, records, toasts, events, selector, slots, queueDispatch, tasks, use(mode) {selected = active(mode);c.route = mode;return selected}};
+}
+// Direct-loader checks still establish the actual selected-row/read ownership
+// that showFlowDetail now supplies before invoking the unchanged loader.
+function loadOwnedActivityDetail(c,item){
+  c.flowDetail=item;
+  let reader=c.flowResults.get('activity:default');
+  if(!reader?.response){reader={response:activityResponse([])};c.flowResults.set('activity:default',reader);}
+  const rows=c.activityRows(reader.response);
+  if(Array.isArray(rows)&&!rows.includes(item))rows.push(item);
+  return c.loadActivityDetail(item);
 }
 const passed = [];
 async function check(name, fn) {await fn(harness());passed.push(name)}
@@ -182,49 +204,49 @@ await check('actual Activity dispatch selects original row from string envelope 
   c.flowResults.set(selected.key, {response: activityResponse([{...activity, activityType: 'AntrianOnline'}])});received = null;c.showFlowDetail(0);assert.equal(received.contentId, activity.contentId);
 });
 await check('Activity parcel read uses full selected ID and existing geometry view', async ({c, calls, modal}) => {
-  await c.loadActivityDetail({...activity, contentId: 'PARCEL:WHOLE'});
+  await loadOwnedActivityDetail(c,{...activity, contentId: 'PARCEL:WHOLE'});
   assert.equal(calls.length, 1);assert.equal(calls[0].options.body.operationId, operation('legacy/GetParcelBoundaryById?persilid={value}').id);assert.deepEqual(clone(calls[0].options.body.values), {persilid: 'PARCEL:WHOLE'});assert.match(modal.innerHTML, /official-map-canvas/);
 });
 await check('Activity BERKAS reads primary/SOP/print using split or full selected ID and never SPS', async ({c, calls, modal}) => {
   for (const [activityType, id] of [['CariBerkas','LEFT'], ['GEOTAG','LEFT:RIGHT'], ['AktivasiBerkasGeotag','LEFT']]) {
-    calls.length = 0;await c.loadActivityDetail({...activity, activityType, contentId: 'LEFT:RIGHT'});
+    calls.length = 0;await loadOwnedActivityDetail(c,{...activity, activityType, contentId: 'LEFT:RIGHT'});
     assert.deepEqual(calls.map(call => OPERATIONS.find(op => op.id === call.options.body.operationId).endpoint), ['/berkas/CariBerkas','berkas/berkassop','berkas/getStatusCetak']);
     assert.deepEqual(clone(calls.map(call => call.options.body.values)), [{berkasId: id},{berkasid: id},{berkasid: id}]);assert.doesNotMatch(modal.innerHTML, /data-kind="sps"/);
   }
 });
 await check('Activity loader guards unsupported destinations and delegates authorized queue reads', async ({c, state, calls, modal, queueDispatch}) => {
-  state.authenticated = false;await c.loadActivityDetail(activity);state.authenticated = true;
-  for (const override of [{enabled: false},{effect: 'write'}]) {state.operations = [{...operation('legacy/GetParcelBoundaryById?persilid={value}'), ...override}];await c.loadActivityDetail(activity)}
-  state.operations = OPERATIONS;for (const activityType of ['AntrianOnline','Login']) await c.loadActivityDetail({...activity, activityType, subTitle: 'Other'});
+  state.authenticated = false;await loadOwnedActivityDetail(c,activity);state.authenticated = true;
+  for (const override of [{enabled: false},{effect: 'write'}]) {state.operations = [{...operation('legacy/GetParcelBoundaryById?persilid={value}'), ...override}];await loadOwnedActivityDetail(c,activity)}
+  state.operations = OPERATIONS;for (const activityType of ['AntrianOnline','Login']) await loadOwnedActivityDetail(c,{...activity, activityType, subTitle: 'Other'});
   assert.equal(calls.length, 0);assert.equal(modal.open, false);
   assert.equal(queueDispatch.length, 1);assert.equal(queueDispatch[0].contentId, activity.contentId);
 });
 await check('Activity unfamiliar BERKAS response keeps generic content without supplementary reads', async ({c, modal}) => {
-  let calls = 0;c.api = async () => {calls++;return result({unmapped: 'UNKNOWN-BERKAS'})};await c.loadActivityDetail({...activity, activityType: 'CariBerkas'});
+  let calls = 0;c.api = async () => {calls++;return result({unmapped: 'UNKNOWN-BERKAS'})};await loadOwnedActivityDetail(c,{...activity, activityType: 'CariBerkas'});
   assert.equal(calls, 1);assert.match(modal.innerHTML, /UNKNOWN-BERKAS/);assert.doesNotMatch(modal.innerHTML, /data-action="berkas-read"/);
 });
 await check('Activity stale or closed primary responses cannot render or launch supplementary reads', async ({c, modal}) => {
   for (const mutate of [() => c.sessionEpoch++, () => c.detailSequence++, () => modal.close()]) {
-    const d = deferred();let calls = 0;c.api = () => {calls++;return d.promise};const request = c.loadActivityDetail({...activity, activityType: 'CariBerkas'});mutate();modal.innerHTML = 'NEW-CONTENT';d.resolve(result(berkas));await request;
+    const d = deferred();let calls = 0;c.api = () => {calls++;return d.promise};const request = loadOwnedActivityDetail(c,{...activity, activityType: 'CariBerkas'});mutate();modal.innerHTML = 'NEW-CONTENT';d.resolve(result(berkas));await request;
     assert.equal(modal.innerHTML, 'NEW-CONTENT');assert.equal(calls, 1);
   }
 });
 await check('Activity late ordinary errors respect modal/sequence guards and current errors escape HTML', async ({c, modal}) => {
-  const d = deferred();c.api = () => d.promise;const request = c.loadActivityDetail(activity);c.detailSequence++;modal.innerHTML = 'NEW-CONTENT';d.reject(new Error('OLD-ERROR'));await request;assert.equal(modal.innerHTML, 'NEW-CONTENT');
-  c.api = async () => {throw new Error('<img src=x onerror="bad()">')};await c.loadActivityDetail(activity);assert.match(modal.innerHTML, /&lt;img/);assert.doesNotMatch(modal.innerHTML, /<img src=x/);
+  const d = deferred();c.api = () => d.promise;const request = loadOwnedActivityDetail(c,activity);c.detailSequence++;modal.innerHTML = 'NEW-CONTENT';d.reject(new Error('OLD-ERROR'));await request;assert.equal(modal.innerHTML, 'NEW-CONTENT');
+  c.api = async () => {throw new Error('<img src=x onerror="bad()">')};await loadOwnedActivityDetail(c,activity);assert.match(modal.innerHTML, /&lt;img/);assert.doesNotMatch(modal.innerHTML, /<img src=x/);
 });
 await check('Activity newer selection wins over slower old detail', async ({c, modal}) => {
   const old = deferred(), newer = deferred();let calls = 0;c.api = () => ++calls === 1 ? old.promise : newer.promise;
-  const first = c.loadActivityDetail({...activity, activityType: 'CariBerkas'});c.detailSequence++;const second = c.loadActivityDetail({...activity, activityType: 'CariBerkas', contentId: 'SECOND'});
+  const first = loadOwnedActivityDetail(c,{...activity, activityType: 'CariBerkas'});c.detailSequence++;const second = loadOwnedActivityDetail(c,{...activity, activityType: 'CariBerkas', contentId: 'SECOND'});
   newer.resolve(result({unknown: 'NEWER-DETAIL'}));await second;old.resolve(result({unknown: 'OLD-DETAIL'}));await first;
   assert.match(modal.innerHTML, /NEWER-DETAIL/);assert.doesNotMatch(modal.innerHTML, /OLD-DETAIL/);
 });
 for (const code of ['AUTH_REQUIRED','LOGIN_REQUIRED','SESSION_EXPIRED']) await check(`Activity ${code} clears actual private state`, async ({c, state, modal}) => {
-  c.flowQuery = 'Bidang';c.flowResults.set('private', {});state.results.set('private', {});c.api = async () => {throw Object.assign(new Error('fixture expiry'), {code})};await c.loadActivityDetail(activity);
+  c.flowQuery = 'Bidang';c.flowResults.set('private', {});state.results.set('private', {});c.api = async () => {throw Object.assign(new Error('fixture expiry'), {code})};await loadOwnedActivityDetail(c,activity);
   assert.equal(state.authenticated, false);assert.equal(state.user, null);assert.equal(c.flowQuery, '');assert.equal(c.flowResults.size, 0);assert.equal(state.results.size, 0);assert.equal(modal.open, false);assert.equal(modal.innerHTML, '');
 });
 await check('Activity stale-session expiry leaves a replacement account intact', async ({c, state, modal, toasts}) => {
-  const d = deferred();c.api = () => d.promise;const request = c.loadActivityDetail(activity);c.sessionEpoch++;state.user = {username: 'replacement'};modal.innerHTML = 'NEW-CONTENT';d.reject(Object.assign(new Error('expired'), {code: 'SESSION_EXPIRED'}));await request;
+  const d = deferred();c.api = () => d.promise;const request = loadOwnedActivityDetail(c,activity);c.sessionEpoch++;state.user = {username: 'replacement'};modal.innerHTML = 'NEW-CONTENT';d.reject(Object.assign(new Error('expired'), {code: 'SESSION_EXPIRED'}));await request;
   assert.equal(state.authenticated, true);assert.equal(state.user.username, 'replacement');assert.equal(modal.innerHTML, 'NEW-CONTENT');assert.equal(toasts.length, 0);
 });
 
@@ -327,7 +349,7 @@ await check('KKPR local detail rejects unauthenticated or incompatible records',
   state.authenticated = false;c.showKkprDetail(kkpr);state.authenticated = true;c.showKkprDetail({unmapped: 'model'});assert.equal(modal.open, false);assert.equal(modal.innerHTML, '');assert.equal(calls.length, 0);
 });
 await check('opening local KKPR detail invalidates a pending Activity response', async ({c, use, modal}) => {
-  const d = deferred();c.api = () => d.promise;const request = c.loadActivityDetail(activity);const current = use('kkpr');c.flowResults.set(current.key, {response: kkprResponse([kkpr])});c.showFlowDetail(0);const html = modal.innerHTML;
+  const d = deferred();c.api = () => d.promise;const request = loadOwnedActivityDetail(c,activity);const current = use('kkpr');c.flowResults.set(current.key, {response: kkprResponse([kkpr])});c.showFlowDetail(0);const html = modal.innerHTML;
   d.resolve(result(geometryResponse));await request;assert.equal(modal.innerHTML, html);assert.match(html, /Informasi KKPR/);
 });
 await check('actual private cleanup and navigation remove Activity/KKPR filters and cached detail data', ({c, state, modal}) => {

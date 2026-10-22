@@ -12,15 +12,15 @@ const config={configured:true,reason:'synthetic only',applicationAuthorization:(
 const token={tokenType:'Bearer',accessToken:'fixture-simulation-token',refreshToken:'fixture-simulation-refresh',expiredAt:4_000_000_000};
 const prepared=type=>prepareOperation(operation(type).id,values(type),{});
 
-test('six simulation adapters keep explicit JSON main-service read contracts and one bounded array schema',()=>{
+test('six simulation adapters keep explicit JSON main-service read contracts and their bounded schema beside the separate Rating String list',()=>{
  for(const type of [1,2,3,4,5,6]){
   const op=operation(type);assert.ok(op.enabled);assert.equal(op.effect,'read');assert.equal(op.mutates,false);assert.equal(op.requiresConfirmation,false);assert.equal(op.auth,'optionalSession');assert.equal(op.encoding,'json');assert.equal(op.serviceId,'main');assert.equal(op.method,'POST');assert.equal(op.serverAcceptance,'untested');assert.deepEqual(op.fields.map(field=>field.path),fields[type]);
   for(const field of op.fields.filter(field=>field.type!=='array'))assert.equal(field.strictString,true);
  }
  const arrays=OPERATIONS.flatMap(op=>op.enabled?op.fields.filter(field=>field.type==='array').map(field=>({op,field})):[]);
- assert.equal(arrays.length,1);assert.equal(arrays[0].op.id,operation(2).id);assert.equal(arrays[0].field.path,'data');assert.equal(arrays[0].field.arraySchema,'information-simulation-type2');assert.equal(arrays[0].field.minItems,1);assert.equal(arrays[0].field.maxItems,100);assert.equal(arrays[0].field.items.additionalProperties,false);assert.deepEqual(arrays[0].field.items.fields.map(field=>field.path),['Jumlah','Luas','Penggunaan']);
+ assert.equal(arrays.length,2);assert.deepEqual(arrays.map(({op,field})=>[op.id,field.path,field.arraySchema]).sort((a,b)=>a[0].localeCompare(b[0])),[[operation(2).id,'data','information-simulation-type2'],['post-ratingppat-postratingppat-d86e10','PertanyaanRatingPPATId','rating-ppat-selected-answer-ids']].sort((a,b)=>a[0].localeCompare(b[0])));const simulationArray=arrays.find(({op})=>op.id===operation(2).id),ratingArray=arrays.find(({op})=>op.id==='post-ratingppat-postratingppat-d86e10');assert.equal(ratingArray.field.minItems,0);assert.deepEqual(ratingArray.field.items,{type:'string',strictString:true});assert.equal(ratingArray.op.auth,'session');assert.equal(ratingArray.op.requiresConfirmation,true);assert.equal(simulationArray.op.id,operation(2).id);assert.equal(simulationArray.field.path,'data');assert.equal(simulationArray.field.arraySchema,'information-simulation-type2');assert.equal(simulationArray.field.minItems,1);assert.equal(simulationArray.field.maxItems,100);assert.equal(simulationArray.field.items.additionalProperties,false);assert.deepEqual(simulationArray.field.items.fields.map(field=>field.path),['Jumlah','Luas','Penggunaan']);
  assert.ok(OPERATIONS.filter(op=>op.enabled).every(op=>!op.fields.some(field=>field.type==='object'||field.path.includes('[]'))));
- const publicSchema=getPublicCatalog().find(op=>op.id===operation(2).id).fields.find(field=>field.path==='data');assert.equal(publicSchema.maxItems,100);assert.ok(Object.isFrozen(arrays[0].field.items.fields));
+ const publicSchema=getPublicCatalog().find(op=>op.id===operation(2).id).fields.find(field=>field.path==='data');assert.equal(publicSchema.maxItems,100);assert.ok(Object.isFrozen(simulationArray.field.items.fields));
 });
 
 test('all six native JSON bodies retain exact key case and raw strings on anonymous and session transport',async()=>{

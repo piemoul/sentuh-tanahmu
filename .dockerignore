@@ -8,6 +8,10 @@
 !webapp/domain.js
 !webapp/gnss.js
 !webapp/coordinate-comparison.js
+!webapp/collection-save-persil.js
+!webapp/scan-controller.js
+!webapp/scan-camera.js
+!webapp/scan-location.js
 !webapp/parcel-map.js
 !webapp/styles.css
 !webapp/manifest.json

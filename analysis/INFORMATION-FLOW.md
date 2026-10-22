@@ -2,7 +2,7 @@
 
 This static audit covers the supplied Sentuh Tanahku 6.1.5 ARM64 artifact, SHA256 `bbc7f3bde07502916f00915afe55028a391efd57a5d47e5b30bd820aabd4a683`. It establishes menu entry, automatic list loading, local search/grouping, selected-item navigation, detail sections and inclusion of the simulation widget. It does not establish production acceptance, runtime rendering, all six simulation forms, or full native parity. No application files or production services were changed.
 
-The frozen ledger is [information-flow.json](C:/ai/CLAWD/sentuh_tanahmu/analysis/recovered/information-flow/information-flow.json). Run `tools/runtime/blutter-python/Scripts/python.exe analysis/rea/verify_information_native_flow.py` to verify **19 source hashes, 3,208 exact ELF instructions, 159 decisive markers, 18 String literal references / 232 pool annotations, 13 dispatch entries, 9 dependencies and 5 constant UI objects**. Instruction windows do not overlap. The verifier separately checks each constant-object excerpt against the retained `objs.txt`, whose hash is a dependency. These are bounded static checks, not executed APK behavior.
+The frozen ledger is [information-flow.json](recovered/information-flow/information-flow.json). Run `tools/runtime/blutter-python/Scripts/python.exe analysis/rea/verify_information_native_flow.py` to verify **19 source hashes, 3,208 exact ELF instructions, 159 decisive markers, 18 String literal references / 232 pool annotations, 13 dispatch entries, 9 dependencies and 5 constant UI objects**. Instruction windows do not overlap. The verifier separately checks each constant-object excerpt against the retained `objs.txt`, whose hash is a dependency. These are bounded static checks, not executed APK behavior.
 
 ## Entry and state
 
@@ -10,7 +10,7 @@ The menu tap `0x8c32d4` captures route callback `0xd9b084`, which invokes factor
 
 Both list and detail states construct a `VCb` controller. Constructor `0x9fb7c4` resolves `FRb` through the typed lookup at `0x9fb80c`, stores it in the new `lDb` service at `+7` (`0x9fb820`), then stores the service in `VCb+7` (`0x9fb82c`). The list stream/busy fields are `VCb+0xb/+0xf`; detail stream/busy are `+0x13/+0x17`. Busy defaults are false. `_ZCb+0x1f` starts as an empty query, with separate text and scroll controllers at `+0x17/+0x1b`.
 
-The menu callback goes through a common telemetry wrapper. Its bounded instructions contain no local authentication branch; this does not establish the service's authorization policy. Service/envelope/model and simulation transport analysis belongs to the separate [service audit](C:/ai/CLAWD/sentuh_tanahmu/analysis/INFORMATION-SERVICES-FLOW.md) and [frozen service ledger](C:/ai/CLAWD/sentuh_tanahmu/analysis/recovered/information-services/flow.json).
+The menu callback goes through a common telemetry wrapper. Its bounded instructions contain no local authentication branch; this does not establish the service's authorization policy. Service/envelope/model and simulation transport analysis belongs to the separate [service audit](INFORMATION-SERVICES-FLOW.md) and [frozen service ledger](recovered/information-services/flow.json).
 
 ## List behavior
 

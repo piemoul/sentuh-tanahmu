@@ -1,6 +1,18 @@
 // Executes actual generic read/review/navigation functions with local deferred responses.
 import fs from 'node:fs';
 import vm from 'node:vm';
+import {createCollectionSavePersil,collectionSavePersilEligible,collectionSavePersilEntry} from '../../webapp/collection-save-persil.js';
+// Bind the real new host helpers/module to legacy VM fixtures; assertions and
+// existing source-function renderers remain unchanged.
+function createPersilFixtureContext(...args){
+  const context=vm.createContext(...args);
+  Object.assign(context,{createCollectionSavePersil,collectionSavePersilEligible,collectionSavePersilEntry});
+  const dependencies=new Set(['nativeResponseObject','nativeAccountSummary','collectionTab','collectionGroupCreated']);
+  const declarations=String(source).split(/\r?\n/).filter(line=>/^(?:async )?function (?:persilMap\w+|resetPersilMaps|resetScanHost|scanDisposeLocation)\(/.test(line)||dependencies.has(line.match(/^(?:async )?function (\w+)\(/)?.[1])).join('\n');
+  vm.runInContext(declarations,context);
+  return context;
+}
+
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 
@@ -18,7 +30,7 @@ function harness() {
   const events = {}, modal = {innerHTML: '', open: false, close() {this.open = false}, showModal() {this.open = true}, addEventListener(name, handler) {events[`modal:${name}`] = handler}};
   let reviewError = {textContent: ''};const errors = [];
   const d = deferred();const state = {authenticated: true, user: {username: 'fixture'}, operations, results: new Map(), activity: [], points: [], connection: {origin: 'fixture-only'}};
-  const c = vm.createContext({state, Map, Object, Array, String, Number, JSON, URLSearchParams, FormData,
+  const c = createPersilFixtureContext({state, Map, Object, Array, String, Number, JSON, URLSearchParams, FormData,
     sessionEpoch: 0, searchFileState: null, partnerFrame: null, detailSequence: 0, busy: false, logoutPending: false, pending: null, htDetailData: null, flowDetail: null,
     route: 'catalog', selected: operations[0].id, flowTab: '', flowQuery: '', flowPageIndex: 0,
     search: '', group: '', filter: '', comparison: null, comparisonSelection: {}, flowResults: new Map(),

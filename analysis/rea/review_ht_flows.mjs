@@ -1,6 +1,18 @@
 // Execute current frontend functions with local mocks. No browser or upstream request.
 import fs from 'node:fs';
 import vm from 'node:vm';
+import {createCollectionSavePersil,collectionSavePersilEligible,collectionSavePersilEntry} from '../../webapp/collection-save-persil.js';
+// Bind the real new host helpers/module to legacy VM fixtures; assertions and
+// existing source-function renderers remain unchanged.
+function createPersilFixtureContext(...args){
+  const context=vm.createContext(...args);
+  Object.assign(context,{createCollectionSavePersil,collectionSavePersilEligible,collectionSavePersilEntry});
+  const dependencies=new Set(['nativeResponseObject','nativeAccountSummary','collectionTab','collectionGroupCreated']);
+  const declarations=String(source).split(/\r?\n/).filter(line=>/^(?:async )?function (?:persilMap\w+|resetPersilMaps|resetScanHost|scanDisposeLocation)\(/.test(line)||dependencies.has(line.match(/^(?:async )?function (\w+)\(/)?.[1])).join('\n');
+  vm.runInContext(declarations,context);
+  return context;
+}
+
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 
@@ -29,7 +41,7 @@ function harness() {
     addEventListener(name, callback) {events[`modal:${name}`] = callback},
   };
   const state = {authenticated: true, user: {username: 'fixture-only'}, operations: [{...operation}], results: new Map(), points: [], activity: [], selectedPoint: null};
-  const c = vm.createContext({
+  const c = createPersilFixtureContext({
     state, Map, Object, Number, Array, JSON, String, console, URLSearchParams,
     flowResults: new Map(), flowPageIndex: 0, flowDetail: null, htDetailData: null,
     detailSequence: 0, sessionEpoch: 0, searchFileState: null, partnerFrame: null, flowQuery: '', comparison: null, comparisonSelection: {},

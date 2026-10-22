@@ -1,6 +1,18 @@
 // Actual frontend functions, synthetic DOM and deferred local responses only.
 import fs from 'node:fs';
 import vm from 'node:vm';
+import {createCollectionSavePersil,collectionSavePersilEligible,collectionSavePersilEntry} from '../../webapp/collection-save-persil.js';
+// Bind the real new host helpers/module to legacy VM fixtures; assertions and
+// existing source-function renderers remain unchanged.
+function createPersilFixtureContext(...args){
+  const context=vm.createContext(...args);
+  Object.assign(context,{createCollectionSavePersil,collectionSavePersilEligible,collectionSavePersilEntry});
+  const dependencies=new Set(['nativeResponseObject','nativeAccountSummary','collectionTab','collectionGroupCreated']);
+  const declarations=String(source).split(/\r?\n/).filter(line=>/^(?:async )?function (?:persilMap\w+|resetPersilMaps|resetScanHost|scanDisposeLocation)\(/.test(line)||dependencies.has(line.match(/^(?:async )?function (\w+)\(/)?.[1])).join('\n');
+  vm.runInContext(declarations,context);
+  return context;
+}
+
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {OPERATIONS} from '../../webapp/private/operations.mjs';
@@ -33,7 +45,7 @@ function harness() {
   const wrapper = {querySelector: selector => selector === '.certificate-document-result' ? slot : null};
   const button = {dataset: {certificateId: selectedId}, isConnected: true, disabled: false, textContent: 'Buka Sertipikat', closest: selector => selector === 'dialog' ? modal : selector === '.certificate-document' ? wrapper : null};
   const state = {authenticated: true, user: {username: 'synthetic-account'}, operations: OPERATIONS.map(op => ({...op})), results: new Map(), points: [], activity: []};
-  const c = vm.createContext({state, sessionEpoch: 0, searchFileState: null, partnerFrame: null, detailSequence: 0, flowResults: new Map(), flowDetail: selected, htDetailData: null, flowQuery: '', comparison: null, comparisonSelection: {}, pending: null, selected: null,
+  const c = createPersilFixtureContext({state, sessionEpoch: 0, searchFileState: null, partnerFrame: null, detailSequence: 0, flowResults: new Map(), flowDetail: selected, htDetailData: null, flowQuery: '', comparison: null, comparisonSelection: {}, pending: null, selected: null,
     ready: op => op.enabled === true, write: op => op.effect === 'write', $: () => modal,
     render() {}, toast: value => toasts.push(value), record: (...args) => records.push(args), icon: () => '', notice: text => text,
     result: () => '<p>GENERIC RESULT</p>', document: {addEventListener: (name, handler) => {events[name] = handler}},

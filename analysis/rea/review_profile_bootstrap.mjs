@@ -1,6 +1,18 @@
 // Execute current application functions with local session/catalog/profile fixtures.
 import fs from 'node:fs';
 import vm from 'node:vm';
+import {createCollectionSavePersil,collectionSavePersilEligible,collectionSavePersilEntry} from '../../webapp/collection-save-persil.js';
+// Bind the real new host helpers/module to legacy VM fixtures; assertions and
+// existing source-function renderers remain unchanged.
+function createPersilFixtureContext(...args){
+  const context=vm.createContext(...args);
+  Object.assign(context,{createCollectionSavePersil,collectionSavePersilEligible,collectionSavePersilEntry});
+  const dependencies=new Set(['nativeResponseObject','nativeAccountSummary','collectionTab','collectionGroupCreated']);
+  const declarations=String(source).split(/\r?\n/).filter(line=>/^(?:async )?function (?:persilMap\w+|resetPersilMaps|resetScanHost|scanDisposeLocation)\(/.test(line)||dependencies.has(line.match(/^(?:async )?function (\w+)\(/)?.[1])).join('\n');
+  vm.runInContext(declarations,context);
+  return context;
+}
+
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {OPERATIONS} from '../../webapp/private/operations.mjs';
@@ -27,7 +39,7 @@ function harness() {
   let loginButton = {disabled: false, textContent: '', innerHTML: ''};const loginError = {textContent: ''};
   const state = {authenticated: false, user: null, operations: [], results: new Map(), points: [], activity: [], connection: {configured: true}, loading: false, profileError: '', loadError: '', catalogError: ''};
   const fixture = {session: sessionData(), catalog: {operations: [{...profileOp}]}, profile: profile()};
-  const c = vm.createContext({route: 'accountsummary', state, sessionEpoch: 0, searchFileState: null, partnerFrame: null, loadSequence: 0, authSequence: 0, authPending: false, logoutPending: false, busy: false, detailSequence: 0, flowResults: new Map(), flowDetail: null, htDetailData: null, flowQuery: '', flowPageIndex: 0, comparison: null, comparisonSelection: {}, pending: null, selected: null,
+  const c = createPersilFixtureContext({route: 'accountsummary', state, sessionEpoch: 0, searchFileState: null, partnerFrame: null, loadSequence: 0, authSequence: 0, authPending: false, logoutPending: false, busy: false, detailSequence: 0, flowResults: new Map(), flowDetail: null, htDetailData: null, flowQuery: '', flowPageIndex: 0, comparison: null, comparisonSelection: {}, pending: null, selected: null,
     ready: op => op?.enabled === true, write: op => op?.effect === 'write',
     currentFlow: () => ({key: 'accountsummary:default', op: profileOp, tab: {}, def: {title: 'Data Akun'}}),
     $: selector => selector === '#modal' ? modal : selector.includes('button') ? loginButton : loginError,

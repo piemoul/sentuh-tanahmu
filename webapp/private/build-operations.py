@@ -19,6 +19,128 @@ save_proofs={
  '0xdaae30':('analysis/recovered/collection-save-persil/flow.json','dcc8abd41209eb741106dda7e88b834b4ba731b8e89838622859ff425767f199'),
 }
 for save_source,save_sha in save_proofs.values():assert hashlib.sha256((ROOT/save_source).read_bytes()).hexdigest()==save_sha
+scan_source='analysis/recovered/scan-flow.json'
+scan_sha='bfa3cdc5257b0ca57b3d9ee881a2cac4c9ecd243cf81c1493e9885fe4c823ab4'
+assert hashlib.sha256((ROOT/scan_source).read_bytes()).hexdigest()==scan_sha
+scan_map_proofs={
+ '0xd3d134':('analysis/recovered/scan-pbt-map-followup/flow.json','d62a880cf8940e871e98be6954327ab0bbf494540362b7e8c3aa2eb33f002e93'),
+ '0xd311e8':('analysis/recovered/scan-kkpr-map-followup/flow.json','8aec89dbd6c36b0aba47caf0c880aec5f1fbf83b58963e1eed3579f316301d24'),
+}
+for map_source,map_sha in scan_map_proofs.values():assert hashlib.sha256((ROOT/map_source).read_bytes()).hexdigest()==map_sha
+daring_form_source='analysis/recovered/verification-daring-form-followup/flow.json'
+daring_form_sha='ea736769eab7c366ca146222ef8860817c0fd17242f0eb768f383c8a7c29c7b8'
+daring_response_source='analysis/recovered/daring-identity-response-followup/flow.json'
+daring_response_sha='ff50866326808280c90b2962cda3845b2e50ffe5124cdae2ad6d6c46d96a3243'
+for source,sha in [(daring_form_source,daring_form_sha),(daring_response_source,daring_response_sha)]:assert hashlib.sha256((ROOT/source).read_bytes()).hexdigest()==sha
+daring_response=json.loads((ROOT/daring_response_source).read_bytes())
+assert daring_response['prior_ledger_sha256']==daring_form_sha
+assert daring_response['contract']['request_values']['order']==['Nik','Nama','Tempatlahir','TglLahir','NoHp']
+parcel_source='analysis/recovered/parcel-search-followup/flow.json'
+parcel_sha='c110b2f22ecb811f063156ccc47e5708f31286d1ad0e4bab8492a6309077d2d7'
+assert hashlib.sha256((ROOT/parcel_source).read_bytes()).hexdigest()==parcel_sha
+parcel_calls={'0xd752bc','0xd74e4c','0xd74b90'}
+guestbook_source='analysis/recovered/guestbook-service-followup/flow.json'
+guestbook_sha='9bceab7de8b363e521cea846abaa65ae03a925fa5a5f389ee249c014676f10dc'
+assert hashlib.sha256((ROOT/guestbook_source).read_bytes()).hexdigest()==guestbook_sha
+guestbook=json.loads((ROOT/guestbook_source).read_text(encoding='utf-8'))
+assert guestbook['contract']['url']['initial_url']=='https://sentuh.atrbpn.go.id/bukutamu'
+assert guestbook['contract']['get']['query_order']==['uid','unid']
+guestbook_submit_source='analysis/recovered/guestbook-submit-followup-20261022/flow.json'
+guestbook_submit_sha='ea94f17f3d7e6a768f6c44bf40b99045b5f45c7407a8530e7198b81aa3dc4b04'
+assert hashlib.sha256((ROOT/guestbook_submit_source).read_bytes()).hexdigest()==guestbook_submit_sha
+guestbook_submit=json.loads((ROOT/guestbook_submit_source).read_bytes())
+assert guestbook_submit['runtime_observed'] is False and guestbook_submit['production_requests']==0 and guestbook_submit['guestbook_submissions']==0
+assert guestbook_submit['contract']['write']['fields']==['kantorId','unitKerjaId','userId','nik','alamat','namaLengkap','tempatLahir','tanggalLahir','noTelp','email','instansi','keperluan']
+review_source='analysis/recovered/lost-review-protocol/source-index.json'
+review_sha='24e250f583021c034a2bee9036b33cbed47a7744c89d326ccf7b7aa8cd9756dd'
+review_bytes=(ROOT/review_source).read_bytes()
+assert hashlib.sha256(review_bytes).hexdigest()==review_sha
+review_proof=json.loads(review_bytes)
+assert review_proof['production_requests']==0 and review_proof['review_writes_enabled'] is False
+for source in review_proof['sources']:
+ assert hashlib.sha256((ROOT/source['path']).read_bytes()).hexdigest()==source['sha256']
+review_post_source='analysis/recovered/lost-review-post-protocol/source-index.json'
+review_post_sha='8c141a63e3fe77ee8b6be559914be7de58cea4fa9aaaa0c003aa31b8514b39ce'
+review_post_bytes=(ROOT/review_post_source).read_bytes()
+assert hashlib.sha256(review_post_bytes).hexdigest()==review_post_sha
+review_post_proof=json.loads(review_post_bytes)
+assert review_post_proof['production_requests']==0 and review_post_proof['review_writes_enabled_by_audit'] is False
+assert review_post_proof['verification']['passed'] is True and len(review_post_proof['sources'])==133
+for source in review_post_proof['sources']:
+ assert hashlib.sha256((ROOT/source['path']).read_bytes()).hexdigest()==source['sha256']
+mitra_source='analysis/recovered/mitra-read-contract-followup/source-index.json'
+mitra_sha='e6d6c1b29c6f6efa4e8cbd9ba84657ae54205e3f77a71d524b6016abdf854d5b'
+mitra_bytes=(ROOT/mitra_source).read_bytes()
+assert hashlib.sha256(mitra_bytes).hexdigest()==mitra_sha
+mitra_proof=json.loads(mitra_bytes)
+assert mitra_proof['production_requests']==0 and mitra_proof['runtime_files_changed'] is False and mitra_proof['verification']['passed'] is True
+for source in mitra_proof['sources']:
+ assert hashlib.sha256((ROOT/source['path']).read_bytes()).hexdigest()==source['sha256']
+mitra_calls={'0xd3aa20','0xd3af08','0xd3b428','0xd3b910','0xd3be30'}
+rating_ppat_source='analysis/recovered/ratingppat-read-followup/source-index.json'
+rating_ppat_sha='fb14dcd006486b43e476901746b9befacba29ae8970b926ec1656bb12bd431f1'
+rating_ppat_bytes=(ROOT/rating_ppat_source).read_bytes()
+assert hashlib.sha256(rating_ppat_bytes).hexdigest()==rating_ppat_sha
+rating_ppat_proof=json.loads(rating_ppat_bytes)
+assert rating_ppat_proof['production_requests']==0 and rating_ppat_proof['submissions']==0 and rating_ppat_proof['rating_writes_enabled_by_audit'] is False
+assert rating_ppat_proof['verification']['passed'] is True and rating_ppat_proof['request']['path']=='RatingPPAT/GetRatingQuestions' and rating_ppat_proof['request']['fields']==[]
+for source in rating_ppat_proof['sources']:
+ assert hashlib.sha256((ROOT/source['path']).read_bytes()).hexdigest()==source['sha256']
+rating_ppat_post_source='analysis/recovered/ratingppat-write-final-followup/source-index.json'
+rating_ppat_post_sha='67a9a026369f288352b435e6a09facc9ee87167dfa1ce154d2f5da55fb61bd52'
+rating_ppat_post_bytes=(ROOT/rating_ppat_post_source).read_bytes()
+assert hashlib.sha256(rating_ppat_post_bytes).hexdigest()==rating_ppat_post_sha
+rating_ppat_post_proof=json.loads(rating_ppat_post_bytes)
+assert rating_ppat_post_proof['verification']['passed'] is True and rating_ppat_post_proof['productionRequests']==0 and rating_ppat_post_proof['submissions']==0
+assert rating_ppat_post_proof['contract']['path']=='RatingPPAT/PostRatingPPAT' and rating_ppat_post_proof['contract']['orderedFields']==['aktaId','PertanyaanRatingPPATId']
+for source in rating_ppat_post_proof['sources']:
+ assert hashlib.sha256((ROOT/source['path']).read_bytes()).hexdigest()==source['sha256']
+berkas_rating_source='analysis/recovered/berkas-rating-followup/flow.json'
+berkas_rating_sha='16c83a12a6b4cbf62b9a3881843c27c569102bd6a0617cddccd63dc9e8c0275f'
+berkas_rating_catch_source='analysis/recovered/berkas-rating-followup/catch-followup.json'
+berkas_rating_catch_sha='a20543d7460f39125257cf88a59f7073a8017aa0cdd07e74e2964bf575d0d24f'
+berkas_rating_entry_source='analysis/recovered/berkas-rating-followup/entry-refinement.json'
+berkas_rating_entry_sha='60891c26dbbbc4856ed66af2806926555124628ffc0642d57507273c44ff81b1'
+for source,sha in [(berkas_rating_source,berkas_rating_sha),(berkas_rating_catch_source,berkas_rating_catch_sha),(berkas_rating_entry_source,berkas_rating_entry_sha)]:assert hashlib.sha256((ROOT/source).read_bytes()).hexdigest()==sha
+berkas_rating_proof=json.loads((ROOT/berkas_rating_source).read_bytes())
+berkas_rating_catch_proof=json.loads((ROOT/berkas_rating_catch_source).read_bytes())
+berkas_rating_entry_proof=json.loads((ROOT/berkas_rating_entry_source).read_bytes())
+assert berkas_rating_proof['production_requests']==0 and berkas_rating_proof['contract']['request']['ordered_fields']==['Berkasid','rating','userComment']
+assert berkas_rating_catch_proof['contract']['controller_catch']['first'] is False and berkas_rating_entry_proof['production_requests']==0
+assert berkas_rating_proof['shared_lost_source_pins']==len(review_post_proof['sources'])==133
+for source in berkas_rating_proof['sources']+berkas_rating_proof['inherited_sources']+berkas_rating_proof['dependencies']+berkas_rating_entry_proof['sources']+[berkas_rating_catch_proof['source']]:
+ assert hashlib.sha256((ROOT/source['path']).read_bytes()).hexdigest()==source['sha256']
+yuridis_source='analysis/recovered/yuridis-read-flow/source-index.json'
+yuridis_sha='3993a0e2b3988890bb6bad345797329c07d126d965579324dc75af6f3d5a3ebe'
+yuridis_bytes=(ROOT/yuridis_source).read_bytes()
+assert hashlib.sha256(yuridis_bytes).hexdigest()==yuridis_sha
+yuridis_proof=json.loads(yuridis_bytes)
+assert yuridis_proof['passed'] is True and yuridis_proof['runtimeObserved'] is False and yuridis_proof['productionRequests']==0
+for source in yuridis_proof['sources']:
+ assert hashlib.sha256((ROOT/source['path']).read_bytes()).hexdigest()==source['sha256']
+queue_booking_wire_source='analysis/recovered/queue-booking-wire-followup/flow.json'
+queue_booking_wire_sha='95e3bc41929c7e2f7a854a7ae28f8a0045383320cfe4920b7ed1cbf7f585b067'
+queue_booking_preflight_source='analysis/recovered/queue-preflight-followup/flow.json'
+queue_booking_preflight_sha='68d899495e9abb17278eccad0e1129dc82124216e4538d8a7f5ea5fad140a9b8'
+for source,sha in [(queue_booking_wire_source,queue_booking_wire_sha),(queue_booking_preflight_source,queue_booking_preflight_sha)]:
+ proof_bytes=(ROOT/source).read_bytes()
+ assert hashlib.sha256(proof_bytes).hexdigest()==sha
+ proof=json.loads(proof_bytes)
+ for item in proof['sources']:assert hashlib.sha256((ROOT/item['file']).read_bytes()).hexdigest()==item['sha256']
+queue_booking_wire=json.loads((ROOT/queue_booking_wire_source).read_bytes())
+assert queue_booking_wire['positive_contract']['full_create_enabled'] is False
+assert queue_booking_wire['actions']['provider_requests']==0 and queue_booking_wire['actions']['booking_posts']==0
+swaplotting_submit_source='analysis/recovered/swaplotting-submit-followup/flow.json'
+swaplotting_submit_sha='e835a101543ad6d3c63ed31b2b9c947ec2deea6be32093e4d45c5266afe72d94'
+swaplotting_service_source='analysis/recovered/swaplotting-service-followup/flow.json'
+swaplotting_service_sha='f5be07485685102e41ee39e0718f4d241dee0224fd70b3b6e447a37e0bdd65f9'
+swaplotting_multipart_source='analysis/recovered/swaplotting-multipart-followup/flow.json'
+swaplotting_multipart_sha='31e4d9bbbdfdd7d77226d9cde0dfe5f6220311c5233f41382b0d03ae373c833e'
+for source,sha in [(swaplotting_submit_source,swaplotting_submit_sha),(swaplotting_service_source,swaplotting_service_sha),(swaplotting_multipart_source,swaplotting_multipart_sha)]:
+ proof_bytes=(ROOT/source).read_bytes();assert hashlib.sha256(proof_bytes).hexdigest()==sha
+ for item in json.loads(proof_bytes)['sources']:assert hashlib.sha256((ROOT/item.get('path',item.get('file'))).read_bytes()).hexdigest()==item['sha256']
+swaplotting_submit=json.loads((ROOT/swaplotting_submit_source).read_bytes())
+assert swaplotting_submit['actions']['provider_requests']==0 and swaplotting_submit['actions']['uploads']==0 and swaplotting_submit['actions']['activity_posts']==0
 services={
  'main':{'id':'main','baseUrl':'https://sentuh.atrbpn.go.id/','allowedHost':'sentuh.atrbpn.go.id','label':'Sentuh Tanahku'},
  'directus':{'id':'directus','baseUrl':'https://aplikasi.atrbpn.go.id/konsol/antrian/directus/','allowedHost':'aplikasi.atrbpn.go.id','label':'Referensi antrean'},
@@ -52,6 +174,9 @@ enabled={
  '0xd2d384':('Video informasi','optionalSession','none'),
  '0xd29ef0':('Ketentuan penggunaan peta','optionalSession','none'),
  '0xd10364':('Cari kantor pertanahan','optionalSession','none'),
+ '0xd752bc':('Wilayah untuk pencarian bidang','session','none'),
+ '0xd74e4c':('Cari bidang sertipikat analog','session','none'),
+ '0xd74b90':('Cari bidang sertipikat elektronik','session','none'),
  '0xd2939c':('Ringkasan akun saya','session','form'),
  '0xd44dc0':('Sertipikat tanah saya','session','none'),
  '0xd45354':('Sertipikat wakaf saya','session','none'),
@@ -61,6 +186,9 @@ enabled={
  # Analog certificate flow and final session authorization: analysis/CERTIFICATE-DETAIL-FLOW.md.
  '0xd4340c':('Detail sertipikat analog saya','session','none'),
  '0xd1ccc4':('Daftar akta saya','session','none'),
+ '0xd1d6bc':('Pertanyaan penilaian PPAT','session','none'),
+ '0xd86e10':('Nilai layanan PPAT','session','json'),
+ '0xd915c4':('Nilai layanan berkas','session','multipart'),
  '0xd15068':('Daftar berkas saya','session','multipart'),
  '0xd25618':('Geotag pada berkas','session','multipart'),
  '0xd88218':('Cari berkas milik saya','session','form'),
@@ -72,6 +200,7 @@ enabled={
  '0xd25250':('Status koleksi berkas','session','none'),
  '0xd1dc68':('Aktivitas akun saya','session','none'),
  '0xda15dc':('Status verifikasi akun saya','session','none'),
+ '0xda9a78':('Validasi data KTP','session','multipart'),
  '0xd92664':('Simpan berkas ke koleksi saya','session','multipart'),
  '0xdaae30':('Simpan bidang ke koleksi saya','session','multipart'),
  '0xda8f20':('Buat grup koleksi bidang','session','multipart'),
@@ -80,6 +209,9 @@ enabled={
  '0xde6c94':('Hapus aktivitas akun saya','session','multipart'),
  '0xd0fb64':('Pengumuman yuridis per kantor','optionalSession','none'),
  '0xd10a9c':('Pengumuman sertipikat hilang','optionalSession','none'),
+ '0xdace58':('Ulasan pengumuman sertipikat hilang','session','form'),
+ '0xdad1dc':('Ulasan terakhir pengumuman yuridis terpilih','session','form'),
+ '0xdeb030':('Kirim ulasan pengumuman terpilih','session','multipart'),
  '0xd3aa20':('Daftar penilai tanah','optionalSession','none'),
  '0xd3af08':('Kantor layanan PPAT','optionalSession','none'),
  '0xd3b428':('Daftar PPAT','optionalSession','none'),
@@ -93,6 +225,7 @@ enabled={
  '0xd3d134':('Detail PBT elektronik','session','form'),
  '0xd417d4':('Jenis dokumen dari kode','session','form'),
  '0xd41ee8':('Unduh dokumen dari kode','session','form'),
+ '0xd42440':('Klasifikasi kode Scan','session','form'),
  # Exact q encoding and direct geometry model: analysis/DOCUMENT-GEO-FLOW.md.
  '0xd39f1c':('Lokasi bidang dari dokumen','session','none'),
  '0xd21a34':('Kantor pertanahan di sekitar lokasi','optionalSession','json'),
@@ -101,7 +234,7 @@ enabled={
  '0xddbb60':('Daftar plot bidang saya','session','none'),
  '0xd26d20':('Unduh surat pernyataan geotag yang ada','session','multipart'),
 }
-write_calls={'0xd92664','0xdaae30','0xda8f20','0xda897c','0xd74ab4','0xde6c94','0xd96b98'}
+write_calls={'0xd92664','0xdaae30','0xda8f20','0xda897c','0xd74ab4','0xde6c94','0xd96b98','0xd42440','0xda9a78','0xdeb030','0xd86e10','0xd915c4'}
 simulation_calls={'0xda2f48','0xda3490','0xda3a30','0xda3f14','0xda4268','0xda474c'}
 labels={'BerkasId':'ID berkas','Berkasid':'ID berkas','berkasid':'ID berkas','berkasId':'ID berkas','Lat':'Lintang','Longi':'Bujur','file':'Foto PNG','Lokasi':'Keterangan lokasi','IsOffline':'Berasal dari draf offline','nik':'NIK akun','Nik':'NIK akun','nikr':'NIK akun','tipeuser':'Tipe pengguna akun','appVersion':'Versi kontrak APK','selesai':'Berkas sudah selesai','id':'ID','nomor':'Nomor berkas','tahun':'Tahun','kantorId':'ID kantor','provinsiId':'ID provinsi','kabupatenkotaId':'ID kabupaten/kota','kecamatanId':'ID kecamatan','longitude':'Bujur','latitude':'Lintang','Title':'Judul','Subtitle':'Subjudul','GroupName':'Nama grup','collectionGroupId':'ID grup koleksi','collectionId':'ID koleksi','userActivityId':'ID aktivitas','activityType':'Jenis aktivitas','contentId':'ID konten','title':'Judul','subtitle':'Subjudul','status':'Status'}
 inspect_labels={
@@ -287,7 +420,15 @@ for c in contracts:
   if call=='0xd88218':field.update(clientRequired=False,default=None,preserveNull=True)
   # Cari Berkas initializes the office picker with nama='' and tipeKantor='3,2,1'.
   if call=='0xd10364' and key=='nama':field.update(clientRequired=False,default='',description='Nama kosong memuat daftar kantor; kontrak pemilih Cari Berkas dari APK.')
+  # Swaplotting's two native office loaders omit optional Uqj; null becomes ''.
+  if call=='0xd10364' and key=='tipeKantor':field.update(allowEmpty=True)
+  if call in parcel_calls:
+   field.update(type='string',strictString=True,clientRequired=key not in {'nama','kodehat'},allowEmpty=key in {'nama','kodehat','nomorhak','wilayahid'},description='String asli dari form Cari Bidang; tidak dipangkas atau diubah menjadi angka. Kantor memakai KantorId main, wilayah memakai WilayahId dari respons Cyb.')
   if call=='0xd41ee8' and key=='name':field.update(clientRequired=False,default='',label='Nama dari profil akun',description='Field nama pada account/account_summary; bukan username atau nama file. Nilai kosong dipertahankan sesuai fallback client.')
+  if call=='0xd42440':
+   field.update(type='string',strictString=True,allowEmpty=True,clientRequired=True)
+   if key=='name':field.update(source='server-profile',clientRequired=False,label='Nama dari profil sesi Scan',description='Backend mengambil nama ?? email ?? "-" dari account_summary sesi ini; browser tidak boleh mengirim nama.')
+   else:field.update(description='Kode mentah tanpa trim/decode/split; String kosong dipertahankan sesuai barcode.code ?? empty.')
   if call=='0xd39f1c' and key=='q':field.update(type='string',strictString=True,label='Kode dokumen',description='ID dokumen utuh dari aktivitas. Encoding khusus dilakukan oleh adapter; jangan encode atau mengganti dengan ID bidang.')
   if call=='0xd21a34':
    if key in {'latitude','longitude'}:field.update(type='number',strictNumber=True,clientRequired=True,minimum=-90 if key=='latitude' else -180,maximum=90 if key=='latitude' else 180)
@@ -311,6 +452,29 @@ for c in contracts:
    if key=='Nik':field.update(source='session',sessionKey='storedSignInNik',description="Hanya stored sign-in user.nomorIndukKependudukan; null/missing ditolak, String kosong dipertahankan. Browser tidak menerima input atau pengganti NIK.")
   if call=='0xda897c':field.update(type='string',strictString=True,clientRequired=True,allowEmpty=key=='collectionId',description='ID grup terpilih tanpa trim.' if key=='collectionGroupId' else "row.id ?? '' asli; String kosong dipertahankan sesuai caller native.")
   if call=='0xde6c94':field.update(type='string',strictString=True,clientRequired=True,allowEmpty=True,description="userActivityId asli dari model aktivitas; null/missing model menjadi ''. String kosong dan spasi dipertahankan, bukan contentId.")
+  if call=='0xdace58':
+   field.update(type='string',strictString=True,recoveredType='String',clientRequired=key=='contentId',allowEmpty=key=='contentId',description='String persis dari berkasId record pengumuman; null ditolak tanpa trim atau substitusi.' if key=='contentId' else 'String konstan dari caller ulasan pengumuman sertipikat hilang; tidak menerima tipe numerik atau halaman lain.')
+   if key!='contentId':field.update(source='constant',default={'reviewType':'pengumumanSertipikatHilang','pageNumber':'1','pageSize':'10'}[key])
+  if call=='0xd0fb64':
+   field.update(type='string',strictString=True,allowEmpty=True,clientRequired=True,recoveredType='String from selected jyb.KantorId or profile.kantorId',description='KantorId String asli dari pemilih/profil; tidak dipangkas atau dikoersi. String kosong nonnull dipertahankan sesuai native.')
+  if call=='0xdad1dc':
+   field.update(type='string',strictString=True,allowEmpty=key=='contentId',clientRequired=key=='contentId',recoveredType='String',description='String persis dari persilId record pengumuman yuridis terpilih; null ditolak tanpa trim/substitusi.' if key=='contentId' else 'Jenis tetap sertipikatSaya dari JTb yJj=true; bukan pengumumanSertipikatHilang.')
+   if key=='reviewType':field.update(source='constant',default='sertipikatSaya')
+  if call=='0xd86e10':
+   if key=='aktaId':field.update(type='string',strictString=True,allowEmpty=True,clientRequired=True,recoveredType='String from selected Akta ID',description='ID Akta asli dari entry Rating PPAT terpilih; String kosong dan spasi dipertahankan tanpa trim/substitusi.')
+   elif key=='PertanyaanRatingPPATId':field.update(type='array',arraySchema='rating-ppat-selected-answer-ids',minItems=0,clientRequired=True,recoveredType='List<String> from selection Map.values',items={'type':'string','strictString':True},description='ID jawaban dari pilihan kuesioner dalam urutan pemasukan Map; boleh kosong, duplikat atau String kosong. Tidak disortir, dipangkas atau diubah menjadi nilai/bobot.')
+  if call in mitra_calls:
+   field.update(type='string',strictString=True,allowEmpty=True,clientRequired=True,recoveredType='String from selected parent ID ?? emptyString',description='ID asli baris kantor/wilayah terpilih tanpa trim; null pada parent diubah menjadi String kosong oleh caller. Encoding query terisolasi merupakan adaptasi browser, bukan bukti kesamaan seluruh byte URL native.')
+  if call=='0xdeb030':
+   if key=='reviewPhoto{n}':field.update(type='file',location='file',source='file',dynamicNumbered=True,clientRequired=False,description='Foto pilihan pengguna berurutan reviewPhoto1..N, boleh tanpa foto/berkas kosong. Batas25MiB seluruh kiriman adalah kebijakan browser; tidak ada batas jumlah/ukuran native yang dibuktikan.')
+   elif key=='rating':field.update(type='integer',strictNumber=True,minimum=1,maximum=5,clientRequired=True,description='Integer1..5 dari lima bintang formulir native; nilai awal0 belum dapat dikirim.')
+   else:
+    field.update(type='string',strictString=True,allowEmpty=True,clientRequired=True,recoveredType='String',description='String asli tanpa trim; contentId dari berkasId pengumuman dan komentar boleh kosong setelah diedit. Tidak menerapkan batas16000karakter sebagai fakta native.')
+    if key=='reviewType':field.update(source='selected-context',default='pengumumanSertipikatHilang',allowedValues=['pengumumanSertipikatHilang','sertipikatSaya'],clientRequired=False,allowEmpty=False,description='Hanya dua konteks detail native yang diaudit: berkasId Sertipikat Hilang atau persilId Yuridis. Jenis lain ditolak; default lama tetap pengumumanSertipikatHilang.')
+    elif key=='contentId':field.update(description='String asli dari berkasId Sertipikat Hilang atau persilId Yuridis terpilih, sesuai reviewType konteks; tidak dipangkas atau disubstitusi.')
+  if call=='0xda9a78':
+   field.update(type='string',strictString=True,allowEmpty=True,clientRequired=False,default='',source='input',recoveredType="OEb String?; null becomes empty String",label={'Nik':'NIK Sesuai KTP','Nama':'Nama Lengkap','Tempatlahir':'Tempat Lahir','TglLahir':'Tanggal Lahir','NoHp':'No. HP (terhubung dengan WhatsApp)'}[key],description="String asli dari formulir Daring, tanpa trim atau konversi angka. Null/missing menjadi ''. Bukan identitas yang diambil dari profil masuk.")
+   field.pop('sessionKey',None)
   if call=='0xd96b98':
    field['type']='boolean' if key=='IsOffline' else 'file' if key=='file' else 'string'
    if key=='file':field.update(accept='image/png',maxBytes=12*1024*1024,description='Foto PNG dikirim sebagai bagian multipart file; batas adapter lokal 12 MiB.')
@@ -319,7 +483,7 @@ for c in contracts:
   fields.append(field)
  for arg in c.get('path_arguments',[]):
   fields.append({'path':arg.get('path','path_argument_1') if isinstance(arg,dict) else 'path_argument_1','label':'Segmen path','type':'unknown','location':'path','required':'unknown','clientRequired':False,'source':'input'})
- if any('[]' in f['path'] or f['type'] in ('array','object') and not(call=='0xda3490' and f['path']=='data' and f.get('arraySchema')=='information-simulation-type2') for f in fields) and ready:raise RuntimeError('Opaque model erroneously enabled')
+ if any('[]' in f['path'] or f['type'] in ('array','object') and not(call=='0xda3490' and f['path']=='data' and f.get('arraySchema')=='information-simulation-type2' or call=='0xd86e10' and f['path']=='PertanyaanRatingPPATId' and f.get('arraySchema')=='rating-ppat-selected-answer-ids') for f in fields) and ready:raise RuntimeError('Opaque model erroneously enabled')
  if not ready:
   if path.startswith(('Peruri','ikdv2/','kiosk/')):reason='Alur identitas atau komponen native belum dipetakan untuk browser.'
   elif service!='main':reason='Kontrak sesi atau transport layanan ini belum diaktifkan pada adapter web.'
@@ -330,10 +494,50 @@ for c in contracts:
  slug=re.sub('[^a-z0-9]+','-',path.lower()).strip('-')
  op={'id':f'{method.lower()}-{slug}-{call[2:]}','label':label,'group':group(path),'method':method,'endpoint':original,'path':path,'serviceId':service,'serviceMapping':'reviewed primary adapter' if ready else 'static service family; execution disabled','encoding':encoding,'recoveredTransport':wire,'auth':auth,'authenticated':auth=='session','effect':effect,'mutates':effect=='write','requiresConfirmation':effect=='write','enabled':ready,'supported':ready,'inspectOnly':not ready,'readiness':'ready_unverified' if ready else 'inspect_only','reason':reason,'fields':fields,'evidence':{'callAddress':call,'source':c['source']},'serverRequiredness':'unknown','serverAcceptance':'untested'}
  if call=='0xd8e744':op.update(label='Masuk akun',uiRoute='/login',dedicatedApi='/api/login',readiness='dedicated_login',enabled=False,supported=True,inspectOnly=False,auth='application',authenticated=False,effect='read',mutates=False,requiresConfirmation=False,reason='Tersedia melalui formulir Masuk akun. Kredensial diproses oleh jalur login khusus, bukan eksekusi katalog.')
+ if call=='0xd28bf4':
+  op.update(label='Unit kerja Buku Tamu',serviceId='main',clientProfile='guestbook-read',upstreamAuthentication='application',auth='session',authenticated=True,effect='read',mutates=False,requiresConfirmation=False,enabled=True,supported=True,inspectOnly=False,readiness='ready_unverified',serviceMapping='audited standalone application-authorized guestbook read; account session is a local eligibility guard',reason='Membaca metadata unit dari QR kantor. Klien tersendiri memakai konfigurasi aplikasi yang sudah tersedia, tanpa bearer/refresh akun. Tidak mencatat kedatangan.',fields=[{'path':key,'label':key,'type':'string','strictString':True,'allowEmpty':True,'location':'query','required':'unknown','clientRequired':True,'source':'input','description':'Nilai mentah dari QR kantor; tidak dipangkas atau didekode ulang. Bukan bukti kehadiran atau keaslian QR.'} for key in ['uid','unid']],evidence={'callAddress':call,'source':guestbook_source,'nativeProofSha256':guestbook_sha,'uiSource':'analysis/recovered/guestbook-followup/flow.json'})
+ if call=='0xd99dd8':
+  guestbook_fields=[('contextId','Konteks unit Buku Tamu'),('name','Nama Lengkap'),('nik','NIK'),('phone','Nomor Telepon'),('birthDate','Tanggal Lahir'),('birthPlace','Tempat Lahir'),('address','Alamat Sesuai KTP'),('email','Alamat Email'),('institution','Instansi'),('purpose','Keperluan')]
+  op.update(label='Simpan Buku Tamu',serviceId='main',clientProfile='guestbook-post',upstreamAuthentication='application',auth='session',authenticated=True,effect='write',mutates=True,requiresConfirmation=True,enabled=True,supported=True,inspectOnly=False,readiness='ready_unverified',serviceMapping='audited standalone application-authorized guestbook write; account session and opaque QR/lookup context are local ownership guards',reason='Mendaftarkan kedatangan melalui formulir unit dari QR kantor yang dibaca pada sesi ini. Tiga ID lookup hanya ditetapkan server; sembilan isian dipertahankan mentah tanpa trim atau konversi tanggal. Hasil native hanya error bool berdasarkan HTTP200 setelah transform respons, bukan verifikasi petugas atau kartu pengunjung. Tidak ada kirim ulang otomatis, pemalsuan QR/kehadiran, bearer akun atau retry Directus. Guard konteks, batas byte dan hasil ambigu adalah adaptasi browser; penerimaan produksi belum diuji.',fields=[{'path':key,'label':label,'type':'string','strictString':True,'location':'local','required':'unknown','clientRequired':True,'source':'input'} for key,label in guestbook_fields],nativeFields=[{'path':key,'location':'body','source':'server-QR-lookup' if index<3 else 'raw-user-form'} for index,key in enumerate(guestbook_submit['contract']['write']['fields'])],evidence={'callAddress':call,'source':guestbook_source,'nativeProofSha256':guestbook_sha,'submitSource':guestbook_submit_source,'submitProofSha256':guestbook_submit_sha})
  if call in {'0xd2cb24','0xd2cf54'}:
   op.update(serviceMapping='audited cloned main client with LRb/AP',reason='Kontrak daftar dan model nullable dipulihkan dari APK; penerimaan server belum diverifikasi.',evidence={'callAddress':call,'source':'analysis/recovered/news-flow/flow.json','requestSource':c['source'],'nativeProofSha256':'9628b9d094cb486c82a86f8a27d90426a3d15737d32fc2d7e3fd36e1615f6aa9'})
  if call in {'0xd1dc68','0xde6c94'}:
   op.update(serviceMapping='audited main-session activity list/delete',reason='Kontrak aktivitas native dipulihkan; penerimaan server belum diuji. Penghapusan cache lokal mengikuti controller native meski hasil layanan false.' if call=='0xde6c94' else 'Daftar aktivitas bertipe; createdAt dipertahankan sebagai String/null tanpa membuat timestamp browser.',evidence={'callAddress':call,'source':activity_source,'requestSource':c['source'],'nativeProofSha256':activity_sha})
+ if call=='0xdace58':
+  assert [field['path'] for field in fields]==['reviewType','contentId','pageNumber','pageSize']
+  op.update(serviceMapping='audited main-session read-only lost-certificate reviews',effect='read',mutates=False,requiresConfirmation=False,reason='Pembacaan ulasan pengumuman: form String tetap, sesi akun, shared2xx dan model nullable yyb/zyb/Ayb. Penerimaan server belum diuji; tidak mengirim ulasan atau foto.',evidence={'callAddress':call,'source':review_source,'requestSource':c['source'],'nativeProofSha256':review_sha,'protocolDoc':'analysis/LOST-REVIEW-PROTOCOL.md'})
+ if call in mitra_calls:
+  op.update(serviceMapping='audited main optional-session Mitra read',reason='Daftar Mitra native HTTP200 dengan model nullableString dan body.data List; error/message tidak dibaca. ID mentah/null parent menjadi String kosong. Penerimaan server belum diuji; encoding query dan batas parser browser dinyatakan sebagai adaptasi.',evidence={'callAddress':call,'source':mitra_source,'requestSource':c['source'],'nativeProofSha256':mitra_sha,'protocolDoc':'analysis/MITRA-READ-CONTRACT-FOLLOWUP-20261021.md'})
+ if call=='0xd1d6bc':
+  assert fields==[] and method=='GET' and path=='RatingPPAT/GetRatingQuestions'
+  op.update(serviceMapping='audited main-session Rating PPAT question read',reason='Pembacaan pertanyaan Rating PPAT tepat HTTP200 tanpa parameter entry, body.data List dan model Gyb/Hyb nullableString dengan nested List nullable. Error/message envelope tidak dibaca. Pengiriman penilaian tersedia melalui operasi POST terpisah dengan konfirmasi. Batas parser browser dinyatakan sebagai adaptasi; penerimaan server belum diuji.',evidence={'callAddress':call,'source':rating_ppat_source,'requestSource':c['source'],'nativeProofSha256':rating_ppat_sha,'protocolDoc':'analysis/RATING-PPAT-READ-FOLLOWUP.md'})
+ if call=='0xd86e10':
+  assert [field['path'] for field in fields]==['aktaId','PertanyaanRatingPPATId'] and method=='POST' and path=='RatingPPAT/PostRatingPPAT'
+  op.update(serviceMapping='audited main-session selected Akta Rating PPAT submission',recoveredTransport='Ordered JSON String aktaId then PertanyaanRatingPPATId List<String>; application/json and accept text/plain; shared2xx response',reason='Pengiriman Rating PPAT terpilih dengan konfirmasi. Respons normal memakai !error dan pesan String langsung; null memakai fallback native, tanpa decode String tambahan atau syarat HTTP200 lokal. Error transport/auth tetap eksplisit pada backend browser; frontend memetakan error layanan biasa ke tuple catch native. Penerimaan dan penyimpanan server belum diuji.',evidence={'callAddress':call,'source':rating_ppat_post_source,'requestSource':c['source'],'nativeProofSha256':rating_ppat_post_sha,'protocolDoc':'analysis/RATING-PPAT-WRITE-FINAL-FOLLOWUP-20261021.md','uiSource':'analysis/recovered/ratingppat-ui-followup/source-index.json','navigationSource':'analysis/recovered/ratingppat-result-navigation-followup/source-index.json'},serverEffects='Posts one user-selected PPAT rating for the original selected Akta and answer-ID List; no production submission performed by validation')
+ if call=='0xd915c4':
+  assert [field['path'] for field in fields]==['Berkasid','rating','userComment'] and method=='POST' and path=='berkas/postratingberkas'
+  op.update(clientProfile='berkas-rating-post',serviceMapping='audited main-session original selected Berkasku rating submission',recoveredTransport='Ordered nativeFormData Berkasid,rating,userComment; rawUTF8 scalar bytes and sharedLOST finalizer; shared2xx response body strict nullablebool/String',reason='Penilaian hanya dari detail Berkasku dengan readyToRating=true pada baris asli dan konteks sesi opaque yang mengikat ID asli daftar, bukan ID tampilan, koleksi atau aktivitas. Komentar dipangkas seperti native; bintang integer1–5. Respons error=false bertipe menyatakan hasil layanan, tanpa receipt. Guard unknown/accepted dan TTL120s adalah adaptasi browser; tidak ada retry otomatis atau uji kirim produksi.',fields=[{'path':'contextId','label':'Konteks detail Berkasku','type':'string','strictString':True,'location':'local','required':'unknown','clientRequired':True,'source':'input'},{'path':'rating','label':'Bintang penilaian','type':'integer','strictNumber':True,'minimum':1,'maximum':5,'location':'body','required':'unknown','clientRequired':True,'source':'input'},{'path':'userComment','label':'Komentar penilaian','type':'string','strictString':True,'location':'body','required':'unknown','clientRequired':True,'source':'input'}],nativeFields=[{'path':key,'location':'body','source':'server-selected-original-Berkasku' if key=='Berkasid' else 'validated-user-input'} for key in ['Berkasid','rating','userComment']],evidence={'callAddress':call,'source':berkas_rating_source,'nativeProofSha256':berkas_rating_sha,'catchSource':berkas_rating_catch_source,'catchNativeProofSha256':berkas_rating_catch_sha,'entrySource':berkas_rating_entry_source,'entryNativeProofSha256':berkas_rating_entry_sha,'entryProtocolDoc':'analysis/BERKAS-RATING-ENTRY-REFINEMENT-20261021.md','requestSource':c['source'],'protocolDoc':'analysis/BERKAS-RATING-FOLLOWUP-20261021.md'},serverEffects='Posts one explicit rating for the original selected Berkasku ID; no production rating performed by validation')
+ if call=='0xd0fb64':
+  op.update(serviceMapping='audited main optional-session Yuridis feed',reason='Pembacaan pengumuman Yuridis tepat HTTP200, body.data List dan model GGb sebelas field nullable. Decode String satu kali mengikuti transform MIME; envelope error/message tidak dibaca. Penerimaan server belum diuji.',evidence={'callAddress':call,'source':yuridis_source,'requestSource':c['source'],'nativeProofSha256':yuridis_sha,'protocolDoc':'analysis/YURIDIS-READ-FLOW.md'})
+ if call=='0xdad1dc':
+  assert [field['path'] for field in fields]==['reviewType','contentId'] and path=='review/last_user_review'
+  op.update(serviceMapping='audited main-session Yuridis last-user review read',recoveredTransport='Ordered form fields reviewType=sertipikatSaya and original GGb.persilId; shared main status2xx and MIME transform',reason='Pembacaan ulasan terakhir Yuridis: data null/missing menjadi list kosong sebelum validasi metadata; data nonnull dibungkus singleton sebelum model yyb/zyb/Ayb. Tidak ada pagination atau decode String tambahan. Penerimaan server belum diuji.',evidence={'callAddress':call,'source':yuridis_source,'requestSource':c['source'],'nativeProofSha256':yuridis_sha,'protocolDoc':'analysis/YURIDIS-READ-FLOW.md'})
+ if call=='0xdeb030':
+  assert [field['path'] for field in fields]==['contentId','reviewType','comment','rating','reviewPhoto{n}']
+  op.update(serviceMapping='audited main-session lost-certificate review composer',recoveredTransport='Ordered raw UTF8 scalar multipart fields then original numbered file bytes; original Android POSIX basename with native996 extension MIME map',reason='Pengiriman ulasan pengumuman terpilih dengan konfirmasi. Respons false hanya setelah transform shared valid dan HTTP200; penerimaan server belum diuji. Batas25MiB kiriman/20MiB respons dan guard nama adalah kebijakan browser.',evidence={'callAddress':call,'source':review_post_source,'requestSource':c['source'],'nativeProofSha256':review_post_sha,'protocolDoc':'analysis/LOST-REVIEW-POST-PROTOCOL.md','uiSource':'analysis/recovered/lost-review-compose-ui/source-index.json','uiNativeProofSha256':'1f8a6dfb23f2913eeb68eab8042aa8f55fc57c48c0651015ed106c08b128cdfb'},serverEffects='Posts a new lost-certificate review and optional selected photos; no production submission performed by validation')
+  op['serviceMapping']='audited main-session selected lost-certificate or Yuridis review composer'
+  op['evidence'].update(yuridisSource=yuridis_source,yuridisNativeProofSha256=yuridis_sha,yuridisProtocolDoc='analysis/YURIDIS-READ-FLOW.md')
+  op['serverEffects']='Posts one new review for the selected lost-certificate or Yuridis context and optional selected photos; no production submission performed by validation'
+ if call=='0xd42440':
+  op.update(serviceMapping='audited main-session Scan classification with server-owned profile',reason='Klasifikasi native dengan nama profil sesi backend. Efek server belum diketahui; konfirmasi eksplisit dipertahankan. Aktivasi/geotag tidak dijalankan.',evidence={'callAddress':call,'source':scan_source,'requestSource':c['source'],'nativeProofSha256':scan_sha},serverEffects='unknown')
+ if call in scan_map_proofs:
+  map_source,map_sha=scan_map_proofs[call]
+  op.update(serviceMapping='audited main-session Scan special-map read',reason='Respons native bertipe tepat HTTP200; flag error dipertahankan dan model hanya ditampilkan bila false. Kode kosong hanya melalui konteks Scan sesi; penerimaan server belum diuji.',evidence={'callAddress':call,'source':map_source,'requestSource':c['source'],'nativeProofSha256':map_sha,'modelSource':'analysis/recovered/scan-location-followup/flow.json'})
+ if call=='0xda9a78':
+  assert [field['path'] for field in fields]==daring_response['contract']['request_values']['order']
+  op.update(serviceMapping='audited main-session first Daring identity-validation action',recoveredTransport='FormData with five original String fields in native order; null model fields become empty Strings; no files',reason='Validasi awal identitas Daring dengan konfirmasi eksplisit. Respons tuple native dipulihkan; penerimaan server belum diuji. Tidak mengirim OTP, membuka kamera/liveness atau menyatakan akun telah terverifikasi.',evidence={'callAddress':call,'source':daring_form_source,'requestSource':c['source'],'nativeProofSha256':daring_form_sha,'responseSource':daring_response_source,'responseNativeProofSha256':daring_response_sha},serverEffects='identity validation; deeper provider effects unverified')
+ if call in parcel_calls:
+  op.update(serviceMapping='audited main-session Cari Bidang read',reason='Pembacaan wilayah dan ID bidang dari form native. Hasil langsung bertipe, tanpa telemetry/geotag atau geometri buatan; penerimaan server belum diuji.',evidence={'callAddress':call,'source':parcel_source,'requestSource':c['source'],'nativeProofSha256':parcel_sha})
  if call in save_proofs or call=='0xd25250':
   save_source,save_sha=save_proofs['0xd92664' if call=='0xd25250' else call]
   op.update(serviceMapping='audited main-session collection bookmark',reason='Kontrak bookmark native dan typed200 yEb; penerimaan server belum diuji. NIK simpan hanya dari stored sign-in user, bukan profil atau input browser.',evidence={'callAddress':call,'source':save_source,'requestSource':c['source'],'nativeProofSha256':save_sha})
@@ -341,6 +545,21 @@ for c in contracts:
   op.update(label='Detail antrean' if call=='0xd1e130' else 'Antrean saya',serviceId='directus',serviceMapping='audited FRb +0xb Directus read client',clientProfile='queue-read',auth='session',authenticated=True,effect='read',mutates=False,requiresConfirmation=False,enabled=True,supported=True,inspectOnly=False,readiness='ready_unverified',reason='Pembacaan antrean akun sendiri; identitas dari summary backend dan ID detail dari daftar/aktivitas sesi. Booking dan enrollment belum tersedia.',fields=[] if call=='0xd1eb1c' else [{'path':'path_argument_1','label':'ID antrean terpilih','type':'string','strictString':True,'location':'path','required':'unknown','clientRequired':True,'source':'input','description':'ID utuh yang dikembalikan daftar atau aktivitas akun ini; bukan nomor antrean atau kode booking.'}],evidence={'callAddress':call,'source':'analysis/recovered/queue-flow.json','transportSource':'analysis/recovered/queue-interceptor-followup/flow.json','identitySource':'analysis/recovered/queue-identity-followup/flow.json'})
  if call=='0xd22468':
   op.update(label='Panggilan antrean saya',serviceId='directus',serviceMapping='audited FRb +0xb Directus notifications read',clientProfile='queue-read',auth='session',authenticated=True,effect='read',mutates=False,requiresConfirmation=False,enabled=True,supported=True,inspectOnly=False,readiness='ready_unverified',reason='Panggilan dibaca dari identitas profil backend sesi ini; tidak menerima NIK browser atau melakukan mark-read.',fields=[],evidence={'callAddress':call,'source':'analysis/recovered/queue-calls-flow/flow.json'})
+ if call in {'0xd1fa00','0xd8a0dc','0xd89cb4'}:
+  names={'0xd1fa00':'Kantor Pertanahan antrean','0xd8a0dc':'Lokasi Kerja antrean','0xd89cb4':'Ketersediaan loket antrean'}
+  keys=[] if call=='0xd1fa00' else ['filter[kantor]'] if call=='0xd8a0dc' else ['lokasi','tanggal']
+  op.update(label=names[call],serviceId='directus',serviceMapping='audited FRb +0xb Directus booking prerequisites',clientProfile='queue-read',auth='session',authenticated=True,effect='read',mutates=False,requiresConfirmation=False,enabled=True,supported=True,inspectOnly=False,readiness='ready_unverified',reason='Pratinjau baca kantor/lokasi/ketersediaan; referensi pilihan harus berasal dari respons sesi ini. Tidak melakukan booking, enrollment, OTP atau socket.',fields=[{'path':key,'label':{'filter[kantor]':'Kantor Pertanahan terpilih','lokasi':'Lokasi Kerja terpilih','tanggal':'Tanggal (yyyy-MM-dd)'}[key],'type':'string','strictString':True,'location':'query','required':'unknown','clientRequired':True,'source':'input'} for key in keys],evidence={'callAddress':call,'source':'analysis/recovered/queue-booking-reads/flow.json','selectionSource':'analysis/recovered/queue-booking-selection-followup/flow.json','dateSource':'analysis/recovered/queue-booking-date-followup/flow.json'})
+ if call=='0xd8bf80':
+  op.update(label='Periksa kuota dan tinjau antrean',serviceId='directus',serviceMapping='audited FRb +0xb Directus quota POST; main account session is a local ownership guard',clientProfile='queue-booking',upstreamAuthentication='application',auth='session',authenticated=True,encoding='json',effect='write',mutates=True,requiresConfirmation=True,enabled=True,supported=True,inspectOnly=False,readiness='ready_unverified',reason='Pemeriksaan kuota dari snapshot loket dan profil pemohon sendiri pada sesi backend, lalu tinjauan dengan gate native. Efek POST dan penerimaan server belum diuji; tidak membuat antrean. Token notifikasi resmi untuk pembuatan antrean web belum tersedia.',recoveredTransport='Ordered JSON nik, kantorid, tanggal_booking encoded UTF8 on fixed Directus client; no POST retry or redirect in browser adapter',serverEffects='Quota check; deeper provider effects unverified; no production quota POST performed by validation',nativeFields=[{'path':key,'type':'string','location':'body','source':'server-session'} for key in ['nik','kantorid','tanggal_booking']],fields=[
+   {'path':'contextId','label':'Konteks ketersediaan sesi','type':'string','strictString':True,'location':'local','required':'unknown','clientRequired':True,'source':'input','description':'Opaque backend-issued context, never an office ID or NIK.'},
+   {'path':'rowIndex','label':'Indeks sumber loket terpilih','type':'integer','strictInteger':True,'min':0,'location':'local','required':'unknown','clientRequired':True,'source':'input'},
+   {'path':'documentCount','label':'Jumlah berkas','type':'integer','strictInteger':True,'min':1,'max':5,'location':'local','required':'unknown','clientRequired':True,'source':'input'},
+   {'path':'timeZone','label':'Zona waktu browser','type':'string','strictString':True,'location':'local','required':'unknown','clientRequired':True,'source':'input','description':'Validated IANA browser zone; server owns the current instant; not sent upstream.'},
+  ],evidence={'callAddress':call,'source':c['source'],'wireSource':queue_booking_wire_source,'wireNativeProofSha256':queue_booking_wire_sha,'preflightSource':queue_booking_preflight_source,'preflightNativeProofSha256':queue_booking_preflight_sha,'selectionSource':'analysis/recovered/queue-booking-selection-followup/flow.json','profileSource':'analysis/recovered/queue-identity-followup/flow.json'})
+ if call in {'0xd9f850','0xda0be8'}:
+  registered=call=='0xd9f850'
+  scalar_keys=['id','kluster','namapemilik','kontaktelp','kontakemail','tipehakid','tipehak','kantorid','namakantor','wilayahid','namawilayah','nomorhak','reviu','lat','lon'] if registered else ['id','kluster','namapemilik','kontaktelp','kontakemail','alamat','alashak','nomoralashak','keteranganalashak','buktipajak','nomorbuktipajak','keteranganbuktipajak','kantorid','namakantor','wilayahid','namawilayah','reviu','lat','lon']
+  op.update(label='Swaplotting Tanah Bersertipikat' if registered else 'Swaplotting Tanah Belum Bersertipikat',serviceId='main',serviceMapping='audited personal Swaplotting on FRb +7 main account client',clientProfile='swaplotting-post',auth='session',authenticated=True,encoding='multipart',effect='write',mutates=True,requiresConfirmation=True,enabled=True,supported=True,inspectOnly=False,readiness='ready_unverified',reason='Pengiriman formulir personal dari ringkasan dan byte foto milik sesi backend. Profil sendiri dan pilihan asli divalidasi ulang; tidak mengganti geotag bukti kunjungan. Penerimaan server belum diuji; tidak ada retry otomatis. Formatter koordinat, sumber nama32hex dan RNG boundary adalah adaptasi browser.',fields=[{'path':'reviewId','label':'Ringkasan formulir sesi','type':'string','strictString':True,'location':'local','required':'unknown','clientRequired':True,'source':'input','description':'Opaque review ID issued after local staging; no caller contact, labels, URLs, credentials or wire fields.'}],nativeFields=[{'path':key,'type':'string','location':'body','source':'server-owned-review'} for key in scalar_keys]+[{'path':'file','type':'file','location':'body','repeated':True,'contentType':'application/octet-stream','source':'server-owned-review'}],recoveredTransport='Ordered15/19 raw UTF8 scalar multipart parts then repeated file parts;32lowercasehex filenames; initial octet-stream MIME; exact shared finalizer; HTTP200 after MIME transform returns true',serverEffects='Personal plotting upload; after success feedback dismissal, one scoped activity mutation and forced activity read; no production upload/activity request performed by validation',evidence={'callAddress':call,'source':c['source'],'nativeProofSha256':swaplotting_submit_sha,'submitSource':swaplotting_submit_source,'serviceSource':swaplotting_service_source,'serviceNativeProofSha256':swaplotting_service_sha,'multipartSource':swaplotting_multipart_source,'multipartNativeProofSha256':swaplotting_multipart_sha,'sharedFinalizerSource':review_post_source,'sharedFinalizerNativeProofSha256':review_post_sha,'ownerSource':'analysis/recovered/swaplotting-owner-followup/flow.json'})
  if call=='0xd96b98':
   op.update(label='Penandaan lokasi geotag',readiness='native_required',reason='Penandaan lokasi membutuhkan pemeriksaan posisi saat kunjungan dan pernyataan kondisi fisik melalui aplikasi resmi. Perbandingan koordinat berkas tidak menggantikan pemeriksaan tersebut.',coordinateNotice='Koordinat referensi berkas hanya untuk perbandingan; tidak dikirim sebagai posisi perangkat atau bukti kunjungan.')
  ops.append(op)

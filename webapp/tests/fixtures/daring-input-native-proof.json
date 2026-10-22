@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Fixed public Daring local validation copy and bounded static input observations; portable tests need no APK/ELF/audit tree.",
+  "nativeEvidence": {
+    "file": "analysis/recovered/daring-input-followup/flow.json",
+    "sha256": "453a59d94bf5fcee88e5590b2a3702b20506b918e08c71397959da4c7caf60e1",
+    "priorFormFile": "analysis/recovered/verification-daring-form-followup/flow.json",
+    "priorFormSha256": "ea736769eab7c366ca146222ef8860817c0fd17242f0eb768f383c8a7c29c7b8",
+    "artifactSha256": "bbc7f3bde07502916f00915afe55028a391efd57a5d47e5b30bd820aabd4a683",
+    "poolSha256": "871487859dabdd17e109645a1e788098c6f168a44d4dce9626136ed558502e04"
+  },
+  "errors": {
+    "edit": {
+      "name_leading_space": "Nama tidak boleh diawali spasi",
+      "name_empty": "Nama tidak boleh kosong",
+      "nik_empty": "NIK tidak boleh kosong",
+      "nik_short": "NIK harus 16 digit",
+      "place_empty": "Tempat Lahir tidak boleh kosong",
+      "place_pattern": "Tempat Lahir hanya boleh mengandung huruf dan spasi.",
+      "phone_empty": "Nomor Telepon tidak boleh kosong"
+    },
+    "aggregate": {
+      "name_empty": "Nama tidak boleh kosong",
+      "nik_empty": "NIK tidak boleh kosong",
+      "nik_short": "NIK harus 16 digit",
+      "place_empty": "Tempat lahir tidak boleh kosong",
+      "date_empty": "Tanggal lahir tidak boleh kosong",
+      "phone_empty": "Nomor HP tidak boleh kosong"
+    }
+  },
+  "formCopy": {
+    "title": "Verifikasi Akun",
+    "heading": "Lengkapi data",
+    "instruction": "*Masukkan data diri kamu sesuai dengan KTP.",
+    "button": "Lanjut",
+    "generic_incomplete": "Harap lengkapi semua data"
+  },
+  "fields": [
+    {
+      "label": "Nama Lengkap",
+      "modelField": "0x7"
+    },
+    {
+      "label": "NIK Sesuai KTP",
+      "modelField": "0xb"
+    },
+    {
+      "label": "Tempat Lahir",
+      "modelField": "0xf"
+    },
+    {
+      "label": "Tanggal Lahir",
+      "modelField": "0x13"
+    },
+    {
+      "label": "No. HP (terhubung dengan WhatsApp)",
+      "modelField": "0x1b"
+    }
+  ],
+  "edit": {
+    "name": {
+      "firstCheck": "leading literal ASCII space",
+      "secondCheck": "raw empty",
+      "otherNonemptyStringsClearError": true
+    },
+    "nik": {
+      "firstCheck": "raw empty",
+      "secondCheck": "raw String.length below16",
+      "minimumLength": 16,
+      "discardedReplacementPattern": "\\D",
+      "originalChangedStringStored": true
+    },
+    "place": {
+      "firstCheck": "raw empty",
+      "secondCheck": "pattern test",
+      "pattern": "^[A-Za-z][A-Za-z\\s]*$",
+      "completeRegExpEdgeParityProven": false
+    },
+    "phone": {
+      "check": "raw empty only"
+    },
+    "date": {
+      "format": "dd/MM/yyyy",
+      "selectionClearsLocalError": true
+    }
+  },
+  "aggregate": {
+    "source": "Current name/NIK/place/phone text-controller Strings; existing date model String.",
+    "temporaryTrimChecks": [
+      "name",
+      "nik",
+      "place",
+      "phone"
+    ],
+    "namePlacePhoneRequireNonempty": true,
+    "nikMinimumTrimmedLength": 16,
+    "dateRequiresNonNullNonempty": true,
+    "replaysNameLeadingSpaceCheck": false,
+    "replaysPlacePatternCheck": false,
+    "overwritesOriginalStrings": false,
+    "successIsIdentityVerification": false
+  },
+  "formatterConfiguration": {
+    "name_place": {
+      "class": "tSb",
+      "cid": 2695,
+      "format_method_semantics_proven": false
+    },
+    "nik_phone": {
+      "class": "Cra",
+      "cid": 2698,
+      "field_descriptor_pool_offset": "0x30c50",
+      "field_static_offset": "0xae8",
+      "initializer": "0x8c6300",
+      "pattern": "[0-9]",
+      "field7": true,
+      "fieldB": "compiled pattern",
+      "fieldF": "",
+      "configuration_proven": true,
+      "format_method_semantics_proven": false
+    },
+    "limits": {
+      "class": "Dra",
+      "cid": 2697,
+      "nik_argument": 16,
+      "phone_argument": 15,
+      "constructor_binding_proven": true,
+      "format_method_semantics_proven": false
+    },
+    "boundary": "Do not enforce a guessed tSb transform, digits filtering, truncation, UTF16/grapheme max length, composition/IME policy or old/new selection behavior from allocation/config alone. The stripped class function arrays and heuristic dispatch candidates do not bind these methods. No candidate formatter method is promoted into proof."
+  },
+  "date": {
+    "lower_construction": "1900-01-01 local midnight",
+    "initial_construction": "2008-08-01 local midnight",
+    "upper_construction": "local now",
+    "constructor_defaults": {
+      "month": 1,
+      "day": 1,
+      "hour": 0,
+      "minute": 0,
+      "second": 0,
+      "millisecond": 0,
+      "microsecond": 0,
+      "isUtc": false
+    },
+    "initial_is_upper_bound": false,
+    "age18_rule_proven": false,
+    "boundary": "Constructor defaults and caller bounds only. Shared calendar rendering, timezone/DST conversion and Intl formatting edge parity are not re-audited."
+  },
+  "runtimeObserved": false,
+  "productionRequests": 0,
+  "networkRequests": 0,
+  "initializerExecuted": false,
+  "fieldValueRead": false,
+  "credentialsReadOrExported": false,
+  "scope": "No input formatter body semantics, final identity submission, OTP, liveness, camera, server acceptance or account-verified result is established by this proof."
+}

@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Fixed public NEb liveness instructions and packaged preview metadata; portable source tests need no APK/ELF/audit tree.",
+  "nativeEvidence": {
+    "file": "analysis/recovered/daring-liveness-entry-followup/flow.json",
+    "sha256": "8b34b26dbc0e827f926014d61f32d18762f6315ef11455d2b985cd60e818721e",
+    "receiptFile": "analysis/recovered/daring-liveness-entry-followup/verification.json",
+    "receiptSha256": "8847ba59aebb4405bef0ad4dcb5eae7cb7cb9f5fda5b7751bb146e7fde70f3d0",
+    "priorFormSha256": "ea736769eab7c366ca146222ef8860817c0fd17242f0eb768f383c8a7c29c7b8",
+    "artifactSha256": "bbc7f3bde07502916f00915afe55028a391efd57a5d47e5b30bd820aabd4a683",
+    "poolSha256": "871487859dabdd17e109645a1e788098c6f168a44d4dce9626136ed558502e04"
+  },
+  "widget": {
+    "name": "NEb",
+    "classId": 5933,
+    "base": "sK",
+    "buildSelector": 48657,
+    "buildAddress": "0xa3c468",
+    "buildEndExclusive": "0xa3d2c8"
+  },
+  "copy": {
+    "title": "Verifikasi Akun",
+    "heading": "Ketentuan Pengenalan Wajah",
+    "next_button": "Lanjut",
+    "preview_labels": [
+      "Salah",
+      "Salah",
+      "Benar"
+    ],
+    "instructions": [
+      "Pastikan Kamu berada di tempat yang cukup terang",
+      "Pastikan wajah Kamu terlihat jelas seperti pada foto di KTP",
+      "Gunakan kamera yang dapat merekam dengan kualitas jelas",
+      "Pastikan tidak ada aksesoris wajah, seperti kacamata atau topi"
+    ]
+  },
+  "previews": [
+    {
+      "originalName": "liveness_salah_1_anim.png",
+      "packagedName": "assets/images/liveness/liveness_salah_1_anim.png",
+      "label": "Salah",
+      "builderAddress": "0xa3c57c",
+      "sha256": "4b76089bfc10301c0c36e474c2a5fbd1bea719fffb665ce831f04fea16cdcda3",
+      "bytes": 546644,
+      "width": 1024,
+      "height": 1536,
+      "mimeType": "image/png",
+      "pngChunks": {
+        "IHDR": 1,
+        "PLTE": 1,
+        "IDAT": 1,
+        "IEND": 1
+      },
+      "animated": false
+    },
+    {
+      "originalName": "liveness_salah_2_anim.png",
+      "packagedName": "assets/images/liveness/liveness_salah_2_anim.png",
+      "label": "Salah",
+      "builderAddress": "0xa3c844",
+      "sha256": "23cb228ed065292203da4bf1dba81abee08c7058a1f25754096afe8a3ad76b74",
+      "bytes": 476706,
+      "width": 1024,
+      "height": 1536,
+      "mimeType": "image/png",
+      "pngChunks": {
+        "IHDR": 1,
+        "PLTE": 1,
+        "IDAT": 1,
+        "IEND": 1
+      },
+      "animated": false
+    },
+    {
+      "originalName": "liveness_benar_anim.png",
+      "packagedName": "assets/images/liveness/liveness_benar_anim.png",
+      "label": "Benar",
+      "builderAddress": "0xa3cb0c",
+      "sha256": "07cb41503acd9c94b077265f4a2b8cfcbf52adc0a75cf209a48f9da1a6444e45",
+      "bytes": 410407,
+      "width": 1024,
+      "height": 1536,
+      "mimeType": "image/png",
+      "pngChunks": {
+        "IHDR": 1,
+        "PLTE": 1,
+        "IDAT": 1,
+        "IEND": 1
+      },
+      "animated": false
+    }
+  ],
+  "nativePreviewHeight": {
+    "source": "viewport height",
+    "divisor": 6
+  },
+  "instructionRows": {
+    "source": "NEb+f",
+    "rowWidget": "YEb",
+    "classId": 5932,
+    "preservesSourceOrder": true
+  },
+  "entryGate": {
+    "source": "Original OTP callback followed by local JEb controller comparison",
+    "callbackAddress": "0xda9d0c",
+    "localComparisonAddress": "0x9044f4",
+    "destinationBuilderAddress": "0x9045b0",
+    "requiresExactTrueTupleFirstSlot": true,
+    "serverOtpAcceptanceProven": false
+  },
+  "explicitAction": {
+    "label": "Lanjut",
+    "callbackAddress": "0xde81b4",
+    "directlyInvokedDuringInstructionBuild": false,
+    "unreviewedHelperAddresses": [
+      "0xde86ec",
+      "0xde83c4"
+    ],
+    "awaited": true,
+    "providerEquivalentProven": false,
+    "finalAccountVerificationProven": false
+  },
+  "runtimeObserved": false,
+  "productionRequests": 0,
+  "networkRequests": 0,
+  "credentialsReadOrExported": false,
+  "otpValueRead": false,
+  "cameraOrBiometricAction": false,
+  "scope": "Instruction display and local callback truth establish neither SDK/provider/camera behavior nor final account verification; deeper helpers and ZEb lifecycle remain unaudited."
+}

@@ -1,11 +1,104 @@
 {
-  "checkedAt": "2026-10-20",
-  "url": "http://127.0.0.1:4188/",
-  "observedVisibleSummary": {
-    "nodes": 1200,
-    "edges": 2857,
-    "groups": 58
+  "schemaVersion": 2,
+  "checkedAt": "2026-10-22T10:25:26.614Z",
+  "status": "PASS",
+  "scope": "Actual read-only browser QA of the current Graphify Studio; no provider/account/app submissions",
+  "graph": {
+    "nodes": 1776,
+    "relationships": 4656,
+    "communities": 101
   },
-  "graphSha256": "ba2e650e74de51cd3e9651ba96c37fc234e9e2c6da1ebe1781e3ab8a8c0ad5b3",
-  "scope": "Final static Studio loaded in the in-app browser and its visible summary matched the graph. This is not an application/server behavior test."
+  "checks": [
+    "Module Studio renders current graph",
+    "Entity search filters to9 results",
+    "Expanded group contains target entity",
+    "Selected entity displays source and10relations/1citation",
+    "Clearing search restores1776 nodes",
+    "Self-contained offline HTML renders same graph",
+    "No observed console warnings/errors or horizontal overflow"
+  ],
+  "consoleWarningsOrErrors": 0,
+  "sourceExample": "webapp/private/guestbook-submit-session.mjs:L12",
+  "observations": [
+    {
+      "clientWidth": 1280,
+      "hasGraph": true,
+      "scenario": "initial-studio",
+      "scrollWidth": 1280,
+      "summary": "1776 nodes 4656 edges 101 groups",
+      "title": "Graphify Ontology Studio",
+      "width": 1280
+    },
+    {
+      "clientWidth": 1280,
+      "guestbookEntityVisible": false,
+      "matchedSummary": "9 / 1776 nodes 4656 edges 101 groups",
+      "scenario": "guestbook-search",
+      "scrollWidth": 1280,
+      "search": "GuestbookSubmissionSession",
+      "width": 1280
+    },
+    {
+      "citationsVisible": true,
+      "relationsVisible": true,
+      "scenario": "entity-selection",
+      "selected": true,
+      "sourceVisible": true
+    },
+    {
+      "clientWidth": 1280,
+      "scenario": "clear-search",
+      "scrollWidth": 1280,
+      "summary": "1776 nodes 4656 edges 101 groups",
+      "width": 1280
+    },
+    {
+      "entityVisible": true,
+      "scenario": "expanded-results",
+      "sourceVisible": true,
+      "summary": "9 / 1776 nodes 4656 edges 101 groups"
+    },
+    {
+      "clientWidth": 1280,
+      "hasGraph": true,
+      "scenario": "self-contained-studio",
+      "scrollWidth": 1280,
+      "summary": "1776 nodes 4656 edges 101 groups",
+      "title": "Graphify Ontology Studio",
+      "width": 1280
+    }
+  ],
+  "artifacts": [
+    {
+      "file": ".graphify/graph.json",
+      "sha256": "2f46aec7622b6ad3a7515f78bef51b110e4e888d6d8f60901323c4c4692aa58c"
+    },
+    {
+      "file": ".graphify/studio/graph.json",
+      "sha256": "2f46aec7622b6ad3a7515f78bef51b110e4e888d6d8f60901323c4c4692aa58c"
+    },
+    {
+      "file": ".graphify/studio/studio.html",
+      "sha256": "f4d61846235fb3cd4cc1320366da97329a306bd23cc417efa26623a621f2e251"
+    },
+    {
+      "file": ".graphify/manifest.json",
+      "sha256": "2b3f81df91b9c152ee7a59b2adef329aebae087eab425f7a387f641826250615"
+    }
+  ],
+  "temporaryServer": {
+    "port": 4182,
+    "stopped": true,
+    "listenerClosedVerified": true,
+    "method": "Verified exact QA process then stopped it after tool stdin had closed; graceful server receipt is not claimed"
+  },
+  "screenshot": {
+    "published": false,
+    "reason": "Retained outside checkout as local QA evidence"
+  },
+  "limitations": [
+    "Desktop1280 browser checked; mobile Studio not tested",
+    "First target visibility false was observed before expanding its collapsed group",
+    "Graph inspection does not prove application/server parity"
+  ]
 }

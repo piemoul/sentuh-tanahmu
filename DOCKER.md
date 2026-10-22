@@ -1,6 +1,6 @@
 # Docker Desktop deployment
 
-Run commands from `C:\ai\CLAWD\sentuh_tanahmu`. Docker Desktop must use Linux containers. The application has no npm runtime dependencies.
+Run commands from `<repository-root>`. Docker Desktop must use Linux containers. The application has no npm runtime dependencies.
 
 `START-WEBAPP.cmd` now starts the Docker deployment. Its PowerShell entry point is `scripts/start-webapp-docker.ps1` (`-NoBrowser` to keep the browser closed; `-Rebuild` after source changes). It reuses the existing image/container by default. Use `scripts/stop-webapp-docker.ps1` or `docker compose stop webapp` to stop it.
 

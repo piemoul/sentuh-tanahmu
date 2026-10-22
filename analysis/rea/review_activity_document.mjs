@@ -1,6 +1,18 @@
 // Actual application functions, deferred in-process responses and synthetic DOM only.
 import fs from 'node:fs';
 import vm from 'node:vm';
+import {createCollectionSavePersil,collectionSavePersilEligible,collectionSavePersilEntry} from '../../webapp/collection-save-persil.js';
+// Bind the real new host helpers/module to legacy VM fixtures; assertions and
+// existing source-function renderers remain unchanged.
+function createPersilFixtureContext(...args){
+  const context=vm.createContext(...args);
+  Object.assign(context,{createCollectionSavePersil,collectionSavePersilEligible,collectionSavePersilEntry});
+  const dependencies=new Set(['nativeResponseObject','nativeAccountSummary','collectionTab','collectionGroupCreated']);
+  const declarations=String(source).split(/\r?\n/).filter(line=>/^(?:async )?function (?:persilMap\w+|resetPersilMaps|resetScanHost|scanDisposeLocation)\(/.test(line)||dependencies.has(line.match(/^(?:async )?function (\w+)\(/)?.[1])).join('\n');
+  vm.runInContext(declarations,context);
+  return context;
+}
+
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {OPERATIONS} from '../../webapp/private/operations.mjs';
@@ -42,7 +54,7 @@ function harness() {
   };
   const context = {key: 'activity:default', def: {title: 'Aktivitas'}, tab: {}, op: OPERATIONS.find(op => op.endpoint === 'activity/GetUserActivity')};
   const state = {authenticated: true, loading: false, connection: {configured: true}, user: {username: 'NEVER-USE-USERNAME'}, operations: OPERATIONS.map(op => ({...op})), results: new Map(), points: [], activity: []};
-  const c = vm.createContext({state, sessionEpoch: 0, searchFileState: null, partnerFrame: null, detailSequence: 0, flowDetail: null, htDetailData: null, flowQuery: '', flowResults: new Map(), comparison: null, comparisonSelection: {}, pending: null, selected: null,
+  const c = createPersilFixtureContext({state, sessionEpoch: 0, searchFileState: null, partnerFrame: null, detailSequence: 0, flowDetail: null, htDetailData: null, flowQuery: '', flowResults: new Map(), comparison: null, comparisonSelection: {}, pending: null, selected: null,
     route: 'activity', currentFlow: () => context, ready: op => op.enabled === true, write: op => op.effect === 'write', $: () => modal,
     icon: () => '', notice: text => text, empty: text => text, render: () => {}, toast: text => toasts.push(text), record: (...args) => records.push(args),
     document: {addEventListener: (name, handler) => {events[name] = handler}},

@@ -1,0 +1,13 @@
+# Pemeriksaan kebijakan kamera webapp
+
+Tidak ditemukan cacat CSP pada jalur yang diamati, sehingga belum ada alasan untuk mengubah kebijakan produksi. Pemeriksaan ini melengkapi pengujian sintetis sebelumnya dan tidak menyatakan kamera perangkat sudah diterima.
+
+Dua pembacaan anonim pada localhost dan domain HTTPS publik menghasilkan status 200, HTML dan CSP yang sama, tanpa cookie atau header Permissions-Policy. CSP produksi mengizinkan gambar Blob; video memakai MediaStream melalui srcObject. Fixture lama mempunyai media-src tambahan, sehingga hasil lamanya belum cukup untuk menyimpulkan kompatibilitas CSP produksi.
+
+Root kemudian menjalankan modul kamera/dialog yang sama dalam halaman localhost dengan CSP produksi persis. Kamera, mikrofon dan lokasi perangkat justru ditolak oleh Permissions-Policy. Stream berasal dari canvas sintetis, tanpa navigator.getUserMedia. Sepuluh pemeriksaan browser lulus: video aktif 320×240, frame siap, preview Blob terdekode 320×240, foto ulang mengakhiri track lama, dan pemakaian lokal yang sengaja ditolak menutup dialog serta mengakhiri track. Tidak ada pelanggaran CSP pada snapshot yang dicatat. Fixture berhenti normal dengan exit 0; root mencatat port 4207 tidak lagi mendengarkan. Review ini memeriksa sumber dan receipt tersebut, bukan mengulang pengamatan browser atau proses.
+
+Satu batas metrik fixture dicatat: frame.canCapture dihitung dari disabled tombol, sehingga bernilai true pada dialog awal yang tertutup. Nilai itu hanya bermakna bersama capture.open, stage dan kesiapan frame; bukan API eligibility engine. Pemeriksaan browser memakai keadaan ready yang terbuka, sehingga tidak terpengaruh.
+
+Izin pengguna dan kamera fisik tetap belum diuji. Tidak adanya header Permissions-Policy bukan bukti izin kamera sudah diberikan. Jalur default produksi setelah login, browser/device lain, orientasi, penolakan/revokasi izin, kualitas/MIME/EXIF, kesetaraan APK serta upload/server acceptance tetap terbuka. Probe memakai callback Pakai Foto Ini yang mengembalikan false, sehingga tidak menguji penerimaan foto oleh host produksi. Tidak ada perubahan runtime, CSP atau izin.
+
+Bukti: [header yang diamati](webapp/swaplotting-camera-policy-headers.json), [browser terkontrol](webapp/swaplotting-camera-policy-browser.json), [transport dan penghentian fixture](webapp/swaplotting-camera-policy-probe-transport.json), [review terikat sumber](webapp/swaplotting-camera-policy-review.json). Penjelasan spesifikasi memakai [CSP3](https://www.w3.org/TR/CSP3/#directive-media-src), [media provider HTML](https://html.spec.whatwg.org/multipage/media.html#location-of-the-media-resource), dan [integrasi izin kamera W3C](https://www.w3.org/TR/mediacapture-streams/#permissions-policy-integration).

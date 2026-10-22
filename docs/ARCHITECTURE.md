@@ -45,7 +45,23 @@ Group creation, assignment, group deletion, membership removal, item deletion an
 
 Activity deletion uses the native post-await local removal behavior even when ordinary server acceptance is not confirmed. Its scoped backend response parser is distinct from collection scalar envelopes. Synthetic tests keep that distinction visible rather than equating a local UI disappearance with server deletion.
 
-**Staged PERSIL module:** `webapp/collection-save-persil.js` implements a tested save/group-selection controller with an injected host adapter. It is served by the static allowlist and has focused tests, but `app.js` does not import or wire it into the visible product flow at this checkpoint. Its existence does not mean PERSIL saving is available from the current UI.
+**Wired PERSIL collection:** `app.js` imports `collection-save-persil.js` and binds map ownership, eligibility, save/group selection, cancellation and deletion. Original server context supplies the parcel ID; the browser does not invent an ID from a Berkas number. This supersedes the historical staged-only checkpoint.
+
+## Dedicated audited workflows at the 22 October checkpoint
+
+The generated catalog has 176 records, 94 enabled (74 reads and 20 writes). Dedicated login/refresh and bounded map routes are distinct from this count. Enabled schemas do not prove all-role/full-menu parity or transaction acceptance.
+
+- `assets/berkas-journey/` renders the full Journey destination with server timeline semantics and return ownership; `assets/berkas-rating/` uses backend `berkas-rating-session.mjs` and `berkas-rating-post.mjs` for a separately guarded rating workflow. Tanya Berkas, sharing/download and the selected Berkas inline geometry binding remain incomplete.
+- `assets/rating-ppat/` and `private/rating-ppat-post.mjs` implement the PPAT question/rating workflow. `assets/certificate-date/` keeps audited date presentation separate from browser Date guesses.
+- `assets/lost-certificate/`, `assets/lost-review/`, and `assets/yuridis/` supply lost-certificate detail/map/reviews, scoped review posting and Yuridis reads. Their decoders live in corresponding private response modules.
+- `assets/swaplotting/`, `private/swaplotting-post.mjs` and `private/swaplotting-submit-session.mjs` bind personal plotting forms, retained photo bytes, review and explicit submit to a server-owned context. Personal plotting does not waive geotag visit checks or establish managed/instansi delegation.
+- `assets/guestbook/` parses an office QR, reads standalone metadata, edits nine raw fields and submits through `private/guestbook-submit-session.mjs` and `private/guestbook-post.mjs`. Twelve ordered multipart parts use the original lookup's office/unit/user IDs and application authentication, separately from the main account bearer. Status interpretation follows the bounded native shared transformer. A valid office QR/arrival has not been submitted in the latest synthetic QA.
+- `assets/queue/` and the queue booking models/client/session preserve native office/date/quota and review steps. Final create stays gated without genuine browser notification provisioning. No invented FCM token or Android-key reuse is introduced.
+- `assets/profile/` and `private/daring-identity-response.mjs` cover verification status/method display and the initial Daring form. OTP, liveness, IKD and other device-bound completion remain explicit boundaries.
+- `assets/parcel/` and `private/parcel-search-response.mjs` support scoped analog/NIBEL search. `scan-controller.js`, `scan-camera.js`, `scan-location.js` and `private/scan-map-response.mjs` keep document/PBT/KKPR scan and map branches bounded.
+- `assets/session-sync.js` coalesces authoritative local session reads after focus/visibility/login rotation. Opaque cross-tab notices contain no credentials. Old responses cannot clear a newer session; requests are not replayed automatically.
+
+All write controllers separate pre-dispatch failure from uncertain delivery after handoff, retain current-owner guards and require an explicit user action. These browser lifecycle/duplicate/context guards are documented adaptations. A local success state does not certify legal registration, officer verification or physical presence.
 
 ## Map and coordinate paths
 
@@ -59,14 +75,14 @@ OpenStreetMap tiles are loaded from their raster tile endpoint with attribution.
 
 `webapp/tests/*.test.mjs` contains Node transport, backend, model, ownership and actual-function VM UI tests. Separate `*-browser-fixture.mjs` files provide synthetic local browser surfaces. Those fixtures are development tools rather than product entry points; their successful responses do not prove original server behavior. Test fixtures do not need production credentials.
 
-`scripts/` contains launch/stop/package utilities, extraction/audit verification and emulator inventory/install helpers. Docker configuration binds localhost and supports read-only frontend mounts; Cloudflare configuration is documented in `DOCKER.md`. The checkpoint does not start or rebuild any deployment.
+`scripts/` contains launch/stop/package utilities, extraction/audit verification and emulator inventory/install helpers. Docker configuration binds localhost and supports read-only frontend mounts; Cloudflare configuration is documented in `DOCKER.md`. The publication task also rebuilds the existing localhost Docker service; deployment evidence is kept separate from the graph and synthetic tests.
 
 Selected human-readable audits remain under `analysis/`. Raw XAPK/APK/ELF/pool dumps, local runtime evidence, credentials and tool environments are omitted from publication. `docs/SOURCE-MANIFEST.json` records the copied source snapshot; it is a publication inventory, not live-server validation. Historical release documents remain historical and may describe earlier source/deployment counts.
 
 ## Graphify map provenance
 
-The architecture graph is generated with the installed TypeScript Graphify 0.17.1 runtime and actual AST extraction, plus assistant semantic extraction for these architecture documents. `.graphifyignore` bounds the graph to production sources, tests, scripts and selected documentation. The entire analysis archive, vendored libraries, icons, binary artifacts and font/image assets are excluded from graph extraction; excluded analysis documents may still be committed as reference material.
+The architecture graph is generated with the installed TypeScript Graphify 0.17.1 runtime and actual AST extraction, plus assistant semantic extraction for these architecture documents. `.graphifyignore` bounds the graph to production sources, tests, scripts and selected documentation. The entire analysis archive, test/fixture sources, generated validation JSON, vendored libraries, icons, binary artifacts and font/image assets are excluded from this production-architecture graph; excluded analysis documents may still be committed as reference material.
 
-The actual AST pass detects eight PowerShell scripts but cannot parse them because `tree-sitter-powershell` is unavailable in this installed runtime. Their inclusion in the inventory or documentation does not certify internal call relationships. JavaScript, MJS backend/tests and Python sources are structurally extracted; no parser or package installation is performed to conceal the PowerShell gap.
+JavaScript/MJS production modules and Python utilities receive structural extraction. The installed runtime previously lacked a PowerShell parser; any current extraction gap is recorded in the graph report rather than treated as a parsed call graph. All test sources remain published and their execution scope is documented separately. No parser/package installation is used to conceal a gap.
 
 Outputs are `.graphify/graph.json`, `.graphify/GRAPH_REPORT.md`, `.graphify/manifest.json` and `.graphify/studio/studio.html`. The Studio export is self-contained for offline review. `.graphify/.graphify_runtime.json` records the TypeScript runtime proof; `.graphify/portable-check.json` records the portability check. Semantic relationships are marked EXTRACTED, INFERRED or AMBIGUOUS; the map does not certify runtime coverage, security completeness, pixel parity or production acceptance.

@@ -1,6 +1,18 @@
 // Actual-function Info Layanan regression; synthetic API responses only.
 import fs from 'node:fs';
 import vm from 'node:vm';
+import {createCollectionSavePersil,collectionSavePersilEligible,collectionSavePersilEntry} from '../../webapp/collection-save-persil.js';
+// Bind the real new host helpers/module to legacy VM fixtures; assertions and
+// existing source-function renderers remain unchanged.
+function createPersilFixtureContext(...args){
+  const context=vm.createContext(...args);
+  Object.assign(context,{createCollectionSavePersil,collectionSavePersilEligible,collectionSavePersilEntry});
+  const dependencies=new Set(['nativeResponseObject','nativeAccountSummary','collectionTab','collectionGroupCreated']);
+  const declarations=String(source).split(/\r?\n/).filter(line=>/^(?:async )?function (?:persilMap\w+|resetPersilMaps|resetScanHost|scanDisposeLocation)\(/.test(line)||dependencies.has(line.match(/^(?:async )?function (\w+)\(/)?.[1])).join('\n');
+  vm.runInContext(declarations,context);
+  return context;
+}
+
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {OPERATIONS} from '../../webapp/private/operations.mjs';
@@ -15,7 +27,7 @@ let fixtureCalls=0;
 function harness(){
  const requests=[],records=[],toasts=[],queued=[],modal={open:false,innerHTML:'',close(){this.open=false}},searchInput={focusCalls:0,focus(){this.focusCalls++},setSelectionRange(a,b){this.selection=[a,b]}};
  const state={authenticated:true,user:{username:'synthetic-user'},operations:OPERATIONS.filter(op=>op.endpoint.startsWith('InfoLayanan/')).map(op=>({...op})),results:new Map(),connection:{configured:true},points:[],activity:[],selectedPoint:null,loading:false};
- const c=vm.createContext({state,Map,Object,String,Number,Array,JSON,URLSearchParams,route:'information',flowTab:'',flowResults:new Map(),flowDetail:null,htDetailData:null,flowQuery:'',flowPageIndex:0,detailSequence:0,sessionEpoch:0,searchFileState:null,partnerFrame:null,comparison:null,comparisonSelection:{},pending:null,selected:null,search:'',group:'Semua',filter:'Semua',routes:{information:'Info Layanan',dashboard:'Beranda',account:'Profil'},location:{hash:'#/information'},window:{scrollTo(){}},document:{body:{classList:{remove(){}}},activeElement:null},queueMicrotask:fn=>queued.push(fn),ready:op=>op.enabled===true,write:op=>op.effect==='write',needsAuth:op=>op.auth==='session',$:selector=>selector==='#modal'?modal:selector==='#flow-search'?searchInput:null,renderCalls:0,render:()=>{c.renderCalls++},esc,json:value=>esc(JSON.stringify(value)),icon:()=>'',badge:value=>`<span>${esc(value)}</span>`,head:(eyebrow,title,description)=>`<header><h1>${title}</h1><p>${description}</p></header>`,notice:value=>`<p class="notice">${value}</p>`,empty:(...values)=>values.map(esc).join(' '),unavailablePage:()=>'',record:(...values)=>records.push(values),toast:value=>toasts.push(value),api:(path,options)=>{fixtureCalls++;const pending=deferred();requests.push({path,options,...pending});return pending.promise}});
+ const c=createPersilFixtureContext({state,Map,Object,String,Number,Array,JSON,URLSearchParams,route:'information',flowTab:'',flowResults:new Map(),flowDetail:null,htDetailData:null,flowQuery:'',flowPageIndex:0,detailSequence:0,sessionEpoch:0,searchFileState:null,partnerFrame:null,comparison:null,comparisonSelection:{},pending:null,selected:null,search:'',group:'Semua',filter:'Semua',routes:{information:'Info Layanan',dashboard:'Beranda',account:'Profil'},location:{hash:'#/information'},window:{scrollTo(){}},document:{body:{classList:{remove(){}}},activeElement:null},queueMicrotask:fn=>queued.push(fn),ready:op=>op.enabled===true,write:op=>op.effect==='write',needsAuth:op=>op.auth==='session',$:selector=>selector==='#modal'?modal:selector==='#flow-search'?searchInput:null,renderCalls:0,render:()=>{c.renderCalls++},esc,json:value=>esc(JSON.stringify(value)),icon:()=>'',badge:value=>`<span>${esc(value)}</span>`,head:(eyebrow,title,description)=>`<header><h1>${title}</h1><p>${description}</p></header>`,notice:value=>`<p class="notice">${value}</p>`,empty:(...values)=>values.map(esc).join(' '),unavailablePage:()=>'',record:(...values)=>records.push(values),toast:value=>toasts.push(value),api:(path,options)=>{fixtureCalls++;const pending=deferred();requests.push({path,options,...pending});return pending.promise}});
  vm.runInContext(definition+'\n'+names.map(get).join('\n'),c);
  return {c,state,requests,records,toasts,queued,modal,searchInput,get owner(){return c.getInformationState()},seed(rows=[copy(item)]){const owner=c.getInformationState();Object.assign(owner,{attempted:true,scheduled:false,loading:false,rows:c.informationRows(response(rows)),error:'',detail:null});return owner},async flush(){for(const fn of queued.splice(0))fn();await settle()},async resolve(promise,data=detail,index=requests.length-1){requests[index].resolve({result:response(data)});await promise;await settle()},async raw(promise,value,index=requests.length-1){requests[index].resolve({result:value});await promise;await settle()},async reject(promise,error,index=requests.length-1){requests[index].reject(error);await promise;await settle()}};
 }

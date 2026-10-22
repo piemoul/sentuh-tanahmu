@@ -120,7 +120,7 @@ async function imageBytes(response,signal,secrets) {
 export class BhumiMapClient {
   #configuration; #mainClient; #transport; #log; #now; #timeoutMs;
   #states=new WeakMap(); #closed=new AbortController();
-  constructor(configuration,{mainClient,transport=(url,init)=>globalThis.fetch(url,init),log=()=>{},now=Date.now,timeoutMs=30_000}={}) {
+  constructor(configuration,{mainClient,transport=(url,init)=>globalThis.fetch(url,init),log=entry=>process.stdout.write(`${JSON.stringify(entry)}\n`),now=Date.now,timeoutMs=30_000}={}) {
     if(!Number.isSafeInteger(timeoutMs) || timeoutMs<1 || timeoutMs>30_000) throw failure(400,'BHUMI_TIMEOUT_INVALID','Batas waktu peta tidak valid.');
     this.#configuration=configuration; this.#mainClient=mainClient; this.#transport=transport;
     this.#log=log; this.#now=now; this.#timeoutMs=timeoutMs;

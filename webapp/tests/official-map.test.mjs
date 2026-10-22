@@ -104,6 +104,23 @@ test('OSM attribution/referrer/cache-friendly settings remain visible and overzo
   assert.match(base.attribution,/https:\/\/www.openstreetmap.org\/copyright/);assert.match(base.attribution,/OpenStreetMap/);assert.equal(Object.hasOwn(base,'headers'),false);assert.equal(Object.hasOwn(base,'cache'),false);
   assert.equal(fake.layers[1].options.tileSize,256);assert.equal(fake.layers[1].options.maxZoom,21);assert.equal(fake.layers[1].options.maxNativeZoom,undefined);instance.destroy();
 });
+
+test('special map may preserve a native camera without inventing a selected reference marker',()=>{
+  const {document}=documentFixture(),owner=ownerFixture(document),fake=fakeLeaflet();
+  const instance=createOfficialMap(owner.canvas,{...camera,pin:false},{leaflet:fake.leaflet,config});
+  assert.equal(fake.markers.length,0);assert.equal(fake.icons.length,0);assert.equal(fake.maps[0].layers.size,2);
+  assert.deepEqual(fake.maps[0].center,[camera.center.lat,camera.center.lng]);assert.equal(fake.maps[0].zoom,camera.zoom);
+  assert.equal(instance.control('in'),true);assert.equal(instance.control('toggle-boundary'),true);assert.equal(fake.maps[0].layers.size,1);
+  instance.destroy();assert.equal(fake.maps[0].removeCalls,1);
+});
+
+test('optional pin visibility is strictly Boolean, while existing cameras still show their marker',()=>{
+  for(const pin of [null,undefined,'false',0,1,{},[]]){
+    const {document}=documentFixture(),owner=ownerFixture(document),fake=fakeLeaflet();
+    assert.throws(()=>createOfficialMap(owner.canvas,{...camera,pin},{leaflet:fake.leaflet,config}),{code:'OFFICIAL_MAP_CAMERA_INVALID'});assert.equal(fake.maps.length,0);
+  }
+  const {document}=documentFixture(),owner=ownerFixture(document),fake=fakeLeaflet(),instance=createOfficialMap(owner.canvas,{...camera,pin:true},{leaflet:fake.leaflet,config});assert.equal(fake.markers.length,1);instance.destroy();
+});
 test('Bhumi URL wraps X and rejects invalid coordinates without requesting a fallback image',async()=>{
   const {document}=documentFixture(),owner=ownerFixture(document),fake=fakeLeaflet(),instance=createOfficialMap(owner.canvas,camera,{leaflet:fake.leaflet,config}),overlay=fake.layers[1],url=overlay.getTileUrl;
   assert.equal(url({x:0,y:0,z:0}),'/api/maps/bhumi/0/0/0.png');assert.equal(url({x:-1,y:2,z:3}),'/api/maps/bhumi/3/7/2.png');assert.equal(url({x:9,y:2,z:3}),'/api/maps/bhumi/3/1/2.png');assert.equal(url({x:2097151,y:2097151,z:21}),'/api/maps/bhumi/21/2097151/2097151.png');

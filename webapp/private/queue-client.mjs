@@ -3,6 +3,7 @@ import {setTimeout as delay} from 'node:timers/promises';
 import {createQueueHttpsTransport} from './https-transport.mjs';
 import {parseQueueListJson, parseQueueDetailJson} from './queue-models.mjs';
 import {parseQueueCallsJson} from './queue-calls-models.mjs';
+import {parseQueueBookingOfficesJson,parseQueueBookingLocationsJson,parseQueueBookingAvailabilityJson,queuePrereadDate} from './queue-preread-models.mjs';
 
 // This client cannot accept a base URL, main account session, custom headers,
 // method or body. Identity/selected-ID ownership belongs to its HTTP caller.
@@ -19,6 +20,8 @@ const RETRY_NETWORK = new Set(['ENOTFOUND','EAI_AGAIN','ECONNREFUSED','ETIMEDOUT
   'UND_ERR_HEADERS_TIMEOUT','UND_ERR_BODY_TIMEOUT','UND_ERR_SOCKET','REQUEST_TIMEOUT']);
 const NUMBER_ERRORS = new Set(['QUEUE_RAW_JSON_REQUIRED','UNSUPPORTED_QUEUE_NUMBER']);
 const MAX_RESPONSE_BYTES = 20 * 1024 * 1024; // Explicit decompressed web bound.
+const queryComponent=value=>encodeURIComponent(value.toWellFormed()).replace(/[!'()*]/g,c=>'%'+c.charCodeAt(0).toString(16).toUpperCase()).replace(/%20/g,'+');
+const selectionId=value=>typeof value==='string'&&value.trim().length>0&&value.length<=1024&&value.isWellFormed()&&!/[\u0000-\u001f\u007f-\u009f]/.test(value);
 
 export class QueueClientError extends Error {
   constructor(status, code, message) {super(message); this.status = status; this.code = code;}
@@ -121,8 +124,19 @@ export class QueueClient {
     const encoded=encodeURIComponent(fullId).replace(/%3A/gi,':');
     return this.#read(new URL(BASE+'api/antrian/'+encoded),'detail',signal);
   }
+  offices({signal}={}) {return this.#read(new URL(BASE+'items/kantor?limit=1000&sort=nama'),'offices',signal);}
+  locations(officeId,{signal}={}) {
+    if(!selectionId(officeId))return Promise.reject(failure(400,'QUEUE_OFFICE_ID_INVALID','Pilih Kantor Pertanahan yang tersedia.'));
+    return this.#read(new URL(BASE+'items/lokasi?filter%5Bkantor%5D='+queryComponent(officeId)),'locations',signal);
+  }
+  availability(locationId,date,{signal}={}) {
+    if(!selectionId(locationId))return Promise.reject(failure(400,'QUEUE_LOCATION_ID_INVALID','Pilih Lokasi Kerja yang tersedia.'));
+    try {queuePrereadDate(date);}catch{return Promise.reject(failure(400,'QUEUE_DATE_INVALID','Tanggal antrean harus berupa tanggal kalender yyyy-MM-dd.'));}
+    return this.#read(new URL(BASE+'api/antrian?lokasi='+queryComponent(locationId)+'&tanggal='+queryComponent(date)),'availability',signal);
+  }
   #emit(operation,attempt,fields) {
-    try {this.#log({event:'queue_request',service:'queue-directus',method:'GET',path:'/konsol/antrian/directus/api/'+(operation==='calls'?'notifikasi':'antrian/'+(operation==='list'?'saya':':id')),attempt,...fields});} catch {}
+    const path={offices:'items/kantor',locations:'items/lokasi',availability:'api/antrian',calls:'api/notifikasi',list:'api/antrian/saya',detail:'api/antrian/:id'}[operation];
+    try {this.#log({event:'queue_request',service:'queue-directus',method:'GET',path:'/konsol/antrian/directus/'+path,attempt,...fields});} catch {}
   }
   async #response(original,init,operation,attempt,signal) {
     let current=original;
@@ -182,7 +196,7 @@ export class QueueClient {
           if(!text.length) throw failure(502,'QUEUE_SERVICE_ERROR','Data antrean belum tersedia dari layanan.');
           if(!contentType) throw failure(502,'QUEUE_RESPONSE_UNRECOGNIZED','Respons antrean tidak sesuai format layanan.');
           let normalized;
-          try {normalized=(operation==='list'?parseQueueListJson:operation==='calls'?parseQueueCallsJson:parseQueueDetailJson)(text);}
+          try {normalized=({list:parseQueueListJson,calls:parseQueueCallsJson,detail:parseQueueDetailJson,offices:parseQueueBookingOfficesJson,locations:parseQueueBookingLocationsJson,availability:parseQueueBookingAvailabilityJson}[operation])(text);}
           catch(cause) {throw failure(502,NUMBER_ERRORS.has(cause?.code)?cause.code:'QUEUE_RESPONSE_UNRECOGNIZED','Respons antrean tidak sesuai format layanan.');}
           if(normalized.error) throw failure(502,'QUEUE_SERVICE_ERROR','Data antrean belum tersedia dari layanan.');
           checkSignal(signal);

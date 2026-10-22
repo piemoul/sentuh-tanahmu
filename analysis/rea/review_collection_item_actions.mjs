@@ -2,6 +2,18 @@
 // Synthetic DOM/API fixtures only; never contacts production.
 import fs from 'node:fs';
 import vm from 'node:vm';
+import {createCollectionSavePersil,collectionSavePersilEligible,collectionSavePersilEntry} from '../../webapp/collection-save-persil.js';
+// Bind the real new host helpers/module to legacy VM fixtures; assertions and
+// existing source-function renderers remain unchanged.
+function createPersilFixtureContext(...args){
+  const context=vm.createContext(...args);
+  Object.assign(context,{createCollectionSavePersil,collectionSavePersilEligible,collectionSavePersilEntry});
+  const dependencies=new Set(['nativeResponseObject','nativeAccountSummary','collectionTab','collectionGroupCreated']);
+  const declarations=String(source).split(/\r?\n/).filter(line=>/^(?:async )?function (?:persilMap\w+|resetPersilMaps|resetScanHost|scanDisposeLocation)\(/.test(line)||dependencies.has(line.match(/^(?:async )?function (\w+)\(/)?.[1])).join('\n');
+  vm.runInContext(declarations,context);
+  return context;
+}
+
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {OPERATIONS} from '../../webapp/private/operations.mjs';
@@ -18,7 +30,7 @@ function harness(){
   const modal={open:false,showModal(){this.open=true;},close(){this.open=false;for(const listener of modalHandlers.get('close')||[])listener({});},addEventListener(type,listener){if(!modalHandlers.has(type))modalHandlers.set(type,[]);modalHandlers.get(type).push(listener);},querySelector:selector=>selector==='#'+form?.id?form:null};
   Object.defineProperty(modal,'innerHTML',{get:()=>html,set:value=>{html=value;if(form)form.isConnected=false;form=null;const id=/id="(collection-item-(?:delete|edit)-form)"/.exec(value)?.[1];if(!id)return;const editing=id==='collection-item-edit-form',input={value:unescape(/<input[^>]* value="([^"]*)"/.exec(value)?.[1]??''),disabled:false,focused:false,focus(){this.focused=true;}},cancel={disabled:false},submit={disabled:false,hidden:false,textContent:editing?'Simpan':'Hapus'},spinner={hidden:true};form={id,isConnected:true,attributes:{'aria-busy':'false'},input,cancel,submit,spinner,elements:{namedItem:key=>key==='caption'?input:null},setAttribute(key,val){this.attributes[key]=val;},querySelector:selector=>selector==='button[type="submit"]'?submit:selector==='.collection-caption-loading'?spinner:cancel};}});
   const state={loading:false,authenticated:true,user:{username:'synthetic'},connection:{configured:true},operations:OPERATIONS.map(op=>({...op})),results:new Map(),activity:[],points:[]};
-  const c=vm.createContext({state,Map,Object,Array,String,Number,Date,Intl,JSON,flowResults:new Map(),route:'collections',flowTab:'grup',sessionEpoch:0,detailSequence:0,collectionGroupMove:null,collectionGroupCreate:null,collectionGroupDelete:null,collectionGroupRemove:null,collectionItemDelete:null,collectionItemEdit:null,busy:false,pending:null,flowDetail:null,htDetailData:null,flowQuery:'',flowPageIndex:0,selected:null,search:'',filter:'Semua',group:'Semua',comparison:null,comparisonSelection:{},searchFileState:null,partnerFrame:null,
+  const c=createPersilFixtureContext({state,Map,Object,Array,String,Number,Date,Intl,JSON,flowResults:new Map(),route:'collections',flowTab:'grup',sessionEpoch:0,detailSequence:0,collectionGroupMove:null,collectionGroupCreate:null,collectionGroupDelete:null,collectionGroupRemove:null,collectionItemDelete:null,collectionItemEdit:null,busy:false,pending:null,flowDetail:null,htDetailData:null,flowQuery:'',flowPageIndex:0,selected:null,search:'',filter:'Semua',group:'Semua',comparison:null,comparisonSelection:{},searchFileState:null,partnerFrame:null,
     location:{hash:'#/collections'},routes:{collections:'Koleksi',dashboard:'Beranda',account:'Profil'},window:{scrollTo(){}},document:{body:{classList:{remove(){}}},addEventListener:(type,listener)=>{if(!handlers.has(type))handlers.set(type,[]);handlers.get(type).push(listener);}},queueMicrotask:fn=>tasks.push(fn),$:()=>modal,icon:()=>'',empty:text=>`<p>${text}</p>`,notice:(text,kind)=>`<p class="notice ${kind||''}">${text}</p>`,head:(_a,title)=>`<h1>${title}</h1>`,ready:op=>op.enabled===true,write:op=>op.effect==='write',renderCount:0,render:()=>c.renderCount++,record:(...args)=>records.push(args),toast:text=>toasts.push(text),resetNewsNavigation(){},resetSearchFileNavigation(){},resetPartnerNavigation(){},collectionDetailView:()=>'<p>Synthetic detail rendering</p>',loadBerkasSections:async()=>{},api:null,
   });
   let apiHandler=async()=>reply();Object.defineProperty(c,'api',{get:()=>async(path,options)=>{fixtureCalls++;calls.push({path,options});return apiHandler(path,options);},set:handler=>apiHandler=handler,configurable:true});

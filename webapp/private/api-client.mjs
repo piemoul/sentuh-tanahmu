@@ -1,13 +1,44 @@
 import { MAIN_ORIGIN } from './configuration.mjs';
 import { randomUUID } from 'node:crypto';
+import {MIMEType} from 'node:util';
 import { createHttpsTransport } from './https-transport.mjs';
 import { clearAuthentication } from './session.mjs';
 import { decodeNewsEnvelope } from './news-response.mjs';
 import { decodeUserCollectionEnvelope, decodePersilCollectionGroupEnvelope, decodeCollectionMutationEnvelope } from './collection-response.mjs';
 import { decodeUserActivityEnvelope } from './activity-response.mjs';
+import {decodeScanClassification,decodeScanDocumentMetadata} from './scan-response.mjs';
+import {decodeScanPbtEnvelope,decodeScanKkprEnvelope} from './scan-map-response.mjs';
+import {decodeDaringIdentityEnvelope,daringIdentityStatusFallback} from './daring-identity-response.mjs';
+import {decodeParcelRegionsJson,decodeParcelLookupJson} from './parcel-search-response.mjs';
+import {decodePlotListJson,decodePlotDetailJson} from './plot-read-response.mjs';
+import {decodeSwaplottingDisclaimer} from './swaplotting-read-models.mjs';
+import {decodeLostCertificatesJson} from './lost-certificate-response.mjs';
+import {decodeLostReviewJson} from './lost-review-response.mjs';
+import {prepareSelectedReviewPostValues,prepareLostReviewPostFiles,serializeSelectedReviewPost,lostReviewPostOutcome} from './lost-review-post.mjs';
+import {MITRA_READS,prepareMitraQuery,decodeMitraBytes} from './mitra-response.mjs';
+import {RATING_PPAT_READ_PATH,prepareRatingPpatRead,decodeRatingPpatBytes} from './rating-ppat-response.mjs';
+import {RATING_PPAT_POST_PATH,prepareRatingPpatPostValues,serializeRatingPpatPost,decodeRatingPpatPostBytes} from './rating-ppat-post.mjs';
+import {YURIDIS_PATH,YURIDIS_REVIEW_PATH,prepareYuridisFeed,prepareYuridisLastReview,decodeYuridisJson,decodeYuridisLastReviewJson} from './yuridis-response.mjs';
+import {SWAPLOTTING_POSTS,prepareSwaplottingPostValues,serializeSwaplottingPost,prepareSwaplottingActivityValues,serializeSwaplottingActivity,swaplottingPostOutcome,isSwaplottingAttempt,markSwaplottingDispatched} from './swaplotting-post.mjs';
+import {BERKAS_RATING_PATH,prepareBerkasRatingPost,serializeBerkasRatingPost,decodeBerkasRatingBytes,isBerkasRatingAttempt,markBerkasRatingDispatched} from './berkas-rating-post.mjs';
 
 const collectionDeletePrefixes = ['Collection/DeletePersilCollectionGroup/', 'Collection/DeletePersilCollectionFromGroup/', 'Collection/DeleteCollectionPersil/', 'Collection/DeleteCollectionBerkas/'];
 const idSegment = value => encodeURIComponent(value.toWellFormed()).replace(/[!'()*]/g, character => '%' + character.charCodeAt(0).toString(16).toUpperCase());
+
+// BCb reads the already transformed Map directly. It neither decodes a String
+// a second time nor treats error:true as an exception. Keep this model local to
+// the audited own-account status read; other services retain their own guards.
+function decodeVerificationStatus(value) {
+  if (value === null || typeof value !== 'object' || Array.isArray(value) || ![Object.prototype, null].includes(Object.getPrototypeOf(value))) throw new Error('VERIFICATION_STATUS_SHAPE');
+  const result = {};
+  for (const [key, type] of [['error', 'boolean'], ['message', 'string'], ['data', 'string']]) {
+    const descriptor = Object.getOwnPropertyDescriptor(value, key);
+    if (!descriptor) { result[key] = null; continue; }
+    if (!Object.hasOwn(descriptor, 'value') || descriptor.value !== null && typeof descriptor.value !== type) throw new Error('VERIFICATION_STATUS_SHAPE');
+    result[key] = descriptor.value;
+  }
+  return result;
+}
 
 export class ApiError extends Error {
   constructor(status, code, message, details) { super(message); this.status = status; this.code = code; this.details = details; }
@@ -97,19 +128,184 @@ export class ApiClient {
     return [application, application?.replace(/^\S+\s+/, ''), session?.tokens?.accessToken, session?.tokens?.refreshToken,
       ...Object.entries(body || {}).filter(([key]) => secretKey.test(key)).map(([, value]) => typeof value === 'string' ? value : null)].filter(Boolean).sort((a,b) => b.length-a.length);
   }
-  async request({ base = MAIN_ORIGIN, path, query, method = 'POST', encoding = 'form', body = {}, files = [], auth = 'none', session, clientProfile = 'main' }) {
+  async request({ base = MAIN_ORIGIN, path, query, method = 'POST', encoding = 'form', body = {}, files = [], auth = 'none', session, clientProfile = 'main', scanContextValidated = false, scanMapContextValidated = false, queueCalendarDirect = false,swaplottingAttempt,swaplottingBoundary,berkasRatingAttempt,berkasRatingBoundary,signal }) {
+    const berkasRatingPath=value=>{if(typeof value!=='string')return false;let name=value.replace(/^\/+/, '').split(/[?#]/,1)[0];try{name=decodeURIComponent(name);}catch{}return name.toLowerCase()===BERKAS_RATING_PATH.toLowerCase();};
+    const berkasRatingCandidate=berkasRatingPath(path),emptyBerkasRatingQuery=value=>value!==null&&typeof value==='object'&&!Array.isArray(value)&&[Object.prototype,null].includes(Object.getPrototypeOf(value))&&Reflect.ownKeys(value).length===0;
+    let berkasRatingBody;
+    if(berkasRatingCandidate){try{berkasRatingBody=prepareBerkasRatingPost(body);}catch{throw new ApiError(409,'BERKAS_RATING_SCOPE','Parameter Rating Berkas tidak sesuai kontrak.');}}
+    if((clientProfile==='berkas-rating-post'||berkasRatingAttempt!==undefined||berkasRatingBoundary!==undefined)&&!berkasRatingCandidate)throw new ApiError(409,'BERKAS_RATING_SCOPE','Profil pengiriman Rating Berkas tidak sesuai layanan.');
+    const swaplottingKind=value=>{if(typeof value!=='string')return null;let name=value.replace(/^\/+/, '').split(/[?#]/,1)[0];try{name=decodeURIComponent(name);}catch{}return Object.keys(SWAPLOTTING_POSTS).find(kind=>SWAPLOTTING_POSTS[kind].path.slice(1).toLowerCase()===name.toLowerCase())??null;};
+    const swaplottingCandidate=swaplottingKind(path),emptySwaplottingQuery=value=>value!==null&&typeof value==='object'&&!Array.isArray(value)&&[Object.prototype,null].includes(Object.getPrototypeOf(value))&&Reflect.ownKeys(value).length===0;
+    const activityCandidate=value=>{if(typeof value!=='string')return false;let name=value.replace(/^\/+/, '').split(/[?#]/,1)[0];try{name=decodeURIComponent(name);}catch{}return name.toLowerCase()==='activity/adduseractivity';};
+    // This generic main adapter predates the personal Swaplotting increment.
+    // Apply the new callback restriction only to its new branded profile;
+    // retain the historical main-profile Activity contract unchanged.
+    const swaplottingActivityScope=clientProfile==='swaplotting-activity'||swaplottingAttempt!==undefined||swaplottingBoundary!==undefined;
+    const swaplottingActivityCandidate=swaplottingActivityScope&&activityCandidate(path);
+    let swaplottingBody;
+    if(swaplottingCandidate){try{swaplottingBody=prepareSwaplottingPostValues(swaplottingCandidate,body);}catch{throw new ApiError(409,'SWAPLOTTING_SUBMIT_SCOPE','Parameter pengiriman Swaplotting tidak sesuai kontrak.');}if(query!==undefined&&!emptySwaplottingQuery(query))throw new ApiError(409,'SWAPLOTTING_SUBMIT_SCOPE','Pengiriman Swaplotting tidak menerima query.');}
+    if(swaplottingActivityCandidate){try{swaplottingBody=prepareSwaplottingActivityValues(body);}catch{throw new ApiError(409,'SWAPLOTTING_SUBMIT_SCOPE','Pencatatan aktivitas tidak sesuai kiriman Swaplotting.');}if(query!==undefined&&!emptySwaplottingQuery(query)||!Array.isArray(files)||files.length)throw new ApiError(409,'SWAPLOTTING_SUBMIT_SCOPE','Aktivitas Swaplotting tidak menerima query atau lampiran.');}
+    if((['swaplotting-post','swaplotting-activity'].includes(clientProfile)||swaplottingAttempt!==undefined||swaplottingBoundary!==undefined)&&!swaplottingCandidate&&!swaplottingActivityCandidate)throw new ApiError(409,'SWAPLOTTING_SUBMIT_SCOPE','Profil pengiriman Swaplotting tidak sesuai layanan.');
+    const ratingPostPath=value=>{if(typeof value!=='string')return false;let name=value.replace(/^\/+/, '').split(/[?#]/,1)[0];try{name=decodeURIComponent(name);}catch{/* Invalid paths still fail ordinary URL validation. */}return name.toLowerCase()===RATING_PPAT_POST_PATH.toLowerCase();};
+    const ratingPpatPostCandidate=ratingPostPath(path);
+    const emptyRatingPostQuery=value=>value!==null&&typeof value==='object'&&!Array.isArray(value)&&[Object.prototype,null].includes(Object.getPrototypeOf(value))&&Reflect.ownKeys(value).length===0;
+    let ratingPpatPostBody;
+    if(ratingPpatPostCandidate){
+      try{ratingPpatPostBody=prepareRatingPpatPostValues(body);}catch{throw new ApiError(409,'RATING_PPAT_POST_SCOPE','Parameter pengiriman Rating PPAT tidak sesuai kontrak.');}
+      if(query!==undefined&&!emptyRatingPostQuery(query)||!Array.isArray(files)||files.length)throw new ApiError(409,'RATING_PPAT_POST_SCOPE','Pengiriman Rating PPAT tidak menerima query atau lampiran.');
+    }
+    const yuridisPathCandidate=typeof path==='string'?path.replace(/^\/+/, '').split(/[?#]/,1)[0]:null;
+    const yuridisCandidate=yuridisPathCandidate===YURIDIS_PATH,yuridisReviewCandidate=yuridisPathCandidate===YURIDIS_REVIEW_PATH;
+    const yuridisRecord=value=>value!==null&&typeof value==='object'&&!Array.isArray(value)&&[Object.prototype,null].includes(Object.getPrototypeOf(value));
+    const emptyYuridisRecord=value=>yuridisRecord(value)&&Reflect.ownKeys(value).length===0;
+    const yuridisReviewBodyValid=()=>{
+      if(!yuridisRecord(body)||Reflect.ownKeys(body).length!==2||Reflect.ownKeys(body).some((key,index)=>key!==['reviewType','contentId'][index]||!Object.hasOwn(Object.getOwnPropertyDescriptor(body,key),'value')))return false;
+      try{prepareYuridisLastReview(body);return body.reviewType==='sertipikatSaya';}catch{return false;}
+    };
+    if(yuridisCandidate){
+      try{prepareYuridisFeed(query);}catch{throw new ApiError(409,'YURIDIS_READ_SCOPE','Parameter pengumuman yuridis tidak sesuai kontrak pembacaan.');}
+      if(!emptyYuridisRecord(body)||!Array.isArray(files)||files.length)throw new ApiError(409,'YURIDIS_READ_SCOPE','Pembacaan pengumuman yuridis tidak menerima body atau lampiran.');
+    }
+    if(yuridisReviewCandidate&&(!yuridisReviewBodyValid()||query!==undefined&&!emptyYuridisRecord(query)||!Array.isArray(files)||files.length))throw new ApiError(409,'YURIDIS_REVIEW_SCOPE','Parameter ulasan yuridis tidak sesuai kontrak pembacaan.');
+    const ratingPpatCandidate=typeof path==='string'&&path.replace(/^\/+/, '').split(/[?#]/,1)[0]===RATING_PPAT_READ_PATH;
+    if(ratingPpatCandidate){
+      try{prepareRatingPpatRead(body);prepareRatingPpatRead(query);}
+      catch{throw new ApiError(409,'RATING_PPAT_READ_SCOPE','Pembacaan pertanyaan Rating PPAT tidak menerima parameter.');}
+      if(!Array.isArray(files)||files.length)throw new ApiError(409,'RATING_PPAT_READ_SCOPE','Pembacaan pertanyaan Rating PPAT tidak menerima lampiran.');
+    }
+    const mitraPathCandidate=typeof path==='string'?path.replace(/^\/+/, '').split(/[?#]/,1)[0]:null;
+    const mitraCandidate=mitraPathCandidate!==null&&Object.hasOwn(MITRA_READS,mitraPathCandidate);
+    const emptyMitraRecord=value=>value!==null&&typeof value==='object'&&!Array.isArray(value)&&[Object.prototype,null].includes(Object.getPrototypeOf(value))&&Reflect.ownKeys(value).length===0;
+    if(mitraCandidate){
+      try{prepareMitraQuery(mitraPathCandidate,query);}
+      catch{throw new ApiError(409,'MITRA_READ_SCOPE','Parameter pembacaan mitra tidak sesuai kontrak.');}
+      if(!emptyMitraRecord(body)||!Array.isArray(files)||files.length)throw new ApiError(409,'MITRA_READ_SCOPE','Pembacaan mitra tidak menerima body atau lampiran.');
+    }
+    const reviewPostCandidate=typeof path==='string'&&path.replace(/^\/+/, '').split(/[?#]/,1)[0]==='review/post';
+    const reviewPostRecord=value=>value!==null&&typeof value==='object'&&!Array.isArray(value)&&[Object.prototype,null].includes(Object.getPrototypeOf(value));
+    const reviewPostBodyValid=()=>{
+      if(!reviewPostRecord(body)||Reflect.ownKeys(body).length!==4||Reflect.ownKeys(body).some((key,index)=>key!==['contentId','reviewType','comment','rating'][index]||!Object.hasOwn(Object.getOwnPropertyDescriptor(body,key),'value')))return false;
+      try{prepareSelectedReviewPostValues(body);return true;}catch{return false;}
+    };
+    if(reviewPostCandidate&&(!reviewPostBodyValid()||query!==undefined&&(!reviewPostRecord(query)||Reflect.ownKeys(query).length)))throw new ApiError(409,'LOST_REVIEW_POST_SCOPE','Parameter pengiriman ulasan tidak sesuai kontrak.');
+    const lostReviewCandidate=typeof path==='string'&&path.replace(/^\/+/, '').split(/[?#]/,1)[0]==='review/all';
+    const lostReviewRecord=value=>value!==null&&typeof value==='object'&&!Array.isArray(value)&&[Object.prototype,null].includes(Object.getPrototypeOf(value));
+    const lostReviewBodyValid=()=>lostReviewRecord(body)&&Reflect.ownKeys(body).length===4&&Reflect.ownKeys(body).every((key,index)=>key===['reviewType','contentId','pageNumber','pageSize'][index]&&Object.hasOwn(Object.getOwnPropertyDescriptor(body,key),'value')&&typeof body[key]==='string')&&body.reviewType==='pengumumanSertipikatHilang'&&body.pageNumber==='1'&&body.pageSize==='10';
+    if(lostReviewCandidate&&(!lostReviewBodyValid()||query!==undefined&&(!lostReviewRecord(query)||Reflect.ownKeys(query).length)))throw new ApiError(409,'LOST_REVIEW_READ_SCOPE','Parameter ulasan pengumuman tidak sesuai kontrak pembacaan.');
+    const lostCertificatePath = 'announcement/sertipikat_hilang_byKantor';
+    const lostCertificateCandidate = typeof path === 'string' && path.replace(/^\/+/, '').split(/[?#]/, 1)[0] === lostCertificatePath;
+    const lostCertificateRecord = value => value !== null && typeof value === 'object' && !Array.isArray(value) && [Object.prototype, null].includes(Object.getPrototypeOf(value));
+    if (lostCertificateCandidate && (!lostCertificateRecord(body) || Reflect.ownKeys(body).length || !lostCertificateRecord(query) || Reflect.ownKeys(query).length !== 1 || Reflect.ownKeys(query)[0] !== 'kantorId' || !Object.hasOwn(Object.getOwnPropertyDescriptor(query, 'kantorId'), 'value') || typeof query.kantorId !== 'string')) throw new ApiError(409, 'LOST_CERTIFICATE_READ_SCOPE', 'Parameter sertipikat hilang tidak sesuai kontrak pembacaan.');
+    const disclaimerCandidate=typeof path==='string'&&path.replace(/^\/+/, '').split(/[?#]/,1)[0]==='Map/GetDisclaimer';
+    const emptyDisclaimerRecord=value=>!!value&&typeof value==='object'&&!Array.isArray(value)&&[Object.prototype,null].includes(Object.getPrototypeOf(value))&&Reflect.ownKeys(value).length===0;
+    // Reject query accessors before upstreamUrl enumerates anything. Only the
+    // existing bodyless main-client disclaimer read gets this response model.
+    if(disclaimerCandidate&&(!emptyDisclaimerRecord(body)||query!==undefined&&!emptyDisclaimerRecord(query)))throw new ApiError(409,'SWAPLOTTING_DISCLAIMER_SCOPE','Parameter ketentuan peta tidak sesuai kontrak pembacaan.');
+    const parcelPaths=['legacy/Wilayah','legacy/GetPersilId','legacy/GetPersilIdByNibel'];
+    const parcelCandidate=typeof path==='string' && parcelPaths.includes(path.replace(/^\/+/, '').split(/[?#]/,1)[0]);
+    const plotPaths=['PlotBidang/DaftarPlot','PlotBidang/GetDetail'];
+    const plotCandidate=typeof path==='string' && plotPaths.includes(path.replace(/^\/+/, '').split(/[?#]/,1)[0]);
+    if(plotCandidate && (!body || typeof body!=='object' || Array.isArray(body) || ![Object.prototype,null].includes(Object.getPrototypeOf(body)) || Reflect.ownKeys(body).some(key=>typeof key!=='string'||!Object.hasOwn(Object.getOwnPropertyDescriptor(body,key),'value')) || query!==undefined && (!query || typeof query!=='object'||Array.isArray(query)||![Object.prototype,null].includes(Object.getPrototypeOf(query))||Reflect.ownKeys(query).length)))throw new ApiError(409,'PLOT_READ_SCOPE','Parameter pembacaan plot bidang tidak sesuai kontrak.');
+    // Inspect descriptors before upstreamUrl enumerates a query: adapters must
+    // never evaluate browser/model getters while validating a fixed read.
+    if (parcelCandidate && (!query || typeof query!=='object' || Array.isArray(query) || ![Object.prototype,null].includes(Object.getPrototypeOf(query)) || Reflect.ownKeys(query).some(key=>typeof key!=='string'||!Object.hasOwn(Object.getOwnPropertyDescriptor(query,key),'value')))) throw new ApiError(409,'PARCEL_SEARCH_SCOPE','Parameter pencarian bidang tidak sesuai kontrak pembacaan.');
     const url = upstreamUrl(base, path, query);
+    const swaplottingPost=swaplottingCandidate||swaplottingKind(url.pathname);
+    const swaplottingActivity=swaplottingActivityCandidate||swaplottingActivityScope&&activityCandidate(url.pathname),swaplottingWrite=swaplottingPost||swaplottingActivity;
+    if(swaplottingPost){
+      if(url.origin!==new URL(MAIN_ORIGIN).origin||path!==SWAPLOTTING_POSTS[swaplottingPost].path||url.pathname!==path||url.search||url.hash||method!=='POST'||encoding!=='multipart'||auth!=='session'||clientProfile!=='swaplotting-post'||!isSwaplottingAttempt(swaplottingAttempt)||!Array.isArray(files)||query!==undefined&&!emptySwaplottingQuery(query)||signal!==undefined&&!(signal instanceof AbortSignal))throw new ApiError(409,'SWAPLOTTING_SUBMIT_SCOPE','Pengiriman Swaplotting tidak sesuai kontrak sesi.');
+      if(signal?.aborted)throw new ApiError(409,'SWAPLOTTING_ABORTED','Pengiriman dibatalkan sebelum dikirim.');
+      if(!swaplottingBody){try{swaplottingBody=prepareSwaplottingPostValues(swaplottingPost,body);}catch{throw new ApiError(409,'SWAPLOTTING_SUBMIT_SCOPE','Parameter pengiriman Swaplotting tidak sesuai kontrak.');}}
+    }
+    if(swaplottingActivity){if(url.origin!==new URL(MAIN_ORIGIN).origin||path!=='activity/AddUserActivity'||url.pathname!=='/activity/AddUserActivity'||url.search||url.hash||method!=='POST'||encoding!=='multipart'||auth!=='session'||clientProfile!=='swaplotting-activity'||!isSwaplottingAttempt(swaplottingAttempt)||!Array.isArray(files)||files.length||query!==undefined&&!emptySwaplottingQuery(query)||signal!==undefined&&!(signal instanceof AbortSignal))throw new ApiError(409,'SWAPLOTTING_SUBMIT_SCOPE','Pencatatan aktivitas tidak sesuai kiriman Swaplotting.');if(signal?.aborted)throw new ApiError(409,'SWAPLOTTING_ABORTED','Pengiriman dibatalkan sebelum dikirim.');}
+    const ratingPpatPost=ratingPpatPostCandidate||ratingPostPath(url.pathname);
+    const berkasRatingPost=berkasRatingCandidate||berkasRatingPath(url.pathname);
+    if(berkasRatingPost){
+      if(url.origin!==new URL(MAIN_ORIGIN).origin||path!==BERKAS_RATING_PATH||url.pathname!=='/'+BERKAS_RATING_PATH||url.search||url.hash||method!=='POST'||encoding!=='multipart'||auth!=='session'||clientProfile!=='berkas-rating-post'||!isBerkasRatingAttempt(berkasRatingAttempt)||typeof berkasRatingBoundary!=='string'||!/^[A-Za-z0-9-]{1,120}$/.test(berkasRatingBoundary)||query!==undefined&&!emptyBerkasRatingQuery(query)||!Array.isArray(files)||files.length)throw new ApiError(409,'BERKAS_RATING_SCOPE','Parameter pengiriman Rating Berkas tidak sesuai kontrak.');
+      if(!berkasRatingBody){try{berkasRatingBody=prepareBerkasRatingPost(body);}catch{throw new ApiError(409,'BERKAS_RATING_SCOPE','Parameter Rating Berkas tidak sesuai kontrak.');}}
+    }
+    if(ratingPpatPost){
+      if(url.origin!==new URL(MAIN_ORIGIN).origin||path!==RATING_PPAT_POST_PATH||url.pathname!=='/'+RATING_PPAT_POST_PATH||url.search||url.hash||method!=='POST'||encoding!=='json'||auth!=='session'||clientProfile!=='main'||query!==undefined&&!emptyRatingPostQuery(query)||!Array.isArray(files)||files.length)throw new ApiError(409,'RATING_PPAT_POST_SCOPE','Parameter pengiriman Rating PPAT tidak sesuai kontrak.');
+      if(!ratingPpatPostBody){try{ratingPpatPostBody=prepareRatingPpatPostValues(body);}catch{throw new ApiError(409,'RATING_PPAT_POST_SCOPE','Parameter pengiriman Rating PPAT tidak sesuai kontrak.');}}
+    }
+    const yuridisRead=yuridisCandidate||url.pathname==='/'+YURIDIS_PATH;
+    if(yuridisRead&&(url.origin!==new URL(MAIN_ORIGIN).origin||path!==YURIDIS_PATH||url.pathname!=='/'+YURIDIS_PATH||url.hash||method!=='GET'||encoding!=='none'||auth!=='optionalSession'||clientProfile!=='main'||!emptyYuridisRecord(body)||!Array.isArray(files)||files.length))throw new ApiError(409,'YURIDIS_READ_SCOPE','Parameter pembacaan yuridis tidak sesuai kontrak.');
+    const yuridisReviewRead=yuridisReviewCandidate||url.pathname==='/'+YURIDIS_REVIEW_PATH;
+    if(yuridisReviewRead&&(url.origin!==new URL(MAIN_ORIGIN).origin||path!==YURIDIS_REVIEW_PATH||url.pathname!=='/'+YURIDIS_REVIEW_PATH||url.search||url.hash||method!=='POST'||encoding!=='form'||auth!=='session'||clientProfile!=='main'||!yuridisReviewBodyValid()||query!==undefined&&!emptyYuridisRecord(query)||!Array.isArray(files)||files.length))throw new ApiError(409,'YURIDIS_REVIEW_SCOPE','Parameter pembacaan ulasan yuridis tidak sesuai kontrak.');
+    const ratingPpatRead=ratingPpatCandidate||url.pathname==='/'+RATING_PPAT_READ_PATH;
+    if(ratingPpatRead&&(url.origin!==new URL(MAIN_ORIGIN).origin||path!==RATING_PPAT_READ_PATH||url.pathname!=='/'+RATING_PPAT_READ_PATH||url.search||url.hash||method!=='GET'||encoding!=='none'||auth!=='session'||clientProfile!=='main'||!Array.isArray(files)||files.length))throw new ApiError(409,'RATING_PPAT_READ_SCOPE','Parameter pembacaan Rating PPAT tidak sesuai kontrak.');
+    const mitraRead=mitraCandidate||Object.hasOwn(MITRA_READS,url.pathname.slice(1));
+    if(mitraRead&&(url.origin!==new URL(MAIN_ORIGIN).origin||path!==mitraPathCandidate||url.pathname!=='/'+mitraPathCandidate||url.hash||method!=='GET'||encoding!=='none'||auth!=='optionalSession'||clientProfile!=='main'||!emptyMitraRecord(body)||!Array.isArray(files)||files.length))throw new ApiError(409,'MITRA_READ_SCOPE','Parameter pembacaan mitra tidak sesuai kontrak.');
+    const reviewPost=reviewPostCandidate||url.pathname==='/review/post';
+    let reviewPostFiles=[];
+    if(reviewPost){
+      if(url.origin!==new URL(MAIN_ORIGIN).origin||path!=='review/post'||url.pathname!=='/review/post'||url.search||url.hash||method!=='POST'||encoding!=='multipart'||auth!=='session'||clientProfile!=='main'||!reviewPostBodyValid()||query!==undefined&&(!reviewPostRecord(query)||Reflect.ownKeys(query).length))throw new ApiError(409,'LOST_REVIEW_POST_SCOPE','Parameter pengiriman ulasan tidak sesuai kontrak.');
+      try{reviewPostFiles=prepareLostReviewPostFiles(files);}catch(error){throw new ApiError(error.status||400,error.code,error.message);}
+    }
+    const lostReviewRead=lostReviewCandidate||url.pathname==='/review/all';
+    if(lostReviewRead&&(url.origin!==new URL(MAIN_ORIGIN).origin||path!=='review/all'||url.pathname!=='/review/all'||url.search||url.hash||clientProfile!=='main'||method!=='POST'||encoding!=='form'||auth!=='session'||!Array.isArray(files)||files.length||!lostReviewBodyValid()||query!==undefined&&(!lostReviewRecord(query)||Reflect.ownKeys(query).length)))throw new ApiError(409,'LOST_REVIEW_READ_SCOPE','Parameter ulasan pengumuman tidak sesuai kontrak pembacaan.');
+    const lostCertificateRead = lostCertificateCandidate || url.pathname === '/' + lostCertificatePath;
+    if (lostCertificateRead && (url.origin !== new URL(MAIN_ORIGIN).origin || path !== lostCertificatePath || url.pathname !== '/' + lostCertificatePath || url.hash || clientProfile !== 'main' || method !== 'GET' || encoding !== 'none' || auth !== 'optionalSession' || !Array.isArray(files) || files.length || !lostCertificateRecord(body) || Reflect.ownKeys(body).length || !lostCertificateRecord(query) || Reflect.ownKeys(query).length !== 1 || Reflect.ownKeys(query)[0] !== 'kantorId' || !Object.hasOwn(Object.getOwnPropertyDescriptor(query, 'kantorId'), 'value') || typeof query.kantorId !== 'string')) throw new ApiError(409, 'LOST_CERTIFICATE_READ_SCOPE', 'Parameter sertipikat hilang tidak sesuai kontrak pembacaan.');
     // The document map first encodes q as a URI component, then its query map
     // applies an RFC3986 encoder. Keep this endpoint-specific double encoding;
     // URLSearchParams alone also differs for '*' and '~'. See DOCUMENT-GEO-FLOW.md.
     const documentGeo = url.origin === new URL(MAIN_ORIGIN).origin && url.pathname === '/apis/getGeoJsonInfo';
+    if (scanContextValidated !== false && (scanContextValidated !== true || !documentGeo)) throw new ApiError(409,'SCAN_CONTEXT_SCOPE','Konteks lokasi Scan tidak sesuai layanan.');
     if (documentGeo) {
-      if (path !== '/apis/getGeoJsonInfo' || clientProfile !== 'main' || method !== 'GET' || encoding !== 'none' || auth !== 'session' || files.length || Object.keys(body || {}).length || Object.keys(query || {}).length !== 1 || typeof query?.q !== 'string' || !query.q.length) throw new ApiError(409, 'DOCUMENT_GEO_SCOPE', 'Parameter lokasi dokumen tidak sesuai kontrak pembacaan.');
+      if (path !== '/apis/getGeoJsonInfo' || clientProfile !== 'main' || method !== 'GET' || encoding !== 'none' || auth !== 'session' || files.length || Object.keys(body || {}).length || Object.keys(query || {}).length !== 1 || typeof query?.q !== 'string' || !query.q.length && !scanContextValidated) throw new ApiError(409, 'DOCUMENT_GEO_SCOPE', 'Parameter lokasi dokumen tidak sesuai kontrak pembacaan.');
       const innerQ = encodeURIComponent(query.q.toWellFormed());
       url.search = 'q=' + encodeURIComponent(innerQ).replace(/[!'()*]/g, character => '%' + character.charCodeAt(0).toString(16).toUpperCase());
     }
     const documentViewer = clientProfile === 'sps-document-viewer';
     const scannedDocument = clientProfile === 'main' && url.origin === new URL(MAIN_ORIGIN).origin && url.pathname === '/apis/GetDocument';
+    const scanClassification = url.origin === new URL(MAIN_ORIGIN).origin && url.pathname === '/apis/scanDocument';
+    const scanMetadata = url.origin === new URL(MAIN_ORIGIN).origin && url.pathname === '/apis/GetDocumentType';
+    const scanMap = url.origin === new URL(MAIN_ORIGIN).origin && ['/apis/GetPBTElDetail','/apis/GetKKPRDetail'].includes(url.pathname);
+    const parcelSearch = parcelCandidate || parcelPaths.some(item=>url.pathname==='/'+item);
+    const parcelRegions = parcelSearch && url.pathname === '/legacy/Wilayah';
+    const plotRead=plotCandidate || plotPaths.some(item=>url.pathname==='/'+item);
+    const plotList=plotRead && url.pathname==='/PlotBidang/DaftarPlot';
+    const disclaimerRead=disclaimerCandidate||url.pathname==='/Map/GetDisclaimer';
+    if(disclaimerRead&&(url.origin!==new URL(MAIN_ORIGIN).origin||path!=='Map/GetDisclaimer'||url.pathname!=='/Map/GetDisclaimer'||url.search||url.hash||method!=='GET'||encoding!=='none'||auth!=='optionalSession'||clientProfile!=='main'||!Array.isArray(files)||files.length||!emptyDisclaimerRecord(body)||query!==undefined&&!emptyDisclaimerRecord(query)))throw new ApiError(409,'SWAPLOTTING_DISCLAIMER_SCOPE','Parameter ketentuan peta tidak sesuai kontrak pembacaan.');
+    if(plotRead){
+      const record=value=>value!==null && typeof value==='object' && !Array.isArray(value) && [Object.prototype,null].includes(Object.getPrototypeOf(value));
+      const keys=record(body)?Reflect.ownKeys(body):null;
+      if(url.origin!==new URL(MAIN_ORIGIN).origin || !plotPaths.includes(url.pathname.slice(1)) || path!==url.pathname.slice(1) || url.search || url.hash || clientProfile!=='main' || method!=='POST' || auth!=='session' || encoding!==(plotList?'none':'multipart') || !Array.isArray(files) || files.length || !keys || (plotList?keys.length!==0:keys.length!==1||keys[0]!=='id'||!Object.hasOwn(Object.getOwnPropertyDescriptor(body,'id'),'value')||typeof body.id!=='string') || query!==undefined&&(!record(query)||Reflect.ownKeys(query).length))throw new ApiError(409,'PLOT_READ_SCOPE','Parameter pembacaan plot bidang tidak sesuai kontrak.');
+    }
+    if (parcelSearch) {
+      const record = value => value !== null && typeof value === 'object' && !Array.isArray(value) && [Object.prototype,null].includes(Object.getPrototypeOf(value));
+      const expected = parcelRegions ? ['kantorid','nama'] : url.pathname === '/legacy/GetPersilId' ? ['jenishak','nomorhak','kantorid','wilayahid'] : ['nibel','kodehat'];
+      const keys = record(query) ? Reflect.ownKeys(query) : null;
+      if (url.origin !== new URL(MAIN_ORIGIN).origin || !parcelPaths.includes(url.pathname.slice(1)) || clientProfile !== 'main' || method !== 'GET' || encoding !== 'none' || auth !== 'session' || !Array.isArray(files) || files.length || !record(body) || Reflect.ownKeys(body).length || !keys || keys.length !== expected.length || keys.some((key,index) => key !== expected[index] || !Object.hasOwn(Object.getOwnPropertyDescriptor(query,key),'value') || typeof query[key] !== 'string') || path !== url.pathname.slice(1) || url.hash || (parcelRegions ? query.nama !== '' : url.pathname === '/legacy/GetPersilIdByNibel' ? query.kodehat !== '' : !['1','2','3','4','5','8'].includes(query.jenishak))) throw new ApiError(409,'PARCEL_SEARCH_SCOPE','Parameter pencarian bidang tidak sesuai kontrak pembacaan.');
+      // Single component encoding is an explicit browser guard. Native service
+      // interpolation is proven; final escaping by its shared Dio is unclosed.
+    }
+    const verificationStatus = url.origin === new URL(MAIN_ORIGIN).origin && url.pathname === '/account/CheckVerifStatusPerorangan';
+    if (verificationStatus) {
+      const emptyRecord = value => value !== null && typeof value === 'object' && !Array.isArray(value) && [Object.prototype, null].includes(Object.getPrototypeOf(value)) && Reflect.ownKeys(value).length === 0;
+      if (clientProfile !== 'main' || method !== 'GET' || encoding !== 'none' || auth !== 'session' || !Array.isArray(files) || files.length || !emptyRecord(body) || query !== undefined && !emptyRecord(query) || path !== 'account/CheckVerifStatusPerorangan' || url.search || url.hash) throw new ApiError(409, 'VERIFICATION_STATUS_SCOPE', 'Parameter status verifikasi tidak sesuai kontrak pembacaan.');
+    }
+    const daringIdentity = url.origin === new URL(MAIN_ORIGIN).origin && url.pathname === '/PeruriLivenessSdk/ValidateKTPDataV2';
+    if (daringIdentity) {
+      const record = value => value !== null && typeof value === 'object' && !Array.isArray(value) && [Object.prototype, null].includes(Object.getPrototypeOf(value));
+      const keys = record(body) ? Reflect.ownKeys(body) : null;
+      const expected = ['Nik', 'Nama', 'Tempatlahir', 'TglLahir', 'NoHp'];
+      if (clientProfile !== 'main' || method !== 'POST' || encoding !== 'multipart' || auth !== 'session' || !Array.isArray(files) || files.length || !keys || keys.length !== expected.length || keys.some((key, index) => key !== expected[index] || !Object.hasOwn(Object.getOwnPropertyDescriptor(body, key), 'value') || typeof body[key] !== 'string') || query !== undefined && (!record(query) || Reflect.ownKeys(query).length) || path !== 'PeruriLivenessSdk/ValidateKTPDataV2' || url.search || url.hash) throw new ApiError(409, 'DARING_IDENTITY_SCOPE', 'Parameter validasi identitas tidak sesuai kontrak layanan.');
+    }
+    // Empty original q is a native Scan value. Only the server-resolved opaque
+    // context can relax the existing nonempty guard for these special reads.
+    // The generic document-geo trusted flag remains a separate scope.
+    if (scanMapContextValidated !== false && (scanMapContextValidated !== true || !scanMap)) throw new ApiError(409,'SCAN_CONTEXT_SCOPE','Konteks peta Scan tidak sesuai layanan.');
+    if (scanMap) {
+      const record = value => value !== null && typeof value === 'object' && !Array.isArray(value) && [Object.prototype, null].includes(Object.getPrototypeOf(value));
+      const keys = record(body) ? Reflect.ownKeys(body) : null;
+      if (clientProfile !== 'main' || auth !== 'session' || method !== 'POST' || encoding !== 'form' || !Array.isArray(files) || files.length || !keys || keys.length !== 1 || keys[0] !== 'q' || !Object.hasOwn(Object.getOwnPropertyDescriptor(body,'q'),'value') || typeof body.q !== 'string' || !body.q.length && !scanMapContextValidated || query !== undefined && (!record(query) || Reflect.ownKeys(query).length) || path !== url.pathname.slice(1) || url.search || url.hash) throw new ApiError(409,'SCAN_MAP_SCOPE','Parameter peta Scan tidak sesuai kontrak layanan.');
+    }
+    if (scanClassification || scanMetadata) {
+      const record = value => value !== null && typeof value === 'object' && !Array.isArray(value) && [Object.prototype, null].includes(Object.getPrototypeOf(value));
+      const keys = record(body) ? Reflect.ownKeys(body) : null;
+      if (clientProfile !== 'main' || auth !== 'session' || method !== 'POST' || encoding !== 'form' || files.length || !keys || keys.some(key => typeof key !== 'string' || !Object.hasOwn(Object.getOwnPropertyDescriptor(body,key),'value') || typeof body[key] !== 'string') || keys.join(',') !== (scanClassification ? 'q,name' : 'q') || query !== undefined && (!record(query) || Reflect.ownKeys(query).length) || path !== url.pathname.slice(1) || url.search || url.hash) throw new ApiError(409, scanClassification ? 'SCAN_CLASSIFICATION_SCOPE' : 'SCAN_METADATA_SCOPE', 'Parameter Scan tidak sesuai kontrak layanan.');
+    }
     // These native read helpers consume their own envelopes. CariBerkas ignores
     // body.error; getStatusCetak returns its String message even for error:true.
     // Keep CariBerkas at HTTP200; getStatusCetak uses the shared 2xx guard.
@@ -159,6 +355,7 @@ export class ApiClient {
     const diagnosticPath = collectionDeleteLogPrefix ? '/' + collectionDeleteLogPrefix + '{path_argument_1}' : url.pathname;
     const nearbyOffice = url.origin === new URL(MAIN_ORIGIN).origin && url.pathname === '/kantornearby/getkantornearby';
     const officeCalendar = url.origin === new URL(MAIN_ORIGIN).origin && url.pathname === '/KantorNearby/GetCalendar';
+    if(queueCalendarDirect!==false&&(queueCalendarDirect!==true||!officeCalendar||path!=='KantorNearby/GetCalendar'||url.search||url.hash))throw new ApiError(409,'QUEUE_CALENDAR_SCOPE','Pembacaan kalender antrean tidak sesuai kontrak.');
     const newsLimit = url.origin === new URL(MAIN_ORIGIN).origin ? ({ '/Berita/GetBerita': '8', '/Pengumuman/GetPengumuman': '5' })[url.pathname] : undefined;
     const newsFeed = newsLimit !== undefined;
     if (newsFeed && (clientProfile !== 'main' || method !== 'GET' || encoding !== 'none' || auth !== 'optionalSession' || files.length || Object.keys(body || {}).length || Object.keys(query || {}).length !== 1 || query?.limit !== newsLimit || path !== url.pathname.slice(1) || url.search !== `?limit=${newsLimit}` || url.hash)) throw new ApiError(409, 'NEWS_READ_SCOPE', 'Parameter pembacaan berita atau pengumuman tidak sesuai kontrak.');
@@ -166,18 +363,23 @@ export class ApiClient {
     if (nearbyOffice || officeCalendar) {
       const keys = Object.keys(body || {}).sort().join(',');
       if (clientProfile !== 'main' || method !== 'POST' || auth !== 'optionalSession' || files.length || Object.keys(query || {}).length || (nearbyOffice ? encoding !== 'json' || keys !== 'isKalender,latitude,limit,longitude,radius' || !Number.isFinite(body.latitude) || Math.abs(body.latitude) > 90 || !Number.isFinite(body.longitude) || Math.abs(body.longitude) > 180 || body.radius !== 0.1 || body.isKalender !== 1 || body.limit !== null : encoding !== 'form' || keys !== 'kantorId,tahun' || typeof body.kantorId !== 'string' || typeof body.tahun !== 'string')) throw new ApiError(409, 'OFFICE_READ_SCOPE', 'Parameter pembacaan kantor tidak sesuai kontrak.');
-      if (officeCalendar) {
+      if (officeCalendar && !queueCalendarDirect) {
         if (typeof this.configuration.calendarOfficeId !== 'function') throw new ApiError(503, 'OFFICE_REFERENCE_CONFIGURATION', 'Konfigurasi referensi kalender belum tersedia.');
         try { formBody = { ...body, kantorId: this.configuration.calendarOfficeId(body.kantorId) }; }
         catch { throw new ApiError(400, 'OFFICE_REFERENCE_INVALID', 'Referensi kantor dari layanan belum dapat dibaca. Muat ulang daftar kantor.'); }
         if (typeof formBody.kantorId !== 'string' || !formBody.kantorId.length) throw new ApiError(400, 'OFFICE_REFERENCE_INVALID', 'Referensi kantor dari layanan belum dapat dibaca. Muat ulang daftar kantor.');
       }
+      if(officeCalendar&&queueCalendarDirect&&(typeof body.kantorId!=='string'||!body.kantorId.trim()||body.kantorId.length>1024||typeof body.tahun!=='string'||!/^\d{4}$/.test(body.tahun)||body.tahun==='0000'))throw new ApiError(409,'QUEUE_CALENDAR_SCOPE','Referensi kalender antrean tidak sesuai kontrak.');
     }
-    if (!['main', 'sps-document-viewer'].includes(clientProfile) || (documentViewer && (url.origin !== new URL(MAIN_ORIGIN).origin || path !== 'dokumen/GetDokumen' || method !== 'GET' || encoding !== 'none' || auth !== 'session' || files.length || Object.keys(body || {}).length || Object.keys(query || {}).length !== 2 || !['id', 'tipe'].every(key => typeof query?.[key] === 'string' && query[key].length > 0)))) throw new ApiError(409, 'CLIENT_PROFILE_SCOPE', 'Profil transport tidak sesuai dengan kontrak operasi.');
+    if (!['main', 'sps-document-viewer',...(swaplottingPost?['swaplotting-post']:[]),...(swaplottingActivity?['swaplotting-activity']:[]),...(berkasRatingPost?['berkas-rating-post']:[])].includes(clientProfile) || (documentViewer && (url.origin !== new URL(MAIN_ORIGIN).origin || path !== 'dokumen/GetDokumen' || method !== 'GET' || encoding !== 'none' || auth !== 'session' || files.length || Object.keys(body || {}).length || Object.keys(query || {}).length !== 2 || !['id', 'tipe'].every(key => typeof query?.[key] === 'string' && query[key].length > 0)))) throw new ApiError(409, 'CLIENT_PROFILE_SCOPE', 'Profil transport tidak sesuai dengan kontrak operasi.');
     // SPS uses a separate HttpClient viewer, without the main LRb interceptor.
     // Keep its request free of the main client's JSON Accept/form Content-Type.
     const headers = { ...(!documentViewer ? { Accept: 'application/json' } : {}), 'User-Agent': 'Sentuh-Browser-Reconstruction/0.1' };
     const requestTokens = session?.tokens;
+    const reviewPostOwner=reviewPost?session?.user:undefined;
+    const ratingPpatPostOwner=ratingPpatPost?session?.user:undefined;
+    const berkasRatingOwner=berkasRatingPost?session?.user:undefined;
+    const swaplottingOwner=swaplottingWrite?session?.user:undefined;
     let sessionAuthorized = false;
     if (auth === 'application' || auth === 'app') {
       const normalApplicationPath = url.origin === new URL(MAIN_ORIGIN).origin && !url.search && (url.pathname === '/auth/signin' || /^\/common\/[A-Za-z]+$/.test(url.pathname));
@@ -207,8 +409,24 @@ export class ApiClient {
     // check (0xd0d9f0..0xd0da6c). Do not extend that rule to other service clients.
     if (!documentViewer && (method === 'GET' || encoding === 'none') && url.origin === new URL(MAIN_ORIGIN).origin) headers['Content-Type'] = 'application/x-www-form-urlencoded';
     if (method !== 'GET' && method !== 'HEAD') {
-      if (encoding === 'json') { payload = JSON.stringify(body); headers['Content-Type'] = 'application/json'; }
+      if (encoding === 'json') { payload = ratingPpatPost?serializeRatingPpatPost(ratingPpatPostBody):JSON.stringify(body); headers['Content-Type'] = 'application/json';if(ratingPpatPost)headers.Accept='text/plain'; }
       else if (encoding === 'multipart') {
+        if(berkasRatingPost){
+          let serialized;try{serialized=serializeBerkasRatingPost(berkasRatingBody,berkasRatingBoundary);}catch(error){throw new ApiError(error.status||400,error.code,error.message);}
+          if(session.active===false||session.tokens!==requestTokens||session.user!==berkasRatingOwner)throw new ApiError(409,'SESSION_CHANGED','Sesi berubah sebelum pengiriman Rating Berkas.');
+          payload=serialized.body;headers['Content-Type']=serialized.contentType;
+        }else if(swaplottingWrite){
+          let serialized;try{serialized=await(swaplottingPost?serializeSwaplottingPost(swaplottingPost,swaplottingBody,files,swaplottingBoundary):serializeSwaplottingActivity(swaplottingBody,swaplottingBoundary));}catch(error){throw new ApiError(error.status||400,error.code,error.message);}
+          if(signal?.aborted)throw new ApiError(409,'SWAPLOTTING_ABORTED','Pengiriman dibatalkan sebelum dikirim.');
+          if(session.active===false||session.tokens!==requestTokens||session.user!==swaplottingOwner)throw new ApiError(409,'SESSION_CHANGED','Sesi berubah sebelum pengiriman Swaplotting.');
+          payload=serialized.body;headers['Content-Type']=serialized.contentType;
+        }else if(reviewPost){
+          let serialized;
+          try{serialized=await serializeSelectedReviewPost(body,reviewPostFiles,'sentuh-review-'+randomUUID());}
+          catch(error){throw new ApiError(error.status||400,error.code,error.message);}
+          if(session.active===false||session.tokens!==requestTokens||session.user!==reviewPostOwner)throw new ApiError(409,'SESSION_CHANGED','Sesi berubah sebelum pengiriman ulasan. Buka kembali pengumuman.');
+          payload=serialized.body;headers['Content-Type']=serialized.contentType;
+        }else{
         payload = new FormData();
         for (const [key, value] of Object.entries(body || {})) { if (value !== undefined && value !== null) { if (typeof value === 'object') throw new ApiError(409, 'FORM_SHAPE_UNSUPPORTED', 'Field multipart bersarang belum didukung.'); payload.append(key, String(value)); } }
         for (const { key, file } of files) {
@@ -216,12 +434,14 @@ export class ApiClient {
           const filename = url.pathname === '/geotag/UploadGeotag' && key === 'file' ? `geotag_${this.now()}.png` : file.name.replace(/[\r\n/\\]/g, '_').slice(0, 180);
           payload.append(key, file, filename);
         }
+        }
       } else if (encoding === 'form' || encoding === 'urlencoded') {
-        if (berkasSearch) {
+        if (berkasSearch || lostReviewRead || yuridisReviewRead) {
           // Dio's audited form transformer emits a present null as a bare key,
           // while an empty String has '='. URLSearchParams conflates the two.
           // Its query-component encoder also preserves '~', encodes '*', and
-          // maps spaces to '+'. Keep this bounded correction on CariBerkas.
+          // maps spaces to '+'. Scope it to CariBerkas and review/all, whose
+          // inherited main form encoder is positively bound by the audits.
           const component = value => encodeURIComponent(String(value).toWellFormed()).replace(/[!'()*]/g, character => '%' + character.charCodeAt(0).toString(16).toUpperCase()).replace(/%20/g, '+');
           const fields = [];
           for (const [key, value] of Object.entries(body || {})) {
@@ -244,7 +464,9 @@ export class ApiClient {
     let response; let stage = 'request'; let networkCode = null; let failed = false; let authenticationError = null;
     const diagnostics = () => ({ requestId, stage, networkCode, elapsedMs: Math.max(0, Math.round(this.clock() - started)) });
     try {
-    response = await this.transport(url, { method, headers, body: payload });
+    if(berkasRatingPost){try{markBerkasRatingDispatched(berkasRatingAttempt);}catch(error){throw new ApiError(error.status||409,error.code,error.message);}}
+    if(swaplottingWrite){if(signal?.aborted)throw new ApiError(409,'SWAPLOTTING_ABORTED','Pengiriman dibatalkan sebelum dikirim.');markSwaplottingDispatched(swaplottingAttempt);}
+    response = await this.transport(url, { method, headers, body: payload,...(swaplottingWrite?{signal}:{}) });
     if (response.status === 401 && sessionAuthorized) {
       const newerTokens = session.tokens !== requestTokens && session.active !== false && session.tokens;
       if (!newerTokens) clearAuthentication(session, requestTokens);
@@ -254,6 +476,46 @@ export class ApiClient {
     }
     stage = 'response_body';
     if (response.status >= 300 && response.status < 400) { await response.body?.cancel(); throw new ApiError(502, 'UPSTREAM_REDIRECT', 'Server mengarahkan permintaan ke lokasi lain; pengalihan otomatis dinonaktifkan.'); }
+    if((lostReviewRead||yuridisReviewRead)&&!response.ok){
+      await response.body?.cancel();stage='response';if(authenticationError)throw authenticationError;
+      throw new ApiError(response.status===401?401:response.status===403?403:502,'UPSTREAM_REJECTED','Server belum mengembalikan ulasan pengumuman.',{upstreamStatus:response.status});
+    }
+    if (lostCertificateRead && response.status !== 200) {
+      await response.body?.cancel(); stage = 'response';
+      if (authenticationError) throw authenticationError;
+      throw new ApiError(response.status === 401 ? 401 : response.status === 403 ? 403 : 502, 'UPSTREAM_REJECTED', 'Server belum mengembalikan pengumuman sertipikat hilang.', {upstreamStatus: response.status});
+    }
+    if(yuridisRead&&response.status!==200){
+      await response.body?.cancel();stage='response';if(authenticationError)throw authenticationError;
+      throw new ApiError(response.status===401?401:response.status===403?403:502,'UPSTREAM_REJECTED','Server belum mengembalikan pengumuman yuridis.',{upstreamStatus:response.status});
+    }
+    if(disclaimerRead&&response.status!==200){
+      await response.body?.cancel();stage='response';if(authenticationError)throw authenticationError;
+      throw new ApiError(response.status===403?403:502,'UPSTREAM_REJECTED','Server belum mengembalikan ketentuan peta.',{upstreamStatus:response.status});
+    }
+    if(plotRead && response.status!==200){
+      await response.body?.cancel();stage='response';if(authenticationError)throw authenticationError;
+      // Web transport errors are explicit instead of converting the native
+      // caught-error tuple into a successful HTTP response. Do not parse data.
+      throw new ApiError(response.status===403?403:502,'UPSTREAM_REJECTED','Server belum mengembalikan pembacaan plot bidang.',{upstreamStatus:response.status});
+    }
+    if (parcelSearch && (parcelRegions ? !response.ok : response.status !== 200)) {
+      await response.body?.cancel(); stage = 'response';
+      if (authenticationError) throw authenticationError;
+      throw new ApiError(response.status === 403 ? 403 : 502,'UPSTREAM_REJECTED','Server belum mengembalikan hasil pencarian bidang.',{upstreamStatus:response.status});
+    }
+    if (daringIdentity && response.ok && response.status !== 200) {
+      // The native helper does not parse non200 bodies. Keep its status tuple
+      // inside the shared accepted range; non2xx, 401 and network errors retain
+      // the browser transport's explicit error/session policy below.
+      await response.body?.cancel(); stage = 'response';
+      return {status:response.status,data:daringIdentityStatusFallback(response.status),contentType:response.headers.get('content-type') || 'application/octet-stream'};
+    }
+    if ((scanClassification || scanMetadata || scanMap) && response.status !== 200) {
+      await response.body?.cancel(); stage = 'response';
+      if (authenticationError) throw authenticationError;
+      throw new ApiError(502, 'UPSTREAM_REJECTED', 'Server belum mengembalikan respons Scan yang sesuai.', {upstreamStatus:response.status});
+    }
     if (activityDelete) {
       // Native de6bf0 reads status only (200→true), not a typed envelope/body.
       // Discard raw browser response bytes without JSON/business-error parsing.
@@ -294,6 +556,59 @@ export class ApiClient {
     }
     const bytes = await responseBytes(response);
     stage = 'response_parse';
+    if(swaplottingWrite){
+      if(authenticationError)throw authenticationError;
+      if(signal?.aborted||session.active===false||session.tokens!==requestTokens||session.user!==swaplottingOwner)throw new ApiError(409,'SESSION_CHANGED','Sesi berubah saat pengiriman Swaplotting. Periksa hasil melalui aplikasi resmi.');
+      // Only a completely read non200 response is the native caught-failure bool.
+      // A malformed200 response stays unconfirmed under the browser delivery policy;
+      // interrupted/oversized bodies and redirects never reach this boundary.
+      let data=false;if(response.status===200){try{data=swaplottingPostOutcome(bytes,response.headers.get('content-type'),response.status);}catch(error){throw new ApiError(502,error.code,error.message,{upstreamStatus:response.status});}}
+      failed=!data;stage='response';return {status:response.status,data,contentType:'application/json'};
+    }
+    if(ratingPpatRead){
+      if(authenticationError)throw authenticationError;
+      if(response.status!==200)throw new ApiError(response.status===401?401:response.status===403?403:502,'UPSTREAM_REJECTED','Server belum mengembalikan pertanyaan Rating PPAT.',{upstreamStatus:response.status});
+      let data;
+      try{data=decodeRatingPpatBytes(bytes,response.headers.get('content-type'));}
+      catch(error){throw new ApiError(502,error.code,error.message,{upstreamStatus:response.status});}
+      stage='response';return{status:200,data,contentType:response.headers.get('content-type')||'application/octet-stream'};
+    }
+    if(berkasRatingPost){
+      if(authenticationError)throw authenticationError;
+      if(session.active===false||session.tokens!==requestTokens||session.user!==berkasRatingOwner)throw new ApiError(409,'SESSION_CHANGED','Sesi berubah saat pengiriman Rating Berkas. Periksa hasil melalui aplikasi resmi.');
+      if(!response.ok)throw new ApiError(response.status===401?401:response.status===403?403:502,'UPSTREAM_REJECTED','Server belum mengonfirmasi pengiriman Rating Berkas.',{upstreamStatus:response.status});
+      let data;try{data=decodeBerkasRatingBytes(bytes,response.headers.get('content-type'),response.status);}catch(error){throw new ApiError(502,error.code,error.message,{upstreamStatus:response.status});}
+      failed=data.error;stage='response';return {status:response.status,data,contentType:'application/json'};
+    }
+    if(ratingPpatPost){
+      if(authenticationError)throw authenticationError;
+      if(session.active===false||session.tokens!==requestTokens||session.user!==ratingPpatPostOwner)throw new ApiError(409,'SESSION_CHANGED','Sesi berubah saat pengiriman Rating PPAT berlangsung. Periksa hasil melalui aplikasi resmi.');
+      if(!response.ok)throw new ApiError(response.status===401?401:response.status===403?403:502,'UPSTREAM_REJECTED','Server belum mengonfirmasi pengiriman Rating PPAT.',{upstreamStatus:response.status});
+      const data=decodeRatingPpatPostBytes(bytes,response.headers.get('content-type'),response.status);
+      failed=!data.success;stage='response';return {status:response.status,data,contentType:'application/json'};
+    }
+    if(mitraRead){
+      if(authenticationError)throw authenticationError;
+      if(response.status!==200)throw new ApiError(response.status===401?401:response.status===403?403:502,'UPSTREAM_REJECTED','Server belum mengembalikan daftar mitra.',{upstreamStatus:response.status});
+      let data;
+      try{data=decodeMitraBytes(bytes,response.headers.get('content-type'),path);}
+      catch(error){throw new ApiError(502,error.code,error.message,{upstreamStatus:response.status});}
+      // Native models consume only body.data and ignore body.error/message.
+      // Never extend this exception to a different main-client endpoint.
+      stage='response';return{status:200,data,contentType:response.headers.get('content-type')||'application/octet-stream'};
+    }
+    if(reviewPost){
+      if(authenticationError)throw authenticationError;
+      if(session.active===false||session.tokens!==requestTokens||session.user!==reviewPostOwner)throw new ApiError(409,'SESSION_CHANGED','Sesi berubah saat pengiriman ulasan berlangsung. Periksa hasil melalui aplikasi resmi.');
+      let outcome;
+      try{outcome=lostReviewPostOutcome(bytes,response.headers.get('content-type'),response.status);}
+      catch(error){throw new ApiError(502,error.code,error.message,{upstreamStatus:response.status});}
+      stage='response';
+      if(!response.ok)throw new ApiError(response.status===401?401:response.status===403?403:502,'UPSTREAM_REJECTED','Server belum mengonfirmasi pengiriman ulasan.',{upstreamStatus:response.status});
+      // Native callback is an error flag: false means HTTP200 after the shared
+      // transform; true means another accepted status. Never expose raw body.
+      failed=outcome;return{status:response.status,data:outcome,contentType:'application/json'};
+    }
     if (documentViewer) {
       if (bytes.length < 4 || !bytes.subarray(0, 4).equals(Buffer.from('%PDF'))) throw new ApiError(502, 'INVALID_UPSTREAM_PDF', 'Server belum mengembalikan dokumen PDF yang valid.');
       stage = 'response';
@@ -309,10 +624,79 @@ export class ApiClient {
     }
     const contentType = response.headers.get('content-type') || 'application/octet-stream';
     let data;
+    if(yuridisRead||yuridisReviewRead){
+      try{
+        let jsonMime=false;
+        try{const mime=new MIMEType(contentType);jsonMime=mime.essence==='application/json'||mime.essence==='text/json'||mime.subtype.endsWith('+json');}catch{/* Native transformer keeps a String on the non-JSON path. */}
+        if(yuridisReviewRead&&!jsonMime)throw Object.assign(new Error('Respons ulasan yuridis belum memakai tipe JSON.'),{code:'YURIDIS_REVIEW_RESPONSE_UNRECOGNIZED'});
+        // Fatal UTF8 and the shared response byte cap are browser policies.
+        const text=new TextDecoder('utf-8',{fatal:true}).decode(bytes);
+        data=yuridisReviewRead?decodeYuridisLastReviewJson(text):decodeYuridisJson(text,{jsonTransformed:jsonMime});
+      }catch(error){throw new ApiError(502,error.code||'YURIDIS_RESPONSE_UNRECOGNIZED',error.message||'Respons yuridis belum sesuai kontrak.',{upstreamStatus:response.status});}
+      if(authenticationError)throw authenticationError;
+      // The feed ignores body.error/message. The last-user service conditionally
+      // wraps one raw review before yyb parsing and ignores its error flag.
+      stage='response';return{status:response.status,data,contentType};
+    }
+    if(lostReviewRead){
+      try{
+        // Same explicit MIMEType mapping as the existing queue client. The
+        // native MIME predicate matches these types, but its complete parser
+        // grammar and malformed-byte codec remain outside the bounded proof.
+        let jsonMime=false;
+        try{const mime=new MIMEType(response.headers.get('content-type')||'');jsonMime=mime.essence==='application/json'||mime.essence==='text/json'||mime.subtype.endsWith('+json');}catch{/* Non-JSON remains a String in the native transformer. */}
+        if(!jsonMime)throw Object.assign(new Error('Respons ulasan pengumuman tidak memakai tipe JSON.'),{code:'LOST_REVIEW_RESPONSE_UNRECOGNIZED'});
+        data=decodeLostReviewJson(bytes.toString('utf8'));
+        // yyb permits null, but dacd1c asserts data! before its success tuple.
+        if(!Array.isArray(data.data))throw Object.assign(new Error('Respons ulasan pengumuman belum memuat daftar.'),{code:'LOST_REVIEW_RESPONSE_UNRECOGNIZED'});
+      }catch(error){throw new ApiError(502,error.code,error.message,{upstreamStatus:response.status});}
+      // Metadata/error are typed and preserved for the browser; native list
+      // publication ignores these values. Do not apply generic error:true here.
+      stage='response';return{status:response.status,data,contentType};
+    }
+    if (lostCertificateRead) {
+      try { data = decodeLostCertificatesJson(bytes.toString('utf8'), {jsonTransformed: contentType.includes('json')}); }
+      catch (error) { throw new ApiError(502, error.code, error.message, {upstreamStatus: response.status}); }
+      // d10a04 only consumes typed data on HTTP200; it ignores error/message.
+      // Do not broaden this exception to other announcement/read endpoints.
+      stage = 'response'; return {status: 200, data, contentType};
+    }
+    if(plotRead){
+      try{data=(plotList?decodePlotListJson:decodePlotDetailJson)(bytes.toString('utf8'));}
+      catch(error){throw new ApiError(502,error.code,error.message,{upstreamStatus:response.status});}
+      stage='response';return {status:200,data,contentType};
+    }
+    if (parcelSearch) {
+      try { data = (parcelRegions ? decodeParcelRegionsJson : decodeParcelLookupJson)(bytes.toString('utf8')); }
+      catch (error) { throw new ApiError(502,error.code,error.message,{upstreamStatus:response.status}); }
+      stage = 'response';
+      // Direct Cyb list / tyb map ignores unknown keys, including error/data.
+      // In particular, a nested envelope must never replace the direct model.
+      return {status:response.status,data,contentType};
+    }
     if (contentType.includes('json') || /^[\s]*[\[{]/.test(bytes.subarray(0, 100).toString('utf8'))) {
-      try { data = JSON.parse(bytes.toString('utf8')); } catch { if (response.ok) throw new ApiError(502, 'INVALID_UPSTREAM_JSON', 'Format respons server belum dikenali.'); }
+      try { data = JSON.parse(bytes.toString('utf8')); } catch { if (response.ok) throw new ApiError(502, 'INVALID_UPSTREAM_JSON', 'Format respons server belum dikenali.', scanClassification || scanMetadata || scanMap ? {upstreamStatus:response.status} : undefined); }
     }
     stage = 'response';
+    if(disclaimerRead){
+      try{data=decodeSwaplottingDisclaimer(data===undefined?bytes.toString('utf8'):data);}
+      catch(error){throw new ApiError(502,error.code,error.message,{upstreamStatus:response.status});}
+      // jCb has no envelope error flag. Keep only the four nullable Strings;
+      // receiving text is not acceptance of its terms or proof of a visit.
+      return {status:200,data,contentType};
+    }
+    if (scanClassification || scanMetadata) {
+      try { data = scanClassification ? decodeScanClassification(data === undefined ? bytes.toString('utf8') : data) : decodeScanDocumentMetadata(data); }
+      catch (error) { throw new ApiError(502, error.code, error.message, {upstreamStatus:response.status}); }
+      return {status:200,data,contentType};
+    }
+    if (scanMap) {
+      try { data = (url.pathname === '/apis/GetPBTElDetail' ? decodeScanPbtEnvelope : decodeScanKkprEnvelope)(data); }
+      catch (error) { throw new ApiError(502,error.code,error.message,{upstreamStatus:response.status}); }
+      // Keep the native tuple flag. A valid model with error:true is not a
+      // published map; the special UI controller must gate on error===false.
+      return {status:200,data,contentType};
+    }
     if (activityRead) {
       try { data = decodeUserActivityEnvelope(data === undefined ? bytes.toString('utf8') : data); }
       catch { throw new ApiError(502, 'ACTIVITY_RESPONSE_UNRECOGNIZED', 'Respons aktivitas belum sesuai kontrak layanan.'); }
@@ -332,6 +716,19 @@ export class ApiClient {
       try { data = (collectionDecoder || decodeCollectionMutationEnvelope)(data); }
       catch { throw new ApiError(502, 'COLLECTION_RESPONSE_UNRECOGNIZED', 'Respons koleksi belum sesuai kontrak layanan.'); }
       return { status: 200, data, contentType };
+    }
+    if (verificationStatus && response.ok) {
+      // da1588 -> 8dbbfc: nullable bool/String/String; the retained consumer
+      // dispatches message independently of error. No helper-local HTTP200 gate
+      // was found, so preserve the shared accepted 2xx range without broadening it.
+      try { data = decodeVerificationStatus(data); }
+      catch { throw new ApiError(502, 'VERIFICATION_STATUS_RESPONSE_UNRECOGNIZED', 'Respons status verifikasi belum sesuai kontrak layanan.', { upstreamStatus: response.status }); }
+      return { status: response.status, data, contentType };
+    }
+    if (daringIdentity && response.status === 200) {
+      try { data = decodeDaringIdentityEnvelope(data); }
+      catch (error) { throw new ApiError(502, error.code, error.message, {upstreamStatus:response.status}); }
+      return {status:response.status,data,contentType};
     }
     const nativeBerkasEnvelope = (berkasSearch && response.status === 200) || (berkasPrintStatus && response.ok);
     if (!response.ok || (data?.error === true && !nativeBerkasEnvelope && !nearbyOffice && !officeCalendar)) {
@@ -360,7 +757,7 @@ export class ApiClient {
     } catch (error) {
       failed = true;
       if (authenticationError) { authenticationError.details = { ...authenticationError.details, ...diagnostics() }; throw authenticationError; }
-      if (error instanceof ApiError) { error.details = { ...error.details, ...diagnostics() }; throw error; }
+      if (error instanceof ApiError) { error.details = { ...error.details, ...((scanClassification || scanMetadata || scanMap) && response ? {upstreamStatus:response.status} : {}), ...diagnostics() }; throw error; }
       if (error?.code === 'REQUEST_BODY_TOO_LARGE') throw new ApiError(413, 'REQUEST_BODY_TOO_LARGE', 'Ukuran kiriman melebihi batas transport.', diagnostics());
       const failure = networkFailure(error, stage); stage = failure.stage; networkCode = failure.networkCode;
       throw new ApiError(502, 'UPSTREAM_UNREACHABLE', networkMessage(failure), diagnostics());

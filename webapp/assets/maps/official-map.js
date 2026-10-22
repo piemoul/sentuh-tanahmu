@@ -10,6 +10,7 @@ function cameraData(value){
   if(!object(value)||!object(value.center)||!finite(value.center.lat,90)||!finite(value.center.lng,180)||!Number.isInteger(value.zoom)||value.zoom<0||value.zoom>21)throw failure('OFFICIAL_MAP_CAMERA_INVALID');
   if(Math.abs(value.center.lat)>85.0511287798066)throw failure('OFFICIAL_MAP_MERCATOR_LATITUDE');
   const camera={center:{lat:value.center.lat,lng:value.center.lng},zoom:value.zoom};
+  if(Object.hasOwn(value,'pin')){if(typeof value.pin!=='boolean')throw failure('OFFICIAL_MAP_CAMERA_INVALID');camera.pin=value.pin;}
   if(Object.hasOwn(value,'bounds')&&value.bounds!==undefined){
     const bounds=value.bounds;
     if(!Array.isArray(bounds)||bounds.length!==2||![bounds[0],bounds[1]].every(point=>Array.isArray(point)&&point.length===2&&finite(point[0],90)&&finite(point[1],180))
@@ -100,11 +101,11 @@ export function createOfficialMap(container,input,{leaflet,config:rawConfig}={})
     listen(overlay,'tileerror',()=>{overlayFailed=true;report();});
     // Keep warnings until remount: load/tilesloaded alone is not an HTTP result.
     listen(map,'zoomend',zoom);base.addTo(map);overlay.addTo(map);
-    marker=leaflet.marker(referencePoint,{
+    if(camera.pin!==false){marker=leaflet.marker(referencePoint,{
       icon:leaflet.icon({iconUrl:'/assets/vendor/leaflet/images/marker-icon.png',iconRetinaUrl:'/assets/vendor/leaflet/images/marker-icon-2x.png',shadowUrl:'/assets/vendor/leaflet/images/marker-shadow.png',iconSize:[25,41],iconAnchor:[12,41],tooltipAnchor:[16,-28],shadowSize:[41,41]}),
       keyboard:true,alt:'Titik acuan bidang',title:'Titik acuan bidang',
     }).bindTooltip('Titik acuan bidang');
-    marker.addTo(map);resetView();
+    marker.addTo(map);}resetView();
     const Resize=container.ownerDocument?.defaultView?.ResizeObserver;
     if(Resize){resize=new Resize(()=>{if(!closed&&active(owner??container)){map.invalidateSize({animate:false});if(camera.bounds)resetView();}});resize.observe(container);}
     canvases.set(container,controller);if(owner)owners.set(owner,controller);controls(owner,true);zoom();report();return controller;
@@ -134,6 +135,9 @@ function loadLeaflet(document){
   });
   libraries.set(document,promise);void promise.catch(()=>{if(libraries.get(document)===promise)libraries.delete(document);});return promise;
 }
+// Shared bundled library loader; office point maps do not require a parcel
+// boundary or a Bhumi configuration request merely to load Leaflet.
+export {loadLeaflet as loadMapLibrary};
 
 export function startOfficialMaps(root=globalThis.document,{configLoader,libraryLoader}={}){
   if(!root?.querySelectorAll)throw failure('OFFICIAL_MAP_CONTAINER_UNAVAILABLE');

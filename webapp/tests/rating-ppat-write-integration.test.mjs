@@ -1,0 +1,51 @@
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import vm from 'node:vm';
+const source=fs.readFileSync(new URL('../app.js',import.meta.url),'utf8');
+const functions=['isAktaItem','aktaRows','ratingPpatOperation','ratingPpatCurrent','ratingPpatPage','openAktaRating','ratingPpatWriteOperation','ratingPpatWriteKey','ratingPpatCanWrite','ratingPpatWrite','resetRatingPpatResult','finishRatingPpat','navigate','clearPrivate'];
+function setup({firstRoute='services'}={}){
+ const get={id:'get-ratingppat-getratingquestions-d1d6bc',endpoint:'RatingPPAT/GetRatingQuestions',auth:'session',method:'GET',effect:'read',serviceId:'main',encoding:'none',enabled:true};
+ const post={id:'post-ratingppat-postratingppat-d86e10',endpoint:'RatingPPAT/PostRatingPPAT',path:'RatingPPAT/PostRatingPPAT',auth:'session',method:'POST',effect:'write',serviceId:'main',encoding:'json',requiresConfirmation:true,enabled:true};
+ const item={aktaId:' raw-akta ',namaPPAT:'PPAT SINTETIS',readyToRatingPPAT:true,sertipikatAkta:[{}]},response={status:200,data:{message:[item]}},reader={response,loading:false},flowResults=new Map([['akta:default',reader]]),captures=[],calls=[],listeners=new Set();
+ const model={stage:'ready',selection:new Map([['9','answer-nine'],['2','answer-two']]),groups:[{},{}],incomplete:false};
+ let paints=0,disposals=0,renders=0,shown=0,reply=async()=>({result:{status:201,data:{success:true,message:'SINTETIS'}}});
+ const modal={innerHTML:'',open:false,close(){this.open=false;},showModal(){this.open=true;shown++;}},main={contains:button=>button.owned!==false},button={isConnected:true,closest:()=>({dataset:{aktaIndex:'0'}})};
+ const context={structuredClone,Map,Set,Object,Number,JSON,Promise,URLSearchParams,route:'akta',ratingPpatFirstRoute:firstRoute,ratingPpatResultWait:null,ratingPpatWrites:new Map(),state:{authenticated:true,loading:false,operations:[get,post],connection:{configured:true},results:new Map(),points:[],activity:[]},flowResults,logoutPending:false,sessionEpoch:4,detailSequence:8,flowQuery:'parent query',flowPageIndex:2,ready:op=>op.enabled,currentFlow:()=>({key:'akta:default'}),$:selector=>selector==='#main'?main:modal,document:{body:{classList:{remove(){}}}},location:{hash:'#/akta'},window:{scrollTo(){},addEventListener(type,fn){assert.equal(type,'hashchange');listeners.add(fn);},removeEventListener(type,fn){assert.equal(type,'hashchange');listeners.delete(fn);}},render:()=>renders++,toast(){},flowPage:()=>'<parent>',esc:value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),createRatingPPATHost:opts=>{captures.push(opts);return {html:()=>'<child>',dispose(){disposals++;},paint(){paints++;},controller:{snapshot:()=>structuredClone(model)}};},api:async(path,request)=>{calls.push({path,request});return reply();},resetScanHost(){},resetPersilMaps(){},resetSearchFileNavigation(){},resetPartnerNavigation(){},resetCollectionNavigation(){},resetNewsNavigation(){},routes:{services:'Layanan',akta:'Aktaku',dashboard:'Beranda',account:'Profil'},flowTab:'',search:'',group:'',filter:'',selected:null,pending:null};
+ vm.createContext(context);vm.runInContext(functions.map(name=>{const line=source.split(/\r?\n/).find(line=>line.startsWith('function '+name+'(')||line.startsWith('async function '+name+'('));assert.ok(line,name);return line;}).join('\n'),context);
+ const h={c:context,get,post,item,reader,response,model,button,captures,calls,modal,listeners,setReply(value){reply=value;},open(){assert.equal(context.openAktaRating(0,button),true);return flowResults.get('akta:rating');},values(){return {aktaId:item.aktaId,PertanyaanRatingPPATId:Array.from(model.selection.values())};},deliverHash(){context.navigate();for(const fn of [...listeners])fn();},get paints(){return paints;},get disposals(){return disposals;},get renders(){return renders;},get shown(){return shown;}};return h;
+}
+test('product records its first rendered SPA route once at startup',()=>{assert.match(source,/navigate\(\);ratingPpatFirstRoute=route;load\(\);/);});
+test('visible child writes exact source entry and selection insertion order with confirmation',async()=>{
+ const h=setup(),owner=h.open();assert.equal(h.captures[0].writeAvailable(),true);const outcome=await h.captures[0].write(h.values());assert.deepEqual({...outcome},{success:true,message:'SINTETIS'});assert.deepEqual(JSON.parse(JSON.stringify(h.calls)),[{path:'/api/execute',request:{method:'POST',body:{operationId:h.post.id,values:{aktaId:' raw-akta ',PertanyaanRatingPPATId:['answer-nine','answer-two']},confirm:true}}}]);assert.equal(h.c.ratingPpatWrites.size,0);assert.equal(h.reader.response,h.response);assert.equal(owner.item,h.item);assert.equal(h.item.readyToRatingPPAT,true);
+});
+test('source-bound submission rejects edited ID, choices, ordering, sparse list and extra fields before API',async()=>{
+ for(const mutate of [v=>v.aktaId='other',v=>v.PertanyaanRatingPPATId.reverse(),v=>v.PertanyaanRatingPPATId[0]='invented',v=>delete v.PertanyaanRatingPPATId[0],v=>v.extra='x',v=>v.PertanyaanRatingPPATId.push('extra')]){const h=setup();h.open();const values=h.values();mutate(values);await assert.rejects(h.captures[0].write(values));assert.equal(h.calls.length,0);}
+});
+test('native loaded empty questionnaire and empty original ID are forwarded without fabricated values',async()=>{
+ const h=setup();h.item.aktaId='';h.model.stage='empty';h.model.groups=[];h.model.selection.clear();h.open();await h.captures[0].write(h.values());assert.deepEqual(JSON.parse(JSON.stringify(h.calls[0].request.body.values)),{aktaId:'',PertanyaanRatingPPATId:[]});
+});
+test('loading or count-incomplete snapshots cannot reach the writer',async()=>{
+ for(const patch of [{stage:'loading'},{incomplete:true}]){const h=setup();Object.assign(h.model,patch);h.open();await assert.rejects(h.captures[0].write(h.values()));assert.equal(h.calls.length,0);}
+});
+test('wrong write catalog scope and disabled/account/loading gates cannot dispatch',async()=>{
+ for(const mutate of [h=>h.post.enabled=false,h=>h.post.requiresConfirmation=false,h=>h.post.path='other',h=>h.post.encoding='form',h=>h.post.clientProfile='other',h=>h.post.auth='optionalSession',h=>h.c.state.authenticated=false,h=>h.c.state.loading=true,h=>h.c.state.connection.configured=false,h=>h.c.logoutPending=true]){const h=setup();h.open();mutate(h);assert.equal(h.captures[0].writeAvailable(),false);await assert.rejects(h.captures[0].write(h.values()));assert.equal(h.calls.length,0);}
+});
+test('one pending write is shared across retirement and reopening the same raw Akta',async()=>{
+ const h=setup();let resolve;h.setReply(()=>new Promise(r=>resolve=r));h.open();const old=h.captures[0],pending=old.write(h.values());assert.equal(h.calls.length,1);old.onBack();h.open();const next=h.captures[1];assert.equal(next.writeAvailable(),false);await assert.rejects(next.write(h.values()));assert.equal(h.calls.length,1);resolve({result:{status:200,data:{success:true,message:'old'}}});await assert.rejects(pending,{code:'SESSION_CHANGED'});assert.equal(next.writeAvailable(),true);assert.equal(h.c.ratingPpatWrites.size,0);assert.ok(h.paints>0);assert.equal(h.shown,0);
+});
+test('stale source/session/route completions release lock and cannot produce a result',async()=>{
+ for(const mutate of [h=>h.c.sessionEpoch++,h=>h.c.route='services',h=>h.reader.response={...h.response}]){const h=setup();let resolve;h.setReply(()=>new Promise(r=>resolve=r));h.open();const opts=h.captures[0],pending=opts.write(h.values());mutate(h);resolve({result:{status:201,data:{success:true,message:'stale'}}});await assert.rejects(pending,{code:'SESSION_CHANGED'});assert.equal(h.c.ratingPpatWrites.size,0);assert.equal(h.shown,0);}
+});
+test('server-side session errors stay exceptions and never become fabricated status responses',async()=>{
+ for(const code of ['SESSION_EXPIRED','SESSION_CHANGED']){const h=setup();h.open();h.setReply(async()=>{throw Object.assign(new Error('session'),{code});});await assert.rejects(h.captures[0].write(h.values()),{code});assert.equal(h.c.ratingPpatWrites.size,0);assert.equal(h.shown,0);}
+});
+test('ordinary true and false tuples share the first-route message path without Akta refresh',()=>{
+ for(const success of [true,false]){const h=setup();h.open();assert.equal(h.captures[0].onResult({success,message:'<img src=x onerror="bad()"> & SINTETIS'}),true);assert.equal(h.c.location.hash,'#/services');assert.equal(h.shown,0);h.deliverHash();assert.equal(h.c.route,'services');assert.equal(h.shown,1);assert.match(h.modal.innerHTML,/data-rating-ppat-result/);assert.match(h.modal.innerHTML,/&lt;img src=x onerror=&quot;bad\(\)&quot;&gt; &amp; SINTETIS/);assert.doesNotMatch(h.modal.innerHTML,/<img/);assert.equal(h.calls.length,0);assert.equal(h.item.readyToRatingPPAT,true);assert.equal(h.reader.response,h.response);assert.equal(h.disposals,1);assert.equal(h.listeners.size,0);}
+});
+test('when Akta is the first SPA route the empty server message is preserved and no route read starts',()=>{
+ const h=setup({firstRoute:'akta'});h.open();h.captures[0].onResult({success:true,message:''});assert.equal(h.shown,1);assert.match(h.modal.innerHTML,/<p data-rating-ppat-message><\/p>/);assert.equal(h.calls.length,0);assert.equal(h.listeners.size,0);assert.equal(h.c.flowQuery,'parent query');assert.equal(h.c.flowPageIndex,2);
+});
+test('logout and navigation to another route suppress delayed result overlay',()=>{
+ for(const action of ['logout','other-route']){const h=setup();h.open();h.captures[0].onResult({success:false,message:'old'});if(action==='logout'){h.c.clearPrivate();h.c.sessionEpoch++;h.c.state.authenticated=false;}else h.c.location.hash='#/dashboard';h.deliverHash();assert.equal(h.shown,0);assert.equal(h.listeners.size,0);}
+});
+test('invalid or stale result callback cannot close current content or show an overlay',()=>{
+ for(const value of [null,{success:'true',message:'x'},{success:true,message:4}]){const h=setup(),owner=h.open();assert.equal(h.captures[0].onResult(value),false);assert.equal(h.c.flowResults.get('akta:rating'),owner);assert.equal(h.shown,0);}const h=setup();h.open();h.c.sessionEpoch++;assert.equal(h.captures[0].onResult({success:true,message:'stale'}),false);assert.equal(h.shown,0);
+});

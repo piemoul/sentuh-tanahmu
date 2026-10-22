@@ -1,6 +1,18 @@
 // Execute actual frontend functions with synthetic account data and an in-memory API.
 import fs from 'node:fs';
 import vm from 'node:vm';
+import {createCollectionSavePersil,collectionSavePersilEligible,collectionSavePersilEntry} from '../../webapp/collection-save-persil.js';
+// Bind the real new host helpers/module to legacy VM fixtures; assertions and
+// existing source-function renderers remain unchanged.
+function createPersilFixtureContext(...args){
+  const context=vm.createContext(...args);
+  Object.assign(context,{createCollectionSavePersil,collectionSavePersilEligible,collectionSavePersilEntry});
+  const dependencies=new Set(['nativeResponseObject','nativeAccountSummary','collectionTab','collectionGroupCreated']);
+  const declarations=String(source).split(/\r?\n/).filter(line=>/^(?:async )?function (?:persilMap\w+|resetPersilMaps|resetScanHost|scanDisposeLocation)\(/.test(line)||dependencies.has(line.match(/^(?:async )?function (\w+)\(/)?.[1])).join('\n');
+  vm.runInContext(declarations,context);
+  return context;
+}
+
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 
@@ -28,7 +40,7 @@ function harness(route='queue',authenticated=true){
  const requests=[],records=[],toasts=[],queued=[],listeners=[];
  const state={authenticated,user:authenticated?{username:'synthetic-user'}:null,operations:[{id:'queue-list-fixture',endpoint:listEndpoint,enabled:true,effect:'read',auth:'session',fields:[]},{id:'queue-detail-fixture',endpoint:detailEndpoint,enabled:true,effect:'read',auth:'session',fields:[{path:'path_argument_1',source:'input',type:'string'}]},{id:'queue-calls-fixture',endpoint:callsEndpoint,enabled:true,effect:'read',auth:'session',fields:[]}],results:new Map(),connection:{configured:true},loading:false,points:[],activity:[]};
  const modal={innerHTML:'',open:false,close(){this.open=false;},showModal(){this.open=true;}};
- const c=vm.createContext({state,Map,Object,Array,JSON,String,Number,BigInt,Date,URLSearchParams,route,flowTab:'',flowResults:new Map(),sessionEpoch:0,detailSequence:0,flowDetail:null,htDetailData:null,flowQuery:'',flowPageIndex:0,comparison:null,comparisonSelection:{},pending:null,selected:null,search:'',group:'Semua',filter:'Semua',
+ const c=createPersilFixtureContext({state,Map,Object,Array,JSON,String,Number,BigInt,Date,URLSearchParams,route,flowTab:'',flowResults:new Map(),sessionEpoch:0,detailSequence:0,flowDetail:null,htDetailData:null,flowQuery:'',flowPageIndex:0,comparison:null,comparisonSelection:{},pending:null,selected:null,search:'',group:'Semua',filter:'Semua',
   location:{hash:'#/'+route},routes:{queue:'Antrian Daring',activity:'Aktivitas',account:'Profil',dashboard:'Beranda'},window:{scrollTo(){}},document:{addEventListener:(event,fn)=>{if(event==='click')listeners.push(fn);},body:{classList:{remove(){}}}},queueMicrotask:fn=>queued.push(fn),$:()=>modal,
   resetSearchFileNavigation(){},resetPartnerNavigation(){},renderCalls:0,render(){c.renderCalls++;},record:(...args)=>records.push(args),toast:value=>toasts.push(value),icon:()=>'',badge:()=>'',head:(_e,t,d)=>`<h1>${t}</h1><p>${d}</p>`,notice:(value,kind)=>`<div class="notice ${kind}" role="alert">${value}</div>`,unavailablePage:()=>'<p>ACTIVITY LIST VIEW</p>',
   currentFlow:()=>c.route==='activity'?{key:'activity:default',def:{title:'Aktivitas'},tab:{},op:{endpoint:'activity/GetUserActivity'}}:null,

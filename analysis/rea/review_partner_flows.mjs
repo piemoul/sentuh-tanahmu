@@ -1,6 +1,18 @@
 // Actual-function Mitra regression. Synthetic requests only; baseline report is immutable.
 import fs from 'node:fs';
 import vm from 'node:vm';
+import {createCollectionSavePersil,collectionSavePersilEligible,collectionSavePersilEntry} from '../../webapp/collection-save-persil.js';
+// Bind the real new host helpers/module to legacy VM fixtures; assertions and
+// existing source-function renderers remain unchanged.
+function createPersilFixtureContext(...args){
+  const context=vm.createContext(...args);
+  Object.assign(context,{createCollectionSavePersil,collectionSavePersilEligible,collectionSavePersilEntry});
+  const dependencies=new Set(['nativeResponseObject','nativeAccountSummary','collectionTab','collectionGroupCreated']);
+  const declarations=String(source).split(/\r?\n/).filter(line=>/^(?:async )?function (?:persilMap\w+|resetPersilMaps|resetScanHost|scanDisposeLocation)\(/.test(line)||dependencies.has(line.match(/^(?:async )?function (\w+)\(/)?.[1])).join('\n');
+  vm.runInContext(declarations,context);
+  return context;
+}
+
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {OPERATIONS} from '../../webapp/private/operations.mjs';
@@ -24,7 +36,7 @@ function harness(){
  const modal={open:false,innerHTML:'',showModal(){this.open=true},close(){this.open=false}};
  const searchInput={focusCalls:0,focus(){this.focusCalls++},setSelectionRange(a,b){this.selection=[a,b]}};
  const state={authenticated:false,user:null,operations:OPERATIONS.filter(op=>op.endpoint.startsWith('Mitra/')).map(op=>({...op})),results:new Map(),connection:{configured:true},points:[],activity:[],selectedPoint:null};
- const c=vm.createContext({state,Map,Object,String,Number,Array,JSON,BigInt,Date,Intl,console,URLSearchParams,route:'partners',flowTab:'kantorppat',searchFileState:null,partnerFrame:null,flowResults:new Map(),flowDetail:null,htDetailData:null,flowQuery:'',flowPageIndex:0,detailSequence:0,sessionEpoch:0,comparison:null,comparisonSelection:{},pending:null,selected:null,search:'',group:'Semua',filter:'Semua',routes:{partners:'Mitra Kerja',dashboard:'Beranda',account:'Profil'},location:{hash:'#/partners'},window:{scrollTo(){}},document:{body:{classList:{remove(){}}},addEventListener(name,fn){events[name]=fn}},ready:op=>op.enabled===true,write:op=>op.effect==='write',needsAuth:op=>op.auth==='session',$:selector=>selector==='#modal'?modal:selector==='#flow-search'?searchInput:null,renderCalls:0,render:()=>{c.renderCalls++},esc,json:value=>esc(JSON.stringify(value)),icon:()=>'',badge:value=>`<span>${esc(value)}</span>`,head:(...values)=>values.map(esc).join(' '),notice:value=>value,empty:(...values)=>values.map(esc).join(' '),unavailablePage:()=>'',record:(...values)=>records.push(values),toast:value=>toasts.push(value),api:(path,options)=>{fixtureCalls++;const pending=deferred();requests.push({path,options,...pending});return pending.promise}});
+ const c=createPersilFixtureContext({state,Map,Object,String,Number,Array,JSON,BigInt,Date,Intl,console,URLSearchParams,route:'partners',flowTab:'kantorppat',searchFileState:null,partnerFrame:null,flowResults:new Map(),flowDetail:null,htDetailData:null,flowQuery:'',flowPageIndex:0,detailSequence:0,sessionEpoch:0,comparison:null,comparisonSelection:{},pending:null,selected:null,search:'',group:'Semua',filter:'Semua',routes:{partners:'Mitra Kerja',dashboard:'Beranda',account:'Profil'},location:{hash:'#/partners'},window:{scrollTo(){}},document:{body:{classList:{remove(){}}},addEventListener(name,fn){events[name]=fn}},ready:op=>op.enabled===true,write:op=>op.effect==='write',needsAuth:op=>op.auth==='session',$:selector=>selector==='#modal'?modal:selector==='#flow-search'?searchInput:null,renderCalls:0,render:()=>{c.renderCalls++},esc,json:value=>esc(JSON.stringify(value)),icon:()=>'',badge:value=>`<span>${esc(value)}</span>`,head:(...values)=>values.map(esc).join(' '),notice:value=>value,empty:(...values)=>values.map(esc).join(' '),unavailablePage:()=>'',record:(...values)=>records.push(values),toast:value=>toasts.push(value),api:(path,options)=>{fixtureCalls++;const pending=deferred();requests.push({path,options,...pending});return pending.promise}});
  vm.runInContext(definition+'\n'+names.map(get).join('\n')+'\n'+clickSource,c);
  const h={c,state,requests,records,toasts,events,modal,searchInput};
  h.seed=(tab,rows)=>{c.resetPartnerNavigation();c.flowTab=tab;c.flowQuery='';c.flowPageIndex=0;const context=c.currentFlow();c.flowResults.set(context.key,{response:response(rows)});return context};

@@ -324,6 +324,27 @@ test('throwing log sink cannot change result or introduce upstream diagnostics',
   assert.deepEqual(f.logs,[{event:'bhumi_tile_request',service:'bhumi-wms',method:'GET',path:'/expapi/live-bhumi-wms',attempt:1,status:200,outcome:'success'}]);
 });
 
+test('default production sink records fixed Bhumi outcomes without tile coordinates or secrets',async()=>{
+  const lines=[],original=process.stdout.write;
+  process.stdout.write=(line)=>{lines.push(String(line));return true;};
+  let client;
+  try {
+    let calls=0;
+    client=new BhumiMapClient({bhumiAuthKey:()=>AUTHKEY},{
+      mainClient:{ensureFresh(){},request(){return{status:200,data:{message:TOKEN}};}},
+      transport:async()=>++calls===1?image():image('private upstream text',502,'text/plain'),
+    });
+    const active=session();
+    assert.equal((await client.tile(tile({session:active}))).status,200);
+    await rejects(client.tile(tile({session:active})),'BHUMI_HTTP_STATUS');
+  } finally {client?.close();process.stdout.write=original;}
+  assert.deepEqual(lines.map(line=>JSON.parse(line)),[
+    {event:'bhumi_tile_request',service:'bhumi-wms',method:'GET',path:'/expapi/live-bhumi-wms',attempt:1,status:200,outcome:'success'},
+    {event:'bhumi_tile_request',service:'bhumi-wms',method:'GET',path:'/expapi/live-bhumi-wms',attempt:1,status:502,outcome:'failure',code:'BHUMI_HTTP_STATUS'},
+  ]);
+  assert.doesNotMatch(lines.join(''),new RegExp(`${TOKEN}|${AUTHKEY}|synthetic-main-access|private upstream text|bbox|authkey|token|longitude|latitude`));
+});
+
 test('default transport uses fetch with standard verified TLS and no custom identity options',async()=>{
   const original=globalThis.fetch;const calls=[];
   globalThis.fetch=async(url,init)=>{calls.push({url,init});return image();};

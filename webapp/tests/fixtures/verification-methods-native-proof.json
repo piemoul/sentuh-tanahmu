@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Fixed public native initial-method instructions and illustration provenance for source-only checkout tests.",
+  "nativeEvidence": {
+    "file": "analysis/recovered/verification-methods-followup/flow.json",
+    "sha256": "86a32299f9b50a0b6393009ee2599ba00dfd829f44db9a18ee7a389b94743977",
+    "artifactSha256": "bbc7f3bde07502916f00915afe55028a391efd57a5d47e5b30bd820aabd4a683",
+    "poolSha256": "871487859dabdd17e109645a1e788098c6f168a44d4dce9626136ed558502e04"
+  },
+  "runtimeObserved": false,
+  "productionRequests": 0,
+  "applicationChanged": false,
+  "credentialsReadOrExported": false,
+  "chooserDefaultSelectionProven": false,
+  "methods": [
+    {
+      "name": "Daring",
+      "text": [
+        "Cek dulu nih, pastikan e-KTP-mu belum terkait sama akun Sentuh Tanahku lain.",
+        "Kalau udah terkait, kamu bisa lepasin tautannya pake akun IKD di menu berikutnya, ya!"
+      ],
+      "asset": {
+        "packagedName": "KTP.png",
+        "file": "webapp/assets/profile/verification-ktp.png",
+        "bytes": 522604,
+        "sha256": "10a1bf99a31d2bbbd9b6f6ddc45409032f006b1d8b4b70a0d74e148cd542c98e",
+        "width": 2387,
+        "height": 1790,
+        "contentType": "image/png"
+      }
+    },
+    {
+      "name": "Luring",
+      "instructions": [
+        "1. Datang ke Anjungan Pencetakan Sertipikat terdekat.",
+        "2. Validasi identitas menggunakan e-KTP.",
+        "3. Pilih menu Sentuh Tanahku pada layar.",
+        "4. Pindai kode QR yang tersedia.",
+        "5. Periksa kembali data kamu",
+        "6. Ketuk tombol Verifikasi Akun",
+        "7. Tunggu proses selesai, lalu akun Kamu berhasil diverifikasi."
+      ],
+      "asset": {
+        "packagedName": "aps.png",
+        "file": "webapp/assets/profile/verification-aps.png",
+        "bytes": 145072,
+        "sha256": "c1edb70bb8440d2a4a6bf44937b77c613ad6fc686e3d1f3e0cd2167101ec7202",
+        "width": 1065,
+        "height": 2922,
+        "contentType": "image/png"
+      }
+    },
+    {
+      "name": "IKD",
+      "text": [
+        "Pastikan kamu sudah memiliki akun Identitas Kependudukan Digital (IKD) dari Dukcapil.",
+        "Jika belum punya, kamu bisa mendaftarkannya di Dukcapil terdekat."
+      ],
+      "asset": {
+        "packagedName": "ikd.png",
+        "file": "webapp/assets/profile/verification-ikd.webp",
+        "bytes": 11682,
+        "sha256": "96b4fafe842e6cf0c718c0da370de365276442e917482dd86d48c6f0b47dbf23",
+        "width": 240,
+        "height": 240,
+        "contentType": "image/webp"
+      }
+    }
+  ],
+  "scope": "Public copy and packaged image facts only. Browser method selection and disabled continuation are declared adaptations; identity, OTP, scanner, liveness, IKD handoff and submission are not reconstructed."
+}

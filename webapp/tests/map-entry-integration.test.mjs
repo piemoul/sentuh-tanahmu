@@ -19,6 +19,7 @@ function harness(){
   const slot={isConnected:true,innerHTML:''},modal={open:true},calls=[];
   const c=vm.createContext({parcelMapView,JSON,Object,Array,Number,Math,String,Error,
     state:{authenticated:true,operations:structuredClone(OPERATIONS)},sessionEpoch:1,detailSequence:1,flowPageIndex:0,
+    flowDetail:null,flowResults:new Map(),persilMapForCertificate:()=>null,persilMapActionView:()=>'',
     nativeListResultView:()=>null,dataItems:()=>null,notice:text=>`<p role="note">${esc(text)}</p>`,esc,
     json:value=>esc(JSON.stringify(value)),ready:op=>op.enabled===true,$:()=>modal,
     record(){},render(){},toast(){},clearPrivate(){},api:async(path,options)=>{calls.push({path,options});return {result:{status:200,data:structuredClone(data)}};},

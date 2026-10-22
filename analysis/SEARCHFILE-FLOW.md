@@ -10,8 +10,8 @@ The authoritative [root-flow ledger](recovered/searchfile-flow.json) includes th
 
 Two separate, frozen supplements resolve the form encoding and shared status policy without changing those original ledgers:
 
-- [Nullable form ledger](C:/ai/CLAWD/sentuh_tanahmu/analysis/recovered/searchfile-null-form/null-form.json), checked by [verify_searchfile_null_form.py](C:/ai/CLAWD/sentuh_tanahmu/analysis/rea/verify_searchfile_null_form.py): **11 source hashes, 1,704 exact ELF instructions, 86 decisive markers, 39 pool literal references and 3 dependency hashes**.
-- [Encoding and status follow-up](C:/ai/CLAWD/sentuh_tanahmu/analysis/recovered/searchfile-null-form/transport-followup.json), checked by [verify_searchfile_transport_followup.py](C:/ai/CLAWD/sentuh_tanahmu/analysis/rea/verify_searchfile_transport_followup.py): **6 source hashes, 431 exact ELF instructions, 33 decisive markers, 6 dependency hashes and 128 ASCII mask entries**. It reuses the frozen document-geo encoder proof. These counts are separate verifier results, not a deduplicated total.
+- [Nullable form ledger](recovered/searchfile-null-form/null-form.json), checked by [verify_searchfile_null_form.py](rea/verify_searchfile_null_form.py): **11 source hashes, 1,704 exact ELF instructions, 86 decisive markers, 39 pool literal references and 3 dependency hashes**.
+- [Encoding and status follow-up](recovered/searchfile-null-form/transport-followup.json), checked by [verify_searchfile_transport_followup.py](rea/verify_searchfile_transport_followup.py): **6 source hashes, 431 exact ELF instructions, 33 decisive markers, 6 dependency hashes and 128 ASCII mask entries**. It reuses the frozen document-geo encoder proof. These counts are separate verifier results, not a deduplicated total.
 
 Run either verifier with the same `tools/runtime/blutter-python/Scripts/python.exe` interpreter. Both supplements record zero production requests and no application changes. Statements in older frozen ledgers that left final scalar encoding unknown are historical; the supplements establish the bounded contracts below.
 

@@ -631,13 +631,13 @@ const operationData = [
   },
   {
     "id": "post-apis-scandocument-d42440",
-    "label": "Pindai dokumen",
+    "label": "Klasifikasi kode Scan",
     "group": "Layanan lainnya",
     "method": "POST",
     "endpoint": "apis/scanDocument",
     "path": "apis/scanDocument",
     "serviceId": "main",
-    "serviceMapping": "static service family; execution disabled",
+    "serviceMapping": "audited main-session Scan classification with server-owned profile",
     "encoding": "form",
     "recoveredTransport": "application/x-www-form-urlencoded",
     "auth": "session",
@@ -645,11 +645,11 @@ const operationData = [
     "effect": "write",
     "mutates": true,
     "requiresConfirmation": true,
-    "enabled": false,
-    "supported": false,
-    "inspectOnly": true,
-    "readiness": "inspect_only",
-    "reason": "Tercatat dari audit APK; adapter eksekusi operasi ini belum diaktifkan.",
+    "enabled": true,
+    "supported": true,
+    "inspectOnly": false,
+    "readiness": "ready_unverified",
+    "reason": "Klasifikasi native dengan nama profil sesi backend. Efek server belum diketahui; konfirmasi eksplisit dipertahankan. Aktivasi/geotag tidak dijalankan.",
     "fields": [
       {
         "path": "q",
@@ -657,27 +657,36 @@ const operationData = [
         "type": "string",
         "location": "body",
         "required": "unknown",
-        "clientRequired": false,
+        "clientRequired": true,
         "source": "input",
-        "recoveredType": "String"
+        "recoveredType": "String",
+        "strictString": true,
+        "allowEmpty": true,
+        "description": "Kode mentah tanpa trim/decode/split; String kosong dipertahankan sesuai barcode.code ?? empty."
       },
       {
         "path": "name",
-        "label": "name",
+        "label": "Nama dari profil sesi Scan",
         "type": "string",
         "location": "body",
         "required": "unknown",
         "clientRequired": false,
-        "source": "input",
-        "recoveredType": "String"
+        "source": "server-profile",
+        "recoveredType": "String",
+        "strictString": true,
+        "allowEmpty": true,
+        "description": "Backend mengambil nama ?? email ?? \"-\" dari account_summary sesi ini; browser tidak boleh mengirim nama."
       }
     ],
     "evidence": {
       "callAddress": "0xd42440",
-      "source": "analysis/recovered/request-callsites/00d42428.asm.txt"
+      "source": "analysis/recovered/scan-flow.json",
+      "requestSource": "analysis/recovered/request-callsites/00d42428.asm.txt",
+      "nativeProofSha256": "bfa3cdc5257b0ca57b3d9ee881a2cac4c9ecd243cf81c1493e9885fe4c823ab4"
     },
     "serverRequiredness": "unknown",
-    "serverAcceptance": "untested"
+    "serverAcceptance": "untested",
+    "serverEffects": "unknown"
   },
   {
     "id": "post-geotag-uploadgeotag-d96b98",
@@ -2530,423 +2539,331 @@ const operationData = [
   },
   {
     "id": "post-apis-swaplottingterdaftar-d9f850",
-    "label": "Plot bidang yang sudah terdaftar",
+    "label": "Swaplotting Tanah Bersertipikat",
     "group": "Peta dan geotag",
     "method": "POST",
     "endpoint": "/apis/SwaplottingTerdaftar",
     "path": "/apis/SwaplottingTerdaftar",
     "serviceId": "main",
-    "serviceMapping": "static service family; execution disabled",
+    "serviceMapping": "audited personal Swaplotting on FRb +7 main account client",
     "encoding": "multipart",
-    "recoveredTransport": "multipart FormData via 0x707bd4",
+    "recoveredTransport": "Ordered15/19 raw UTF8 scalar multipart parts then repeated file parts;32lowercasehex filenames; initial octet-stream MIME; exact shared finalizer; HTTP200 after MIME transform returns true",
     "auth": "session",
     "authenticated": true,
     "effect": "write",
     "mutates": true,
     "requiresConfirmation": true,
-    "enabled": false,
-    "supported": false,
-    "inspectOnly": true,
-    "readiness": "inspect_only",
-    "reason": "Tercatat dari audit APK; adapter eksekusi operasi ini belum diaktifkan.",
+    "enabled": true,
+    "supported": true,
+    "inspectOnly": false,
+    "readiness": "ready_unverified",
+    "reason": "Pengiriman formulir personal dari ringkasan dan byte foto milik sesi backend. Profil sendiri dan pilihan asli divalidasi ulang; tidak mengganti geotag bukti kunjungan. Penerimaan server belum diuji; tidak ada retry otomatis. Formatter koordinat, sumber nama32hex dan RNG boundary adalah adaptasi browser.",
     "fields": [
       {
-        "path": "id",
-        "label": "ID",
-        "type": "unknown",
-        "location": "body",
+        "path": "reviewId",
+        "label": "Ringkasan formulir sesi",
+        "type": "string",
+        "strictString": true,
+        "location": "local",
         "required": "unknown",
-        "clientRequired": false,
+        "clientRequired": true,
         "source": "input",
-        "recoveredType": "unknown scalar/object"
-      },
-      {
-        "path": "kluster",
-        "label": "kluster",
-        "type": "unknown",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown scalar/object"
-      },
-      {
-        "path": "namapemilik",
-        "label": "namapemilik",
-        "type": "unknown",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown scalar/object"
-      },
-      {
-        "path": "kontaktelp",
-        "label": "kontaktelp",
-        "type": "unknown",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown scalar/object"
-      },
-      {
-        "path": "kontakemail",
-        "label": "kontakemail",
-        "type": "unknown",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown scalar/object"
-      },
-      {
-        "path": "kantorid",
-        "label": "kantorid",
-        "type": "unknown",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown scalar/object"
-      },
-      {
-        "path": "namakantor",
-        "label": "namakantor",
-        "type": "unknown",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown scalar/object"
-      },
-      {
-        "path": "wilayahid",
-        "label": "wilayahid",
-        "type": "unknown",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown scalar/object"
-      },
-      {
-        "path": "namawilayah",
-        "label": "namawilayah",
-        "type": "unknown",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown scalar/object"
-      },
-      {
-        "path": "reviu",
-        "label": "reviu",
-        "type": "unknown",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown scalar/object"
-      },
-      {
-        "path": "lat",
-        "label": "lat",
-        "type": "number",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "double source passed through conversion helper 0xa944a0 before multipart; encoding must be confirmed"
-      },
-      {
-        "path": "lon",
-        "label": "lon",
-        "type": "number",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "double source passed through conversion helper 0xa944a0 before multipart; encoding must be confirmed"
-      },
-      {
-        "path": "file",
-        "label": "Foto PNG",
-        "type": "unknown",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "multipart file-like object; exact file constraints unresolved"
-      },
-      {
-        "path": "tipehakid",
-        "label": "tipehakid",
-        "type": "unknown",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown scalar/object"
-      },
-      {
-        "path": "nomorhak",
-        "label": "nomorhak",
-        "type": "unknown",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown scalar/object"
-      },
-      {
-        "path": "tipehak",
-        "label": "tipehak",
-        "type": "unknown",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown scalar"
+        "description": "Opaque review ID issued after local staging; no caller contact, labels, URLs, credentials or wire fields."
       }
     ],
     "evidence": {
       "callAddress": "0xd9f850",
-      "source": "analysis/recovered/request-callsites/range-00d9f180.asm.txt"
+      "source": "analysis/recovered/request-callsites/range-00d9f180.asm.txt",
+      "nativeProofSha256": "e835a101543ad6d3c63ed31b2b9c947ec2deea6be32093e4d45c5266afe72d94",
+      "submitSource": "analysis/recovered/swaplotting-submit-followup/flow.json",
+      "serviceSource": "analysis/recovered/swaplotting-service-followup/flow.json",
+      "serviceNativeProofSha256": "f5be07485685102e41ee39e0718f4d241dee0224fd70b3b6e447a37e0bdd65f9",
+      "multipartSource": "analysis/recovered/swaplotting-multipart-followup/flow.json",
+      "multipartNativeProofSha256": "31e4d9bbbdfdd7d77226d9cde0dfe5f6220311c5233f41382b0d03ae373c833e",
+      "sharedFinalizerSource": "analysis/recovered/lost-review-post-protocol/source-index.json",
+      "sharedFinalizerNativeProofSha256": "8c141a63e3fe77ee8b6be559914be7de58cea4fa9aaaa0c003aa31b8514b39ce",
+      "ownerSource": "analysis/recovered/swaplotting-owner-followup/flow.json"
     },
     "serverRequiredness": "unknown",
-    "serverAcceptance": "untested"
+    "serverAcceptance": "untested",
+    "clientProfile": "swaplotting-post",
+    "nativeFields": [
+      {
+        "path": "id",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "kluster",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "namapemilik",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "kontaktelp",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "kontakemail",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "tipehakid",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "tipehak",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "kantorid",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "namakantor",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "wilayahid",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "namawilayah",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "nomorhak",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "reviu",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "lat",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "lon",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "file",
+        "type": "file",
+        "location": "body",
+        "repeated": true,
+        "contentType": "application/octet-stream",
+        "source": "server-owned-review"
+      }
+    ],
+    "serverEffects": "Personal plotting upload; after success feedback dismissal, one scoped activity mutation and forced activity read; no production upload/activity request performed by validation"
   },
   {
     "id": "post-apis-swaplottingbelumterdaftar-da0be8",
-    "label": "Plot bidang yang belum terdaftar",
+    "label": "Swaplotting Tanah Belum Bersertipikat",
     "group": "Peta dan geotag",
     "method": "POST",
     "endpoint": "/apis/SwaplottingBelumTerdaftar",
     "path": "/apis/SwaplottingBelumTerdaftar",
     "serviceId": "main",
-    "serviceMapping": "static service family; execution disabled",
+    "serviceMapping": "audited personal Swaplotting on FRb +7 main account client",
     "encoding": "multipart",
-    "recoveredTransport": "multipart FormData via 0x707bd4",
+    "recoveredTransport": "Ordered15/19 raw UTF8 scalar multipart parts then repeated file parts;32lowercasehex filenames; initial octet-stream MIME; exact shared finalizer; HTTP200 after MIME transform returns true",
     "auth": "session",
     "authenticated": true,
     "effect": "write",
     "mutates": true,
     "requiresConfirmation": true,
-    "enabled": false,
-    "supported": false,
-    "inspectOnly": true,
-    "readiness": "inspect_only",
-    "reason": "Tercatat dari audit APK; adapter eksekusi operasi ini belum diaktifkan.",
+    "enabled": true,
+    "supported": true,
+    "inspectOnly": false,
+    "readiness": "ready_unverified",
+    "reason": "Pengiriman formulir personal dari ringkasan dan byte foto milik sesi backend. Profil sendiri dan pilihan asli divalidasi ulang; tidak mengganti geotag bukti kunjungan. Penerimaan server belum diuji; tidak ada retry otomatis. Formatter koordinat, sumber nama32hex dan RNG boundary adalah adaptasi browser.",
     "fields": [
       {
-        "path": "id",
-        "label": "ID",
-        "type": "unknown",
-        "location": "body",
+        "path": "reviewId",
+        "label": "Ringkasan formulir sesi",
+        "type": "string",
+        "strictString": true,
+        "location": "local",
         "required": "unknown",
-        "clientRequired": false,
+        "clientRequired": true,
         "source": "input",
-        "recoveredType": "unknown scalar/object"
-      },
-      {
-        "path": "kluster",
-        "label": "kluster",
-        "type": "unknown",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown scalar/object"
-      },
-      {
-        "path": "namapemilik",
-        "label": "namapemilik",
-        "type": "unknown",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown scalar/object"
-      },
-      {
-        "path": "kontaktelp",
-        "label": "kontaktelp",
-        "type": "unknown",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown scalar/object"
-      },
-      {
-        "path": "kontakemail",
-        "label": "kontakemail",
-        "type": "unknown",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown scalar/object"
-      },
-      {
-        "path": "kantorid",
-        "label": "kantorid",
-        "type": "unknown",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown scalar/object"
-      },
-      {
-        "path": "namakantor",
-        "label": "namakantor",
-        "type": "unknown",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown scalar/object"
-      },
-      {
-        "path": "wilayahid",
-        "label": "wilayahid",
-        "type": "unknown",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown scalar/object"
-      },
-      {
-        "path": "namawilayah",
-        "label": "namawilayah",
-        "type": "unknown",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown scalar/object"
-      },
-      {
-        "path": "reviu",
-        "label": "reviu",
-        "type": "unknown",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown scalar/object"
-      },
-      {
-        "path": "lat",
-        "label": "lat",
-        "type": "number",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "double source passed through conversion helper 0xa944a0 before multipart; encoding must be confirmed"
-      },
-      {
-        "path": "lon",
-        "label": "lon",
-        "type": "number",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "double source passed through conversion helper 0xa944a0 before multipart; encoding must be confirmed"
-      },
-      {
-        "path": "file",
-        "label": "Foto PNG",
-        "type": "unknown",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "multipart file-like object; exact file constraints unresolved"
-      },
-      {
-        "path": "alamat",
-        "label": "alamat",
-        "type": "unknown",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown scalar/object"
-      },
-      {
-        "path": "alashak",
-        "label": "alashak",
-        "type": "unknown",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown scalar/object"
-      },
-      {
-        "path": "nomoralashak",
-        "label": "nomoralashak",
-        "type": "unknown",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown scalar/object"
-      },
-      {
-        "path": "keteranganalashak",
-        "label": "keteranganalashak",
-        "type": "unknown",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown scalar/object"
-      },
-      {
-        "path": "buktipajak",
-        "label": "buktipajak",
-        "type": "unknown",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown scalar/object"
-      },
-      {
-        "path": "nomorbuktipajak",
-        "label": "nomorbuktipajak",
-        "type": "unknown",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown scalar/object"
-      },
-      {
-        "path": "keteranganbuktipajak",
-        "label": "keteranganbuktipajak",
-        "type": "unknown",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown scalar/object"
+        "description": "Opaque review ID issued after local staging; no caller contact, labels, URLs, credentials or wire fields."
       }
     ],
     "evidence": {
       "callAddress": "0xda0be8",
-      "source": "analysis/recovered/request-callsites/range-00da03e0.asm.txt"
+      "source": "analysis/recovered/request-callsites/range-00da03e0.asm.txt",
+      "nativeProofSha256": "e835a101543ad6d3c63ed31b2b9c947ec2deea6be32093e4d45c5266afe72d94",
+      "submitSource": "analysis/recovered/swaplotting-submit-followup/flow.json",
+      "serviceSource": "analysis/recovered/swaplotting-service-followup/flow.json",
+      "serviceNativeProofSha256": "f5be07485685102e41ee39e0718f4d241dee0224fd70b3b6e447a37e0bdd65f9",
+      "multipartSource": "analysis/recovered/swaplotting-multipart-followup/flow.json",
+      "multipartNativeProofSha256": "31e4d9bbbdfdd7d77226d9cde0dfe5f6220311c5233f41382b0d03ae373c833e",
+      "sharedFinalizerSource": "analysis/recovered/lost-review-post-protocol/source-index.json",
+      "sharedFinalizerNativeProofSha256": "8c141a63e3fe77ee8b6be559914be7de58cea4fa9aaaa0c003aa31b8514b39ce",
+      "ownerSource": "analysis/recovered/swaplotting-owner-followup/flow.json"
     },
     "serverRequiredness": "unknown",
-    "serverAcceptance": "untested"
+    "serverAcceptance": "untested",
+    "clientProfile": "swaplotting-post",
+    "nativeFields": [
+      {
+        "path": "id",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "kluster",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "namapemilik",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "kontaktelp",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "kontakemail",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "alamat",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "alashak",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "nomoralashak",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "keteranganalashak",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "buktipajak",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "nomorbuktipajak",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "keteranganbuktipajak",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "kantorid",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "namakantor",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "wilayahid",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "namawilayah",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "reviu",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "lat",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "lon",
+        "type": "string",
+        "location": "body",
+        "source": "server-owned-review"
+      },
+      {
+        "path": "file",
+        "type": "file",
+        "location": "body",
+        "repeated": true,
+        "contentType": "application/octet-stream",
+        "source": "server-owned-review"
+      }
+    ],
+    "serverEffects": "Personal plotting upload; after success feedback dismissal, one scoped activity mutation and forced activity read; no production upload/activity request performed by validation"
   },
   {
     "id": "post-plotbidang-instansibelumbersertipikat-ddaa14",
@@ -3807,57 +3724,86 @@ const operationData = [
     "endpoint": "berkas/postratingberkas",
     "path": "berkas/postratingberkas",
     "serviceId": "main",
-    "serviceMapping": "static service family; execution disabled",
+    "serviceMapping": "audited main-session original selected Berkasku rating submission",
     "encoding": "multipart",
-    "recoveredTransport": "FormData via constructor0x707bd4; final field encoding unresolved",
+    "recoveredTransport": "Ordered nativeFormData Berkasid,rating,userComment; rawUTF8 scalar bytes and sharedLOST finalizer; shared2xx response body strict nullablebool/String",
     "auth": "session",
     "authenticated": true,
     "effect": "write",
     "mutates": true,
     "requiresConfirmation": true,
-    "enabled": false,
-    "supported": false,
-    "inspectOnly": true,
-    "readiness": "inspect_only",
-    "reason": "Tercatat dari audit APK; adapter eksekusi operasi ini belum diaktifkan.",
+    "enabled": true,
+    "supported": true,
+    "inspectOnly": false,
+    "readiness": "ready_unverified",
+    "reason": "Penilaian hanya dari detail Berkasku dengan readyToRating=true pada baris asli dan konteks sesi opaque yang mengikat ID asli daftar, bukan ID tampilan, koleksi atau aktivitas. Komentar dipangkas seperti native; bintang integer1–5. Respons error=false bertipe menyatakan hasil layanan, tanpa receipt. Guard unknown/accepted dan TTL120s adalah adaptasi browser; tidak ada retry otomatis atau uji kirim produksi.",
     "fields": [
       {
-        "path": "Berkasid",
-        "label": "ID berkas",
-        "type": "unknown",
-        "location": "body",
+        "path": "contextId",
+        "label": "Konteks detail Berkasku",
+        "type": "string",
+        "strictString": true,
+        "location": "local",
         "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unresolved"
+        "clientRequired": true,
+        "source": "input"
       },
       {
         "path": "rating",
-        "label": "rating",
+        "label": "Bintang penilaian",
         "type": "integer",
+        "strictNumber": true,
+        "minimum": 1,
+        "maximum": 5,
         "location": "body",
         "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "int"
+        "clientRequired": true,
+        "source": "input"
       },
       {
         "path": "userComment",
-        "label": "userComment",
-        "type": "unknown",
+        "label": "Komentar penilaian",
+        "type": "string",
+        "strictString": true,
         "location": "body",
         "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unresolved"
+        "clientRequired": true,
+        "source": "input"
       }
     ],
     "evidence": {
       "callAddress": "0xd915c4",
-      "source": "analysis/recovered/request-callsites/00d915b0.asm.txt"
+      "source": "analysis/recovered/berkas-rating-followup/flow.json",
+      "nativeProofSha256": "16c83a12a6b4cbf62b9a3881843c27c569102bd6a0617cddccd63dc9e8c0275f",
+      "catchSource": "analysis/recovered/berkas-rating-followup/catch-followup.json",
+      "catchNativeProofSha256": "a20543d7460f39125257cf88a59f7073a8017aa0cdd07e74e2964bf575d0d24f",
+      "entrySource": "analysis/recovered/berkas-rating-followup/entry-refinement.json",
+      "entryNativeProofSha256": "60891c26dbbbc4856ed66af2806926555124628ffc0642d57507273c44ff81b1",
+      "entryProtocolDoc": "analysis/BERKAS-RATING-ENTRY-REFINEMENT-20261021.md",
+      "requestSource": "analysis/recovered/request-callsites/00d915b0.asm.txt",
+      "protocolDoc": "analysis/BERKAS-RATING-FOLLOWUP-20261021.md"
     },
     "serverRequiredness": "unknown",
-    "serverAcceptance": "untested"
+    "serverAcceptance": "untested",
+    "clientProfile": "berkas-rating-post",
+    "nativeFields": [
+      {
+        "path": "Berkasid",
+        "location": "body",
+        "source": "server-selected-original-Berkasku"
+      },
+      {
+        "path": "rating",
+        "location": "body",
+        "source": "validated-user-input"
+      },
+      {
+        "path": "userComment",
+        "location": "body",
+        "source": "validated-user-input"
+      }
+    ],
+    "serverEffects": "Posts one explicit rating for the original selected Berkasku ID; no production rating performed by validation"
   },
   {
     "id": "post-ratingppat-postratingppat-d86e10",
@@ -3867,47 +3813,63 @@ const operationData = [
     "endpoint": "RatingPPAT/PostRatingPPAT",
     "path": "RatingPPAT/PostRatingPPAT",
     "serviceId": "main",
-    "serviceMapping": "static service family; execution disabled",
+    "serviceMapping": "audited main-session selected Akta Rating PPAT submission",
     "encoding": "json",
-    "recoveredTransport": "application/json",
+    "recoveredTransport": "Ordered JSON String aktaId then PertanyaanRatingPPATId List<String>; application/json and accept text/plain; shared2xx response",
     "auth": "session",
     "authenticated": true,
     "effect": "write",
     "mutates": true,
     "requiresConfirmation": true,
-    "enabled": false,
-    "supported": false,
-    "inspectOnly": true,
-    "readiness": "inspect_only",
-    "reason": "Tercatat dari audit APK; adapter eksekusi operasi ini belum diaktifkan.",
+    "enabled": true,
+    "supported": true,
+    "inspectOnly": false,
+    "readiness": "ready_unverified",
+    "reason": "Pengiriman Rating PPAT terpilih dengan konfirmasi. Respons normal memakai !error dan pesan String langsung; null memakai fallback native, tanpa decode String tambahan atau syarat HTTP200 lokal. Error transport/auth tetap eksplisit pada backend browser; frontend memetakan error layanan biasa ke tuple catch native. Penerimaan dan penyimpanan server belum diuji.",
     "fields": [
       {
         "path": "aktaId",
         "label": "aktaId",
-        "type": "unknown",
+        "type": "string",
         "location": "body",
         "required": "unknown",
-        "clientRequired": false,
+        "clientRequired": true,
         "source": "input",
-        "recoveredType": "unresolved"
+        "recoveredType": "String from selected Akta ID",
+        "description": "ID Akta asli dari entry Rating PPAT terpilih; String kosong dan spasi dipertahankan tanpa trim/substitusi.",
+        "strictString": true,
+        "allowEmpty": true
       },
       {
         "path": "PertanyaanRatingPPATId",
         "label": "PertanyaanRatingPPATId",
-        "type": "unknown",
+        "type": "array",
         "location": "body",
         "required": "unknown",
-        "clientRequired": false,
+        "clientRequired": true,
         "source": "input",
-        "recoveredType": "unresolved"
+        "recoveredType": "List<String> from selection Map.values",
+        "description": "ID jawaban dari pilihan kuesioner dalam urutan pemasukan Map; boleh kosong, duplikat atau String kosong. Tidak disortir, dipangkas atau diubah menjadi nilai/bobot.",
+        "arraySchema": "rating-ppat-selected-answer-ids",
+        "minItems": 0,
+        "items": {
+          "type": "string",
+          "strictString": true
+        }
       }
     ],
     "evidence": {
       "callAddress": "0xd86e10",
-      "source": "analysis/recovered/request-callsites/00d86df8.asm.txt"
+      "source": "analysis/recovered/ratingppat-write-final-followup/source-index.json",
+      "requestSource": "analysis/recovered/request-callsites/00d86df8.asm.txt",
+      "nativeProofSha256": "67a9a026369f288352b435e6a09facc9ee87167dfa1ce154d2f5da55fb61bd52",
+      "protocolDoc": "analysis/RATING-PPAT-WRITE-FINAL-FOLLOWUP-20261021.md",
+      "uiSource": "analysis/recovered/ratingppat-ui-followup/source-index.json",
+      "navigationSource": "analysis/recovered/ratingppat-result-navigation-followup/source-index.json"
     },
     "serverRequiredness": "unknown",
-    "serverAcceptance": "untested"
+    "serverAcceptance": "untested",
+    "serverEffects": "Posts one user-selected PPAT rating for the original selected Akta and answer-ID List; no production submission performed by validation"
   },
   {
     "id": "get-brankas-detailsertipikatnew-d43b54",
@@ -4409,7 +4371,7 @@ const operationData = [
     "endpoint": "apis/GetKKPRDetail",
     "path": "apis/GetKKPRDetail",
     "serviceId": "main",
-    "serviceMapping": "reviewed primary adapter",
+    "serviceMapping": "audited main-session Scan special-map read",
     "encoding": "form",
     "recoveredTransport": "application/x-www-form-urlencoded",
     "auth": "session",
@@ -4421,7 +4383,7 @@ const operationData = [
     "supported": true,
     "inspectOnly": false,
     "readiness": "ready_unverified",
-    "reason": "Bentuk request tersedia untuk uji langsung; penerimaan server belum diverifikasi.",
+    "reason": "Respons native bertipe tepat HTTP200; flag error dipertahankan dan model hanya ditampilkan bila false. Kode kosong hanya melalui konteks Scan sesi; penerimaan server belum diuji.",
     "fields": [
       {
         "path": "q",
@@ -4436,7 +4398,10 @@ const operationData = [
     ],
     "evidence": {
       "callAddress": "0xd311e8",
-      "source": "analysis/recovered/http-callsite-audit/00d311e8.asm.txt"
+      "source": "analysis/recovered/scan-kkpr-map-followup/flow.json",
+      "requestSource": "analysis/recovered/http-callsite-audit/00d311e8.asm.txt",
+      "nativeProofSha256": "8aec89dbd6c36b0aba47caf0c880aec5f1fbf83b58963e1eed3579f316301d24",
+      "modelSource": "analysis/recovered/scan-location-followup/flow.json"
     },
     "serverRequiredness": "unknown",
     "serverAcceptance": "untested"
@@ -4509,7 +4474,7 @@ const operationData = [
     "endpoint": "apis/GetPBTElDetail",
     "path": "apis/GetPBTElDetail",
     "serviceId": "main",
-    "serviceMapping": "reviewed primary adapter",
+    "serviceMapping": "audited main-session Scan special-map read",
     "encoding": "form",
     "recoveredTransport": "application/x-www-form-urlencoded",
     "auth": "session",
@@ -4521,7 +4486,7 @@ const operationData = [
     "supported": true,
     "inspectOnly": false,
     "readiness": "ready_unverified",
-    "reason": "Bentuk request tersedia untuk uji langsung; penerimaan server belum diverifikasi.",
+    "reason": "Respons native bertipe tepat HTTP200; flag error dipertahankan dan model hanya ditampilkan bila false. Kode kosong hanya melalui konteks Scan sesi; penerimaan server belum diuji.",
     "fields": [
       {
         "path": "q",
@@ -4536,7 +4501,10 @@ const operationData = [
     ],
     "evidence": {
       "callAddress": "0xd3d134",
-      "source": "analysis/recovered/http-callsite-audit/00d3d134.asm.txt"
+      "source": "analysis/recovered/scan-pbt-map-followup/flow.json",
+      "requestSource": "analysis/recovered/http-callsite-audit/00d3d134.asm.txt",
+      "nativeProofSha256": "d62a880cf8940e871e98be6954327ab0bbf494540362b7e8c3aa2eb33f002e93",
+      "modelSource": "analysis/recovered/scan-location-followup/flow.json"
     },
     "serverRequiredness": "unknown",
     "serverAcceptance": "untested"
@@ -4798,13 +4766,13 @@ const operationData = [
   },
   {
     "id": "post-bukutamu-d99dd8",
-    "label": "Buku tamu kantor",
+    "label": "Simpan Buku Tamu",
     "group": "Layanan lainnya",
     "method": "POST",
     "endpoint": "${TRb.AYi}bukutamu",
     "path": "bukutamu",
     "serviceId": "main",
-    "serviceMapping": "static service family; execution disabled",
+    "serviceMapping": "audited standalone application-authorized guestbook write; account session and opaque QR/lookup context are local ownership guards",
     "encoding": "multipart",
     "recoveredTransport": "multipart/form-data; FormData allocation 0xd15344 and population 0x707bd4",
     "auth": "session",
@@ -4812,139 +4780,186 @@ const operationData = [
     "effect": "write",
     "mutates": true,
     "requiresConfirmation": true,
-    "enabled": false,
-    "supported": false,
-    "inspectOnly": true,
-    "readiness": "inspect_only",
-    "reason": "Tercatat dari audit APK; adapter eksekusi operasi ini belum diaktifkan.",
+    "enabled": true,
+    "supported": true,
+    "inspectOnly": false,
+    "readiness": "ready_unverified",
+    "reason": "Mendaftarkan kedatangan melalui formulir unit dari QR kantor yang dibaca pada sesi ini. Tiga ID lookup hanya ditetapkan server; sembilan isian dipertahankan mentah tanpa trim atau konversi tanggal. Hasil native hanya error bool berdasarkan HTTP200 setelah transform respons, bukan verifikasi petugas atau kartu pengunjung. Tidak ada kirim ulang otomatis, pemalsuan QR/kehadiran, bearer akun atau retry Directus. Guard konteks, batas byte dan hasil ambigu adalah adaptasi browser; penerimaan produksi belum diuji.",
     "fields": [
       {
-        "path": "kantorId",
-        "label": "ID kantor",
-        "type": "unknown",
-        "location": "body",
+        "path": "contextId",
+        "label": "Konteks unit Buku Tamu",
+        "type": "string",
+        "strictString": true,
+        "location": "local",
         "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown; map value declared dynamic"
+        "clientRequired": true,
+        "source": "input"
       },
       {
-        "path": "unitKerjaId",
-        "label": "unitKerjaId",
-        "type": "unknown",
-        "location": "body",
+        "path": "name",
+        "label": "Nama Lengkap",
+        "type": "string",
+        "strictString": true,
+        "location": "local",
         "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown; map value declared dynamic"
-      },
-      {
-        "path": "userId",
-        "label": "userId",
-        "type": "unknown",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown; map value declared dynamic"
+        "clientRequired": true,
+        "source": "input"
       },
       {
         "path": "nik",
-        "label": "NIK akun",
-        "type": "unknown",
-        "location": "body",
+        "label": "NIK",
+        "type": "string",
+        "strictString": true,
+        "location": "local",
         "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown; map value declared dynamic"
+        "clientRequired": true,
+        "source": "input"
       },
       {
-        "path": "alamat",
-        "label": "alamat",
-        "type": "unknown",
-        "location": "body",
+        "path": "phone",
+        "label": "Nomor Telepon",
+        "type": "string",
+        "strictString": true,
+        "location": "local",
         "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown; map value declared dynamic"
+        "clientRequired": true,
+        "source": "input"
       },
       {
-        "path": "namaLengkap",
-        "label": "namaLengkap",
-        "type": "unknown",
-        "location": "body",
+        "path": "birthDate",
+        "label": "Tanggal Lahir",
+        "type": "string",
+        "strictString": true,
+        "location": "local",
         "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown; map value declared dynamic"
+        "clientRequired": true,
+        "source": "input"
       },
       {
-        "path": "tempatLahir",
-        "label": "tempatLahir",
-        "type": "unknown",
-        "location": "body",
+        "path": "birthPlace",
+        "label": "Tempat Lahir",
+        "type": "string",
+        "strictString": true,
+        "location": "local",
         "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown; map value declared dynamic"
+        "clientRequired": true,
+        "source": "input"
       },
       {
-        "path": "tanggalLahir",
-        "label": "tanggalLahir",
-        "type": "unknown",
-        "location": "body",
+        "path": "address",
+        "label": "Alamat Sesuai KTP",
+        "type": "string",
+        "strictString": true,
+        "location": "local",
         "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown; map value declared dynamic"
-      },
-      {
-        "path": "noTelp",
-        "label": "noTelp",
-        "type": "unknown",
-        "location": "body",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown; map value declared dynamic"
+        "clientRequired": true,
+        "source": "input"
       },
       {
         "path": "email",
-        "label": "email",
-        "type": "unknown",
-        "location": "body",
+        "label": "Alamat Email",
+        "type": "string",
+        "strictString": true,
+        "location": "local",
         "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown; map value declared dynamic"
+        "clientRequired": true,
+        "source": "input"
       },
       {
-        "path": "instansi",
-        "label": "instansi",
-        "type": "unknown",
-        "location": "body",
+        "path": "institution",
+        "label": "Instansi",
+        "type": "string",
+        "strictString": true,
+        "location": "local",
         "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown; map value declared dynamic"
+        "clientRequired": true,
+        "source": "input"
       },
       {
-        "path": "keperluan",
-        "label": "keperluan",
-        "type": "unknown",
-        "location": "body",
+        "path": "purpose",
+        "label": "Keperluan",
+        "type": "string",
+        "strictString": true,
+        "location": "local",
         "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown; map value declared dynamic"
+        "clientRequired": true,
+        "source": "input"
       }
     ],
     "evidence": {
       "callAddress": "0xd99dd8",
-      "source": "analysis/recovered/http-callsite-audit/00d99dd8.asm.txt"
+      "source": "analysis/recovered/guestbook-service-followup/flow.json",
+      "nativeProofSha256": "9bceab7de8b363e521cea846abaa65ae03a925fa5a5f389ee249c014676f10dc",
+      "submitSource": "analysis/recovered/guestbook-submit-followup-20261022/flow.json",
+      "submitProofSha256": "ea94f17f3d7e6a768f6c44bf40b99045b5f45c7407a8530e7198b81aa3dc4b04"
     },
     "serverRequiredness": "unknown",
-    "serverAcceptance": "untested"
+    "serverAcceptance": "untested",
+    "clientProfile": "guestbook-post",
+    "upstreamAuthentication": "application",
+    "nativeFields": [
+      {
+        "path": "kantorId",
+        "location": "body",
+        "source": "server-QR-lookup"
+      },
+      {
+        "path": "unitKerjaId",
+        "location": "body",
+        "source": "server-QR-lookup"
+      },
+      {
+        "path": "userId",
+        "location": "body",
+        "source": "server-QR-lookup"
+      },
+      {
+        "path": "nik",
+        "location": "body",
+        "source": "raw-user-form"
+      },
+      {
+        "path": "alamat",
+        "location": "body",
+        "source": "raw-user-form"
+      },
+      {
+        "path": "namaLengkap",
+        "location": "body",
+        "source": "raw-user-form"
+      },
+      {
+        "path": "tempatLahir",
+        "location": "body",
+        "source": "raw-user-form"
+      },
+      {
+        "path": "tanggalLahir",
+        "location": "body",
+        "source": "raw-user-form"
+      },
+      {
+        "path": "noTelp",
+        "location": "body",
+        "source": "raw-user-form"
+      },
+      {
+        "path": "email",
+        "location": "body",
+        "source": "raw-user-form"
+      },
+      {
+        "path": "instansi",
+        "location": "body",
+        "source": "raw-user-form"
+      },
+      {
+        "path": "keperluan",
+        "location": "body",
+        "source": "raw-user-form"
+      }
+    ]
   },
   {
     "id": "post-infolayanan-simulasitipe1-da2f48",
@@ -5143,13 +5158,13 @@ const operationData = [
   },
   {
     "id": "post-review-all-dace58",
-    "label": "Daftar ulasan",
+    "label": "Ulasan pengumuman sertipikat hilang",
     "group": "Layanan lainnya",
     "method": "POST",
     "endpoint": "review/all",
     "path": "review/all",
     "serviceId": "main",
-    "serviceMapping": "static service family; execution disabled",
+    "serviceMapping": "audited main-session read-only lost-certificate reviews",
     "encoding": "form",
     "recoveredTransport": "Map passed as data; content type inherited and not set in this builder",
     "auth": "session",
@@ -5157,11 +5172,11 @@ const operationData = [
     "effect": "read",
     "mutates": false,
     "requiresConfirmation": false,
-    "enabled": false,
-    "supported": false,
-    "inspectOnly": true,
-    "readiness": "inspect_only",
-    "reason": "Tercatat dari audit APK; adapter eksekusi operasi ini belum diaktifkan.",
+    "enabled": true,
+    "supported": true,
+    "inspectOnly": false,
+    "readiness": "ready_unverified",
+    "reason": "Pembacaan ulasan pengumuman: form String tetap, sesi akun, shared2xx dan model nullable yyb/zyb/Ayb. Penerimaan server belum diuji; tidak mengirim ulasan atau foto.",
     "fields": [
       {
         "path": "reviewType",
@@ -5170,8 +5185,12 @@ const operationData = [
         "location": "body",
         "required": "unknown",
         "clientRequired": false,
-        "source": "input",
-        "recoveredType": "String"
+        "source": "constant",
+        "recoveredType": "String",
+        "strictString": true,
+        "allowEmpty": false,
+        "description": "String konstan dari caller ulasan pengumuman sertipikat hilang; tidak menerima tipe numerik atau halaman lain.",
+        "default": "pengumumanSertipikatHilang"
       },
       {
         "path": "contentId",
@@ -5179,9 +5198,12 @@ const operationData = [
         "type": "string",
         "location": "body",
         "required": "unknown",
-        "clientRequired": false,
+        "clientRequired": true,
         "source": "input",
-        "recoveredType": "String"
+        "recoveredType": "String",
+        "strictString": true,
+        "allowEmpty": true,
+        "description": "String persis dari berkasId record pengumuman; null ditolak tanpa trim atau substitusi."
       },
       {
         "path": "pageNumber",
@@ -5190,8 +5212,12 @@ const operationData = [
         "location": "body",
         "required": "unknown",
         "clientRequired": false,
-        "source": "input",
-        "recoveredType": "String"
+        "source": "constant",
+        "recoveredType": "String",
+        "strictString": true,
+        "allowEmpty": false,
+        "description": "String konstan dari caller ulasan pengumuman sertipikat hilang; tidak menerima tipe numerik atau halaman lain.",
+        "default": "1"
       },
       {
         "path": "pageSize",
@@ -5200,13 +5226,20 @@ const operationData = [
         "location": "body",
         "required": "unknown",
         "clientRequired": false,
-        "source": "input",
-        "recoveredType": "String"
+        "source": "constant",
+        "recoveredType": "String",
+        "strictString": true,
+        "allowEmpty": false,
+        "description": "String konstan dari caller ulasan pengumuman sertipikat hilang; tidak menerima tipe numerik atau halaman lain.",
+        "default": "10"
       }
     ],
     "evidence": {
       "callAddress": "0xdace58",
-      "source": "analysis/recovered/http-callsite-audit/00dace58.asm.txt"
+      "source": "analysis/recovered/lost-review-protocol/source-index.json",
+      "requestSource": "analysis/recovered/http-callsite-audit/00dace58.asm.txt",
+      "nativeProofSha256": "24e250f583021c034a2bee9036b33cbed47a7744c89d326ccf7b7aa8cd9756dd",
+      "protocolDoc": "analysis/LOST-REVIEW-PROTOCOL.md"
     },
     "serverRequiredness": "unknown",
     "serverAcceptance": "untested"
@@ -5463,55 +5496,69 @@ const operationData = [
   },
   {
     "id": "post-review-post-deb030",
-    "label": "Kirim ulasan",
+    "label": "Kirim ulasan pengumuman terpilih",
     "group": "Layanan lainnya",
     "method": "POST",
     "endpoint": "review/post",
     "path": "review/post",
     "serviceId": "main",
-    "serviceMapping": "static service family; execution disabled",
+    "serviceMapping": "audited main-session selected lost-certificate or Yuridis review composer",
     "encoding": "multipart",
-    "recoveredTransport": "multipart/form-data; FormData allocation 0xd15344 and population 0x707bd4",
+    "recoveredTransport": "Ordered raw UTF8 scalar multipart fields then original numbered file bytes; original Android POSIX basename with native996 extension MIME map",
     "auth": "session",
     "authenticated": true,
     "effect": "write",
     "mutates": true,
     "requiresConfirmation": true,
-    "enabled": false,
-    "supported": false,
-    "inspectOnly": true,
-    "readiness": "inspect_only",
-    "reason": "Tercatat dari audit APK; adapter eksekusi operasi ini belum diaktifkan.",
+    "enabled": true,
+    "supported": true,
+    "inspectOnly": false,
+    "readiness": "ready_unverified",
+    "reason": "Pengiriman ulasan pengumuman terpilih dengan konfirmasi. Respons false hanya setelah transform shared valid dan HTTP200; penerimaan server belum diuji. Batas25MiB kiriman/20MiB respons dan guard nama adalah kebijakan browser.",
     "fields": [
       {
         "path": "contentId",
         "label": "ID konten",
-        "type": "unknown",
+        "type": "string",
         "location": "body",
         "required": "unknown",
-        "clientRequired": false,
+        "clientRequired": true,
         "source": "input",
-        "recoveredType": "unknown; map value declared dynamic"
+        "recoveredType": "String",
+        "description": "String asli dari berkasId Sertipikat Hilang atau persilId Yuridis terpilih, sesuai reviewType konteks; tidak dipangkas atau disubstitusi.",
+        "strictString": true,
+        "allowEmpty": true
       },
       {
         "path": "reviewType",
         "label": "reviewType",
-        "type": "unknown",
+        "type": "string",
         "location": "body",
         "required": "unknown",
         "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown; map value declared dynamic"
+        "source": "selected-context",
+        "recoveredType": "String",
+        "description": "Hanya dua konteks detail native yang diaudit: berkasId Sertipikat Hilang atau persilId Yuridis. Jenis lain ditolak; default lama tetap pengumumanSertipikatHilang.",
+        "strictString": true,
+        "allowEmpty": false,
+        "default": "pengumumanSertipikatHilang",
+        "allowedValues": [
+          "pengumumanSertipikatHilang",
+          "sertipikatSaya"
+        ]
       },
       {
         "path": "comment",
         "label": "comment",
-        "type": "unknown",
+        "type": "string",
         "location": "body",
         "required": "unknown",
-        "clientRequired": false,
+        "clientRequired": true,
         "source": "input",
-        "recoveredType": "unknown; map value declared dynamic"
+        "recoveredType": "String",
+        "description": "String asli tanpa trim; contentId dari berkasId pengumuman dan komentar boleh kosong setelah diedit. Tidak menerapkan batas16000karakter sebagai fakta native.",
+        "strictString": true,
+        "allowEmpty": true
       },
       {
         "path": "rating",
@@ -5519,27 +5566,42 @@ const operationData = [
         "type": "integer",
         "location": "body",
         "required": "unknown",
-        "clientRequired": false,
+        "clientRequired": true,
         "source": "input",
-        "recoveredType": "int"
+        "recoveredType": "int",
+        "strictNumber": true,
+        "minimum": 1,
+        "maximum": 5,
+        "description": "Integer1..5 dari lima bintang formulir native; nilai awal0 belum dapat dikirim."
       },
       {
         "path": "reviewPhoto{n}",
         "label": "reviewPhoto{n}",
-        "type": "unknown",
-        "location": "body",
+        "type": "file",
+        "location": "file",
         "required": "unknown",
         "clientRequired": false,
-        "source": "input",
-        "recoveredType": "multipart file object (lP), conditional, n starts at 1"
+        "source": "file",
+        "recoveredType": "multipart file object (lP), conditional, n starts at 1",
+        "description": "Foto pilihan pengguna berurutan reviewPhoto1..N, boleh tanpa foto/berkas kosong. Batas25MiB seluruh kiriman adalah kebijakan browser; tidak ada batas jumlah/ukuran native yang dibuktikan.",
+        "dynamicNumbered": true
       }
     ],
     "evidence": {
       "callAddress": "0xdeb030",
-      "source": "analysis/recovered/http-callsite-audit/00deb030.asm.txt"
+      "source": "analysis/recovered/lost-review-post-protocol/source-index.json",
+      "requestSource": "analysis/recovered/http-callsite-audit/00deb030.asm.txt",
+      "nativeProofSha256": "8c141a63e3fe77ee8b6be559914be7de58cea4fa9aaaa0c003aa31b8514b39ce",
+      "protocolDoc": "analysis/LOST-REVIEW-POST-PROTOCOL.md",
+      "uiSource": "analysis/recovered/lost-review-compose-ui/source-index.json",
+      "uiNativeProofSha256": "1f8a6dfb23f2913eeb68eab8042aa8f55fc57c48c0651015ed106c08b128cdfb",
+      "yuridisSource": "analysis/recovered/yuridis-read-flow/source-index.json",
+      "yuridisNativeProofSha256": "3993a0e2b3988890bb6bad345797329c07d126d965579324dc75af6f3d5a3ebe",
+      "yuridisProtocolDoc": "analysis/YURIDIS-READ-FLOW.md"
     },
     "serverRequiredness": "unknown",
-    "serverAcceptance": "untested"
+    "serverAcceptance": "untested",
+    "serverEffects": "Posts one new review for the selected lost-certificate or Yuridis context and optional selected photos; no production submission performed by validation"
   },
   {
     "id": "post-fcm-opt-out-d02578",
@@ -6506,25 +6568,25 @@ const operationData = [
   },
   {
     "id": "post-review-last-user-review-dad1dc",
-    "label": "Ulasan terakhir pengguna",
+    "label": "Ulasan terakhir pengumuman yuridis terpilih",
     "group": "Layanan lainnya",
     "method": "POST",
     "endpoint": "review/last_user_review",
     "path": "review/last_user_review",
     "serviceId": "main",
-    "serviceMapping": "static service family; execution disabled",
+    "serviceMapping": "audited main-session Yuridis last-user review read",
     "encoding": "form",
-    "recoveredTransport": "not resolved from explicit call options",
+    "recoveredTransport": "Ordered form fields reviewType=sertipikatSaya and original GGb.persilId; shared main status2xx and MIME transform",
     "auth": "session",
     "authenticated": true,
     "effect": "read",
     "mutates": false,
     "requiresConfirmation": false,
-    "enabled": false,
-    "supported": false,
-    "inspectOnly": true,
-    "readiness": "inspect_only",
-    "reason": "Tercatat dari audit APK; adapter eksekusi operasi ini belum diaktifkan.",
+    "enabled": true,
+    "supported": true,
+    "inspectOnly": false,
+    "readiness": "ready_unverified",
+    "reason": "Pembacaan ulasan terakhir Yuridis: data null/missing menjadi list kosong sebelum validasi metadata; data nonnull dibungkus singleton sebelum model yyb/zyb/Ayb. Tidak ada pagination atau decode String tambahan. Penerimaan server belum diuji.",
     "fields": [
       {
         "path": "reviewType",
@@ -6533,8 +6595,12 @@ const operationData = [
         "location": "body",
         "required": "unknown",
         "clientRequired": false,
-        "source": "input",
-        "recoveredType": "String"
+        "source": "constant",
+        "recoveredType": "String",
+        "strictString": true,
+        "allowEmpty": false,
+        "description": "Jenis tetap sertipikatSaya dari JTb yJj=true; bukan pengumumanSertipikatHilang.",
+        "default": "sertipikatSaya"
       },
       {
         "path": "contentId",
@@ -6542,14 +6608,20 @@ const operationData = [
         "type": "string",
         "location": "body",
         "required": "unknown",
-        "clientRequired": false,
+        "clientRequired": true,
         "source": "input",
-        "recoveredType": "String"
+        "recoveredType": "String",
+        "strictString": true,
+        "allowEmpty": true,
+        "description": "String persis dari persilId record pengumuman yuridis terpilih; null ditolak tanpa trim/substitusi."
       }
     ],
     "evidence": {
       "callAddress": "0xdad1dc",
-      "source": "analysis/recovered/http-callsite-audit/00dad1dc.asm.txt"
+      "source": "analysis/recovered/yuridis-read-flow/source-index.json",
+      "requestSource": "analysis/recovered/http-callsite-audit/00dad1dc.asm.txt",
+      "nativeProofSha256": "3993a0e2b3988890bb6bad345797329c07d126d965579324dc75af6f3d5a3ebe",
+      "protocolDoc": "analysis/YURIDIS-READ-FLOW.md"
     },
     "serverRequiredness": "unknown",
     "serverAcceptance": "untested"
@@ -7242,63 +7314,107 @@ const operationData = [
   },
   {
     "id": "post-api-booking-limit-d8bf80",
-    "label": "Periksa batas pemesanan antrean",
+    "label": "Periksa kuota dan tinjau antrean",
     "group": "Antrean",
     "method": "POST",
     "endpoint": "api/booking/limit/",
     "path": "api/booking/limit/",
-    "serviceId": "antrian",
-    "serviceMapping": "static service family; execution disabled",
+    "serviceId": "directus",
+    "serviceMapping": "audited FRb +0xb Directus quota POST; main account session is a local ownership guard",
     "encoding": "json",
-    "recoveredTransport": "application/json",
-    "auth": "none",
-    "authenticated": false,
+    "recoveredTransport": "Ordered JSON nik, kantorid, tanggal_booking encoded UTF8 on fixed Directus client; no POST retry or redirect in browser adapter",
+    "auth": "session",
+    "authenticated": true,
     "effect": "write",
     "mutates": true,
     "requiresConfirmation": true,
-    "enabled": false,
-    "supported": false,
-    "inspectOnly": true,
-    "readiness": "inspect_only",
-    "reason": "Kontrak sesi atau transport layanan ini belum diaktifkan pada adapter web.",
+    "enabled": true,
+    "supported": true,
+    "inspectOnly": false,
+    "readiness": "ready_unverified",
+    "reason": "Pemeriksaan kuota dari snapshot loket dan profil pemohon sendiri pada sesi backend, lalu tinjauan dengan gate native. Efek POST dan penerimaan server belum diuji; tidak membuat antrean. Token notifikasi resmi untuk pembuatan antrean web belum tersedia.",
     "fields": [
       {
-        "path": "nik",
-        "label": "NIK akun",
-        "type": "unknown",
-        "location": "body",
+        "path": "contextId",
+        "label": "Konteks ketersediaan sesi",
+        "type": "string",
+        "strictString": true,
+        "location": "local",
         "required": "unknown",
-        "clientRequired": false,
+        "clientRequired": true,
         "source": "input",
-        "recoveredType": "dynamic; concrete wire type unresolved"
+        "description": "Opaque backend-issued context, never an office ID or NIK."
       },
       {
-        "path": "kantorid",
-        "label": "kantorid",
-        "type": "unknown",
-        "location": "body",
+        "path": "rowIndex",
+        "label": "Indeks sumber loket terpilih",
+        "type": "integer",
+        "strictInteger": true,
+        "min": 0,
+        "location": "local",
         "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "dynamic; concrete wire type unresolved"
+        "clientRequired": true,
+        "source": "input"
       },
       {
-        "path": "tanggal_booking",
-        "label": "tanggal_booking",
-        "type": "unknown",
-        "location": "body",
+        "path": "documentCount",
+        "label": "Jumlah berkas",
+        "type": "integer",
+        "strictInteger": true,
+        "min": 1,
+        "max": 5,
+        "location": "local",
         "required": "unknown",
-        "clientRequired": false,
+        "clientRequired": true,
+        "source": "input"
+      },
+      {
+        "path": "timeZone",
+        "label": "Zona waktu browser",
+        "type": "string",
+        "strictString": true,
+        "location": "local",
+        "required": "unknown",
+        "clientRequired": true,
         "source": "input",
-        "recoveredType": "dynamic; concrete wire type unresolved"
+        "description": "Validated IANA browser zone; server owns the current instant; not sent upstream."
       }
     ],
     "evidence": {
       "callAddress": "0xd8bf80",
-      "source": "analysis/recovered/http-callsite-audit/00d8bf80.asm.txt"
+      "source": "analysis/recovered/http-callsite-audit/00d8bf80.asm.txt",
+      "wireSource": "analysis/recovered/queue-booking-wire-followup/flow.json",
+      "wireNativeProofSha256": "95e3bc41929c7e2f7a854a7ae28f8a0045383320cfe4920b7ed1cbf7f585b067",
+      "preflightSource": "analysis/recovered/queue-preflight-followup/flow.json",
+      "preflightNativeProofSha256": "68d899495e9abb17278eccad0e1129dc82124216e4538d8a7f5ea5fad140a9b8",
+      "selectionSource": "analysis/recovered/queue-booking-selection-followup/flow.json",
+      "profileSource": "analysis/recovered/queue-identity-followup/flow.json"
     },
     "serverRequiredness": "unknown",
-    "serverAcceptance": "untested"
+    "serverAcceptance": "untested",
+    "clientProfile": "queue-booking",
+    "upstreamAuthentication": "application",
+    "serverEffects": "Quota check; deeper provider effects unverified; no production quota POST performed by validation",
+    "nativeFields": [
+      {
+        "path": "nik",
+        "type": "string",
+        "location": "body",
+        "source": "server-session"
+      },
+      {
+        "path": "kantorid",
+        "type": "string",
+        "location": "body",
+        "source": "server-session"
+      },
+      {
+        "path": "tanggal_booking",
+        "type": "string",
+        "location": "body",
+        "source": "server-session"
+      }
+    ]
   },
   {
     "id": "post-api-verifikasi-d9e270",
@@ -7544,77 +7660,102 @@ const operationData = [
     "endpoint": "PeruriLivenessSdk/ValidateKTPDataV2",
     "path": "PeruriLivenessSdk/ValidateKTPDataV2",
     "serviceId": "main",
-    "serviceMapping": "static service family; execution disabled",
+    "serviceMapping": "audited main-session first Daring identity-validation action",
     "encoding": "multipart",
-    "recoveredTransport": "FormData via constructor0x707bd4; final per-field stringification not fully resolved",
+    "recoveredTransport": "FormData with five original String fields in native order; null model fields become empty Strings; no files",
     "auth": "session",
     "authenticated": true,
     "effect": "write",
     "mutates": true,
     "requiresConfirmation": true,
-    "enabled": false,
-    "supported": false,
-    "inspectOnly": true,
-    "readiness": "inspect_only",
-    "reason": "Alur identitas atau komponen native belum dipetakan untuk browser.",
+    "enabled": true,
+    "supported": true,
+    "inspectOnly": false,
+    "readiness": "ready_unverified",
+    "reason": "Validasi awal identitas Daring dengan konfirmasi eksplisit. Respons tuple native dipulihkan; penerimaan server belum diuji. Tidak mengirim OTP, membuka kamera/liveness atau menyatakan akun telah terverifikasi.",
     "fields": [
       {
         "path": "Nik",
-        "label": "NIK akun",
-        "type": "unknown",
+        "label": "NIK Sesuai KTP",
+        "type": "string",
         "location": "body",
         "required": "unknown",
         "clientRequired": false,
         "source": "input",
-        "recoveredType": "dynamic; concrete wire type unresolved"
+        "recoveredType": "OEb String?; null becomes empty String",
+        "description": "String asli dari formulir Daring, tanpa trim atau konversi angka. Null/missing menjadi ''. Bukan identitas yang diambil dari profil masuk.",
+        "strictString": true,
+        "allowEmpty": true,
+        "default": ""
       },
       {
         "path": "Nama",
-        "label": "Nama",
-        "type": "unknown",
+        "label": "Nama Lengkap",
+        "type": "string",
         "location": "body",
         "required": "unknown",
         "clientRequired": false,
         "source": "input",
-        "recoveredType": "dynamic; concrete wire type unresolved"
+        "recoveredType": "OEb String?; null becomes empty String",
+        "description": "String asli dari formulir Daring, tanpa trim atau konversi angka. Null/missing menjadi ''. Bukan identitas yang diambil dari profil masuk.",
+        "strictString": true,
+        "allowEmpty": true,
+        "default": ""
       },
       {
         "path": "Tempatlahir",
-        "label": "Tempatlahir",
-        "type": "unknown",
+        "label": "Tempat Lahir",
+        "type": "string",
         "location": "body",
         "required": "unknown",
         "clientRequired": false,
         "source": "input",
-        "recoveredType": "dynamic; concrete wire type unresolved"
+        "recoveredType": "OEb String?; null becomes empty String",
+        "description": "String asli dari formulir Daring, tanpa trim atau konversi angka. Null/missing menjadi ''. Bukan identitas yang diambil dari profil masuk.",
+        "strictString": true,
+        "allowEmpty": true,
+        "default": ""
       },
       {
         "path": "TglLahir",
-        "label": "TglLahir",
-        "type": "unknown",
+        "label": "Tanggal Lahir",
+        "type": "string",
         "location": "body",
         "required": "unknown",
         "clientRequired": false,
         "source": "input",
-        "recoveredType": "dynamic; concrete wire type unresolved"
+        "recoveredType": "OEb String?; null becomes empty String",
+        "description": "String asli dari formulir Daring, tanpa trim atau konversi angka. Null/missing menjadi ''. Bukan identitas yang diambil dari profil masuk.",
+        "strictString": true,
+        "allowEmpty": true,
+        "default": ""
       },
       {
         "path": "NoHp",
-        "label": "NoHp",
-        "type": "unknown",
+        "label": "No. HP (terhubung dengan WhatsApp)",
+        "type": "string",
         "location": "body",
         "required": "unknown",
         "clientRequired": false,
         "source": "input",
-        "recoveredType": "dynamic; concrete wire type unresolved"
+        "recoveredType": "OEb String?; null becomes empty String",
+        "description": "String asli dari formulir Daring, tanpa trim atau konversi angka. Null/missing menjadi ''. Bukan identitas yang diambil dari profil masuk.",
+        "strictString": true,
+        "allowEmpty": true,
+        "default": ""
       }
     ],
     "evidence": {
       "callAddress": "0xda9a78",
-      "source": "analysis/recovered/http-callsite-audit/00da9a78.asm.txt"
+      "source": "analysis/recovered/verification-daring-form-followup/flow.json",
+      "requestSource": "analysis/recovered/http-callsite-audit/00da9a78.asm.txt",
+      "nativeProofSha256": "ea736769eab7c366ca146222ef8860817c0fd17242f0eb768f383c8a7c29c7b8",
+      "responseSource": "analysis/recovered/daring-identity-response-followup/flow.json",
+      "responseNativeProofSha256": "ff50866326808280c90b2962cda3845b2e50ffe5124cdae2ad6d6c46d96a3243"
     },
     "serverRequiredness": "unknown",
-    "serverAcceptance": "untested"
+    "serverAcceptance": "untested",
+    "serverEffects": "identity validation; deeper provider effects unverified"
   },
   {
     "id": "post-pin-authenticate-db2818",
@@ -7878,7 +8019,7 @@ const operationData = [
     "endpoint": "announcement/yuridis_byKantor?kantorId={value}",
     "path": "announcement/yuridis_byKantor",
     "serviceId": "main",
-    "serviceMapping": "reviewed primary adapter",
+    "serviceMapping": "audited main optional-session Yuridis feed",
     "encoding": "none",
     "recoveredTransport": "query encoded directly in constructed URL",
     "auth": "optionalSession",
@@ -7890,7 +8031,7 @@ const operationData = [
     "supported": true,
     "inspectOnly": false,
     "readiness": "ready_unverified",
-    "reason": "Bentuk request tersedia untuk uji langsung; penerimaan server belum diverifikasi.",
+    "reason": "Pembacaan pengumuman Yuridis tepat HTTP200, body.data List dan model GGb sebelas field nullable. Decode String satu kali mengikuti transform MIME; envelope error/message tidak dibaca. Penerimaan server belum diuji.",
     "fields": [
       {
         "path": "kantorId",
@@ -7900,12 +8041,18 @@ const operationData = [
         "required": "unknown",
         "clientRequired": true,
         "source": "input",
-        "recoveredType": "String in constructed URL; input type not inferred"
+        "recoveredType": "String from selected jyb.KantorId or profile.kantorId",
+        "strictString": true,
+        "allowEmpty": true,
+        "description": "KantorId String asli dari pemilih/profil; tidak dipangkas atau dikoersi. String kosong nonnull dipertahankan sesuai native."
       }
     ],
     "evidence": {
       "callAddress": "0xd0fb64",
-      "source": "analysis/recovered/http-callsite-audit/00d0fb64.asm.txt"
+      "source": "analysis/recovered/yuridis-read-flow/source-index.json",
+      "requestSource": "analysis/recovered/http-callsite-audit/00d0fb64.asm.txt",
+      "nativeProofSha256": "3993a0e2b3988890bb6bad345797329c07d126d965579324dc75af6f3d5a3ebe",
+      "protocolDoc": "analysis/YURIDIS-READ-FLOW.md"
     },
     "serverRequiredness": "unknown",
     "serverAcceptance": "untested"
@@ -7952,7 +8099,8 @@ const operationData = [
         "required": "unknown",
         "clientRequired": true,
         "source": "input",
-        "recoveredType": "String in constructed URL; input type not inferred"
+        "recoveredType": "String in constructed URL; input type not inferred",
+        "allowEmpty": true
       }
     ],
     "evidence": {
@@ -8081,7 +8229,7 @@ const operationData = [
     "endpoint": "RatingPPAT/GetRatingQuestions",
     "path": "RatingPPAT/GetRatingQuestions",
     "serviceId": "main",
-    "serviceMapping": "static service family; execution disabled",
+    "serviceMapping": "audited main-session Rating PPAT question read",
     "encoding": "none",
     "recoveredTransport": "no explicit caller query map, data or URL query",
     "auth": "session",
@@ -8089,15 +8237,18 @@ const operationData = [
     "effect": "read",
     "mutates": false,
     "requiresConfirmation": false,
-    "enabled": false,
-    "supported": false,
-    "inspectOnly": true,
-    "readiness": "inspect_only",
-    "reason": "Tercatat dari audit APK; adapter eksekusi operasi ini belum diaktifkan.",
+    "enabled": true,
+    "supported": true,
+    "inspectOnly": false,
+    "readiness": "ready_unverified",
+    "reason": "Pembacaan pertanyaan Rating PPAT tepat HTTP200 tanpa parameter entry, body.data List dan model Gyb/Hyb nullableString dengan nested List nullable. Error/message envelope tidak dibaca. Pengiriman penilaian tersedia melalui operasi POST terpisah dengan konfirmasi. Batas parser browser dinyatakan sebagai adaptasi; penerimaan server belum diuji.",
     "fields": [],
     "evidence": {
       "callAddress": "0xd1d6bc",
-      "source": "analysis/recovered/http-callsite-audit/00d1d6bc.asm.txt"
+      "source": "analysis/recovered/ratingppat-read-followup/source-index.json",
+      "requestSource": "analysis/recovered/http-callsite-audit/00d1d6bc.asm.txt",
+      "nativeProofSha256": "fb14dcd006486b43e476901746b9befacba29ae8970b926ec1656bb12bd431f1",
+      "protocolDoc": "analysis/RATING-PPAT-READ-FOLLOWUP.md"
     },
     "serverRequiredness": "unknown",
     "serverAcceptance": "untested"
@@ -8211,55 +8362,35 @@ const operationData = [
   },
   {
     "id": "get-items-kantor-d1fa00",
-    "label": "Referensi kantor antrean",
+    "label": "Kantor Pertanahan antrean",
     "group": "Antrean",
     "method": "GET",
     "endpoint": "items/kantor?limit=1000&sort=nama",
     "path": "items/kantor",
     "serviceId": "directus",
-    "serviceMapping": "static service family; execution disabled",
+    "serviceMapping": "audited FRb +0xb Directus booking prerequisites",
     "encoding": "none",
     "recoveredTransport": "query encoded directly in constructed URL",
-    "auth": "none",
-    "authenticated": false,
+    "auth": "session",
+    "authenticated": true,
     "effect": "read",
     "mutates": false,
     "requiresConfirmation": false,
-    "enabled": false,
-    "supported": false,
-    "inspectOnly": true,
-    "readiness": "inspect_only",
-    "reason": "Kontrak sesi atau transport layanan ini belum diaktifkan pada adapter web.",
-    "fields": [
-      {
-        "path": "limit",
-        "label": "limit",
-        "type": "string",
-        "location": "query",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "constant",
-        "recoveredType": "String in constructed URL; input type not inferred",
-        "default": "1000"
-      },
-      {
-        "path": "sort",
-        "label": "sort",
-        "type": "string",
-        "location": "query",
-        "required": "unknown",
-        "clientRequired": false,
-        "source": "constant",
-        "recoveredType": "String in constructed URL; input type not inferred",
-        "default": "nama"
-      }
-    ],
+    "enabled": true,
+    "supported": true,
+    "inspectOnly": false,
+    "readiness": "ready_unverified",
+    "reason": "Pratinjau baca kantor/lokasi/ketersediaan; referensi pilihan harus berasal dari respons sesi ini. Tidak melakukan booking, enrollment, OTP atau socket.",
+    "fields": [],
     "evidence": {
       "callAddress": "0xd1fa00",
-      "source": "analysis/recovered/http-callsite-audit/00d1fa00.asm.txt"
+      "source": "analysis/recovered/queue-booking-reads/flow.json",
+      "selectionSource": "analysis/recovered/queue-booking-selection-followup/flow.json",
+      "dateSource": "analysis/recovered/queue-booking-date-followup/flow.json"
     },
     "serverRequiredness": "unknown",
-    "serverAcceptance": "untested"
+    "serverAcceptance": "untested",
+    "clientProfile": "queue-read"
   },
   {
     "id": "get-api-notifikasi-d22468",
@@ -8471,13 +8602,13 @@ const operationData = [
   },
   {
     "id": "get-bukutamu-d28bf4",
-    "label": "Buku tamu kantor",
+    "label": "Unit kerja Buku Tamu",
     "group": "Layanan lainnya",
     "method": "GET",
     "endpoint": "${TRb.AYi}bukutamu",
     "path": "bukutamu",
     "serviceId": "main",
-    "serviceMapping": "static service family; execution disabled",
+    "serviceMapping": "audited standalone application-authorized guestbook read; account session is a local eligibility guard",
     "encoding": "none",
     "recoveredTransport": "query map Ikc encoded and appended to URI by shared request-options builder",
     "auth": "session",
@@ -8485,39 +8616,47 @@ const operationData = [
     "effect": "read",
     "mutates": false,
     "requiresConfirmation": false,
-    "enabled": false,
-    "supported": false,
-    "inspectOnly": true,
-    "readiness": "inspect_only",
-    "reason": "Tercatat dari audit APK; adapter eksekusi operasi ini belum diaktifkan.",
+    "enabled": true,
+    "supported": true,
+    "inspectOnly": false,
+    "readiness": "ready_unverified",
+    "reason": "Membaca metadata unit dari QR kantor. Klien tersendiri memakai konfigurasi aplikasi yang sudah tersedia, tanpa bearer/refresh akun. Tidak mencatat kedatangan.",
     "fields": [
       {
         "path": "uid",
         "label": "uid",
         "type": "string",
+        "strictString": true,
+        "allowEmpty": true,
         "location": "query",
         "required": "unknown",
-        "clientRequired": false,
+        "clientRequired": true,
         "source": "input",
-        "recoveredType": "unknown; Map<String,dynamic> value"
+        "description": "Nilai mentah dari QR kantor; tidak dipangkas atau didekode ulang. Bukan bukti kehadiran atau keaslian QR."
       },
       {
         "path": "unid",
         "label": "unid",
         "type": "string",
+        "strictString": true,
+        "allowEmpty": true,
         "location": "query",
         "required": "unknown",
-        "clientRequired": false,
+        "clientRequired": true,
         "source": "input",
-        "recoveredType": "unknown; Map<String,dynamic> value"
+        "description": "Nilai mentah dari QR kantor; tidak dipangkas atau didekode ulang. Bukan bukti kehadiran atau keaslian QR."
       }
     ],
     "evidence": {
       "callAddress": "0xd28bf4",
-      "source": "analysis/recovered/http-callsite-audit/00d28bf4.asm.txt"
+      "source": "analysis/recovered/guestbook-service-followup/flow.json",
+      "nativeProofSha256": "9bceab7de8b363e521cea846abaa65ae03a925fa5a5f389ee249c014676f10dc",
+      "uiSource": "analysis/recovered/guestbook-followup/flow.json"
     },
     "serverRequiredness": "unknown",
-    "serverAcceptance": "untested"
+    "serverAcceptance": "untested",
+    "clientProfile": "guestbook-read",
+    "upstreamAuthentication": "application"
   },
   {
     "id": "get-map-getdisclaimer-d29ef0",
@@ -9089,7 +9228,7 @@ const operationData = [
     "endpoint": "Mitra/GetPenilaiList",
     "path": "Mitra/GetPenilaiList",
     "serviceId": "main",
-    "serviceMapping": "reviewed primary adapter",
+    "serviceMapping": "audited main optional-session Mitra read",
     "encoding": "none",
     "recoveredTransport": "no explicit caller query map, data or URL query",
     "auth": "optionalSession",
@@ -9101,11 +9240,14 @@ const operationData = [
     "supported": true,
     "inspectOnly": false,
     "readiness": "ready_unverified",
-    "reason": "Bentuk request tersedia untuk uji langsung; penerimaan server belum diverifikasi.",
+    "reason": "Daftar Mitra native HTTP200 dengan model nullableString dan body.data List; error/message tidak dibaca. ID mentah/null parent menjadi String kosong. Penerimaan server belum diuji; encoding query dan batas parser browser dinyatakan sebagai adaptasi.",
     "fields": [],
     "evidence": {
       "callAddress": "0xd3aa20",
-      "source": "analysis/recovered/http-callsite-audit/00d3aa20.asm.txt"
+      "source": "analysis/recovered/mitra-read-contract-followup/source-index.json",
+      "requestSource": "analysis/recovered/http-callsite-audit/00d3aa20.asm.txt",
+      "nativeProofSha256": "e6d6c1b29c6f6efa4e8cbd9ba84657ae54205e3f77a71d524b6016abdf854d5b",
+      "protocolDoc": "analysis/MITRA-READ-CONTRACT-FOLLOWUP-20261021.md"
     },
     "serverRequiredness": "unknown",
     "serverAcceptance": "untested"
@@ -9118,7 +9260,7 @@ const operationData = [
     "endpoint": "Mitra/GetKantorPPAT",
     "path": "Mitra/GetKantorPPAT",
     "serviceId": "main",
-    "serviceMapping": "reviewed primary adapter",
+    "serviceMapping": "audited main optional-session Mitra read",
     "encoding": "none",
     "recoveredTransport": "no explicit caller query map, data or URL query",
     "auth": "optionalSession",
@@ -9130,11 +9272,14 @@ const operationData = [
     "supported": true,
     "inspectOnly": false,
     "readiness": "ready_unverified",
-    "reason": "Bentuk request tersedia untuk uji langsung; penerimaan server belum diverifikasi.",
+    "reason": "Daftar Mitra native HTTP200 dengan model nullableString dan body.data List; error/message tidak dibaca. ID mentah/null parent menjadi String kosong. Penerimaan server belum diuji; encoding query dan batas parser browser dinyatakan sebagai adaptasi.",
     "fields": [],
     "evidence": {
       "callAddress": "0xd3af08",
-      "source": "analysis/recovered/http-callsite-audit/00d3af08.asm.txt"
+      "source": "analysis/recovered/mitra-read-contract-followup/source-index.json",
+      "requestSource": "analysis/recovered/http-callsite-audit/00d3af08.asm.txt",
+      "nativeProofSha256": "e6d6c1b29c6f6efa4e8cbd9ba84657ae54205e3f77a71d524b6016abdf854d5b",
+      "protocolDoc": "analysis/MITRA-READ-CONTRACT-FOLLOWUP-20261021.md"
     },
     "serverRequiredness": "unknown",
     "serverAcceptance": "untested"
@@ -9147,7 +9292,7 @@ const operationData = [
     "endpoint": "Mitra/GetPPATList?kantorId={value}",
     "path": "Mitra/GetPPATList",
     "serviceId": "main",
-    "serviceMapping": "reviewed primary adapter",
+    "serviceMapping": "audited main optional-session Mitra read",
     "encoding": "none",
     "recoveredTransport": "query encoded directly in constructed URL",
     "auth": "optionalSession",
@@ -9159,7 +9304,7 @@ const operationData = [
     "supported": true,
     "inspectOnly": false,
     "readiness": "ready_unverified",
-    "reason": "Bentuk request tersedia untuk uji langsung; penerimaan server belum diverifikasi.",
+    "reason": "Daftar Mitra native HTTP200 dengan model nullableString dan body.data List; error/message tidak dibaca. ID mentah/null parent menjadi String kosong. Penerimaan server belum diuji; encoding query dan batas parser browser dinyatakan sebagai adaptasi.",
     "fields": [
       {
         "path": "kantorId",
@@ -9169,12 +9314,18 @@ const operationData = [
         "required": "unknown",
         "clientRequired": true,
         "source": "input",
-        "recoveredType": "String in constructed URL; input type not inferred"
+        "recoveredType": "String from selected parent ID ?? emptyString",
+        "strictString": true,
+        "allowEmpty": true,
+        "description": "ID asli baris kantor/wilayah terpilih tanpa trim; null pada parent diubah menjadi String kosong oleh caller. Encoding query terisolasi merupakan adaptasi browser, bukan bukti kesamaan seluruh byte URL native."
       }
     ],
     "evidence": {
       "callAddress": "0xd3b428",
-      "source": "analysis/recovered/http-callsite-audit/00d3b428.asm.txt"
+      "source": "analysis/recovered/mitra-read-contract-followup/source-index.json",
+      "requestSource": "analysis/recovered/http-callsite-audit/00d3b428.asm.txt",
+      "nativeProofSha256": "e6d6c1b29c6f6efa4e8cbd9ba84657ae54205e3f77a71d524b6016abdf854d5b",
+      "protocolDoc": "analysis/MITRA-READ-CONTRACT-FOLLOWUP-20261021.md"
     },
     "serverRequiredness": "unknown",
     "serverAcceptance": "untested"
@@ -9187,7 +9338,7 @@ const operationData = [
     "endpoint": "Mitra/GetWilayahSurveyor",
     "path": "Mitra/GetWilayahSurveyor",
     "serviceId": "main",
-    "serviceMapping": "reviewed primary adapter",
+    "serviceMapping": "audited main optional-session Mitra read",
     "encoding": "none",
     "recoveredTransport": "no explicit caller query map, data or URL query",
     "auth": "optionalSession",
@@ -9199,11 +9350,14 @@ const operationData = [
     "supported": true,
     "inspectOnly": false,
     "readiness": "ready_unverified",
-    "reason": "Bentuk request tersedia untuk uji langsung; penerimaan server belum diverifikasi.",
+    "reason": "Daftar Mitra native HTTP200 dengan model nullableString dan body.data List; error/message tidak dibaca. ID mentah/null parent menjadi String kosong. Penerimaan server belum diuji; encoding query dan batas parser browser dinyatakan sebagai adaptasi.",
     "fields": [],
     "evidence": {
       "callAddress": "0xd3b910",
-      "source": "analysis/recovered/http-callsite-audit/00d3b910.asm.txt"
+      "source": "analysis/recovered/mitra-read-contract-followup/source-index.json",
+      "requestSource": "analysis/recovered/http-callsite-audit/00d3b910.asm.txt",
+      "nativeProofSha256": "e6d6c1b29c6f6efa4e8cbd9ba84657ae54205e3f77a71d524b6016abdf854d5b",
+      "protocolDoc": "analysis/MITRA-READ-CONTRACT-FOLLOWUP-20261021.md"
     },
     "serverRequiredness": "unknown",
     "serverAcceptance": "untested"
@@ -9216,7 +9370,7 @@ const operationData = [
     "endpoint": "Mitra/GetSurveyorList?wilayahId={value}",
     "path": "Mitra/GetSurveyorList",
     "serviceId": "main",
-    "serviceMapping": "reviewed primary adapter",
+    "serviceMapping": "audited main optional-session Mitra read",
     "encoding": "none",
     "recoveredTransport": "query encoded directly in constructed URL",
     "auth": "optionalSession",
@@ -9228,7 +9382,7 @@ const operationData = [
     "supported": true,
     "inspectOnly": false,
     "readiness": "ready_unverified",
-    "reason": "Bentuk request tersedia untuk uji langsung; penerimaan server belum diverifikasi.",
+    "reason": "Daftar Mitra native HTTP200 dengan model nullableString dan body.data List; error/message tidak dibaca. ID mentah/null parent menjadi String kosong. Penerimaan server belum diuji; encoding query dan batas parser browser dinyatakan sebagai adaptasi.",
     "fields": [
       {
         "path": "wilayahId",
@@ -9238,12 +9392,18 @@ const operationData = [
         "required": "unknown",
         "clientRequired": true,
         "source": "input",
-        "recoveredType": "String in constructed URL; input type not inferred"
+        "recoveredType": "String from selected parent ID ?? emptyString",
+        "strictString": true,
+        "allowEmpty": true,
+        "description": "ID asli baris kantor/wilayah terpilih tanpa trim; null pada parent diubah menjadi String kosong oleh caller. Encoding query terisolasi merupakan adaptasi browser, bukan bukti kesamaan seluruh byte URL native."
       }
     ],
     "evidence": {
       "callAddress": "0xd3be30",
-      "source": "analysis/recovered/http-callsite-audit/00d3be30.asm.txt"
+      "source": "analysis/recovered/mitra-read-contract-followup/source-index.json",
+      "requestSource": "analysis/recovered/http-callsite-audit/00d3be30.asm.txt",
+      "nativeProofSha256": "e6d6c1b29c6f6efa4e8cbd9ba84657ae54205e3f77a71d524b6016abdf854d5b",
+      "protocolDoc": "analysis/MITRA-READ-CONTRACT-FOLLOWUP-20261021.md"
     },
     "serverRequiredness": "unknown",
     "serverAcceptance": "untested"
@@ -10198,13 +10358,13 @@ const operationData = [
   },
   {
     "id": "get-legacy-getpersilidbynibel-d74b90",
-    "label": "Cari bidang dengan NIB elektronik",
+    "label": "Cari bidang sertipikat elektronik",
     "group": "Sertipikat dan akta",
     "method": "GET",
     "endpoint": "legacy/GetPersilIdByNibel?nibel={value}&kodehat=",
     "path": "legacy/GetPersilIdByNibel",
     "serviceId": "main",
-    "serviceMapping": "static service family; execution disabled",
+    "serviceMapping": "audited main-session Cari Bidang read",
     "encoding": "none",
     "recoveredTransport": "query encoded directly in constructed URL",
     "auth": "session",
@@ -10212,11 +10372,11 @@ const operationData = [
     "effect": "read",
     "mutates": false,
     "requiresConfirmation": false,
-    "enabled": false,
-    "supported": false,
-    "inspectOnly": true,
-    "readiness": "inspect_only",
-    "reason": "Tercatat dari audit APK; adapter eksekusi operasi ini belum diaktifkan.",
+    "enabled": true,
+    "supported": true,
+    "inspectOnly": false,
+    "readiness": "ready_unverified",
+    "reason": "Pembacaan wilayah dan ID bidang dari form native. Hasil langsung bertipe, tanpa telemetry/geotag atau geometri buatan; penerimaan server belum diuji.",
     "fields": [
       {
         "path": "nibel",
@@ -10224,9 +10384,12 @@ const operationData = [
         "type": "string",
         "location": "query",
         "required": "unknown",
-        "clientRequired": false,
+        "clientRequired": true,
         "source": "input",
-        "recoveredType": "String in constructed URL; input type not inferred"
+        "recoveredType": "String in constructed URL; input type not inferred",
+        "strictString": true,
+        "allowEmpty": false,
+        "description": "String asli dari form Cari Bidang; tidak dipangkas atau diubah menjadi angka. Kantor memakai KantorId main, wilayah memakai WilayahId dari respons Cyb."
       },
       {
         "path": "kodehat",
@@ -10237,25 +10400,30 @@ const operationData = [
         "clientRequired": false,
         "source": "constant",
         "recoveredType": "String in constructed URL; input type not inferred",
-        "default": ""
+        "default": "",
+        "strictString": true,
+        "allowEmpty": true,
+        "description": "String asli dari form Cari Bidang; tidak dipangkas atau diubah menjadi angka. Kantor memakai KantorId main, wilayah memakai WilayahId dari respons Cyb."
       }
     ],
     "evidence": {
       "callAddress": "0xd74b90",
-      "source": "analysis/recovered/http-callsite-audit/00d74b90.asm.txt"
+      "source": "analysis/recovered/parcel-search-followup/flow.json",
+      "requestSource": "analysis/recovered/http-callsite-audit/00d74b90.asm.txt",
+      "nativeProofSha256": "c110b2f22ecb811f063156ccc47e5708f31286d1ad0e4bab8492a6309077d2d7"
     },
     "serverRequiredness": "unknown",
     "serverAcceptance": "untested"
   },
   {
     "id": "get-legacy-getpersilid-d74e4c",
-    "label": "Cari identitas bidang",
+    "label": "Cari bidang sertipikat analog",
     "group": "Sertipikat dan akta",
     "method": "GET",
     "endpoint": "legacy/GetPersilId?jenishak={value}&nomorhak={value}&kantorid={value}&wilayahid={value}",
     "path": "legacy/GetPersilId",
     "serviceId": "main",
-    "serviceMapping": "static service family; execution disabled",
+    "serviceMapping": "audited main-session Cari Bidang read",
     "encoding": "none",
     "recoveredTransport": "query encoded directly in constructed URL",
     "auth": "session",
@@ -10263,11 +10431,11 @@ const operationData = [
     "effect": "read",
     "mutates": false,
     "requiresConfirmation": false,
-    "enabled": false,
-    "supported": false,
-    "inspectOnly": true,
-    "readiness": "inspect_only",
-    "reason": "Tercatat dari audit APK; adapter eksekusi operasi ini belum diaktifkan.",
+    "enabled": true,
+    "supported": true,
+    "inspectOnly": false,
+    "readiness": "ready_unverified",
+    "reason": "Pembacaan wilayah dan ID bidang dari form native. Hasil langsung bertipe, tanpa telemetry/geotag atau geometri buatan; penerimaan server belum diuji.",
     "fields": [
       {
         "path": "jenishak",
@@ -10275,9 +10443,12 @@ const operationData = [
         "type": "string",
         "location": "query",
         "required": "unknown",
-        "clientRequired": false,
+        "clientRequired": true,
         "source": "input",
-        "recoveredType": "String in constructed URL; input type not inferred"
+        "recoveredType": "String in constructed URL; input type not inferred",
+        "strictString": true,
+        "allowEmpty": false,
+        "description": "String asli dari form Cari Bidang; tidak dipangkas atau diubah menjadi angka. Kantor memakai KantorId main, wilayah memakai WilayahId dari respons Cyb."
       },
       {
         "path": "nomorhak",
@@ -10285,9 +10456,12 @@ const operationData = [
         "type": "string",
         "location": "query",
         "required": "unknown",
-        "clientRequired": false,
+        "clientRequired": true,
         "source": "input",
-        "recoveredType": "String in constructed URL; input type not inferred"
+        "recoveredType": "String in constructed URL; input type not inferred",
+        "strictString": true,
+        "allowEmpty": true,
+        "description": "String asli dari form Cari Bidang; tidak dipangkas atau diubah menjadi angka. Kantor memakai KantorId main, wilayah memakai WilayahId dari respons Cyb."
       },
       {
         "path": "kantorid",
@@ -10295,9 +10469,12 @@ const operationData = [
         "type": "string",
         "location": "query",
         "required": "unknown",
-        "clientRequired": false,
+        "clientRequired": true,
         "source": "input",
-        "recoveredType": "String in constructed URL; input type not inferred"
+        "recoveredType": "String in constructed URL; input type not inferred",
+        "strictString": true,
+        "allowEmpty": false,
+        "description": "String asli dari form Cari Bidang; tidak dipangkas atau diubah menjadi angka. Kantor memakai KantorId main, wilayah memakai WilayahId dari respons Cyb."
       },
       {
         "path": "wilayahid",
@@ -10305,27 +10482,32 @@ const operationData = [
         "type": "string",
         "location": "query",
         "required": "unknown",
-        "clientRequired": false,
+        "clientRequired": true,
         "source": "input",
-        "recoveredType": "String in constructed URL; input type not inferred"
+        "recoveredType": "String in constructed URL; input type not inferred",
+        "strictString": true,
+        "allowEmpty": true,
+        "description": "String asli dari form Cari Bidang; tidak dipangkas atau diubah menjadi angka. Kantor memakai KantorId main, wilayah memakai WilayahId dari respons Cyb."
       }
     ],
     "evidence": {
       "callAddress": "0xd74e4c",
-      "source": "analysis/recovered/http-callsite-audit/00d74e4c.asm.txt"
+      "source": "analysis/recovered/parcel-search-followup/flow.json",
+      "requestSource": "analysis/recovered/http-callsite-audit/00d74e4c.asm.txt",
+      "nativeProofSha256": "c110b2f22ecb811f063156ccc47e5708f31286d1ad0e4bab8492a6309077d2d7"
     },
     "serverRequiredness": "unknown",
     "serverAcceptance": "untested"
   },
   {
     "id": "get-legacy-wilayah-d752bc",
-    "label": "Referensi wilayah kantor",
+    "label": "Wilayah untuk pencarian bidang",
     "group": "Sertipikat dan akta",
     "method": "GET",
     "endpoint": "legacy/Wilayah?kantorid={value}&nama=",
     "path": "legacy/Wilayah",
     "serviceId": "main",
-    "serviceMapping": "static service family; execution disabled",
+    "serviceMapping": "audited main-session Cari Bidang read",
     "encoding": "none",
     "recoveredTransport": "query encoded directly in constructed URL",
     "auth": "session",
@@ -10333,11 +10515,11 @@ const operationData = [
     "effect": "read",
     "mutates": false,
     "requiresConfirmation": false,
-    "enabled": false,
-    "supported": false,
-    "inspectOnly": true,
-    "readiness": "inspect_only",
-    "reason": "Tercatat dari audit APK; adapter eksekusi operasi ini belum diaktifkan.",
+    "enabled": true,
+    "supported": true,
+    "inspectOnly": false,
+    "readiness": "ready_unverified",
+    "reason": "Pembacaan wilayah dan ID bidang dari form native. Hasil langsung bertipe, tanpa telemetry/geotag atau geometri buatan; penerimaan server belum diuji.",
     "fields": [
       {
         "path": "kantorid",
@@ -10345,9 +10527,12 @@ const operationData = [
         "type": "string",
         "location": "query",
         "required": "unknown",
-        "clientRequired": false,
+        "clientRequired": true,
         "source": "input",
-        "recoveredType": "String in constructed URL; input type not inferred"
+        "recoveredType": "String in constructed URL; input type not inferred",
+        "strictString": true,
+        "allowEmpty": false,
+        "description": "String asli dari form Cari Bidang; tidak dipangkas atau diubah menjadi angka. Kantor memakai KantorId main, wilayah memakai WilayahId dari respons Cyb."
       },
       {
         "path": "nama",
@@ -10358,105 +10543,116 @@ const operationData = [
         "clientRequired": false,
         "source": "constant",
         "recoveredType": "String in constructed URL; input type not inferred",
-        "default": ""
+        "default": "",
+        "strictString": true,
+        "allowEmpty": true,
+        "description": "String asli dari form Cari Bidang; tidak dipangkas atau diubah menjadi angka. Kantor memakai KantorId main, wilayah memakai WilayahId dari respons Cyb."
       }
     ],
     "evidence": {
       "callAddress": "0xd752bc",
-      "source": "analysis/recovered/http-callsite-audit/00d752bc.asm.txt"
+      "source": "analysis/recovered/parcel-search-followup/flow.json",
+      "requestSource": "analysis/recovered/http-callsite-audit/00d752bc.asm.txt",
+      "nativeProofSha256": "c110b2f22ecb811f063156ccc47e5708f31286d1ad0e4bab8492a6309077d2d7"
     },
     "serverRequiredness": "unknown",
     "serverAcceptance": "untested"
   },
   {
     "id": "get-api-antrian-d89cb4",
-    "label": "Cari jadwal antrean",
+    "label": "Ketersediaan loket antrean",
     "group": "Antrean",
     "method": "GET",
     "endpoint": "api/antrian",
     "path": "api/antrian",
-    "serviceId": "antrian",
-    "serviceMapping": "static service family; execution disabled",
+    "serviceId": "directus",
+    "serviceMapping": "audited FRb +0xb Directus booking prerequisites",
     "encoding": "none",
     "recoveredTransport": "query map Ikc encoded and appended to URI by shared request-options builder",
-    "auth": "none",
-    "authenticated": false,
+    "auth": "session",
+    "authenticated": true,
     "effect": "read",
     "mutates": false,
     "requiresConfirmation": false,
-    "enabled": false,
-    "supported": false,
-    "inspectOnly": true,
-    "readiness": "inspect_only",
-    "reason": "Kontrak sesi atau transport layanan ini belum diaktifkan pada adapter web.",
+    "enabled": true,
+    "supported": true,
+    "inspectOnly": false,
+    "readiness": "ready_unverified",
+    "reason": "Pratinjau baca kantor/lokasi/ketersediaan; referensi pilihan harus berasal dari respons sesi ini. Tidak melakukan booking, enrollment, OTP atau socket.",
     "fields": [
       {
         "path": "lokasi",
-        "label": "lokasi",
+        "label": "Lokasi Kerja terpilih",
         "type": "string",
+        "strictString": true,
         "location": "query",
         "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown; Map<String,dynamic> value"
+        "clientRequired": true,
+        "source": "input"
       },
       {
         "path": "tanggal",
-        "label": "tanggal",
+        "label": "Tanggal (yyyy-MM-dd)",
         "type": "string",
+        "strictString": true,
         "location": "query",
         "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown; Map<String,dynamic> value"
+        "clientRequired": true,
+        "source": "input"
       }
     ],
     "evidence": {
       "callAddress": "0xd89cb4",
-      "source": "analysis/recovered/http-callsite-audit/00d89cb4.asm.txt"
+      "source": "analysis/recovered/queue-booking-reads/flow.json",
+      "selectionSource": "analysis/recovered/queue-booking-selection-followup/flow.json",
+      "dateSource": "analysis/recovered/queue-booking-date-followup/flow.json"
     },
     "serverRequiredness": "unknown",
-    "serverAcceptance": "untested"
+    "serverAcceptance": "untested",
+    "clientProfile": "queue-read"
   },
   {
     "id": "get-items-lokasi-d8a0dc",
-    "label": "Lokasi layanan antrean",
+    "label": "Lokasi Kerja antrean",
     "group": "Antrean",
     "method": "GET",
     "endpoint": "items/lokasi",
     "path": "items/lokasi",
     "serviceId": "directus",
-    "serviceMapping": "static service family; execution disabled",
+    "serviceMapping": "audited FRb +0xb Directus booking prerequisites",
     "encoding": "none",
     "recoveredTransport": "query map Ikc encoded and appended to URI by shared request-options builder",
-    "auth": "none",
-    "authenticated": false,
+    "auth": "session",
+    "authenticated": true,
     "effect": "read",
     "mutates": false,
     "requiresConfirmation": false,
-    "enabled": false,
-    "supported": false,
-    "inspectOnly": true,
-    "readiness": "inspect_only",
-    "reason": "Kontrak sesi atau transport layanan ini belum diaktifkan pada adapter web.",
+    "enabled": true,
+    "supported": true,
+    "inspectOnly": false,
+    "readiness": "ready_unverified",
+    "reason": "Pratinjau baca kantor/lokasi/ketersediaan; referensi pilihan harus berasal dari respons sesi ini. Tidak melakukan booking, enrollment, OTP atau socket.",
     "fields": [
       {
         "path": "filter[kantor]",
-        "label": "filter[kantor]",
+        "label": "Kantor Pertanahan terpilih",
         "type": "string",
+        "strictString": true,
         "location": "query",
         "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "unknown; Map<String,dynamic> value"
+        "clientRequired": true,
+        "source": "input"
       }
     ],
     "evidence": {
       "callAddress": "0xd8a0dc",
-      "source": "analysis/recovered/http-callsite-audit/00d8a0dc.asm.txt"
+      "source": "analysis/recovered/queue-booking-reads/flow.json",
+      "selectionSource": "analysis/recovered/queue-booking-selection-followup/flow.json",
+      "dateSource": "analysis/recovered/queue-booking-date-followup/flow.json"
     },
     "serverRequiredness": "unknown",
-    "serverAcceptance": "untested"
+    "serverAcceptance": "untested",
+    "clientProfile": "queue-read"
   },
   {
     "id": "get-dokumen-getspsdokumen-d94aac",
@@ -11021,6 +11217,15 @@ const operationData = [
   }
 ];
 // Appended to generated operationData/serviceData by build-operations.py.
+import {prepareSelectedReviewPostValues} from './lost-review-post.mjs';
+import {MITRA_READS,prepareMitraQuery} from './mitra-response.mjs';
+import {RATING_PPAT_READ_ID,RATING_PPAT_READ_PATH,prepareRatingPpatRead} from './rating-ppat-response.mjs';
+import {RATING_PPAT_POST_ID,RATING_PPAT_POST_PATH,prepareRatingPpatPostValues} from './rating-ppat-post.mjs';
+import {QUEUE_BOOKING_LIMIT_ID,QUEUE_BOOKING_LIMIT_PATH,prepareQueueBookingReview} from './queue-booking-models.mjs';
+import {SWAPLOTTING_POSTS,swaplottingExact} from './swaplotting-post.mjs';
+import {BERKAS_RATING_ID,BERKAS_RATING_PATH,prepareBerkasRatingInput} from './berkas-rating-post.mjs';
+import {GUESTBOOK_POST_ID,GUESTBOOK_POST_PATH,prepareGuestbookPostInput} from './guestbook-post.mjs';
+import {YURIDIS_READ_ID,YURIDIS_PATH,YURIDIS_REVIEW_ID,YURIDIS_REVIEW_PATH,prepareYuridisFeed,prepareYuridisLastReview} from './yuridis-response.mjs';
 function freezeDeep(value) {
   if (value && typeof value === 'object') {
     Object.values(value).forEach(freezeDeep);
@@ -11115,10 +11320,120 @@ export function prepareOperation(id, params = {}, context = {}) {
   if (operation.auth === 'session' && !context.authenticated) fail('LOGIN_REQUIRED', 'Masuk dengan akun Anda untuk menjalankan operasi ini.', 401);
   if (operation.auth === 'application' && !context.applicationConfigured) fail('APPLICATION_AUTH_UNAVAILABLE', 'Konfigurasi autentikasi layanan wilayah belum tersedia di server lokal.', 503);
   if (!params || typeof params !== 'object' || Array.isArray(params)) fail('INVALID_PARAMETERS', 'Parameter harus berbentuk objek.');
+  if(operation.id===GUESTBOOK_POST_ID){
+    const input=prepareGuestbookPostInput(params);
+    return {operation,service:SERVICES.main,serviceId:'main',method:'POST',path:GUESTBOOK_POST_PATH,query:{},body:{},guestbookPostInput:Object.freeze({contextId:input.contextId,...input.fields}),encoding:'multipart',auth:'session',clientProfile:'guestbook-post',effect:'write',files:[],requiresConfirmation:true};
+  }
+  const swaplottingKind=Object.keys(SWAPLOTTING_POSTS).find(kind=>SWAPLOTTING_POSTS[kind].id===operation.id);
+  if(operation.id===BERKAS_RATING_ID){
+    const berkasRatingInput=prepareBerkasRatingInput(params);
+    return {operation,service:SERVICES.main,serviceId:'main',method:'POST',path:BERKAS_RATING_PATH,query:{},body:{},berkasRatingInput,encoding:'multipart',auth:'session',clientProfile:'berkas-rating-post',effect:'write',files:[],requiresConfirmation:true};
+  }
+  if(swaplottingKind){
+    try{swaplottingExact(params,['reviewId']);}catch{fail('SWAPLOTTING_SUBMIT_SCOPE','Pengiriman hanya menerima ringkasan formulir sesi ini.');}
+    if(typeof params.reviewId!=='string'||!/^sr_[A-Za-z0-9_-]{32}$/.test(params.reviewId))fail('SWAPLOTTING_SUBMIT_SCOPE','Ringkasan formulir sesi belum tersedia.');
+    return {operation,service:SERVICES.main,serviceId:'main',method:'POST',path:SWAPLOTTING_POSTS[swaplottingKind].path,query:{},body:{},swaplottingKind,swaplottingReviewId:params.reviewId,encoding:'multipart',auth:'session',clientProfile:'swaplotting-post',effect:'write',files:[],requiresConfirmation:true};
+  }
+  if(operation.id===QUEUE_BOOKING_LIMIT_ID){
+    let queueBookingReview;
+    try{queueBookingReview=prepareQueueBookingReview(params);}catch{fail('QUEUE_BOOKING_REVIEW_SCOPE','Pilih konteks ketersediaan sesi, loket, jumlah berkas dan zona waktu browser yang didukung.');}
+    return {operation,service:SERVICES.directus,serviceId:'directus',method:'POST',path:QUEUE_BOOKING_LIMIT_PATH,query:{},body:{},queueBookingReview,encoding:'json',auth:'session',clientProfile:'queue-booking',effect:'write',files:[],requiresConfirmation:true};
+  }
+  if(operation.id===RATING_PPAT_READ_ID){
+    prepareRatingPpatRead(params);
+    return {operation,service:SERVICES.main,serviceId:'main',method:'GET',path:RATING_PPAT_READ_PATH,query:{},body:{},encoding:'none',auth:'session',clientProfile:'main',effect:'read',files:[],requiresConfirmation:false};
+  }
+  if(operation.id===RATING_PPAT_POST_ID){
+    const body=prepareRatingPpatPostValues(params);
+    return {operation,service:SERVICES.main,serviceId:'main',method:'POST',path:RATING_PPAT_POST_PATH,query:{},body,encoding:'json',auth:'session',clientProfile:'main',effect:'write',files:[],requiresConfirmation:true};
+  }
+  if(operation.id===YURIDIS_READ_ID){
+    const query=prepareYuridisFeed(params);
+    return {operation,service:SERVICES.main,serviceId:'main',method:'GET',path:YURIDIS_PATH,query,body:{},encoding:'none',auth:'optionalSession',clientProfile:'main',effect:'read',files:[],requiresConfirmation:false};
+  }
+  if(operation.id===YURIDIS_REVIEW_ID){
+    const body=prepareYuridisLastReview(params);
+    return {operation,service:SERVICES.main,serviceId:'main',method:'POST',path:YURIDIS_REVIEW_PATH,query:{},body,encoding:'form',auth:'session',clientProfile:'main',effect:'read',files:[],requiresConfirmation:false};
+  }
   const allowed = new Map(operation.fields.map(field => [field.path, field]));
   for (const key of Object.keys(params)) {
     if (!allowed.has(key) || ['__proto__', 'constructor', 'prototype'].includes(key)) fail('UNKNOWN_FIELD', `Parameter ${key} tidak termasuk kontrak operasi.`);
     if (allowed.get(key).type === 'file') fail('FILE_TRANSPORT_REQUIRED', 'Kirim file melalui multipart, bukan nilai JSON.');
+  }
+  if (Object.hasOwn(MITRA_READS,operation.path)) {
+    const query=prepareMitraQuery(operation.path,params);
+    return {operation,service:SERVICES.main,serviceId:'main',method:'GET',path:operation.path,query,body:{},encoding:'none',auth:'optionalSession',clientProfile:'main',effect:'read',files:[],requiresConfirmation:false};
+  }
+  if (operation.id === 'post-review-post-deb030') {
+    const body=prepareSelectedReviewPostValues(params);
+    return {operation,service:SERVICES.main,serviceId:'main',method:'POST',path:'review/post',query:{},body,encoding:'multipart',auth:'session',clientProfile:'main',effect:'write',files:[],requiresConfirmation:true};
+  }
+  if (operation.id === 'post-review-all-dace58') {
+    if (![Object.prototype,null].includes(Object.getPrototypeOf(params)) || Reflect.ownKeys(params).some(key=>typeof key!=='string'||!allowed.has(key))) fail('LOST_REVIEW_READ_SCOPE','Parameter ulasan pengumuman tidak sesuai kontrak pembacaan.');
+    const body=Object.create(null);
+    for (const field of operation.fields) {
+      const descriptor=Object.getOwnPropertyDescriptor(params,field.path);
+      if (descriptor && !Object.hasOwn(descriptor,'value')) fail('INVALID_FIELD',`${field.label} harus berupa nilai teks langsung.`);
+      if (field.source==='constant') {
+        if (descriptor && descriptor.value!==field.default) fail('FIXED_FIELD',`${field.label} ditetapkan oleh kontrak yang diaudit.`);
+        body[field.path]=field.default;
+      } else {
+        if (!descriptor || descriptor.value===null || descriptor.value===undefined) fail('FIELD_REQUIRED','ID konten ulasan harus berasal dari record pengumuman terpilih.');
+        body[field.path]=validateValue(field,descriptor.value,operation.id);
+      }
+    }
+    return {operation,service:SERVICES.main,serviceId:'main',method:'POST',path:'review/all',query:{},body,encoding:'form',auth:'session',clientProfile:'main',effect:'read',files:[],requiresConfirmation:false};
+  }
+  if (operation.id === 'get-bukutamu-d28bf4') {
+    // Local session eligibility is separate from the standalone upstream
+    // application's Authorization header. Neither query value is an account ID
+    // inferred from sign-in; both come from the office QR caller.
+    if (![Object.prototype,null].includes(Object.getPrototypeOf(params)) || Reflect.ownKeys(params).length!==2 || !['uid','unid'].every(key=>Object.hasOwn(params,key)&&Object.hasOwn(Object.getOwnPropertyDescriptor(params,key),'value')&&typeof params[key]==='string')) fail('GUESTBOOK_READ_SCOPE','Parameter QR Buku Tamu harus berupa dua nilai teks.',400);
+    const query=Object.fromEntries(operation.fields.map(field=>[field.path,validateValue(field,params[field.path],operation.id)]));
+    return {operation,service:SERVICES.main,serviceId:'main',method:'GET',path:'bukutamu',query,body:{},encoding:'none',auth:'session',clientProfile:'guestbook-read',effect:'read',files:[],requiresConfirmation:false};
+  }
+  if (operation.id === 'post-perurilivenesssdk-validatektpdatav2-da9a78') {
+    // OEb's five nullable Strings are copied in this fixed order. The native
+    // service substitutes '' for null without trimming or reading sign-in NIK.
+    if (![Object.prototype, null].includes(Object.getPrototypeOf(params)) || Reflect.ownKeys(params).some(key => typeof key !== 'string' || !allowed.has(key))) fail('INVALID_PARAMETERS', 'Parameter identitas harus berupa objek dengan lima field yang didukung.');
+    const body = Object.create(null);
+    for (const field of operation.fields) {
+      const descriptor = Object.getOwnPropertyDescriptor(params, field.path);
+      if (descriptor && !Object.hasOwn(descriptor, 'value')) fail('INVALID_FIELD', `${field.label} harus berupa nilai teks langsung.`);
+      body[field.path] = validateValue(field, descriptor?.value ?? '', operation.id);
+    }
+    return {operation, service:SERVICES.main, serviceId:'main', method:'POST', path:operation.path, query:{}, body, encoding:'multipart', auth:'session', clientProfile:'main', effect:'write', files:[], requiresConfirmation:true};
+  }
+  if (['get-legacy-wilayah-d752bc','get-legacy-getpersilid-d74e4c','get-legacy-getpersilidbynibel-d74b90'].includes(operation.id)) {
+    if (![Object.prototype,null].includes(Object.getPrototypeOf(params)) || Reflect.ownKeys(params).some(key => typeof key !== 'string' || !allowed.has(key))) fail('INVALID_PARAMETERS','Parameter pencarian bidang harus berupa objek dengan field yang didukung.');
+    const query=Object.create(null);
+    for (const field of operation.fields) {
+      const descriptor=Object.getOwnPropertyDescriptor(params,field.path);
+      if (descriptor && !Object.hasOwn(descriptor,'value')) fail('INVALID_FIELD',`${field.label} harus berupa nilai teks langsung.`);
+      const value=field.source==='constant'?field.default:descriptor?.value;
+      if (field.source==='constant' && descriptor && descriptor.value!==field.default) fail('FIXED_FIELD',`${field.label} ditetapkan oleh kontrak yang diaudit.`);
+      if (value==null || value==='' && !field.allowEmpty) fail('FIELD_REQUIRED',`${field.label} diperlukan oleh adapter pencarian bidang.`);
+      query[field.path]=validateValue(field,value,operation.id);
+    }
+    if (operation.id==='get-legacy-getpersilid-d74e4c' && (!['1','2','3','4','5','8'].includes(query.jenishak) || !['2','5'].includes(query.jenishak) && query.wilayahid==='')) fail('INVALID_PARCEL_SELECTION','Pilih jenis hak dan wilayah sesuai form pencarian bidang.');
+    if (operation.id==='get-legacy-getpersilidbynibel-d74b90' && query.nibel.length<14) fail('INVALID_PARCEL_SELECTION','NIBEL harus berisi minimal 14 karakter sesuai form native.');
+    return {operation,service:SERVICES.main,serviceId:'main',method:'GET',path:operation.path,query,body:{},encoding:'none',auth:'session',clientProfile:'main',effect:'read',files:[],requiresConfirmation:false};
+  }
+  const scanClassification = operation.id === 'post-apis-scandocument-d42440';
+  const scanMap = ['post-apis-getpbteldetail-d3d134','post-apis-getkkprdetail-d311e8'].includes(operation.id);
+  const scanDocument = scanMap || ['post-apis-getdocument-d41ee8','post-apis-getdocumenttype-d417d4','get-apis-getgeojsoninfo-d39f1c'].includes(operation.id);
+  if (scanClassification || context.scanContext) {
+    if (!scanClassification && !scanDocument) fail('SCAN_CONTEXT_SCOPE', 'Konteks Scan hanya berlaku untuk pembacaan dokumen, metadata dan lokasi dokumen.', 409);
+    if (Object.hasOwn(params, 'name')) fail('SCAN_PROFILE_OVERRIDE', 'Nama Scan berasal dari profil sesi dan tidak menerima input browser.', 403);
+    if (!Object.hasOwn(params, 'q') || typeof params.q !== 'string') fail('FIELD_REQUIRED', 'Kode Scan harus disediakan sebagai String, termasuk bila kosong.');
+    const q = validateValue({ ...allowed.get('q'), strictString:true, allowEmpty:true }, params.q, operation.id);
+    const body = {q};
+    if (context.scanContext) {
+      if (context.scanContext.q !== q || typeof context.scanContext.name !== 'string') fail('SCAN_CONTEXT_INVALID', 'Kode tidak cocok dengan konteks Scan sesi ini.', 409);
+      if (operation.id === 'post-apis-getdocument-d41ee8') body.name = context.scanContext.name;
+    }
+    if (operation.id === 'get-apis-getgeojsoninfo-d39f1c') return {operation,service:SERVICES.main,serviceId:'main',method:'GET',path:operation.path,query:{q},body:{},encoding:'none',auth:'session',clientProfile:'main',effect:'read',files:[],requiresConfirmation:false,scanContextValidated:true};
+    return { operation, service:SERVICES.main, serviceId:'main', method:'POST', path:operation.path, query:{}, body, encoding:'form', auth:'session', clientProfile:'main', effect:operation.effect, files:[], requiresConfirmation:operation.requiresConfirmation, ...(scanMap ? {scanMapContextValidated:true} : {}) };
   }
   if (Object.hasOwn(collectionDeletePaths, operation.id)) {
     if (!Object.hasOwn(params, 'path_argument_1') || params.path_argument_1 == null) fail('FIELD_REQUIRED', 'ID untuk aksi koleksi harus disediakan secara eksplisit.');
@@ -11130,6 +11445,13 @@ export function prepareOperation(id, params = {}, context = {}) {
     return { operation, service: SERVICES.main, serviceId: 'main', method: 'DELETE', path: collectionDeletePaths[operation.id] + segment, query: {}, body: {}, encoding: 'none', auth: 'session', clientProfile: 'main', effect: 'write', files: [], requiresConfirmation: true };
   }
   if (operation.clientProfile === 'queue-read') {
+    const prerequisite={'get-items-kantor-d1fa00':'offices','get-items-lokasi-d8a0dc':'locations','get-api-antrian-d89cb4':'availability'}[operation.id];
+    if(prerequisite){
+      const expected=prerequisite==='offices'?[]:prerequisite==='locations'?['filter[kantor]']:['lokasi','tanggal'];
+      if(Reflect.ownKeys(params).length!==expected.length||expected.some(key=>!Object.hasOwn(params,key)||!Object.hasOwn(Object.getOwnPropertyDescriptor(params,key),'value')||typeof params[key]!=='string'||!params[key].trim()||params[key].length>1024||!params[key].isWellFormed()||/[\u0000-\u001f\u007f-\u009f]/.test(params[key])))fail('QUEUE_PREREAD_INPUT','Pilih referensi antrean yang tersedia dan tanggal yang valid.',400);
+      if(prerequisite==='availability'&&!/^\d{4}-\d{2}-\d{2}$/.test(params.tanggal))fail('QUEUE_DATE_INVALID','Tanggal antrean harus memakai yyyy-MM-dd.',400);
+      return {operation,service:SERVICES.directus,serviceId:'directus',method:'GET',path:operation.path,queuePrerequisite:prerequisite,queueOfficeId:params['filter[kantor]'],queueLocationId:params.lokasi,queueDate:params.tanggal,query:{},body:{},encoding:'none',auth:'session',clientProfile:'queue-read',effect:'read',files:[],requiresConfirmation:false};
+    }
     const detail = operation.id === 'get-api-antrian-path-argument-1-d1e130';
     if (!detail && !['get-api-antrian-saya-d1eb1c','get-api-notifikasi-d22468'].includes(operation.id)) fail('QUEUE_READ_SCOPE', 'Operasi antrean tidak sesuai kontrak.', 409);
     const queueId = detail ? params.path_argument_1 : undefined;

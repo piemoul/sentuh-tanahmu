@@ -1,5 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {createHash} from 'node:crypto';
 import { OPERATIONS, SERVICES, getOperation, getPublicCatalog, prepareOperation } from '../private/operations.mjs';
 import { ApiClient } from '../private/api-client.mjs';
 
@@ -9,7 +11,17 @@ const session = { authenticated: true, applicationConfigured: true, nik: '000000
 test('170 audited shapes plus the separate SPS viewer, two group DELETE and three item helpers remain distinct, immutable and explicit about readiness', () => {
   assert.equal(OPERATIONS.length, 176);
   assert.equal(new Set(OPERATIONS.map(operation => operation.id)).size, 176);
-  assert.equal(OPERATIONS.filter(operation => operation.enabled).length, 75);
+  assert.equal(OPERATIONS.filter(operation => operation.enabled).length, 94);
+  const baseline=JSON.parse(readFileSync(new URL('../../analysis/webapp/yuridis-runtime-baseline.json',import.meta.url)));
+  const old=new Map(baseline.catalog.operations.map(operation=>[operation.id,operation]));
+  const changed=OPERATIONS.filter(operation=>createHash('sha256').update(JSON.stringify(operation)).digest('hex')!==old.get(operation.id)?.sha256).map(operation=>operation.id).sort();
+  assert.deepEqual(changed,['get-announcement-yuridis-bykantor-d0fb64','post-review-last-user-review-dad1dc','post-review-post-deb030','post-ratingppat-postratingppat-d86e10','get-ratingppat-getratingquestions-d1d6bc','post-api-booking-limit-d8bf80','post-apis-swaplottingterdaftar-d9f850','post-apis-swaplottingbelumterdaftar-da0be8','post-berkas-postratingberkas-d915c4','post-bukutamu-d99dd8'].sort());
+  assert.equal(OPERATIONS.length-changed.length,166);
+  assert.deepEqual(OPERATIONS.filter(operation=>operation.enabled&&operation.effect==='write').map(operation=>operation.id),baseline.catalog.operations.filter(operation=>['post-ratingppat-postratingppat-d86e10','post-api-booking-limit-d8bf80','post-apis-swaplottingterdaftar-d9f850','post-apis-swaplottingbelumterdaftar-da0be8','post-berkas-postratingberkas-d915c4','post-bukutamu-d99dd8'].includes(operation.id)||operation.enabled&&operation.effect==='write').map(operation=>operation.id));
+  assert.equal(OPERATIONS.filter(operation=>operation.enabled&&operation.effect==='write').length,20);
+  for(const operation of OPERATIONS)assert.equal(operation.enabled,['post-review-last-user-review-dad1dc','post-ratingppat-postratingppat-d86e10','post-api-booking-limit-d8bf80','post-apis-swaplottingterdaftar-d9f850','post-apis-swaplottingbelumterdaftar-da0be8','post-berkas-postratingberkas-d915c4','post-bukutamu-d99dd8'].includes(operation.id)?true:old.get(operation.id).enabled,operation.id);
+  assert.equal(getOperation('post-review-last-user-review-dad1dc').enabled,true);
+  assert.equal(getOperation('post-review-last-user-review-d42f30').enabled,false);
   for (const operation of OPERATIONS) {
     if (operation.readiness !== 'dedicated_login') assert.equal(operation.enabled, !operation.inspectOnly);
     assert.equal(operation.serverAcceptance, 'untested');
@@ -184,9 +196,21 @@ test('all enabled adapters prepare locally without inventing nested models or ne
     const values = {};
     for (const field of operation.fields) {
       if (field.source !== 'input' || field.type === 'file' || Object.hasOwn(field, 'default')) continue;
-      values[field.path] = field.arraySchema === 'information-simulation-type2' ? [{Jumlah:'02',Luas:'00100',Penggunaan:'pertanian'}] : field.format === 'decimal-coordinate' ? '0.0000000' : field.type === 'boolean' ? false : ['integer', 'number'].includes(field.type) ? 1 : 'fixture-local';
+      values[field.path] = field.arraySchema === 'rating-ppat-selected-answer-ids' ? ['fixture-answer-B','fixture-answer-A','fixture-answer-B',''] : field.arraySchema === 'information-simulation-type2' ? [{Jumlah:'02',Luas:'00100',Penggunaan:'pertanian'}] : field.format === 'decimal-coordinate' ? '0.0000000' : field.type === 'boolean' ? false : ['integer', 'number'].includes(field.type) ? 1 : 'fixture-local';
     }
+    if(operation.id==='get-api-antrian-d89cb4')values.tanggal='2026-10-20';
+    if(operation.id==='get-legacy-getpersilid-d74e4c')values.jenishak='1';
+    if(operation.id==='get-legacy-getpersilidbynibel-d74b90')values.nibel='fixture-local-nibel';
+    if(operation.id==='post-api-booking-limit-d8bf80')Object.assign(values,{contextId:'qb_'+'a'.repeat(32),rowIndex:0,documentCount:1,timeZone:'Asia/Jakarta'});
+    if(['post-apis-swaplottingterdaftar-d9f850','post-apis-swaplottingbelumterdaftar-da0be8'].includes(operation.id))Object.assign(values,{reviewId:'sr_'+'a'.repeat(32)});
+    if(operation.id==='post-berkas-postratingberkas-d915c4')Object.assign(values,{contextId:'brc_'+'a'.repeat(32),rating:3,userComment:' raw\n comment '});
+    if(operation.id==='post-bukutamu-d99dd8')Object.assign(values,{contextId:'gbc_'+'a'.repeat(32),name:' raw name ',nik:'abcdefghijklmnop',phone:' raw phone ',birthDate:' raw date ',birthPlace:' raw place ',address:' raw\naddress ',email:' @ ',institution:' raw institution ',purpose:' raw purpose '});
     const prepared = prepareOperation(operation.id, values, session);
+    if(operation.id==='post-bukutamu-d99dd8'){assert.equal(prepared.clientProfile,'guestbook-post');assert.equal(operation.upstreamAuthentication,'application');assert.deepEqual(prepared.guestbookPostInput,values);assert.deepEqual(prepared.body,{});assert.deepEqual(prepared.query,{});assert.deepEqual(prepared.files,[]);assert.equal(prepared.requiresConfirmation,true);}
+    if(operation.id==='post-berkas-postratingberkas-d915c4'){assert.equal(prepared.clientProfile,'berkas-rating-post');assert.deepEqual(prepared.berkasRatingInput,{contextId:values.contextId,rating:3,userComment:'raw\n comment'});assert.deepEqual(prepared.body,{});assert.deepEqual(prepared.files,[]);assert.equal(prepared.requiresConfirmation,true);}
+    if(['post-apis-swaplottingterdaftar-d9f850','post-apis-swaplottingbelumterdaftar-da0be8'].includes(operation.id)){assert.equal(prepared.clientProfile,'swaplotting-post');assert.equal(prepared.swaplottingReviewId,values.reviewId);assert.deepEqual(prepared.body,{});assert.deepEqual(prepared.files,[]);assert.equal(prepared.requiresConfirmation,true);}
+    if(operation.id==='post-api-booking-limit-d8bf80'){assert.equal(prepared.clientProfile,'queue-booking');assert.deepEqual(prepared.queueBookingReview,values);assert.deepEqual(prepared.body,{});assert.equal(prepared.requiresConfirmation,true);}
+    if(operation.id==='post-ratingppat-postratingppat-d86e10'){assert.equal(prepared.body.aktaId,values.aktaId);assert.deepEqual(prepared.body.PertanyaanRatingPPATId,values.PertanyaanRatingPPATId);}
     const dynamic = operation.id === 'get-api-antrian-path-argument-1-d1e130' || operation.method === 'DELETE' && operation.group === 'Koleksi';
     assert.equal(prepared.path, dynamic ? operation.path.replace('{path_argument_1}', 'fixture-local') : operation.path);
     assert.equal(prepared.method, operation.method);

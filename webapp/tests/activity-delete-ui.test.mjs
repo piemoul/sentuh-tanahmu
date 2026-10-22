@@ -6,7 +6,7 @@ import vm from 'node:vm';
 import {OPERATIONS} from '../private/operations.mjs';
 
 const source=fs.readFileSync(new URL('../app.js',import.meta.url),'utf8'),lines=source.split(/\r?\n/);
-const names=['nativeResponseObject','activityItem','activityRows','activityCategories','activityMatches','activityDetailTarget','activityDeleteOperation','activityDeleteControllerCurrent','activityDeleteCurrent','activityDeleteMaster','openActivityDelete','cancelActivityDelete','submitActivityDelete','activityCard','activityListView','filterActivity','listPagination','clearPrivate'];
+const names=['nativeResponseObject','activityItem','activityRows','activityCategories','activityMatches','activityDetailTarget','activityDeleteOperation','activityDeleteControllerCurrent','activityDeleteCurrent','activityDeleteMaster','openActivityDelete','cancelActivityDelete','submitActivityDelete','activityCard','activityListView','filterActivity','listPagination','clearPrivate','resetScanHost','scanDisposeLocation'];
 const functions=names.map(name=>{const line=lines.find(line=>new RegExp(`^(?:async )?function ${name}\\(`).test(line));assert.ok(line,name);return line;}).join('\n');
 const ID='post-activity-deleteuseractivity-de6c94',KEY='activity:default',OWNER='activity:delete-state';
 const activity=(id=' A ',title='Synthetic activity',type='CariBidang')=>({userActivityId:id,title,activityType:type,contentId:'different-content',subTitle:'Synthetic only',platform:'android',status:'',createdAt:null});
@@ -20,8 +20,8 @@ function harness(rows=[activity()]){
  const state={loading:false,authenticated:true,user:{username:'synthetic'},connection:{configured:true},operations:OPERATIONS.map(op=>({...op})),activity:[],results:new Map(),points:[]};
  const readOp=OPERATIONS.find(op=>op.endpoint==='activity/GetUserActivity'),context={key:KEY,op:readOp},reader={loading:false,response:{status:200,data:{data:rows}}};
  const c=vm.createContext({state,Map,Object,Array,String,Number,JSON,Date,Intl,flowResults:new Map([[KEY,reader]]),route:'activity',sessionEpoch:0,detailSequence:0,busy:false,pending:null,flowDetail:null,htDetailData:null,flowQuery:'',flowPageIndex:0,selected:null,comparison:null,comparisonSelection:{},searchFileState:null,partnerFrame:null,
- collectionGroupCreate:null,collectionGroupMove:null,collectionGroupDelete:null,collectionGroupRemove:null,collectionItemDelete:null,collectionItemEdit:null,
- $:()=>modal,currentFlow:()=>context,ready:op=>op.enabled===true,write:op=>op.effect==='write',icon:()=>'',empty:message=>message,badge:message=>message,renderCount:0,render:()=>c.renderCount++,toast:message=>toasts.push(message),record:(...args)=>records.push(args),resetSearchFileNavigation(){},resetPartnerNavigation(){},
+ collectionGroupCreate:null,collectionGroupMove:null,collectionGroupDelete:null,collectionGroupRemove:null,collectionItemDelete:null,collectionItemEdit:null,verificationDaringBusy:()=>false,
+ $:()=>modal,currentFlow:()=>context,ready:op=>op.enabled===true,write:op=>op.effect==='write',icon:()=>'',empty:message=>message,badge:message=>message,renderCount:0,render:()=>c.renderCount++,toast:message=>toasts.push(message),record:(...args)=>records.push(args),resetSearchFileNavigation(){},resetPartnerNavigation(){},resetPersilMaps(){},persilMapCancel:()=>false,persilMapDialogClosed(){},
  document:{addEventListener(type,fn){if(!events.has(type))events.set(type,[]);events.get(type).push(fn);}},api:async(path,options)=>{calls.push({path,options});return handler(path,options);}});
  vm.runInContext(functions,c);
  const escapeLine=lines.find(line=>line.startsWith('const $='));vm.runInContext(`globalThis.esc=${escapeLine.slice(escapeLine.indexOf('esc=')+4)}`,c);
@@ -72,8 +72,17 @@ test('pending deletion overlays duplicate IDs, not other IDs, and a second submi
 for(const action of ['cancel','escape','modal-close'])test(`pending ${action} closes only the dialog; the native controller still removes after await`,async()=>{
  const h=harness(),wait=deferred();h.setApi(()=>wait.promise);h.open();const pending=h.c.submitActivityDelete(h.form);if(action==='cancel')h.c.cancelActivityDelete();else if(action==='escape')h.escape();else h.modal.close();wait.resolve({result:{status:200,data:true}});await pending;assert.equal(h.rows.length,0);assert.equal(h.modal.open,false);assert.equal(h.c.flowResults.has(OWNER),false);
 });
-for(const code of ['AUTH_REQUIRED','LOGIN_REQUIRED','SESSION_EXPIRED','SESSION_CHANGED'])test(`${code} clears private state rather than reporting a successful deletion`,async()=>{
+for(const code of ['AUTH_REQUIRED','LOGIN_REQUIRED','SESSION_EXPIRED'])test(`${code} clears private state rather than reporting a successful deletion`,async()=>{
  const h=harness();h.setApi(async()=>{throw Object.assign(new Error('synthetic auth loss'),{code});});h.open();await h.c.submitActivityDelete(h.form);assert.equal(h.state.authenticated,false);assert.equal(h.state.user,null);assert.equal(h.c.flowResults.size,0);assert.equal(h.rows.length,1);assert.equal(h.modal.open,false);assert.equal(h.records.length,0);
+});
+
+test('SESSION_CHANGED preserves the current account/private readers and follows ordinary native local removal without retry',async()=>{
+ const h=harness(),user=h.state.user,epoch=h.c.sessionEpoch,other={rows:[{id:'SINTETIS private survivor'}]},profile={data:{name:'SINTETIS newer profile'}};
+ h.c.flowResults.set('collections:grup',other);h.state.results.set('synthetic-profile',profile);
+ h.setApi(async()=>{throw Object.assign(new Error('SINTETIS concurrent token generation'),{code:'SESSION_CHANGED'});});
+ h.open();await h.c.submitActivityDelete(h.form);
+ assert.equal(h.state.authenticated,true);assert.equal(h.state.user,user);assert.equal(h.c.sessionEpoch,epoch);assert.equal(h.c.flowResults.get(KEY),h.reader);assert.equal(h.c.flowResults.get('collections:grup'),other);assert.equal(h.state.results.get('synthetic-profile'),profile);
+ assert.equal(h.rows.length,0);assert.equal(h.calls.length,1);assert.equal(h.records[0][1],'error');assert.match(h.records[0][2],/SESSION_CHANGED.*belum terkonfirmasi/);assert.equal(h.toasts.length,0);assert.equal(h.modal.open,false);assert.equal(h.c.flowResults.has(OWNER),false);
 });
 test('stale read replacement never mutates the new master',async()=>{
  const h=harness(),wait=deferred(),next=[activity()];h.setApi(()=>wait.promise);h.open();const pending=h.c.submitActivityDelete(h.form);h.c.flowResults.set(KEY,{response:{status:200,data:{data:next}}});wait.resolve({result:{status:200,data:true}});await pending;assert.equal(h.rows.length,1);assert.equal(next.length,1);assert.equal(h.modal.open,false);assert.equal(h.c.flowResults.has(OWNER),false);

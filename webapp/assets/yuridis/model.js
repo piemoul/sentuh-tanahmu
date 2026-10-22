@@ -1,0 +1,12 @@
+// Native6.1.5 GGb/FGb/IGb; keep this separate from the lost-certificate model.
+import {lostCertificateOffices,lostCertificateOfficeIndex,lostCertificateUsableId,lostCertificateLocation,lostCertificateBoundary} from '../lost-certificate/model.js';
+export const YURIDIS_COPY=Object.freeze({search:'Cari nama/wilayah/no berkas',noOffice:'Kamu belum punya kantor favorit, nih! Yuk, pilih kantor yang pengumuman yuridisnya pengen kamu lihat.',error:'Gagal mengambil data',empty:'Belum ada Pengumuman Yuridis',mapNotFound:'Lokasi Peta Bidang tidak ditemukan.'});
+export const yuridisOffices=lostCertificateOffices,yuridisOfficeIndex=lostCertificateOfficeIndex,yuridisUsableId=lostCertificateUsableId,yuridisLocation=lostCertificateLocation,yuridisBoundary=lostCertificateBoundary;
+const fields=['persilId','nomorBerkas','nomorPengumuman','tanggalMulai','tanggalSelesai','nib','wilayah','pemohon','permohonan','kegiatan'];
+const object=value=>value!==null&&typeof value==='object'&&!Array.isArray(value)&&[Object.prototype,null].includes(Object.getPrototypeOf(value));
+const fail=()=>{throw Object.assign(new TypeError('Data pengumuman yuridis belum sesuai kontrak layanan.'),{code:'YURIDIS_MODEL'});};
+function own(row,key){const d=Object.getOwnPropertyDescriptor(row,key);if(!d)return null;if(!Object.hasOwn(d,'value'))fail();return d.value??null;}
+function string(row,key){const value=own(row,key);if(value!==null&&typeof value!=='string')fail();return value;}
+function integer(value){if(value===null||Number.isSafeInteger(value))return value;if(typeof value!=='string'||! /^-?(?:0|[1-9]\d{0,18})$/.test(value))fail();const n=BigInt(value);if(n<-(1n<<63n)||n>=(1n<<63n)||n>=BigInt(Number.MIN_SAFE_INTEGER)&&n<=BigInt(Number.MAX_SAFE_INTEGER))fail();return value;}
+export function yuridisRows(value){if(!object(value))fail();const rows=own(value,'data');if(!Array.isArray(rows))fail();return Array.from({length:rows.length},(_,index)=>{const d=Object.getOwnPropertyDescriptor(rows,String(index));if(!d||!Object.hasOwn(d,'value')||!object(d.value))fail();const row=d.value;return {...Object.fromEntries(fields.map(key=>[key,string(row,key)])),luasPersil:integer(own(row,'luasPersil'))};});}
+export function yuridisEntries(rows,query){if(!Array.isArray(rows)||typeof query!=='string')fail();const lower=query.toLowerCase();return rows.map((item,index)=>({item,index})).filter(({item})=>['nomorBerkas','wilayah','pemohon'].some(key=>String(item[key]).toLowerCase().includes(lower)));}
