@@ -20,7 +20,7 @@ const defer=()=>{let resolve;const promise=new Promise(yes=>{resolve=yes;});retu
 const request=(path,body,encoding,patch={})=>({path,body,encoding,method:'POST',auth:'session',session:session(),...patch});
 
 test('two existing read catalog records stay enabled with176 total entries and separately scoped personal uploads beside disabled institutional writers',()=>{
- assert.equal(OPERATIONS.length,176);assert.equal(OPERATIONS.filter(o=>o.enabled).length,94);
+ assert.equal(OPERATIONS.length,176);assert.equal(OPERATIONS.filter(o=>o.enabled).length,95);
  for(const [id,path,,encoding]of contracts){const o=OPERATIONS.find(o=>o.id===id);assert.equal(o.path,path);assert.equal(o.method,'POST');assert.equal(o.serviceId,'main');assert.equal(o.auth,'session');assert.equal(o.encoding,encoding);assert.equal(o.effect,'read');assert.equal(o.enabled,true);assert.equal(o.serverAcceptance,'untested');assert.equal(o.requiresConfirmation,false);}
  for(const o of OPERATIONS.filter(o=>/Swaplotting(?:Terdaftar|BelumTerdaftar)|Instansi(?:Bersertipikat|BelumBersertipikat)/.test(o.path))){const personal=['post-apis-swaplottingterdaftar-d9f850','post-apis-swaplottingbelumterdaftar-da0be8'].includes(o.id);assert.equal(o.enabled,personal,o.id);if(personal){assert.equal(o.clientProfile,'swaplotting-post');assert.equal(o.requiresConfirmation,true);assert.throws(()=>prepareOperation(o.id,{namapemilik:'forged',lat:'1',lon:'2'},{authenticated:true}),{code:'SWAPLOTTING_SUBMIT_SCOPE'});}}
  assert.equal(OPERATIONS.find(o=>o.id==='post-geotag-uploadgeotag-d96b98').enabled,false);

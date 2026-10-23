@@ -43,7 +43,7 @@ test('request date accepts valid four-digit civil dates only including leap boun
  for(const date of ['0000-01-01','2026-02-29','2026-04-31','2026-1-01','2026-10-20T00:00:00Z',null])assert.throws(()=>queuePrereadDate(date));
 });
 test('registry enables exactly the three fixed read operations with no identity or extra fields',()=>{
- assert.equal(OPERATIONS.length,176);assert.equal(OPERATIONS.filter(o=>o.enabled).length,94);
+ assert.equal(OPERATIONS.length,176);assert.equal(OPERATIONS.filter(o=>o.enabled).length,95);
  for(const [id,values,kind] of [[O,{},'offices'],[L,{'filter[kantor]':'office'},'locations'],[A,{lokasi:'location',tanggal:'2026-10-20'},'availability']]){
   const p=prepareOperation(id,values,{authenticated:true});assert.equal(p.queuePrerequisite,kind);assert.equal(p.clientProfile,'queue-read');assert.equal(p.serviceId,'directus');assert.equal(p.auth,'session');assert.equal(p.requiresConfirmation,false);
   for(const key of ['nik','profile','canonicalId','headers','base','method','queueCalendarDirect'])assert.throws(()=>prepareOperation(id,{...values,[key]:'other'},{authenticated:true}));

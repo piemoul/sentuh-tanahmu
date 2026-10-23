@@ -6,6 +6,7 @@ import {RATING_PPAT_POST_ID,RATING_PPAT_POST_PATH,prepareRatingPpatPostValues} f
 import {QUEUE_BOOKING_LIMIT_ID,QUEUE_BOOKING_LIMIT_PATH,prepareQueueBookingReview} from './queue-booking-models.mjs';
 import {SWAPLOTTING_POSTS,swaplottingExact} from './swaplotting-post.mjs';
 import {BERKAS_RATING_ID,BERKAS_RATING_PATH,prepareBerkasRatingInput} from './berkas-rating-post.mjs';
+import {BERKAS_QUESTION_POST_ID,BERKAS_QUESTION_POST_PATH,BERKAS_QUESTION_READ_ID,prepareBerkasQuestionInput,exactQuestionRecord,questionHistoryPath} from './berkas-question-post.mjs';
 import {GUESTBOOK_POST_ID,GUESTBOOK_POST_PATH,prepareGuestbookPostInput} from './guestbook-post.mjs';
 import {YURIDIS_READ_ID,YURIDIS_PATH,YURIDIS_REVIEW_ID,YURIDIS_REVIEW_PATH,prepareYuridisFeed,prepareYuridisLastReview} from './yuridis-response.mjs';
 function freezeDeep(value) {
@@ -102,6 +103,14 @@ export function prepareOperation(id, params = {}, context = {}) {
   if (operation.auth === 'session' && !context.authenticated) fail('LOGIN_REQUIRED', 'Masuk dengan akun Anda untuk menjalankan operasi ini.', 401);
   if (operation.auth === 'application' && !context.applicationConfigured) fail('APPLICATION_AUTH_UNAVAILABLE', 'Konfigurasi autentikasi layanan wilayah belum tersedia di server lokal.', 503);
   if (!params || typeof params !== 'object' || Array.isArray(params)) fail('INVALID_PARAMETERS', 'Parameter harus berbentuk objek.');
+  if(operation.id===BERKAS_QUESTION_POST_ID){
+    const berkasQuestionInput=prepareBerkasQuestionInput(params);
+    return {operation,service:SERVICES.main,serviceId:'main',method:'POST',path:BERKAS_QUESTION_POST_PATH,query:{},body:{},berkasQuestionInput,encoding:'form',auth:'session',clientProfile:'berkas-question-post',effect:'write',files:[],requiresConfirmation:true};
+  }
+  if(operation.id===BERKAS_QUESTION_READ_ID){
+    exactQuestionRecord(params,['berkasid']);
+    return {operation,service:SERVICES.main,serviceId:'main',method:'GET',path:questionHistoryPath(params.berkasid),query:{},body:{},encoding:'none',auth:'session',clientProfile:'main',effect:'read',files:[],requiresConfirmation:false};
+  }
   if(operation.id===GUESTBOOK_POST_ID){
     const input=prepareGuestbookPostInput(params);
     return {operation,service:SERVICES.main,serviceId:'main',method:'POST',path:GUESTBOOK_POST_PATH,query:{},body:{},guestbookPostInput:Object.freeze({contextId:input.contextId,...input.fields}),encoding:'multipart',auth:'session',clientProfile:'guestbook-post',effect:'write',files:[],requiresConfirmation:true};

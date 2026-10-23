@@ -23,7 +23,7 @@ const deferred=()=>{let resolve;const promise=new Promise(yes=>{resolve=yes;});r
 const request=(path,query,patch={})=>({path,query,method:'GET',encoding:'none',auth:'session',session:session(),...patch});
 
 test('three existing parcel reads retain176 catalog entries and explicit read-only main-session boundaries',()=>{
- assert.equal(OPERATIONS.length,176);assert.equal(OPERATIONS.filter(op=>op.enabled).length,94);
+ assert.equal(OPERATIONS.length,176);assert.equal(OPERATIONS.filter(op=>op.enabled).length,95);
  for(const [id,path] of contracts){const op=OPERATIONS.find(item=>item.id===id);assert.equal(op.path,path);assert.equal(op.serviceId,'main');assert.equal(op.auth,'session');assert.equal(op.effect,'read');assert.equal(op.encoding,'none');assert.equal(op.requiresConfirmation,false);assert.equal(op.serverAcceptance,'untested');}
  assert.equal(OPERATIONS.find(op=>op.id==='get-legacy-kantah-d10364').auth,'optionalSession');assert.equal(OPERATIONS.find(op=>op.id==='post-geotag-uploadgeotag-d96b98').enabled,false);
 });

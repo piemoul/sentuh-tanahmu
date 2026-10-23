@@ -3502,53 +3502,73 @@ const operationData = [
   },
   {
     "id": "post-tanyajawab-submitpertanyaan-d994f4",
-    "label": "Kirim pertanyaan tentang berkas",
+    "label": "Kirim pesan Tanya Berkas",
     "group": "Berkas",
     "method": "POST",
     "endpoint": "TanyaJawab/SubmitPertanyaan",
     "path": "TanyaJawab/SubmitPertanyaan",
     "serviceId": "main",
-    "serviceMapping": "static service family; execution disabled",
+    "serviceMapping": "audited main-session selected-file conversation",
     "encoding": "form",
-    "recoveredTransport": "not fully resolved",
+    "recoveredTransport": "Ordered String form berkasid,content; UTF8 mask1, space-to-plus, raw LF preserved",
     "auth": "session",
     "authenticated": true,
     "effect": "write",
     "mutates": true,
     "requiresConfirmation": true,
-    "enabled": false,
-    "supported": false,
-    "inspectOnly": true,
-    "readiness": "inspect_only",
-    "reason": "Tercatat dari audit APK; adapter eksekusi operasi ini belum diaktifkan.",
+    "enabled": true,
+    "supported": true,
+    "inspectOnly": false,
+    "readiness": "ready_unverified",
+    "reason": "Tanya Berkas dari detail Koleksi atau Cari Berkas yang sesuai entry native. Riwayat tujuh String; pertanyaan hanya isTanya=String1. Pesan asli tidak dipangkas; POST dua field form, UTF8 dan space-to-plus native. Refresh hanya setelah HTTP200+typed error=false. Opaque context, ordinary ASCII ID domain dan unknown guard adalah adaptasi browser; penerimaan produksi belum diuji.",
     "fields": [
       {
-        "path": "berkasid",
-        "label": "ID berkas",
+        "path": "contextId",
+        "label": "Konteks percakapan detail berkas",
         "type": "string",
-        "location": "body",
+        "strictString": true,
+        "location": "local",
         "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "String"
+        "clientRequired": true,
+        "source": "input"
       },
       {
         "path": "content",
-        "label": "content",
+        "label": "Pesan",
         "type": "string",
+        "strictString": true,
         "location": "body",
         "required": "unknown",
-        "clientRequired": false,
-        "source": "input",
-        "recoveredType": "String"
+        "clientRequired": true,
+        "source": "input"
       }
     ],
     "evidence": {
       "callAddress": "0xd994f4",
-      "source": "analysis/recovered/request-callsites/00d994e4.asm.txt"
+      "source": "analysis/recovered/berkas-question-followup-20261022/flow.json",
+      "nativeProofSha256": "ab802ec9225b175692ebe89c3fb2336a2e9f351ef6673fe6069c72725fbdaa18",
+      "codecSource": "analysis/recovered/berkas-question-codec-20261023/flow.json",
+      "codecProofSha256": "b3b27e8bebd12e1e0b56ce522fd9380c5bcc9e777921378f8b23817d08648afb",
+      "requestSource": "analysis/recovered/request-callsites/00d994e4.asm.txt",
+      "protocolDoc": "analysis/BERKAS-QUESTION-FOLLOWUP-20261022.md",
+      "codecDoc": "analysis/BERKAS-QUESTION-CODEC-20261023.md"
     },
     "serverRequiredness": "unknown",
-    "serverAcceptance": "untested"
+    "serverAcceptance": "untested",
+    "clientProfile": "berkas-question-post",
+    "nativeFields": [
+      {
+        "path": "berkasid",
+        "location": "body",
+        "source": "server-selected-original-file"
+      },
+      {
+        "path": "content",
+        "location": "body",
+        "source": "original-editor-string"
+      }
+    ],
+    "serverEffects": "Sends one user-written question to the selected file conversation. No production question submitted by validation."
   },
   {
     "id": "post-collection-addcollectionpersil-daae30",
@@ -8568,7 +8588,7 @@ const operationData = [
     "endpoint": "TanyaJawab/GetTanyaJawabBerkas?berkasid={value}",
     "path": "TanyaJawab/GetTanyaJawabBerkas",
     "serviceId": "main",
-    "serviceMapping": "reviewed primary adapter",
+    "serviceMapping": "audited main-session selected-file conversation",
     "encoding": "none",
     "recoveredTransport": "query encoded directly in constructed URL",
     "auth": "session",
@@ -8580,7 +8600,7 @@ const operationData = [
     "supported": true,
     "inspectOnly": false,
     "readiness": "ready_unverified",
-    "reason": "Bentuk request tersedia untuk uji langsung; penerimaan server belum diverifikasi.",
+    "reason": "Tanya Berkas dari detail Koleksi atau Cari Berkas yang sesuai entry native. Riwayat tujuh String; pertanyaan hanya isTanya=String1. Pesan asli tidak dipangkas; POST dua field form, UTF8 dan space-to-plus native. Refresh hanya setelah HTTP200+typed error=false. Opaque context, ordinary ASCII ID domain dan unknown guard adalah adaptasi browser; penerimaan produksi belum diuji.",
     "fields": [
       {
         "path": "berkasid",
@@ -8595,7 +8615,13 @@ const operationData = [
     ],
     "evidence": {
       "callAddress": "0xd2826c",
-      "source": "analysis/recovered/http-callsite-audit/00d2826c.asm.txt"
+      "source": "analysis/recovered/berkas-question-followup-20261022/flow.json",
+      "nativeProofSha256": "ab802ec9225b175692ebe89c3fb2336a2e9f351ef6673fe6069c72725fbdaa18",
+      "codecSource": "analysis/recovered/berkas-question-codec-20261023/flow.json",
+      "codecProofSha256": "b3b27e8bebd12e1e0b56ce522fd9380c5bcc9e777921378f8b23817d08648afb",
+      "requestSource": "analysis/recovered/http-callsite-audit/00d2826c.asm.txt",
+      "protocolDoc": "analysis/BERKAS-QUESTION-FOLLOWUP-20261022.md",
+      "codecDoc": "analysis/BERKAS-QUESTION-CODEC-20261023.md"
     },
     "serverRequiredness": "unknown",
     "serverAcceptance": "untested"
@@ -11224,6 +11250,7 @@ import {RATING_PPAT_POST_ID,RATING_PPAT_POST_PATH,prepareRatingPpatPostValues} f
 import {QUEUE_BOOKING_LIMIT_ID,QUEUE_BOOKING_LIMIT_PATH,prepareQueueBookingReview} from './queue-booking-models.mjs';
 import {SWAPLOTTING_POSTS,swaplottingExact} from './swaplotting-post.mjs';
 import {BERKAS_RATING_ID,BERKAS_RATING_PATH,prepareBerkasRatingInput} from './berkas-rating-post.mjs';
+import {BERKAS_QUESTION_POST_ID,BERKAS_QUESTION_POST_PATH,BERKAS_QUESTION_READ_ID,prepareBerkasQuestionInput,exactQuestionRecord,questionHistoryPath} from './berkas-question-post.mjs';
 import {GUESTBOOK_POST_ID,GUESTBOOK_POST_PATH,prepareGuestbookPostInput} from './guestbook-post.mjs';
 import {YURIDIS_READ_ID,YURIDIS_PATH,YURIDIS_REVIEW_ID,YURIDIS_REVIEW_PATH,prepareYuridisFeed,prepareYuridisLastReview} from './yuridis-response.mjs';
 function freezeDeep(value) {
@@ -11320,6 +11347,14 @@ export function prepareOperation(id, params = {}, context = {}) {
   if (operation.auth === 'session' && !context.authenticated) fail('LOGIN_REQUIRED', 'Masuk dengan akun Anda untuk menjalankan operasi ini.', 401);
   if (operation.auth === 'application' && !context.applicationConfigured) fail('APPLICATION_AUTH_UNAVAILABLE', 'Konfigurasi autentikasi layanan wilayah belum tersedia di server lokal.', 503);
   if (!params || typeof params !== 'object' || Array.isArray(params)) fail('INVALID_PARAMETERS', 'Parameter harus berbentuk objek.');
+  if(operation.id===BERKAS_QUESTION_POST_ID){
+    const berkasQuestionInput=prepareBerkasQuestionInput(params);
+    return {operation,service:SERVICES.main,serviceId:'main',method:'POST',path:BERKAS_QUESTION_POST_PATH,query:{},body:{},berkasQuestionInput,encoding:'form',auth:'session',clientProfile:'berkas-question-post',effect:'write',files:[],requiresConfirmation:true};
+  }
+  if(operation.id===BERKAS_QUESTION_READ_ID){
+    exactQuestionRecord(params,['berkasid']);
+    return {operation,service:SERVICES.main,serviceId:'main',method:'GET',path:questionHistoryPath(params.berkasid),query:{},body:{},encoding:'none',auth:'session',clientProfile:'main',effect:'read',files:[],requiresConfirmation:false};
+  }
   if(operation.id===GUESTBOOK_POST_ID){
     const input=prepareGuestbookPostInput(params);
     return {operation,service:SERVICES.main,serviceId:'main',method:'POST',path:GUESTBOOK_POST_PATH,query:{},body:{},guestbookPostInput:Object.freeze({contextId:input.contextId,...input.fields}),encoding:'multipart',auth:'session',clientProfile:'guestbook-post',effect:'write',files:[],requiresConfirmation:true};

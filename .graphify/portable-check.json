@@ -1,6 +1,8 @@
 {
   "ok": false,
   "checkedFiles": [
+    "FRESHNESS-2026-10-23.json",
+    "FRESHNESS-TANYA-2026-10-23.json",
     "GRAPH_REPORT.md",
     "PORTABILITY-REVIEW.json",
     "README.md",
@@ -46,6 +48,7 @@
     "cache/ast/16334844b26b8eb29545a8390a431d1ce681c9e83cf47cc21e5a08698c6b11d8.json",
     "cache/ast/165a714ef7d688b3e55cb254a7cf45ca07ea5a5da2b39ac1bbd4da680661d2bb.json",
     "cache/ast/1760604f1091cc1a179e34caec9b6c8da38bbd1b8b70d32b45d5bb378ea0580b.json",
+    "cache/ast/176a06c053259bb30fc475d065bb740aca60d3ec3d7b61b83294317321da0414.json",
     "cache/ast/189b457200f26ed1ffb3700a6b0894f6a2ec655443b35ec9f7ec2d1f6501ba97.json",
     "cache/ast/18cbc1b7024b299e143fea2ca9afff3a073b98c505f8cda9de0fe7e61ba726e6.json",
     "cache/ast/195443c570b96954368d72d2aec7eb2ce69dac84b3cf34875630c186417285c3.json",
@@ -56,15 +59,19 @@
     "cache/ast/1d2f09dd045bfc1e716dfb8731f338adc303ff6f86539b193e1d5c0dd7e87760.json",
     "cache/ast/207f8158a6c96b8f1aeb60c1ff1dc3e81269e65efe3bff73fdbb2ad7a4d805d1.json",
     "cache/ast/225e47e553f5dae9758de22758a27dc5f0705262d1d73e189f6e2ac0f294abec.json",
+    "cache/ast/231e4bbff08cd823700bd04c67fc1b392b693b000614163f6dc7cba204fcb632.json",
     "cache/ast/2426ca6d4c9917ceca98a9ec3b7a734b51fda8c7118fa2b57e683cb5d6bf76e8.json",
     "cache/ast/267705273cd67f8f3694e7c78649608146b06f69b9444ba701532c7203b45ba3.json",
     "cache/ast/277422f304bc760ef053c35defeecab2371b4804309257857df8ec802dd71efb.json",
     "cache/ast/27cc29b2bf6da24723183ecfb08dc7b92ef5c6e08e35fdd4bfd4fdb35a8a9285.json",
     "cache/ast/2b00554f0cc7e8f7acb29cc7c7f8e7e4ad96bed403c86700741f5d43ee7cd252.json",
+    "cache/ast/2c80dd52f909d8fc0589c4c54dbe8af8fafe6bfabb503a19ba7168f85469a335.json",
     "cache/ast/2e8f453e033a43ae11d4c3002944f9c1aa8a2fc29ccfaef7db10492440f1b098.json",
+    "cache/ast/30019ec1aef1f5bf4c3c5749e2da0e5664388f20e52a737651c395cc7d388d05.json",
     "cache/ast/330611b2a3e7df2b24a816186f78789177b418692131289c12760582dd2129cf.json",
     "cache/ast/3449234fae23abf41fa51ca8b64df7b4c15645a70b06e4c5b125b2bd4e967261.json",
     "cache/ast/344bff12dbbb99885e09fc2c0a45518b15a1da5214c883051845b5b7bf4df0e8.json",
+    "cache/ast/347c151b9cd60e24ebd641f26b7a9c60ebf8b9747918ad84080f13dc7ebdd8c1.json",
     "cache/ast/3503466619e79b6018fa61f99556102f0470a14c9755eb37c8c32f0d39d78b0a.json",
     "cache/ast/36a27909b059aefb8068ed54d3958f4c7bbc5ca3116a00ea0bb67c8cf9e6487d.json",
     "cache/ast/3a72aaccaf851b755e822e3cbc7407badafb48260edb9e4a64384f7e5bd4b1ec.json",
@@ -75,9 +82,11 @@
     "cache/ast/43b7721f5bb5a01b869e6fc9c4ef1be55f591fec27770bd78e6d2d443980d6c3.json",
     "cache/ast/44286e5f688e4207875b363a451cf7ce7db23413a0ccc1f2f53c15e6449b592a.json",
     "cache/ast/4479176d57b1457c3f2c91399c874cd658809e9fd686258758acbbb1246a5d95.json",
+    "cache/ast/448972244706efb6fecc69ad907f69e60d0e44b4a1f0aacbcc0b3e1708e59614.json",
     "cache/ast/45487287ebe063ae91defc0ffc2c4c5406f0724f1b7ec9ee1aa144bdbdb51025.json",
     "cache/ast/45c15109c5dc38536df5f9a49c8c8ca09f109548be4e3c7dbe4caa7edf31830a.json",
     "cache/ast/45e66134738d8ffac3afc50d4e184c695e43cdc6d208076a3199fe599424a73e.json",
+    "cache/ast/4610349937c261c6118f91311a6b246d053bc58142c97c43054e487435b07878.json",
     "cache/ast/46de9b49208f813831cb477de09fd681f44c709ea38c90c2e4a6568826683bb5.json",
     "cache/ast/4863a13e283614b38422173072eb510867bad243bc0e586b686464023d4d2f3e.json",
     "cache/ast/4aab953ff44f5ce61917129c963ce19509f0a8b3dcd5db151b1ec5319fc0e388.json",
@@ -113,8 +122,10 @@
     "cache/ast/78a4680ead95eb8b9a7f3b123d6e915d91b9470b915041f53f84e4f0df46a893.json",
     "cache/ast/79ec996805ee3f8ac6a7e11de3c9aebe74c88cd22baa69443a8ff60b2ae7df34.json",
     "cache/ast/7a93bb75125ba5704fa8ee87235de99a742b99dbcd9d34f1dd1e90b6593d9610.json",
+    "cache/ast/7b0b48cd0c9086a46567fb124391723c5fe3a14ca6fe721ed048a1f13fa24834.json",
     "cache/ast/7c5915c0f2d1f0fcbb2abac8706340be64c6e8c005e8535fdae8c61ae8d4061d.json",
     "cache/ast/7d67f9f8b171cea1c893db4b211603eae09531ce647d9d5c1aa18f22a80e1e9a.json",
+    "cache/ast/7e1463486892555ff6494b45e91b5494255d8bb89e222de32fe76a058867ce43.json",
     "cache/ast/809fa5c473c4f20d2b9da9c3084b39ed0410c150d0bed6670046c94f06f1e03b.json",
     "cache/ast/80b1dcd0a743ac44d92f1661032e9f8efa58589df3c7658ebd3a4497c70c7cbb.json",
     "cache/ast/80b7e4a16dbbd811b65d66f8dd9bea3442bd5ba0ec0cef98e6198f6900a1bea4.json",
@@ -138,6 +149,8 @@
     "cache/ast/981cc9e878f61575ccf46f8675d1bdb28d2a20eb20d9cc1416b2b461f9e4e1a8.json",
     "cache/ast/9880f934de17b4fb64812275b50007821182e967a5fbef3bf396f88cf1187c39.json",
     "cache/ast/98c821fafa90316acc068ccb3001f36e1176e73b4955fe73dabbb966f3c09dfe.json",
+    "cache/ast/9c86157595bf532894b749e06fb2e548cf870e7404f7b0318ad75d56b9ef86aa.json",
+    "cache/ast/9d50191ee44e00657f3dba52584a7213e80e0243574662b53f69ee25c05ca64b.json",
     "cache/ast/9eb20cde675102e6e339d69311314aa2470cfe48b7f52b64edcf3e64a808567a.json",
     "cache/ast/9f501191eef50bff84b06ac6c1253ce09e83b29e3c51b1bb6a9270fd885493d2.json",
     "cache/ast/a1d7d38dee9698e539975a7ca7fcc99767d5197eeb209dd0025f2765d8a709c4.json",
@@ -172,6 +185,7 @@
     "cache/ast/c8fce3966f3675a7d0d919ba96e62b5b704864485c0cd6bf792b4355eb5562e8.json",
     "cache/ast/cb259d0f1166d30e140ddf2943c18bcb4e2dbc7074d2e7b7f85dbff546931c3b.json",
     "cache/ast/ccba592da3d6ffb0d3db0fa837bf799850edaeb174c5ac4c3072d3ff1e649ed4.json",
+    "cache/ast/ccd7d355b753b3d8f5d3bbbf7b65057933e85dbc6f17a0b4c68613f8a615eba7.json",
     "cache/ast/ce6a47ae3d6690c6b028754b8a527da565e19e4d3f6ce08f3408bfcdeee45400.json",
     "cache/ast/cf470a5e5e7326959ae931d3788e0c9f09e992dcf5a8cff580f698d61417610f.json",
     "cache/ast/d086760515798112304f72e51b4077c2f66488c8a59cdffcbee9a808096d3a77.json",
@@ -216,6 +230,7 @@
     "cache/ast/fdfdbfee38cea24e9f284eb883865e14a9e4ce8c722d4f57eb6571a4c2429485.json",
     "cache/ast/ff43a6186abbe586e03ec4c64ee2007390d2e5f059377fe11d3ed25dc0701dbb.json",
     "cache/semantic/00c8dd48254074d58032feb3d8f479b5ee0376392d448e3b94e132aca0207576.json",
+    "cache/semantic/016abdd5236c2c7a838790afff3e116b82e35c07346310fa384b5af1c19b5652.json",
     "cache/semantic/0684271614f6fcdf94964bf4e13889b7f86820e6f2db60e73995dfd2d9edc398.json",
     "cache/semantic/09bd733fa4d8f29031c323dd707bd32ba32182643788ec709be8561e249213d9.json",
     "cache/semantic/0e9290eeee00bf46c84dceb9f573854d46c71edc5e12ace8d6312e8990ce1b33.json",
@@ -228,16 +243,19 @@
     "cache/semantic/2b00554f0cc7e8f7acb29cc7c7f8e7e4ad96bed403c86700741f5d43ee7cd252.json",
     "cache/semantic/2c0d0fcfc8859aee2f1f9691a807450f44c804c67cab9a817985ad1ab2a33d6a.json",
     "cache/semantic/330b0eb9d7635f7dea673c4aebddf0fafb128381c955da2472996a4bdecfd2dc.json",
+    "cache/semantic/459d3aff665c6b0a3ef314508cf1df9a13fd2da1b43fdc8b756090d383cf7248.json",
     "cache/semantic/4c6327d49adeb824abe49abbc828a1191a8200eb52b5c23431f99cc1cafdb22c.json",
     "cache/semantic/4db49736a6bfabb97b207616a3634e02d085a21564cfa294fb0ad9a6a86b8c31.json",
     "cache/semantic/51ffadf007dfb750dbbc934cebb30f8caf6ab4a826f5f7691f06b310de489477.json",
     "cache/semantic/5597b5516c5de0361acea6a3b950cea4e35475b74a5b0077adc53936979f9604.json",
+    "cache/semantic/67d0cb386b2288db1e74d50a4ea146759f554858baecfc27db22284680932e7b.json",
     "cache/semantic/75533b6046881e59a5d46b7a835bf86bfff4398cf0eba6bf28e515ae92191dd3.json",
     "cache/semantic/7a93bb75125ba5704fa8ee87235de99a742b99dbcd9d34f1dd1e90b6593d9610.json",
     "cache/semantic/7d67f9f8b171cea1c893db4b211603eae09531ce647d9d5c1aa18f22a80e1e9a.json",
     "cache/semantic/818dc60eb16b4b637f80316a0bb05e89d58c10628eba67667a2ac7802f8b4790.json",
     "cache/semantic/81fc24eb39969eee81037e4ae5c50926703289057588674c3fd0a5a475c09301.json",
     "cache/semantic/8429b2a318dfac322b235c78792823cfa71b434626c73ae33f6fd77a39cbb24c.json",
+    "cache/semantic/8670d9de015f12ea99932ebd6987b851f3f52f1a400e80887fc420bff6430673.json",
     "cache/semantic/8d19a7c549a65c7a2ff1b4d92604a79a2f68e83450a5628527572934f365b8f1.json",
     "cache/semantic/9f501191eef50bff84b06ac6c1253ce09e83b29e3c51b1bb6a9270fd885493d2.json",
     "cache/semantic/c7a848f8fc7361af8dd34159c5ed1a79e26d9e31d85a97e71c99faf64ab8dec9.json",
@@ -459,512 +477,518 @@
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[294].citations[0].quote",
+      "jsonPath": "$.nodes[298].citations[0].quote",
       "value": "/berkas/CariBerkas",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[294].citations[1].quote",
+      "jsonPath": "$.nodes[298].citations[1].quote",
       "value": "/berkas/CariBerkas",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[297].citations[0].quote",
+      "jsonPath": "$.nodes[301].citations[0].quote",
       "value": "/api/preview/${do",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[297].citations[1].quote",
+      "jsonPath": "$.nodes[301].citations[1].quote",
       "value": "/api/preview/${do",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[297].citations[2].quote",
+      "jsonPath": "$.nodes[301].citations[2].quote",
       "value": "/api/execute",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[297].citations[2].quote",
+      "jsonPath": "$.nodes[301].citations[2].quote",
       "value": "/api/execute",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[297].citations[3].quote",
+      "jsonPath": "$.nodes[301].citations[3].quote",
       "value": "/api/execute",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[297].citations[3].quote",
+      "jsonPath": "$.nodes[301].citations[3].quote",
       "value": "/api/execute",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[323].citations[3].quote",
+      "jsonPath": "$.nodes[327].citations[3].quote",
       "value": "/api/execute",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[365].citations[3].quote",
+      "jsonPath": "$.nodes[369].citations[3].quote",
       "value": "/api/execute",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[365].citations[4].quote",
+      "jsonPath": "$.nodes[369].citations[4].quote",
       "value": "/api/execute",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[367].citations[1].quote",
+      "jsonPath": "$.nodes[371].citations[1].quote",
       "value": "/api",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[400].citations[0].quote",
+      "jsonPath": "$.nodes[404].citations[0].quote",
       "value": "/berkas/CariBerkas",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[400].citations[1].quote",
+      "jsonPath": "$.nodes[404].citations[1].quote",
       "value": "/berkas/CariBerkas",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[447].citations[0].quote",
+      "jsonPath": "$.nodes[451].citations[0].quote",
       "value": "/api/execute",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[447].citations[1].quote",
+      "jsonPath": "$.nodes[451].citations[1].quote",
       "value": "/api/execute",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[451].citations[2].quote",
+      "jsonPath": "$.nodes[455].citations[2].quote",
       "value": "/api/execute",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[451].citations[3].quote",
+      "jsonPath": "$.nodes[455].citations[3].quote",
       "value": "/api/execute",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[457].citations[1].quote",
+      "jsonPath": "$.nodes[461].citations[1].quote",
       "value": "// Mitra list models and parent selection follow the bounded APK evidence in MITRA-FLOW.md. function resetPartnerNavigation(){if(partnerFrame&&flowResults.get(partnerFrame.key)?.loading)flowResults.delete(partnerFrame.key);partnerFrame=null;} function partnerFlowContext(def){if(!partnerFrame){const tab=def.tabs …",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[457].citations[2].quote",
+      "jsonPath": "$.nodes[461].citations[2].quote",
       "value": "// Mitra list models and parent selection follow the bounded APK evidence in MITRA-FLOW.md. function resetPartnerNavigation(){if(partnerFrame&&flowResults.get(partnerFrame.key)?.loading)flowResults.delete(partnerFrame.key);partnerFrame=null;} function partnerFlowContext(def){if(!partnerFrame){const tab=def.tabs …",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[473].citations[0].quote",
+      "jsonPath": "$.nodes[477].citations[0].quote",
       "value": "// Cari Berkas: native office selection, local challenge and ordered reads. function generateSearchFileCaptcha(){let value='';while(value.length<6){const bytes=crypto.getRandomValues(new Uint8Array(12));for(const byte of bytes){if(byte<250)value+=String(byte%10);if(value.length===6)break;}}return …",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[473].citations[1].quote",
+      "jsonPath": "$.nodes[477].citations[1].quote",
       "value": "// Cari Berkas: native office selection, local challenge and ordered reads. function generateSearchFileCaptcha(){let value='';while(value.length<6){const bytes=crypto.getRandomValues(new Uint8Array(12));for(const byte of bytes){if(byte<250)value+=String(byte%10);if(value.length===6)break;}}return …",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[513].citations[0].quote",
+      "jsonPath": "$.nodes[517].citations[0].quote",
       "value": "// Native queue read views. Identity and full-ID authorization stay on the local server. function queueOperation(endpoint){return state.operations.find(op=>op.endpoint===endpoint&&ready(op)&&!write(op));} function queueObject(value){return !!value&&typeof value==='object'&&!Array.isArray(value);} function queueStrings(",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[513].citations[1].quote",
+      "jsonPath": "$.nodes[517].citations[1].quote",
       "value": "// Native queue read views. Identity and full-ID authorization stay on the local server. function queueOperation(endpoint){return state.operations.find(op=>op.endpoint===endpoint&&ready(op)&&!write(op));} function queueObject(value){return !!value&&typeof value==='object'&&!Array.isArray(value);} function queueStrings(",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[530].citations[0].quote",
+      "jsonPath": "$.nodes[534].citations[0].quote",
       "value": "/api/execute",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[572].citations[0].quote",
+      "jsonPath": "$.nodes[576].citations[0].quote",
       "value": "/apis/SwaplottingTerdaftar",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[608].citations[0].quote",
+      "jsonPath": "$.nodes[612].citations[0].quote",
       "value": "// Native IGb/FGb Yuridis flow; separate model, original persil ID, true review branch. function disposeYuridis(){yuridisHost?.dispose();yuridisHost=null;} function yuridisContext(){const profileOp=state.operations.find(op=>op.endpoint==='account/account_summary'&&ready(op)&&!write(op)),profile=profileOp?nativeAccountS",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[686].citations[0].quote",
+      "jsonPath": "$.nodes[706].citations[0].quote",
       "value": "// Owns local DOM/player lifetime only. Reads stay in the injected controller. export function createHomeMediaHost({document,read,isCurrent=()=>true,onAuthError=()=>{},resolvePlayerUrl=homeYoutubeEmbedUrl}){ if(!document||typeof resolvePlayerUrl!=='function')throw new TypeError('HOME_MEDIA_HOST_REQUIRED' …",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[695].citations[0].quote",
+      "jsonPath": "$.nodes[715].citations[0].quote",
       "value": "// Native contracts: home-media-followup/flow-final.json. URL policy and safe // integer rejection below are browser adaptations, not native/provider parity. export const HOME_MEDIA_OPERATIONS=Object.freeze({banner:'get-banner-d22854',youtube:'get-youtube-getyoutubelist-d2d384'}); const message='Informasi Beranda belum",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[717].citations[0].quote",
+      "jsonPath": "$.nodes[737].citations[0].quote",
       "value": "../swaplotting/model.js",
       "kind": "escaped_root_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[717].citations[0].quote",
+      "jsonPath": "$.nodes[737].citations[0].quote",
       "value": "../parcel/search-model.js",
       "kind": "escaped_root_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[724].citations[0].quote",
+      "jsonPath": "$.nodes[744].citations[0].quote",
       "value": "../swaplotting/model.js",
       "kind": "escaped_root_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[724].citations[0].quote",
+      "jsonPath": "$.nodes[744].citations[0].quote",
       "value": "../parcel/search-model.js",
       "kind": "escaped_root_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[759].citations[0].quote",
+      "jsonPath": "$.nodes[779].citations[0].quote",
       "value": "// Static model bindings: analysis/LOST-REVIEW-PROTOCOL.md (native 6.1.5). // Wide native ints travel as exact decimal Strings through the browser bridge. const object=value=>value!==null&&typeof value==='object'&&!Array.isArray(value)&&[Object.prototype,null] …",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[779].citations[1].quote",
+      "jsonPath": "$.nodes[799].citations[1].quote",
       "value": "/assets/ven",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[782].citations[0].quote",
+      "jsonPath": "$.nodes[802].citations[0].quote",
       "value": "/api/maps/bhumi/{z}/{x}/{y}.png",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[783].citations[0].quote",
+      "jsonPath": "$.nodes[803].citations[0].quote",
       "value": "/api/maps/bhumi/{z}/{x}/{y}.png",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[787].citations[2].quote",
+      "jsonPath": "$.nodes[807].citations[2].quote",
       "value": "/api/maps/config",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[793].citations[2].quote",
+      "jsonPath": "$.nodes[813].citations[2].quote",
       "value": "/api/maps/config",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[828].citations[0].quote",
+      "jsonPath": "$.nodes[848].citations[0].quote",
       "value": "// Decorative local contact illustration. Contact links remain outside its lifecycle. const managers=new WeakMap(),selector='[data-contact-animation]',asset='/assets/profile/contact-email.json',maxBytes=200000; const fallback='Ilustrasi email belum dapat dimuat.'; function animationData(value){ if(!value||typeof …",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[829].citations[0].quote",
+      "jsonPath": "$.nodes[849].citations[0].quote",
       "value": "/assets/profile/contact-email.json",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[910].citations[0].quote",
+      "jsonPath": "$.nodes[930].citations[0].quote",
       "value": "// Local browser camera adaptation. No file import, network, GPS or upload. export const SWAPLOTTING_CAPTURE_COPY=Object.freeze({title:'Ambil Foto Sertipikat',instruction:'Pastikan Sertipikat masuk kedalam kotak dibawah ini',permissionTitle:'Gagal akses kamera',permission:'Sentuh Tanahku membutuhkan …",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[924].citations[0].quote",
+      "jsonPath": "$.nodes[944].citations[0].quote",
       "value": "// Browser-only coordinate-entry adaptation. These declarations and session // metadata are not proof of measurement, ownership, presence or server acceptance. export const SWAPLOTTING_MERCATOR_LATITUDE=85.0511287798066; const object=value=>!!value&&typeof value==='object'&& …",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[939].citations[0].quote",
+      "jsonPath": "$.nodes[959].citations[0].quote",
       "value": "/api/maps/config",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[940].citations[0].quote",
+      "jsonPath": "$.nodes[960].citations[0].quote",
       "value": "// The optional parent adapter owns HTTP and native result feedback/navigation. export function createSwaplottingHost({document,read,profile=null,getCoordinatePoints=()=>[],available=()=>true,isCurrent=()=>true,onSessionError=()=>{},onDecline=()=>{},photoCaptureFactory=createSwaplottingPhotoCapture,submit:send,writeAva",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[941].citations[0].quote",
+      "jsonPath": "$.nodes[961].citations[0].quote",
       "value": "../maps/official-map.js",
       "kind": "escaped_root_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[941].citations[0].quote",
+      "jsonPath": "$.nodes[961].citations[0].quote",
       "value": "/api/maps/bhumi/{z}/{x}/{y}.png",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[944].citations[0].quote",
+      "jsonPath": "$.nodes[964].citations[0].quote",
       "value": "/api/maps/bhumi/",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[945].citations[0].quote",
+      "jsonPath": "$.nodes[965].citations[0].quote",
       "value": "/api/maps/bhumi/${z}/${((x%width",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[971].citations[0].quote",
+      "jsonPath": "$.nodes[991].citations[0].quote",
       "value": "// A local draft removal confirmation; it never deletes a device/server file. export function createSwaplottingPhotoRemoval({document,isCurrent=()=>true,onRemove=()=>false,onClose=()=>{}}){ let active=null,disposed=false; const current=owner=>!disposed&&active===owner&&isCurrent(owner.context)&&owner.dialog …",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1006].citations[0].quote",
+      "jsonPath": "$.nodes[1026].citations[0].quote",
       "value": "../lost-review/view.js",
       "kind": "escaped_root_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1006].citations[0].quote",
+      "jsonPath": "$.nodes[1026].citations[0].quote",
       "value": "../lost-review/compose-host.js",
       "kind": "escaped_root_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1007].citations[0].quote",
+      "jsonPath": "$.nodes[1027].citations[0].quote",
       "value": "../lost-review/view.js",
       "kind": "escaped_root_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1007].citations[0].quote",
+      "jsonPath": "$.nodes[1027].citations[0].quote",
       "value": "../lost-review/compose-host.js",
       "kind": "escaped_root_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1010].citations[0].quote",
+      "jsonPath": "$.nodes[1030].citations[0].quote",
       "value": "../lost-certificate/model.js",
       "kind": "escaped_root_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1011].citations[0].quote",
+      "jsonPath": "$.nodes[1031].citations[0].quote",
       "value": "../lost-certificate/model.js",
       "kind": "escaped_root_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1013].citations[0].quote",
+      "jsonPath": "$.nodes[1033].citations[0].quote",
       "value": "../lost-certificate/model.js",
       "kind": "escaped_root_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1021].citations[0].quote",
+      "jsonPath": "$.nodes[1041].citations[0].quote",
       "value": "../lost-review/controller.js",
       "kind": "escaped_root_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1033].citations[4].quote",
+      "jsonPath": "$.nodes[1053].citations[4].quote",
       "value": "/api/execu",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1040].citations[1].quote",
+      "jsonPath": "$.nodes[1060].citations[1].quote",
       "value": "/api/execute",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1127].citations[1].quote",
+      "jsonPath": "$.nodes[1182].citations[1].quote",
       "value": "// Opaque source/detail references,120s ready TTL and session-lifetime accepted/ // unknown guards are browser adaptations. No profile ID, display ID, Activity, // bookmark ID, persistence, provider read or automatic …",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1133].citations[1].quote",
+      "jsonPath": "$.nodes[1188].citations[1].quote",
       "value": "/berkas/CariBerkas",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1134].citations[1].quote",
+      "jsonPath": "$.nodes[1189].citations[1].quote",
       "value": "/berkas/CariBerkas",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1139].citations[0].quote",
+      "jsonPath": "$.nodes[1194].citations[0].quote",
       "value": "/berkas/CariBerkas",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1161].citations[1].quote",
+      "jsonPath": "$.nodes[1216].citations[1].quote",
       "value": "/expapi/live-bhumi-wms",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1172].citations[0].quote",
+      "jsonPath": "$.nodes[1227].citations[0].quote",
       "value": "/expapi/live-bhumi-wms",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1180].citations[0].quote",
+      "jsonPath": "$.nodes[1235].citations[0].quote",
       "value": "/api/maps/bhumi/{z}/{x}/{y}.png",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1195].citations[0].quote",
+      "jsonPath": "$.nodes[1250].citations[0].quote",
       "value": "// Native xEb/vEb/yEb models: the already-decoded body must be a Map. // Evidence: analysis/COLLECTION-CARD-FOLLOWUP.md, COLLECTION-GROUPS-FOLLOWUP.md, // COLLECTION-GROUP-CREATE.md, COLLECTION-GROUP-MOVE.md and COLLECTION-GROUP-DELETE.md. // Item DELETE/PUT …",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1200].citations[0].quote",
+      "jsonPath": "$.nodes[1255].citations[0].quote",
       "value": "../..",
       "kind": "escaped_root_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1318].citations[0].quote",
+      "jsonPath": "$.nodes[1373].citations[0].quote",
       "value": "// Native review/all: yyb metadata -> zyb rows -> Ayb photos. Dates stay raw. // The service receives a Map after the shared transformer, never JSON-decodes // another String. Exact integer lexemes avoid IEEE rounding; signed64 values // outside JS safe precision use …",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1319].citations[0].quote",
+      "jsonPath": "$.nodes[1374].citations[0].quote",
       "value": "// Native review/all: yyb metadata -> zyb rows -> Ayb photos. Dates stay raw. // The service receives a Map after the shared transformer, never JSON-decodes // another String. Exact integer lexemes avoid IEEE rounding; signed64 …",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1334].citations[0].quote",
+      "jsonPath": "$.nodes[1389].citations[0].quote",
       "value": "// Appended to generated operationData/serviceData by build-operations.py. import {prepareSelectedReviewPostValues} from './lost-review-post.mjs'; import {MITRA_READS,prepareMitraQuery} from './mitra-response.mjs'; import {RATING_PPAT_READ_ID,RATING_PPAT_READ_PATH,prepareRatingPpatRead} …",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1383].citations[0].quote",
+      "jsonPath": "$.nodes[1438].citations[0].quote",
       "value": "/apis/Swaplotting",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1385].citations[0].quote",
+      "jsonPath": "$.nodes[1440].citations[0].quote",
       "value": "/apis/Swaplotting",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1426].citations[1].quote",
+      "jsonPath": "$.nodes[1481].citations[1].quote",
       "value": "// Server-owned availability snapshots. Browser input contains an opaque context // and source row index; no NIK, office ID, applicant/token/body or upstream URL. // Review deliberately cannot create an appointment: official web notification // token provisioning and the complete …",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1489].citations[0].quote",
+      "jsonPath": "$.nodes[1544].citations[0].quote",
       "value": "// Bounded native azb/bzb/czb/dzb/ezb models. See QUEUE-MODEL-FOLLOWUP.md. // Raw JSON is required for numeric fields: JSON.parse normally loses the // native int/double distinction and rounds integers above 2^53. const rawNumbers = new WeakMap(); const MIN_INT64 = -(1n << 63n); const MAX_INT64 = (1n << 63n) - 1n; cons",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1489].citations[2].quote",
+      "jsonPath": "$.nodes[1544].citations[2].quote",
       "value": "// Own data properties only; never execute getters or use inherited schema keys. function field(value, key) { const descriptor = Object.getOwnPropertyDescriptor(value, key); if (!descriptor) return undefined; if (!Object.hasOwn(descriptor, 'value')) invalid(); return descriptor.value; }",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1533].citations[0].quote",
+      "jsonPath": "$.nodes[1588].citations[0].quote",
       "value": "// Server-only projection of the current session's decoded account_summary. // Validate all 18 fields consumed by native ayb before retaining three keys. // This does not authenticate the source: the caller must fetch it with its own // main-client session, never accept a browser profile or sign-in NIK fallback …",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1570].citations[1].quote",
+      "jsonPath": "$.nodes[1625].citations[1].quote",
       "value": "// KKPR nested leaves: scan-kkpr-map-followup/8aec89db…01d24. These are // the detail model's fields, not the separate KKPR list/gyb decoder. const stringFields=keys=>keys.split(' ').map(key=>[key,'string']); const kkprLeafSchemas={ properties:[ ['id','integer'],['total_polygons','integer'],['total_area_m2','number'],",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1612].citations[0].quote",
+      "jsonPath": "$.nodes[1667].citations[0].quote",
       "value": "/apis/SwaplottingTerdaftar",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1613].citations[0].quote",
+      "jsonPath": "$.nodes[1668].citations[0].quote",
       "value": "/apis/SwaplottingTerdaftar",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1613].citations[0].quote",
+      "jsonPath": "$.nodes[1668].citations[0].quote",
       "value": "/apis/SwaplottingBelumTerdaftar",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1650].citations[0].quote",
+      "jsonPath": "$.nodes[1705].citations[0].quote",
       "value": "../assets/swaplotting/model.js",
       "kind": "escaped_root_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1682].citations[0].quote",
+      "jsonPath": "$.nodes[1737].citations[0].quote",
       "value": "// Local QR decoding only. This module never sends a code or camera frame. const libraries=new WeakMap(); const LIBRARY='/assets/vendor/zxing/zxing-browser.min.js';",
       "kind": "absolute_path"
     },
     {
       "path": "graph.json",
-      "jsonPath": "$.nodes[1702].citations[0].quote",
+      "jsonPath": "$.nodes[1757].citations[0].quote",
       "value": "/apis/getGeoJsonInfo",
+      "kind": "absolute_path"
+    },
+    {
+      "path": "graph.json",
+      "jsonPath": "$.nodes[1831].rationale",
+      "value": "/api/maps/bhumi/{z}/{x}/{y}.png",
       "kind": "absolute_path"
     },
     {
@@ -2601,512 +2625,518 @@
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[294].citations[0].quote",
+      "jsonPath": "$.nodes[298].citations[0].quote",
       "value": "/berkas/CariBerkas",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[294].citations[1].quote",
+      "jsonPath": "$.nodes[298].citations[1].quote",
       "value": "/berkas/CariBerkas",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[297].citations[0].quote",
+      "jsonPath": "$.nodes[301].citations[0].quote",
       "value": "/api/preview/${do",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[297].citations[1].quote",
+      "jsonPath": "$.nodes[301].citations[1].quote",
       "value": "/api/preview/${do",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[297].citations[2].quote",
+      "jsonPath": "$.nodes[301].citations[2].quote",
       "value": "/api/execute",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[297].citations[2].quote",
+      "jsonPath": "$.nodes[301].citations[2].quote",
       "value": "/api/execute",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[297].citations[3].quote",
+      "jsonPath": "$.nodes[301].citations[3].quote",
       "value": "/api/execute",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[297].citations[3].quote",
+      "jsonPath": "$.nodes[301].citations[3].quote",
       "value": "/api/execute",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[323].citations[3].quote",
+      "jsonPath": "$.nodes[327].citations[3].quote",
       "value": "/api/execute",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[365].citations[3].quote",
+      "jsonPath": "$.nodes[369].citations[3].quote",
       "value": "/api/execute",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[365].citations[4].quote",
+      "jsonPath": "$.nodes[369].citations[4].quote",
       "value": "/api/execute",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[367].citations[1].quote",
+      "jsonPath": "$.nodes[371].citations[1].quote",
       "value": "/api",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[400].citations[0].quote",
+      "jsonPath": "$.nodes[404].citations[0].quote",
       "value": "/berkas/CariBerkas",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[400].citations[1].quote",
+      "jsonPath": "$.nodes[404].citations[1].quote",
       "value": "/berkas/CariBerkas",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[447].citations[0].quote",
+      "jsonPath": "$.nodes[451].citations[0].quote",
       "value": "/api/execute",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[447].citations[1].quote",
+      "jsonPath": "$.nodes[451].citations[1].quote",
       "value": "/api/execute",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[451].citations[2].quote",
+      "jsonPath": "$.nodes[455].citations[2].quote",
       "value": "/api/execute",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[451].citations[3].quote",
+      "jsonPath": "$.nodes[455].citations[3].quote",
       "value": "/api/execute",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[457].citations[1].quote",
+      "jsonPath": "$.nodes[461].citations[1].quote",
       "value": "// Mitra list models and parent selection follow the bounded APK evidence in MITRA-FLOW.md. function resetPartnerNavigation(){if(partnerFrame&&flowResults.get(partnerFrame.key)?.loading)flowResults.delete(partnerFrame.key);partnerFrame=null;} function partnerFlowContext(def){if(!partnerFrame){const tab=def.tabs …",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[457].citations[2].quote",
+      "jsonPath": "$.nodes[461].citations[2].quote",
       "value": "// Mitra list models and parent selection follow the bounded APK evidence in MITRA-FLOW.md. function resetPartnerNavigation(){if(partnerFrame&&flowResults.get(partnerFrame.key)?.loading)flowResults.delete(partnerFrame.key);partnerFrame=null;} function partnerFlowContext(def){if(!partnerFrame){const tab=def.tabs …",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[473].citations[0].quote",
+      "jsonPath": "$.nodes[477].citations[0].quote",
       "value": "// Cari Berkas: native office selection, local challenge and ordered reads. function generateSearchFileCaptcha(){let value='';while(value.length<6){const bytes=crypto.getRandomValues(new Uint8Array(12));for(const byte of bytes){if(byte<250)value+=String(byte%10);if(value.length===6)break;}}return …",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[473].citations[1].quote",
+      "jsonPath": "$.nodes[477].citations[1].quote",
       "value": "// Cari Berkas: native office selection, local challenge and ordered reads. function generateSearchFileCaptcha(){let value='';while(value.length<6){const bytes=crypto.getRandomValues(new Uint8Array(12));for(const byte of bytes){if(byte<250)value+=String(byte%10);if(value.length===6)break;}}return …",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[513].citations[0].quote",
+      "jsonPath": "$.nodes[517].citations[0].quote",
       "value": "// Native queue read views. Identity and full-ID authorization stay on the local server. function queueOperation(endpoint){return state.operations.find(op=>op.endpoint===endpoint&&ready(op)&&!write(op));} function queueObject(value){return !!value&&typeof value==='object'&&!Array.isArray(value);} function queueStrings(",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[513].citations[1].quote",
+      "jsonPath": "$.nodes[517].citations[1].quote",
       "value": "// Native queue read views. Identity and full-ID authorization stay on the local server. function queueOperation(endpoint){return state.operations.find(op=>op.endpoint===endpoint&&ready(op)&&!write(op));} function queueObject(value){return !!value&&typeof value==='object'&&!Array.isArray(value);} function queueStrings(",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[530].citations[0].quote",
+      "jsonPath": "$.nodes[534].citations[0].quote",
       "value": "/api/execute",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[572].citations[0].quote",
+      "jsonPath": "$.nodes[576].citations[0].quote",
       "value": "/apis/SwaplottingTerdaftar",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[608].citations[0].quote",
+      "jsonPath": "$.nodes[612].citations[0].quote",
       "value": "// Native IGb/FGb Yuridis flow; separate model, original persil ID, true review branch. function disposeYuridis(){yuridisHost?.dispose();yuridisHost=null;} function yuridisContext(){const profileOp=state.operations.find(op=>op.endpoint==='account/account_summary'&&ready(op)&&!write(op)),profile=profileOp?nativeAccountS",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[686].citations[0].quote",
+      "jsonPath": "$.nodes[706].citations[0].quote",
       "value": "// Owns local DOM/player lifetime only. Reads stay in the injected controller. export function createHomeMediaHost({document,read,isCurrent=()=>true,onAuthError=()=>{},resolvePlayerUrl=homeYoutubeEmbedUrl}){ if(!document||typeof resolvePlayerUrl!=='function')throw new TypeError('HOME_MEDIA_HOST_REQUIRED' …",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[695].citations[0].quote",
+      "jsonPath": "$.nodes[715].citations[0].quote",
       "value": "// Native contracts: home-media-followup/flow-final.json. URL policy and safe // integer rejection below are browser adaptations, not native/provider parity. export const HOME_MEDIA_OPERATIONS=Object.freeze({banner:'get-banner-d22854',youtube:'get-youtube-getyoutubelist-d2d384'}); const message='Informasi Beranda belum",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[717].citations[0].quote",
+      "jsonPath": "$.nodes[737].citations[0].quote",
       "value": "../swaplotting/model.js",
       "kind": "escaped_root_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[717].citations[0].quote",
+      "jsonPath": "$.nodes[737].citations[0].quote",
       "value": "../parcel/search-model.js",
       "kind": "escaped_root_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[724].citations[0].quote",
+      "jsonPath": "$.nodes[744].citations[0].quote",
       "value": "../swaplotting/model.js",
       "kind": "escaped_root_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[724].citations[0].quote",
+      "jsonPath": "$.nodes[744].citations[0].quote",
       "value": "../parcel/search-model.js",
       "kind": "escaped_root_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[759].citations[0].quote",
+      "jsonPath": "$.nodes[779].citations[0].quote",
       "value": "// Static model bindings: analysis/LOST-REVIEW-PROTOCOL.md (native 6.1.5). // Wide native ints travel as exact decimal Strings through the browser bridge. const object=value=>value!==null&&typeof value==='object'&&!Array.isArray(value)&&[Object.prototype,null] …",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[779].citations[1].quote",
+      "jsonPath": "$.nodes[799].citations[1].quote",
       "value": "/assets/ven",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[782].citations[0].quote",
+      "jsonPath": "$.nodes[802].citations[0].quote",
       "value": "/api/maps/bhumi/{z}/{x}/{y}.png",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[783].citations[0].quote",
+      "jsonPath": "$.nodes[803].citations[0].quote",
       "value": "/api/maps/bhumi/{z}/{x}/{y}.png",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[787].citations[2].quote",
+      "jsonPath": "$.nodes[807].citations[2].quote",
       "value": "/api/maps/config",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[793].citations[2].quote",
+      "jsonPath": "$.nodes[813].citations[2].quote",
       "value": "/api/maps/config",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[828].citations[0].quote",
+      "jsonPath": "$.nodes[848].citations[0].quote",
       "value": "// Decorative local contact illustration. Contact links remain outside its lifecycle. const managers=new WeakMap(),selector='[data-contact-animation]',asset='/assets/profile/contact-email.json',maxBytes=200000; const fallback='Ilustrasi email belum dapat dimuat.'; function animationData(value){ if(!value||typeof …",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[829].citations[0].quote",
+      "jsonPath": "$.nodes[849].citations[0].quote",
       "value": "/assets/profile/contact-email.json",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[910].citations[0].quote",
+      "jsonPath": "$.nodes[930].citations[0].quote",
       "value": "// Local browser camera adaptation. No file import, network, GPS or upload. export const SWAPLOTTING_CAPTURE_COPY=Object.freeze({title:'Ambil Foto Sertipikat',instruction:'Pastikan Sertipikat masuk kedalam kotak dibawah ini',permissionTitle:'Gagal akses kamera',permission:'Sentuh Tanahku membutuhkan …",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[924].citations[0].quote",
+      "jsonPath": "$.nodes[944].citations[0].quote",
       "value": "// Browser-only coordinate-entry adaptation. These declarations and session // metadata are not proof of measurement, ownership, presence or server acceptance. export const SWAPLOTTING_MERCATOR_LATITUDE=85.0511287798066; const object=value=>!!value&&typeof value==='object'&& …",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[939].citations[0].quote",
+      "jsonPath": "$.nodes[959].citations[0].quote",
       "value": "/api/maps/config",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[940].citations[0].quote",
+      "jsonPath": "$.nodes[960].citations[0].quote",
       "value": "// The optional parent adapter owns HTTP and native result feedback/navigation. export function createSwaplottingHost({document,read,profile=null,getCoordinatePoints=()=>[],available=()=>true,isCurrent=()=>true,onSessionError=()=>{},onDecline=()=>{},photoCaptureFactory=createSwaplottingPhotoCapture,submit:send,writeAva",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[941].citations[0].quote",
+      "jsonPath": "$.nodes[961].citations[0].quote",
       "value": "../maps/official-map.js",
       "kind": "escaped_root_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[941].citations[0].quote",
+      "jsonPath": "$.nodes[961].citations[0].quote",
       "value": "/api/maps/bhumi/{z}/{x}/{y}.png",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[944].citations[0].quote",
+      "jsonPath": "$.nodes[964].citations[0].quote",
       "value": "/api/maps/bhumi/",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[945].citations[0].quote",
+      "jsonPath": "$.nodes[965].citations[0].quote",
       "value": "/api/maps/bhumi/${z}/${((x%width",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[971].citations[0].quote",
+      "jsonPath": "$.nodes[991].citations[0].quote",
       "value": "// A local draft removal confirmation; it never deletes a device/server file. export function createSwaplottingPhotoRemoval({document,isCurrent=()=>true,onRemove=()=>false,onClose=()=>{}}){ let active=null,disposed=false; const current=owner=>!disposed&&active===owner&&isCurrent(owner.context)&&owner.dialog …",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1006].citations[0].quote",
+      "jsonPath": "$.nodes[1026].citations[0].quote",
       "value": "../lost-review/view.js",
       "kind": "escaped_root_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1006].citations[0].quote",
+      "jsonPath": "$.nodes[1026].citations[0].quote",
       "value": "../lost-review/compose-host.js",
       "kind": "escaped_root_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1007].citations[0].quote",
+      "jsonPath": "$.nodes[1027].citations[0].quote",
       "value": "../lost-review/view.js",
       "kind": "escaped_root_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1007].citations[0].quote",
+      "jsonPath": "$.nodes[1027].citations[0].quote",
       "value": "../lost-review/compose-host.js",
       "kind": "escaped_root_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1010].citations[0].quote",
+      "jsonPath": "$.nodes[1030].citations[0].quote",
       "value": "../lost-certificate/model.js",
       "kind": "escaped_root_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1011].citations[0].quote",
+      "jsonPath": "$.nodes[1031].citations[0].quote",
       "value": "../lost-certificate/model.js",
       "kind": "escaped_root_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1013].citations[0].quote",
+      "jsonPath": "$.nodes[1033].citations[0].quote",
       "value": "../lost-certificate/model.js",
       "kind": "escaped_root_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1021].citations[0].quote",
+      "jsonPath": "$.nodes[1041].citations[0].quote",
       "value": "../lost-review/controller.js",
       "kind": "escaped_root_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1033].citations[4].quote",
+      "jsonPath": "$.nodes[1053].citations[4].quote",
       "value": "/api/execu",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1040].citations[1].quote",
+      "jsonPath": "$.nodes[1060].citations[1].quote",
       "value": "/api/execute",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1127].citations[1].quote",
+      "jsonPath": "$.nodes[1182].citations[1].quote",
       "value": "// Opaque source/detail references,120s ready TTL and session-lifetime accepted/ // unknown guards are browser adaptations. No profile ID, display ID, Activity, // bookmark ID, persistence, provider read or automatic …",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1133].citations[1].quote",
+      "jsonPath": "$.nodes[1188].citations[1].quote",
       "value": "/berkas/CariBerkas",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1134].citations[1].quote",
+      "jsonPath": "$.nodes[1189].citations[1].quote",
       "value": "/berkas/CariBerkas",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1139].citations[0].quote",
+      "jsonPath": "$.nodes[1194].citations[0].quote",
       "value": "/berkas/CariBerkas",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1161].citations[1].quote",
+      "jsonPath": "$.nodes[1216].citations[1].quote",
       "value": "/expapi/live-bhumi-wms",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1172].citations[0].quote",
+      "jsonPath": "$.nodes[1227].citations[0].quote",
       "value": "/expapi/live-bhumi-wms",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1180].citations[0].quote",
+      "jsonPath": "$.nodes[1235].citations[0].quote",
       "value": "/api/maps/bhumi/{z}/{x}/{y}.png",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1195].citations[0].quote",
+      "jsonPath": "$.nodes[1250].citations[0].quote",
       "value": "// Native xEb/vEb/yEb models: the already-decoded body must be a Map. // Evidence: analysis/COLLECTION-CARD-FOLLOWUP.md, COLLECTION-GROUPS-FOLLOWUP.md, // COLLECTION-GROUP-CREATE.md, COLLECTION-GROUP-MOVE.md and COLLECTION-GROUP-DELETE.md. // Item DELETE/PUT …",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1200].citations[0].quote",
+      "jsonPath": "$.nodes[1255].citations[0].quote",
       "value": "../..",
       "kind": "escaped_root_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1318].citations[0].quote",
+      "jsonPath": "$.nodes[1373].citations[0].quote",
       "value": "// Native review/all: yyb metadata -> zyb rows -> Ayb photos. Dates stay raw. // The service receives a Map after the shared transformer, never JSON-decodes // another String. Exact integer lexemes avoid IEEE rounding; signed64 values // outside JS safe precision use …",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1319].citations[0].quote",
+      "jsonPath": "$.nodes[1374].citations[0].quote",
       "value": "// Native review/all: yyb metadata -> zyb rows -> Ayb photos. Dates stay raw. // The service receives a Map after the shared transformer, never JSON-decodes // another String. Exact integer lexemes avoid IEEE rounding; signed64 …",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1334].citations[0].quote",
+      "jsonPath": "$.nodes[1389].citations[0].quote",
       "value": "// Appended to generated operationData/serviceData by build-operations.py. import {prepareSelectedReviewPostValues} from './lost-review-post.mjs'; import {MITRA_READS,prepareMitraQuery} from './mitra-response.mjs'; import {RATING_PPAT_READ_ID,RATING_PPAT_READ_PATH,prepareRatingPpatRead} …",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1383].citations[0].quote",
+      "jsonPath": "$.nodes[1438].citations[0].quote",
       "value": "/apis/Swaplotting",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1385].citations[0].quote",
+      "jsonPath": "$.nodes[1440].citations[0].quote",
       "value": "/apis/Swaplotting",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1426].citations[1].quote",
+      "jsonPath": "$.nodes[1481].citations[1].quote",
       "value": "// Server-owned availability snapshots. Browser input contains an opaque context // and source row index; no NIK, office ID, applicant/token/body or upstream URL. // Review deliberately cannot create an appointment: official web notification // token provisioning and the complete …",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1489].citations[0].quote",
+      "jsonPath": "$.nodes[1544].citations[0].quote",
       "value": "// Bounded native azb/bzb/czb/dzb/ezb models. See QUEUE-MODEL-FOLLOWUP.md. // Raw JSON is required for numeric fields: JSON.parse normally loses the // native int/double distinction and rounds integers above 2^53. const rawNumbers = new WeakMap(); const MIN_INT64 = -(1n << 63n); const MAX_INT64 = (1n << 63n) - 1n; cons",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1489].citations[2].quote",
+      "jsonPath": "$.nodes[1544].citations[2].quote",
       "value": "// Own data properties only; never execute getters or use inherited schema keys. function field(value, key) { const descriptor = Object.getOwnPropertyDescriptor(value, key); if (!descriptor) return undefined; if (!Object.hasOwn(descriptor, 'value')) invalid(); return descriptor.value; }",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1533].citations[0].quote",
+      "jsonPath": "$.nodes[1588].citations[0].quote",
       "value": "// Server-only projection of the current session's decoded account_summary. // Validate all 18 fields consumed by native ayb before retaining three keys. // This does not authenticate the source: the caller must fetch it with its own // main-client session, never accept a browser profile or sign-in NIK fallback …",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1570].citations[1].quote",
+      "jsonPath": "$.nodes[1625].citations[1].quote",
       "value": "// KKPR nested leaves: scan-kkpr-map-followup/8aec89db…01d24. These are // the detail model's fields, not the separate KKPR list/gyb decoder. const stringFields=keys=>keys.split(' ').map(key=>[key,'string']); const kkprLeafSchemas={ properties:[ ['id','integer'],['total_polygons','integer'],['total_area_m2','number'],",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1612].citations[0].quote",
+      "jsonPath": "$.nodes[1667].citations[0].quote",
       "value": "/apis/SwaplottingTerdaftar",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1613].citations[0].quote",
+      "jsonPath": "$.nodes[1668].citations[0].quote",
       "value": "/apis/SwaplottingTerdaftar",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1613].citations[0].quote",
+      "jsonPath": "$.nodes[1668].citations[0].quote",
       "value": "/apis/SwaplottingBelumTerdaftar",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1650].citations[0].quote",
+      "jsonPath": "$.nodes[1705].citations[0].quote",
       "value": "../assets/swaplotting/model.js",
       "kind": "escaped_root_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1682].citations[0].quote",
+      "jsonPath": "$.nodes[1737].citations[0].quote",
       "value": "// Local QR decoding only. This module never sends a code or camera frame. const libraries=new WeakMap(); const LIBRARY='/assets/vendor/zxing/zxing-browser.min.js';",
       "kind": "absolute_path"
     },
     {
       "path": "studio/graph.json",
-      "jsonPath": "$.nodes[1702].citations[0].quote",
+      "jsonPath": "$.nodes[1757].citations[0].quote",
       "value": "/apis/getGeoJsonInfo",
+      "kind": "absolute_path"
+    },
+    {
+      "path": "studio/graph.json",
+      "jsonPath": "$.nodes[1831].rationale",
+      "value": "/api/maps/bhumi/{z}/{x}/{y}.png",
       "kind": "absolute_path"
     },
     {

@@ -1,586 +1,610 @@
 {
   "scripts/analyze_artifact.py": {
-    "mtime": 1792663814178.641,
+    "mtime": 1792748329788.3787,
     "hash": "a263575afc41f1364e8c6d69eb174b46"
   },
   "scripts/analyze_route_spoofer.py": {
-    "mtime": 1792663814191.209,
+    "mtime": 1792748329802.5728,
     "hash": "4a20b5c72d1e94ca42a01fee72a64708"
   },
   "scripts/android-install-original-in-audit-emulator.ps1": {
-    "mtime": 1792663814192.2087,
+    "mtime": 1792748329818.5703,
     "hash": "829fa497fae29dba4132741189ab5bde"
   },
   "scripts/android-runtime-inventory.ps1": {
-    "mtime": 1792663814194.7268,
+    "mtime": 1792748329833.997,
     "hash": "2a18e171876d307372b9ba2a8b22873f"
   },
   "scripts/android-start-audit-emulator.ps1": {
-    "mtime": 1792663814197.7227,
+    "mtime": 1792748329854.7715,
     "hash": "bbf5fa38c613b3c0ac24ee235a1e7ee3"
   },
   "scripts/audit_native_integrity.py": {
-    "mtime": 1792663814199.241,
+    "mtime": 1792748329865.3567,
     "hash": "ec4922a97fad220649489761e75f5f64"
   },
   "scripts/package-webapp.ps1": {
-    "mtime": 1792663814208.9185,
+    "mtime": 1792748329880.8765,
     "hash": "0ff0d243d3f002adb73dd282597046fb"
   },
   "scripts/prepare-repository-checkpoint.py": {
-    "mtime": 1792663814209.925,
+    "mtime": 1792748329883.5134,
     "hash": "a8e28fe087e277ca45d202b17e3de19a"
   },
   "scripts/probe-upstream.mjs": {
-    "mtime": 1792663814212.937,
+    "mtime": 1792748329898.839,
     "hash": "5e52c5f2af14c1ef1d8f08e30c868f8b"
   },
   "scripts/start-webapp-docker.ps1": {
-    "mtime": 1792663814214.4463,
+    "mtime": 1792748329922.374,
     "hash": "ec1e510b157bc012dfa79d42803c75ad"
   },
   "scripts/start-webapp.ps1": {
-    "mtime": 1792663814216.461,
+    "mtime": 1792748329949.343,
     "hash": "50ae1839fffe3866c0f1d94b38ff68ed"
   },
   "scripts/stop-webapp-docker.ps1": {
-    "mtime": 1792663814217.4521,
+    "mtime": 1792748329963.595,
     "hash": "fcf4d99f1c039ea5c9e2988faf9fcace"
   },
   "scripts/stop-webapp.ps1": {
-    "mtime": 1792663814220.5354,
+    "mtime": 1792748329974.4336,
     "hash": "96f5b67057b949042cc31438f1500422"
   },
   "scripts/unpack.py": {
-    "mtime": 1792663814222.542,
+    "mtime": 1792748329983.9204,
     "hash": "4ce7d081d030dd9e28393b65877aa454"
   },
   "scripts/vendor-scan-qr.py": {
-    "mtime": 1792663814224.6577,
+    "mtime": 1792748329997.8188,
     "hash": "7121307ed3bbed3d4c25d9f2d0e6b3a3"
   },
   "scripts/verify-audit.py": {
-    "mtime": 1792663814226.6733,
+    "mtime": 1792748330006.3218,
     "hash": "71de1a1e4c1732e9c2f640fb0e50194e"
   },
   "scripts/verify-extraction.py": {
-    "mtime": 1792663814228.6665,
+    "mtime": 1792748330016.6006,
     "hash": "70a976c87ebf02c804b4e3db055e764b"
   },
   "scripts/verify-http-callsite-audit.py": {
-    "mtime": 1792663814230.69,
+    "mtime": 1792748330036.9954,
     "hash": "a2e2ff8474e30d9bf30199632811cb32"
   },
   "webapp/app.js": {
-    "mtime": 1792663814241.3398,
-    "hash": "d9ce41f27b38f3d178221ea64c398a04"
+    "mtime": 1792748330054.5195,
+    "hash": "986b6eab5d2d5a8d52e2ed82da0b5af5"
   },
   "webapp/assets/berkas-journey/host.js": {
-    "mtime": 1792663814302.9373,
+    "mtime": 1792748330116.5725,
     "hash": "409d128f920b884312ad0d1cf7816cfb"
   },
   "webapp/assets/berkas-journey/model.js": {
-    "mtime": 1792663814304.9856,
+    "mtime": 1792748330118.7524,
     "hash": "7ffed38e91cb1c3ae9b5ca39f9930c03"
   },
   "webapp/assets/berkas-journey/time-formatter.js": {
-    "mtime": 1792663814307.4854,
+    "mtime": 1792748330130.444,
     "hash": "7c5544f0dbe1efa4879e3371bd4a349f"
   },
   "webapp/assets/berkas-journey/view.js": {
-    "mtime": 1792663814459.1633,
+    "mtime": 1792748330257.581,
     "hash": "1d0d7ff062c9b7e86c5b57b5b0ecb4c7"
   },
+  "webapp/assets/berkas-question/controller.js": {
+    "mtime": 1792748330269.8806,
+    "hash": "c3bddb6ab3384c4da6420b589f4a7046"
+  },
+  "webapp/assets/berkas-question/host.js": {
+    "mtime": 1792748330308.8413,
+    "hash": "9c42a3d91c6ab7569f7034d6969946b1"
+  },
+  "webapp/assets/berkas-question/model.js": {
+    "mtime": 1792748330337.7812,
+    "hash": "c6e1510f3628bd38b7e31eca9b86868c"
+  },
+  "webapp/assets/berkas-question/view.js": {
+    "mtime": 1792748330373.4648,
+    "hash": "7c91c8e9d1a140f3420a9e0dd1475c77"
+  },
   "webapp/assets/berkas-rating/controller.js": {
-    "mtime": 1792663814476.7568,
+    "mtime": 1792748330393.3,
     "hash": "6cb67d7e295040ce5c6fcb0c435d8757"
   },
   "webapp/assets/berkas-rating/host.js": {
-    "mtime": 1792663814479.233,
+    "mtime": 1792748330422.3384,
     "hash": "b0ee6f43efc81c974008a51277fcf490"
   },
   "webapp/assets/berkas-rating/model.js": {
-    "mtime": 1792663814481.236,
+    "mtime": 1792748330429.7297,
     "hash": "da071f381c435debb55de753a439da19"
   },
   "webapp/assets/berkas-rating/view.js": {
-    "mtime": 1792663814484.3086,
+    "mtime": 1792748330443.7495,
     "hash": "be5ba93a86e9996388cf9257efc14868"
   },
   "webapp/assets/certificate-date/formatter.js": {
-    "mtime": 1792663814496.8948,
+    "mtime": 1792748330455.3467,
     "hash": "fc0866ca1b26353a77f4ec7ee6b1261a"
   },
   "webapp/assets/guestbook/controller.js": {
-    "mtime": 1792663814660.2012,
+    "mtime": 1792748330664.0647,
     "hash": "c744657d26fd12633a854ed4f88c2611"
   },
   "webapp/assets/guestbook/model.js": {
-    "mtime": 1792663814678.7705,
+    "mtime": 1792748330666.9001,
     "hash": "17b274bf4857f74bf3ed182824c2158d"
   },
   "webapp/assets/guestbook/view.js": {
-    "mtime": 1792663814681.341,
+    "mtime": 1792748330681.9387,
     "hash": "943e8affb48dc374c3389b2f278f45e1"
   },
   "webapp/assets/home-media/controller.js": {
-    "mtime": 1792663814683.3726,
+    "mtime": 1792748330717.609,
     "hash": "e4c30a8722eb7643ea33739e23cf6f58"
   },
   "webapp/assets/home-media/host.js": {
-    "mtime": 1792663814686.9585,
+    "mtime": 1792748330735.5713,
     "hash": "cc2abb32aa505ecb91b14d7a169c0040"
   },
   "webapp/assets/home-media/model.js": {
-    "mtime": 1792663814706.9553,
+    "mtime": 1792748330756.6587,
     "hash": "3f0a199f163ba2233d136f16149ccd96"
   },
   "webapp/assets/home-media/view.js": {
-    "mtime": 1792663814723.349,
+    "mtime": 1792748330775.2666,
     "hash": "7a9a2f74f217bdcb5f29f92bc5559d40"
   },
   "webapp/assets/lost-certificate/controller.js": {
-    "mtime": 1792663814948.896,
+    "mtime": 1792748331267.1558,
     "hash": "7eca73d1ff3619065a15438d1b78bde1"
   },
   "webapp/assets/lost-certificate/model.js": {
-    "mtime": 1792663814964.3054,
+    "mtime": 1792748331317.3887,
     "hash": "75e7d8a3b1ac238ad65eb7be5fb962c1"
   },
   "webapp/assets/lost-certificate/view.js": {
-    "mtime": 1792663814981.0315,
+    "mtime": 1792748331349.982,
     "hash": "7689205637bf0f30c31bb23684079fc8"
   },
   "webapp/assets/lost-review/compose-controller.js": {
-    "mtime": 1792663814984.5527,
+    "mtime": 1792748331397.3254,
     "hash": "7fea85601ef9c6a7b04e76c7f5823c11"
   },
   "webapp/assets/lost-review/compose-host.js": {
-    "mtime": 1792663814986.5535,
+    "mtime": 1792748331424.3704,
     "hash": "17bd2c56655439d5102802654be7aee5"
   },
   "webapp/assets/lost-review/compose-view.js": {
-    "mtime": 1792663815001.4202,
+    "mtime": 1792748331436.098,
     "hash": "e559cbbcf7d98da9b6636b0834cf3a40"
   },
   "webapp/assets/lost-review/controller.js": {
-    "mtime": 1792663815004.0083,
+    "mtime": 1792748331439.097,
     "hash": "bb05cbc31aaf10f9d5d9460ac7ab79d3"
   },
   "webapp/assets/lost-review/model.js": {
-    "mtime": 1792663815015.7124,
+    "mtime": 1792748331451.2004,
     "hash": "c554502e3460abc6c41150bbbdb39b47"
   },
   "webapp/assets/lost-review/view.js": {
-    "mtime": 1792663815017.7112,
+    "mtime": 1792748331464.3323,
     "hash": "82a3c1d7e1e60c7033de45a5e7c99aea"
   },
   "webapp/assets/maps/office-map.js": {
-    "mtime": 1792663815020.222,
+    "mtime": 1792748331466.844,
     "hash": "de64c8a11f10066e7348a284c622c730"
   },
   "webapp/assets/maps/official-map.js": {
-    "mtime": 1792663815039.7434,
+    "mtime": 1792748331487.1582,
     "hash": "708ef9f245e1cad2a875bcf18af59726"
   },
   "webapp/assets/parcel/search-controller.js": {
-    "mtime": 1792663815062.2012,
+    "mtime": 1792748331510.6472,
     "hash": "1b1a16fedb42a9da6baabfa9228de997"
   },
   "webapp/assets/parcel/search-model.js": {
-    "mtime": 1792663815077.4734,
+    "mtime": 1792748331532.7478,
     "hash": "024166faf9a83dbfe9baff6417673960"
   },
   "webapp/assets/parcel/search-view.js": {
-    "mtime": 1792663815080.6511,
+    "mtime": 1792748331549.7502,
     "hash": "0a135d308428bd2dc8f05f6eccb74e59"
   },
   "webapp/assets/profile/contact-animation.js": {
-    "mtime": 1792663815083.283,
+    "mtime": 1792748331571.5823,
     "hash": "1fe989016467c6552becba7fcfdb9f0b"
   },
   "webapp/assets/profile/daring-model.js": {
-    "mtime": 1792663815103.8015,
+    "mtime": 1792748331605.6885,
     "hash": "c173cbb6a31269bd3e9cf97fd912458c"
   },
   "webapp/assets/profile/site-destinations.js": {
-    "mtime": 1792663815106.4253,
+    "mtime": 1792748331637.629,
     "hash": "b2a20716f4561e97d062b68a12222358"
   },
   "webapp/assets/queue/booking-controller.js": {
-    "mtime": 1792663815131.0547,
+    "mtime": 1792748331688.2715,
     "hash": "9bfcee6c26acda51d701f00f181717a7"
   },
   "webapp/assets/queue/booking-model.js": {
-    "mtime": 1792663815134.6455,
+    "mtime": 1792748331703.6624,
     "hash": "2939c5c43e73f081230bf287ecd64c92"
   },
   "webapp/assets/queue/booking-view.js": {
-    "mtime": 1792663815138.8052,
+    "mtime": 1792748331718.3816,
     "hash": "5ca1c67f72dbf4be3a2288b0ab041dcf"
   },
   "webapp/assets/queue/preread-controller.js": {
-    "mtime": 1792663815140.8162,
+    "mtime": 1792748331743.3333,
     "hash": "5fe86809ea276c5fcdf0af992ec50b7d"
   },
   "webapp/assets/queue/preread-model.js": {
-    "mtime": 1792663815159.329,
+    "mtime": 1792748331758.7847,
     "hash": "0b1a74801221c1171a9bdccb095ea949"
   },
   "webapp/assets/rating-ppat/controller.js": {
-    "mtime": 1792663815164.3455,
+    "mtime": 1792748331773.867,
     "hash": "8b13702cdae1b3ba244b743b6cf4703e"
   },
   "webapp/assets/rating-ppat/host.js": {
-    "mtime": 1792663815165.8645,
+    "mtime": 1792748331776.3464,
     "hash": "243f56f2ecca5997ec2d5c40b3a2aba1"
   },
   "webapp/assets/rating-ppat/model.js": {
-    "mtime": 1792663815168.4805,
+    "mtime": 1792748331812.6765,
     "hash": "885f408d82ae895e69098ad5edbd73c6"
   },
   "webapp/assets/rating-ppat/view.js": {
-    "mtime": 1792663815170.0107,
+    "mtime": 1792748331845.311,
     "hash": "ff7aaa1c4789295610f73ab5e3b998db"
   },
   "webapp/assets/session-sync.js": {
-    "mtime": 1792663815172.0264,
+    "mtime": 1792748331859.0054,
     "hash": "339034fa4542ec6684f3368e60f6e484"
   },
   "webapp/assets/swaplotting/camera.js": {
-    "mtime": 1792663815174.0095,
+    "mtime": 1792748331882.773,
     "hash": "39efb9a1eb66a338da3c6e52e6c6a3c9"
   },
   "webapp/assets/swaplotting/capture-dialog.js": {
-    "mtime": 1792663815176.015,
+    "mtime": 1792748331899.3518,
     "hash": "1fe91f47d2eba3742e386bce925d3f5b"
   },
   "webapp/assets/swaplotting/controller.js": {
-    "mtime": 1792663815177.0854,
+    "mtime": 1792748331902.3574,
     "hash": "55949e1049c43cbf2ca9809d0f4c269b"
   },
   "webapp/assets/swaplotting/coordinate-entry.js": {
-    "mtime": 1792663815195.7915,
+    "mtime": 1792748331916.5952,
     "hash": "ade9a5ea3375d7721b9a542b909009cf"
   },
   "webapp/assets/swaplotting/host.js": {
-    "mtime": 1792663815198.8516,
+    "mtime": 1792748331929.3135,
     "hash": "a96538f69a878053a62d1839cfcabb43"
   },
   "webapp/assets/swaplotting/map.js": {
-    "mtime": 1792663815220.6604,
+    "mtime": 1792748331946.4863,
     "hash": "f9103fba954235d9d2784b0549ed934a"
   },
   "webapp/assets/swaplotting/model.js": {
-    "mtime": 1792663815236.6992,
+    "mtime": 1792748331991.0757,
     "hash": "a792defd658f32864b142bc3d4d892f2"
   },
   "webapp/assets/swaplotting/photo-removal.js": {
-    "mtime": 1792663815251.84,
+    "mtime": 1792748332010.047,
     "hash": "8bf9a1cfe431fcddc9ca5d407d40112a"
   },
   "webapp/assets/swaplotting/photo-store.js": {
-    "mtime": 1792663815255.837,
+    "mtime": 1792748332021.3398,
     "hash": "e66d027516d12e0791197f5f6efe971e"
   },
   "webapp/assets/swaplotting/review-view.js": {
-    "mtime": 1792663815257.8362,
+    "mtime": 1792748332031.981,
     "hash": "8882b5c213775ab26907bc2b49141f3f"
   },
   "webapp/assets/swaplotting/review.js": {
-    "mtime": 1792663815260.348,
+    "mtime": 1792748332044.01,
     "hash": "fd10a7d73bce7ec6ca60168186a27a2d"
   },
   "webapp/assets/swaplotting/submit-controller.js": {
-    "mtime": 1792663815262.9595,
+    "mtime": 1792748332059.485,
     "hash": "c919a3b2a5ab1a6432e6302537ceb44b"
   },
   "webapp/assets/swaplotting/view.js": {
-    "mtime": 1792663815287.6057,
+    "mtime": 1792748332076.805,
     "hash": "12e2511504531a28e90616b09cd6390a"
   },
   "webapp/assets/yuridis/controller.js": {
-    "mtime": 1792663815607.2163,
+    "mtime": 1792748332522.7786,
     "hash": "670907fa11fb76e7694fdc2a63dbf206"
   },
   "webapp/assets/yuridis/host.js": {
-    "mtime": 1792663815639.3977,
+    "mtime": 1792748332549.259,
     "hash": "9baeb060a4640538f1cdb62b2cc10c15"
   },
   "webapp/assets/yuridis/model.js": {
-    "mtime": 1792663815670.0486,
+    "mtime": 1792748332579.9568,
     "hash": "cb6acfed00ad081aeadcc35fc81b3b28"
   },
   "webapp/assets/yuridis/review-controller.js": {
-    "mtime": 1792663815672.0898,
+    "mtime": 1792748332582.9573,
     "hash": "81a7ad9ea3e9b1d5adcb8391cb3dc5e4"
   },
   "webapp/assets/yuridis/view.js": {
-    "mtime": 1792663815674.0923,
+    "mtime": 1792748332614.0708,
     "hash": "eeed587e825a5b508964f09d1e31fc0a"
   },
   "webapp/collection-save-persil.js": {
-    "mtime": 1792663815676.0623,
+    "mtime": 1792748332627.9026,
     "hash": "dd40de3f6342d09f3b29d045feb203b5"
   },
   "webapp/coordinate-comparison.js": {
-    "mtime": 1792663815692.957,
+    "mtime": 1792748332652.3677,
     "hash": "ba91d5db5bc16f74932cd139163b0746"
   },
   "webapp/domain.js": {
-    "mtime": 1792663815695.9626,
+    "mtime": 1792748332656.037,
     "hash": "9bf3a21c89a19f6e9e139649819f5b46"
   },
   "webapp/gnss.js": {
-    "mtime": 1792663815697.9668,
+    "mtime": 1792748332658.66,
     "hash": "6009f14b9fec0d0c2271224eda59a6f8"
   },
   "webapp/parcel-map.js": {
-    "mtime": 1792663815721.9377,
+    "mtime": 1792748332698.724,
     "hash": "620b9b1dc96acf78ace416934e91c5ed"
   },
   "webapp/private/activity-response.mjs": {
-    "mtime": 1792663815723.9778,
+    "mtime": 1792748332712.5388,
     "hash": "0bec9809eaf81fd3dd031ab62d9d8f88"
   },
   "webapp/private/api-client.mjs": {
-    "mtime": 1792663815726.8767,
-    "hash": "5e43cebf3d9910ebc3f4cbd496d10e09"
+    "mtime": 1792748332714.5364,
+    "hash": "0563d23ba643b2d27c873346a4fbc3bc"
+  },
+  "webapp/private/berkas-question-post.mjs": {
+    "mtime": 1792748332730.1543,
+    "hash": "dddc418b16ebc52edf693ce9fa279128"
+  },
+  "webapp/private/berkas-question-session.mjs": {
+    "mtime": 1792748332745.2954,
+    "hash": "805ddf8e83a327711a5a7a6e3d5049d9"
   },
   "webapp/private/berkas-rating-post.mjs": {
-    "mtime": 1792663815760.0913,
+    "mtime": 1792748332767.8525,
     "hash": "43ae3cbc25e0503ca74b30e48d23322a"
   },
   "webapp/private/berkas-rating-session.mjs": {
-    "mtime": 1792663815763.6125,
+    "mtime": 1792748332798.5178,
     "hash": "3c543e137ead3dcecad7b7aea795f21c"
   },
   "webapp/private/bhumi-map-client.mjs": {
-    "mtime": 1792663815775.2236,
+    "mtime": 1792748332810.2117,
     "hash": "a7cda6897b2f16141800dd16c47a8c6a"
   },
   "webapp/private/browser-map-configuration.mjs": {
-    "mtime": 1792663815795.5742,
+    "mtime": 1792748332823.1567,
     "hash": "fc13f873dbe6d2b9fbd32d841ed03dd4"
   },
   "webapp/private/browser-origin.mjs": {
-    "mtime": 1792663815800.1238,
+    "mtime": 1792748332862.409,
     "hash": "70fca9f8a790d3c4813bdb3c4d13c98c"
   },
   "webapp/private/build-operations.py": {
-    "mtime": 1792663815802.7004,
-    "hash": "08f47c6437167196220cd0947c874bfe"
+    "mtime": 1792748332868.5715,
+    "hash": "dfe56f59bbcd36fc0c9090c83ee32595"
   },
   "webapp/private/calendar-reference.mjs": {
-    "mtime": 1792663815822.345,
+    "mtime": 1792748332886.8838,
     "hash": "718988cc5264f12b18d2cbc8c83114d6"
   },
   "webapp/private/collection-response.mjs": {
-    "mtime": 1792663815824.938,
+    "mtime": 1792748332892.6235,
     "hash": "16b3fe1d537534fe574e9ca125e595fb"
   },
   "webapp/private/configuration.mjs": {
-    "mtime": 1792663815836.443,
+    "mtime": 1792748332922.4038,
     "hash": "546c46b75bf4afd531c494bb09290c8f"
   },
   "webapp/private/daring-identity-response.mjs": {
-    "mtime": 1792663815837.4446,
+    "mtime": 1792748332954.7786,
     "hash": "0e34f8f8ed014dbdc4c340924a81bdf6"
   },
   "webapp/private/guestbook-client.mjs": {
-    "mtime": 1792663815839.961,
+    "mtime": 1792748332972.465,
     "hash": "3867a7f468a474acd42341164f43fff2"
   },
   "webapp/private/guestbook-post.mjs": {
-    "mtime": 1792663815854.032,
+    "mtime": 1792748332985.0005,
     "hash": "99c4507ef6d4bd0c9c1c69ba42c19b8f"
   },
   "webapp/private/guestbook-response.mjs": {
-    "mtime": 1792663815867.157,
+    "mtime": 1792748332997.1675,
     "hash": "029a97ef313aa35f90fa4143b3d5f1bd"
   },
   "webapp/private/guestbook-submit-session.mjs": {
-    "mtime": 1792663815869.6746,
+    "mtime": 1792748333007.8147,
     "hash": "073984ea057da5f12b7c0bda189ea053"
   },
   "webapp/private/http-api.mjs": {
-    "mtime": 1792663815872.669,
-    "hash": "2b327bfa231af118d150c75e07478df9"
+    "mtime": 1792748333010.3643,
+    "hash": "1886be50c05f701394f2185e19cadc66"
   },
   "webapp/private/https-transport.mjs": {
-    "mtime": 1792663815888.7178,
+    "mtime": 1792748333022.39,
     "hash": "fd85a1fad1f027d86415cb2bb59a3f47"
   },
   "webapp/private/lost-certificate-response.mjs": {
-    "mtime": 1792663815902.3677,
+    "mtime": 1792748333035.3337,
     "hash": "2df75bda85ffe2856737d55524217bb9"
   },
   "webapp/private/lost-review-post.mjs": {
-    "mtime": 1792663815906.028,
+    "mtime": 1792748333046.503,
     "hash": "a04a5e2a2f543de2d4b2806add5957dd"
   },
   "webapp/private/lost-review-response.mjs": {
-    "mtime": 1792663815919.6538,
+    "mtime": 1792748333058.693,
     "hash": "d0e7b6851ed8db83b3f4d14a7b891601"
   },
   "webapp/private/mitra-response.mjs": {
-    "mtime": 1792663815921.7314,
+    "mtime": 1792748333070.7285,
     "hash": "df4f311d82a2896969fb11ec116252f0"
   },
   "webapp/private/news-response.mjs": {
-    "mtime": 1792663815925.609,
+    "mtime": 1792748333082.9192,
     "hash": "7ab1fa089fe6453ad30d11aa1681eb67"
   },
   "webapp/private/operations-runtime.mjs": {
-    "mtime": 1792663815928.6902,
-    "hash": "a1abf2d874737bed9a0e467af9510745"
+    "mtime": 1792748333096.3352,
+    "hash": "ab52e58affe8fc57fc8c2616f83b5060"
   },
   "webapp/private/operations.mjs": {
-    "mtime": 1792663815941.4895,
-    "hash": "c693e00144273085b7ecbda1986f6885"
+    "mtime": 1792748333126.0664,
+    "hash": "bb84f9f73f9899c21d4c492840f48f51"
   },
   "webapp/private/parcel-search-response.mjs": {
-    "mtime": 1792663815965.2417,
+    "mtime": 1792748333147.805,
     "hash": "62315264962820155a3be90c4c7809e7"
   },
   "webapp/private/plot-read-response.mjs": {
-    "mtime": 1792663815969.238,
+    "mtime": 1792748333160.7273,
     "hash": "9a0e4e899cdf77de498cb0d1266bedbb"
   },
   "webapp/private/queue-booking-client.mjs": {
-    "mtime": 1792663815971.6353,
+    "mtime": 1792748333169.052,
     "hash": "b1a2ab4db38692bb404d13b01afa101b"
   },
   "webapp/private/queue-booking-models.mjs": {
-    "mtime": 1792663815973.2761,
+    "mtime": 1792748333192.8145,
     "hash": "1dcfa45a2ce6c14c1c23390df0601716"
   },
   "webapp/private/queue-booking-profile.mjs": {
-    "mtime": 1792663815987.8433,
+    "mtime": 1792748333211.2822,
     "hash": "a2ce44e68c391e172dfd7d6e1aadfb96"
   },
   "webapp/private/queue-booking-session.mjs": {
-    "mtime": 1792663815990.5117,
+    "mtime": 1792748333222.2642,
     "hash": "1b7cde52618a6e259bb1817d3b53aa80"
   },
   "webapp/private/queue-calls-models.mjs": {
-    "mtime": 1792663816002.375,
+    "mtime": 1792748333234.3718,
     "hash": "c2ed355aa259a6979f510584295afcdd"
   },
   "webapp/private/queue-client.mjs": {
-    "mtime": 1792663816005.502,
+    "mtime": 1792748333236.372,
     "hash": "5d50625d344db84b864c0b267a8f8468"
   },
   "webapp/private/queue-identity.mjs": {
-    "mtime": 1792663816019.6487,
+    "mtime": 1792748333249.657,
     "hash": "5ad89b303334f1d79ab67d663f49eba2"
   },
   "webapp/private/queue-models.mjs": {
-    "mtime": 1792663816021.8232,
+    "mtime": 1792748333253.6387,
     "hash": "03ee63d417ff4db899c72703955649c6"
   },
   "webapp/private/queue-preread-models.mjs": {
-    "mtime": 1792663816023.81,
+    "mtime": 1792748333265.8303,
     "hash": "161f06e8b82f87d2c82a0356d79b38ed"
   },
   "webapp/private/queue-profile.mjs": {
-    "mtime": 1792663816024.777,
+    "mtime": 1792748333278.437,
     "hash": "3df9960d908e712add2aed0261faef3a"
   },
   "webapp/private/queue-session.mjs": {
-    "mtime": 1792663816027.3242,
+    "mtime": 1792748333305.1375,
     "hash": "6e6bf7afebd18afd209fb1e04b38930f"
   },
   "webapp/private/rating-ppat-post.mjs": {
-    "mtime": 1792663816048.3682,
+    "mtime": 1792748333316.493,
     "hash": "851fd64d54fc0e3a5ecf3a2a5c39524e"
   },
   "webapp/private/rating-ppat-response.mjs": {
-    "mtime": 1792663816051.0215,
+    "mtime": 1792748333329.2136,
     "hash": "230f2ce5694942e28aa8d249519ef1c2"
   },
   "webapp/private/scan-map-response.mjs": {
-    "mtime": 1792663816054.5122,
+    "mtime": 1792748333347.676,
     "hash": "3a1da091ba6fbd21997aa780ea4f041c"
   },
   "webapp/private/scan-response.mjs": {
-    "mtime": 1792663816056.5276,
+    "mtime": 1792748333358.0862,
     "hash": "57b81618a74eff28664e487ae8130662"
   },
   "webapp/private/session.mjs": {
-    "mtime": 1792663816058.5308,
+    "mtime": 1792748333373.2441,
     "hash": "92eabdeffaf090da9425689da5438a98"
   },
   "webapp/private/swaplotting-post.mjs": {
-    "mtime": 1792663816070.094,
+    "mtime": 1792748333377.0955,
     "hash": "c751fb327038605563a593dde1d0f010"
   },
   "webapp/private/swaplotting-read-models.mjs": {
-    "mtime": 1792663816083.5002,
+    "mtime": 1792748333389.2007,
     "hash": "61606d8a8fac8d1bc3e4a5e742001007"
   },
   "webapp/private/swaplotting-submit-session.mjs": {
-    "mtime": 1792663816085.5088,
+    "mtime": 1792748333426.4497,
     "hash": "0a9935051111922acb9504d2df282a48"
   },
   "webapp/private/yuridis-response.mjs": {
-    "mtime": 1792663816098.7427,
+    "mtime": 1792748333460.5945,
     "hash": "030e3cd40a652a2a2378c1ad8d6a63ce"
   },
   "webapp/scan-camera.js": {
-    "mtime": 1792663816111.3137,
+    "mtime": 1792748333528.9773,
     "hash": "d551b689c0a7a13f8c01b8caa76775cb"
   },
   "webapp/scan-controller.js": {
-    "mtime": 1792663816114.5117,
+    "mtime": 1792748333558.1533,
     "hash": "0a8bab313833b5696e98d1b380ce6d4e"
   },
   "webapp/scan-location.js": {
-    "mtime": 1792663816131.3254,
+    "mtime": 1792748333579.0508,
     "hash": "ec566b87a1b662908474cb1af9c8ddb6"
   },
   "webapp/server.mjs": {
-    "mtime": 1792663816156.461,
+    "mtime": 1792748333622.642,
     "hash": "bc102e9675b8fadf6618d84d2c24ae33"
   },
   "DOCKER.md": {
-    "mtime": 1792663814149.584,
+    "mtime": 1792748329755.4375,
     "hash": "8ef463abee17ef2fa8b00fd6b10da3c3"
   },
   "README.md": {
-    "mtime": 1792663641041.4446,
-    "hash": "354eb1dc6829b1db207176dee023b887"
+    "mtime": 1792748444660.7104,
+    "hash": "e29eb302e86f8d9d7be2569103c7c281"
   },
   "compose.yaml": {
-    "mtime": 1792663814147.0557,
+    "mtime": 1792748329737.1199,
     "hash": "50760acf080219477cfacc8518e5e3fb"
   },
   "docs/ARCHITECTURE.md": {
-    "mtime": 1792663641041.962,
-    "hash": "44a8312c0ab31aaf7570b7039d7e4b28"
+    "mtime": 1792748444660.7104,
+    "hash": "a3831355f4a9b7d4f33f7fdb86eae98a"
   },
   "docs/PORTABLE-TEST-SCOPE.md": {
-    "mtime": 1792663760387.9446,
-    "hash": "74490aed78102b4c8dfebd7d2f9810c8"
+    "mtime": 1792748444659.7102,
+    "hash": "8501cf41a97da763d5c3a68893846468"
   },
   "docs/VALIDATION.md": {
-    "mtime": 1792663719540.5068,
-    "hash": "964955bf0978e1d19c3eb280fbdff0d7"
+    "mtime": 1792748444660.7104,
+    "hash": "bb1c97b1d1f009e1028e3b59ba984d66"
   },
   "webapp/README.md": {
-    "mtime": 1792663816104.2986,
+    "mtime": 1792748333514.1638,
     "hash": "4f7a07cfc7920d2cce1381943248e935"
   },
   "webapp/assets/berkas-journey/time-LICENSE.txt": {
-    "mtime": 1792663814311.0278,
+    "mtime": 1792748330140.7646,
     "hash": "24c351eeebe82c8209ceb5604c232d4d"
   },
   "webapp/assets/certificate-date/LICENSE.txt": {
-    "mtime": 1792663814498.532,
+    "mtime": 1792748330465.8567,
     "hash": "bb7f498f5d1af852d0c8d06f16ebeacf"
   },
   "webapp/index.html": {
-    "mtime": 1792663815715.157,
+    "mtime": 1792748332680.4722,
     "hash": "32a1736d85fb5a39700bdd125357c35f"
   }
 }

@@ -486,9 +486,30 @@
       "copyPolicy": "relative documentation links and LF"
     },
     {
+      "file": "analysis/GEOTAG-CAPTURE-MEDIA-FOLLOWUP-20261023.md",
+      "workspaceSha256": "44764ed226c1d1e688a496cb2b5a71ada73dde6794db287537fd7ba4208b07ec",
+      "publishedSha256": "44764ed226c1d1e688a496cb2b5a71ada73dde6794db287537fd7ba4208b07ec",
+      "publicationOverlay": false,
+      "copyPolicy": "relative documentation links and LF"
+    },
+    {
       "file": "analysis/GEOTAG-LEGITIMATE-WORKFLOW-GAP-20261023.md",
       "workspaceSha256": "6f50e41ecd59c3a4afb5e3d24f7c69502943196e5adfaa09a01cafb67d41f533",
       "publishedSha256": "6f50e41ecd59c3a4afb5e3d24f7c69502943196e5adfaa09a01cafb67d41f533",
+      "publicationOverlay": false,
+      "copyPolicy": "relative documentation links and LF"
+    },
+    {
+      "file": "analysis/GEOTAG-PREVIEW-RESULT-CORRECTION-20261023.md",
+      "workspaceSha256": "744896af9ebd60cf61119a67e5821521025228e46f4c0d0e2af0f2b02de39b04",
+      "publishedSha256": "744896af9ebd60cf61119a67e5821521025228e46f4c0d0e2af0f2b02de39b04",
+      "publicationOverlay": false,
+      "copyPolicy": "relative documentation links and LF"
+    },
+    {
+      "file": "analysis/GEOTAG-PREVIEW-RESULT-FOLLOWUP-20261023.md",
+      "workspaceSha256": "b8257cf314460c5d798a6717a0f498627b3f8e58d86d9a7d4865409e31f7159f",
+      "publishedSha256": "b8257cf314460c5d798a6717a0f498627b3f8e58d86d9a7d4865409e31f7159f",
       "publicationOverlay": false,
       "copyPolicy": "relative documentation links and LF"
     },
@@ -1247,6 +1268,13 @@
       "publishedSha256": "92c06ed1b250e30716e711a23e7d5086497ee8eab6239b4d439060042e7f28b1",
       "publicationOverlay": false,
       "copyPolicy": "exact bytes"
+    },
+    {
+      "file": "analysis/rea/review_checkpoint_20261023.mjs",
+      "workspaceSha256": "2aa8b0f422eaaeaf427e7434268ac8dfa99831662c8728502e35ee09320740c0",
+      "publishedSha256": "68d2bacc35b53aa4bd43c13a209eb78194d80bf1fd02afd28ca40a9de0342721",
+      "publicationOverlay": true,
+      "copyPolicy": "publication overlay: resolve Graphify from APPDATA rather than a personal workstation path"
     },
     {
       "file": "analysis/rea/review_collection_group_actions.mjs",
@@ -2196,9 +2224,9 @@
     {
       "file": "README.md",
       "workspaceSha256": "f5a003af92982b5c6089a0f700ddbbecc593dd8b5a9fa735403757851e691eb2",
-      "publishedSha256": "4438a5609d6bf9250eef30ab1ee397f711fbdc6eb8e293f9f799ac81ecbad4bb",
+      "publishedSha256": "72812a098c29d0ae267c1bf860146ea99843ae68cbbfe91e6bc6e74d4e0143e7",
       "publicationOverlay": true,
-      "copyPolicy": "preserved publication overlay"
+      "copyPolicy": "preserved publication overlay with current checkpoint summary"
     },
     {
       "file": "scripts/analyze_artifact.py",
@@ -2335,8 +2363,8 @@
     },
     {
       "file": "webapp/app.js",
-      "workspaceSha256": "f11e561de853d0aa621e965ad4fad79a3d2c37f48a2c769be49eb8a74e1c70b8",
-      "publishedSha256": "f11e561de853d0aa621e965ad4fad79a3d2c37f48a2c769be49eb8a74e1c70b8",
+      "workspaceSha256": "b54c7917487248dd2ef60e7cce69b9b6eb3800eee1575d58c275a081e77bd071",
+      "publishedSha256": "b54c7917487248dd2ef60e7cce69b9b6eb3800eee1575d58c275a081e77bd071",
       "publicationOverlay": false,
       "copyPolicy": "exact bytes"
     },
@@ -2379,6 +2407,34 @@
       "file": "webapp/assets/berkas-journey/view.js",
       "workspaceSha256": "646c75d66d82dd00e613df2b871a24e2b967e4189f5c8b88effa5278367a34fc",
       "publishedSha256": "646c75d66d82dd00e613df2b871a24e2b967e4189f5c8b88effa5278367a34fc",
+      "publicationOverlay": false,
+      "copyPolicy": "exact bytes"
+    },
+    {
+      "file": "webapp/assets/berkas-question/controller.js",
+      "workspaceSha256": "cd0621d1668c1f8ccf7fac542c721fbd6750cdb491a60559b8eca6ccff6b2f7d",
+      "publishedSha256": "cd0621d1668c1f8ccf7fac542c721fbd6750cdb491a60559b8eca6ccff6b2f7d",
+      "publicationOverlay": false,
+      "copyPolicy": "exact bytes"
+    },
+    {
+      "file": "webapp/assets/berkas-question/host.js",
+      "workspaceSha256": "e0b94ad27ce314094babc043db1c271b112ebaad9485cba869da1dc104441c1f",
+      "publishedSha256": "e0b94ad27ce314094babc043db1c271b112ebaad9485cba869da1dc104441c1f",
+      "publicationOverlay": false,
+      "copyPolicy": "exact bytes"
+    },
+    {
+      "file": "webapp/assets/berkas-question/model.js",
+      "workspaceSha256": "50d3bbe6824a8cf4e70b765ce353c9b2281ff72e53437fdb77a184e7160373b0",
+      "publishedSha256": "50d3bbe6824a8cf4e70b765ce353c9b2281ff72e53437fdb77a184e7160373b0",
+      "publicationOverlay": false,
+      "copyPolicy": "exact bytes"
+    },
+    {
+      "file": "webapp/assets/berkas-question/view.js",
+      "workspaceSha256": "5daf4e1192876fd29401c2bcf2a0959f9541beb00f4347755c66b3335575ef12",
+      "publishedSha256": "5daf4e1192876fd29401c2bcf2a0959f9541beb00f4347755c66b3335575ef12",
       "publicationOverlay": false,
       "copyPolicy": "exact bytes"
     },
@@ -3364,8 +3420,22 @@
     },
     {
       "file": "webapp/private/api-client.mjs",
-      "workspaceSha256": "3c1d6a2856417d540128a9fbb793594caf034be0826d76f6787b6d040ccd05f7",
-      "publishedSha256": "3c1d6a2856417d540128a9fbb793594caf034be0826d76f6787b6d040ccd05f7",
+      "workspaceSha256": "1a6c6e13fce3020d620f6d5dbc90f70676db608f8968ef717be11dd6b265f75c",
+      "publishedSha256": "1a6c6e13fce3020d620f6d5dbc90f70676db608f8968ef717be11dd6b265f75c",
+      "publicationOverlay": false,
+      "copyPolicy": "exact bytes"
+    },
+    {
+      "file": "webapp/private/berkas-question-post.mjs",
+      "workspaceSha256": "4be0bb3dfcb8229b139c1602c6b651ae29a380f31d1a4b273e12a406a6703c12",
+      "publishedSha256": "4be0bb3dfcb8229b139c1602c6b651ae29a380f31d1a4b273e12a406a6703c12",
+      "publicationOverlay": false,
+      "copyPolicy": "exact bytes"
+    },
+    {
+      "file": "webapp/private/berkas-question-session.mjs",
+      "workspaceSha256": "58cfa2cdad117dd8ed0228a6e6ec4a38b03a17374cb6574696a2ffb27b563006",
+      "publishedSha256": "58cfa2cdad117dd8ed0228a6e6ec4a38b03a17374cb6574696a2ffb27b563006",
       "publicationOverlay": false,
       "copyPolicy": "exact bytes"
     },
@@ -3406,8 +3476,8 @@
     },
     {
       "file": "webapp/private/build-operations.py",
-      "workspaceSha256": "e808b0761534f212084895af86a6a12ba44a510668247fa7776c98d9b8c8b775",
-      "publishedSha256": "e808b0761534f212084895af86a6a12ba44a510668247fa7776c98d9b8c8b775",
+      "workspaceSha256": "5124237e368fe28dce2780147388d960640275df253c54c9a9bce3571a9a0eab",
+      "publishedSha256": "5124237e368fe28dce2780147388d960640275df253c54c9a9bce3571a9a0eab",
       "publicationOverlay": false,
       "copyPolicy": "exact bytes"
     },
@@ -3469,8 +3539,8 @@
     },
     {
       "file": "webapp/private/http-api.mjs",
-      "workspaceSha256": "47d61543b3d84b9c892940e7d5eeaea8340eb96b238c5bea52ca945b240bb6a8",
-      "publishedSha256": "47d61543b3d84b9c892940e7d5eeaea8340eb96b238c5bea52ca945b240bb6a8",
+      "workspaceSha256": "419a15f95294f4e2d16f467b7fb81c19e2ff8e9f34c1b816212a4bcbae5a514e",
+      "publishedSha256": "419a15f95294f4e2d16f467b7fb81c19e2ff8e9f34c1b816212a4bcbae5a514e",
       "publicationOverlay": false,
       "copyPolicy": "exact bytes"
     },
@@ -3518,15 +3588,15 @@
     },
     {
       "file": "webapp/private/operations-runtime.mjs",
-      "workspaceSha256": "ef4459567ede8f66f4e7bbb59fc43a206e63354e6aec6c7f1769b5e8a1bb6ce4",
-      "publishedSha256": "ef4459567ede8f66f4e7bbb59fc43a206e63354e6aec6c7f1769b5e8a1bb6ce4",
+      "workspaceSha256": "53d315b1a7006d2b866d16282aa9900c56183c115ed6ec7cfe68b7c55b6b01e4",
+      "publishedSha256": "53d315b1a7006d2b866d16282aa9900c56183c115ed6ec7cfe68b7c55b6b01e4",
       "publicationOverlay": false,
       "copyPolicy": "exact bytes"
     },
     {
       "file": "webapp/private/operations.mjs",
-      "workspaceSha256": "da58b4ae815aa1647a6d9f2bba611cfd44379297a2d92a491c7a09a0d61f105e",
-      "publishedSha256": "da58b4ae815aa1647a6d9f2bba611cfd44379297a2d92a491c7a09a0d61f105e",
+      "workspaceSha256": "4c4a5be8eac6b51d53d93000b30c5ec43bba4b8c7ec68458e8fec9c66dc9d133",
+      "publishedSha256": "4c4a5be8eac6b51d53d93000b30c5ec43bba4b8c7ec68458e8fec9c66dc9d133",
       "publicationOverlay": false,
       "copyPolicy": "exact bytes"
     },
@@ -3721,8 +3791,8 @@
     },
     {
       "file": "webapp/styles.css",
-      "workspaceSha256": "647c36adbebac4b590dbcaec28da11f034c1345270f1858d508d3e3cc8ab7594",
-      "publishedSha256": "647c36adbebac4b590dbcaec28da11f034c1345270f1858d508d3e3cc8ab7594",
+      "workspaceSha256": "2b9283849c96ea91970277872bad397899ab8643d9e7eb959feb3d67f93fe167",
+      "publishedSha256": "2b9283849c96ea91970277872bad397899ab8643d9e7eb959feb3d67f93fe167",
       "publicationOverlay": false,
       "copyPolicy": "exact bytes"
     },
@@ -3804,6 +3874,34 @@
       "copyPolicy": "exact bytes"
     },
     {
+      "file": "webapp/tests/berkas-question-browser-fixture.mjs",
+      "workspaceSha256": "f4828e0f9498d7a7917b5d4cde39c643224d3eae131ce680a8388a0f05b5d817",
+      "publishedSha256": "f4828e0f9498d7a7917b5d4cde39c643224d3eae131ce680a8388a0f05b5d817",
+      "publicationOverlay": false,
+      "copyPolicy": "exact bytes"
+    },
+    {
+      "file": "webapp/tests/berkas-question-http.test.mjs",
+      "workspaceSha256": "7846ca365104492693a03ec91268a6b0479316f732586a41e85ba2a6d46f1b43",
+      "publishedSha256": "7846ca365104492693a03ec91268a6b0479316f732586a41e85ba2a6d46f1b43",
+      "publicationOverlay": false,
+      "copyPolicy": "exact bytes"
+    },
+    {
+      "file": "webapp/tests/berkas-question-post.test.mjs",
+      "workspaceSha256": "8332a9d0a0f427b9ed0b6dc5484037ecd5509b43132ae7b0ce79490198257d1a",
+      "publishedSha256": "8332a9d0a0f427b9ed0b6dc5484037ecd5509b43132ae7b0ce79490198257d1a",
+      "publicationOverlay": false,
+      "copyPolicy": "exact bytes"
+    },
+    {
+      "file": "webapp/tests/berkas-question-ui.test.mjs",
+      "workspaceSha256": "acc495332ca6986f892e16ef743895599620954a75f710430c2e9b271eaae655",
+      "publishedSha256": "acc495332ca6986f892e16ef743895599620954a75f710430c2e9b271eaae655",
+      "publicationOverlay": false,
+      "copyPolicy": "exact bytes"
+    },
+    {
       "file": "webapp/tests/berkas-rating-app-integration.test.mjs",
       "workspaceSha256": "6512ab8a8264f096ef3c162f8f8a62ad3bf70e53ce52eb4d843deaccc6c867d1",
       "publishedSha256": "6512ab8a8264f096ef3c162f8f8a62ad3bf70e53ce52eb4d843deaccc6c867d1",
@@ -3847,8 +3945,8 @@
     },
     {
       "file": "webapp/tests/berkas-rating-post.test.mjs",
-      "workspaceSha256": "d896665a9ef422f4f55b79ba5f1ed14bd77bcb8146d0506c2c657fec75b49090",
-      "publishedSha256": "d896665a9ef422f4f55b79ba5f1ed14bd77bcb8146d0506c2c657fec75b49090",
+      "workspaceSha256": "310914b6691a6bf9eb5014d39aa9dc84186d65f3a9378cda06847959c63f0bb3",
+      "publishedSha256": "310914b6691a6bf9eb5014d39aa9dc84186d65f3a9378cda06847959c63f0bb3",
       "publicationOverlay": false,
       "copyPolicy": "exact bytes"
     },
@@ -3889,8 +3987,8 @@
     },
     {
       "file": "webapp/tests/catalog-integration.test.mjs",
-      "workspaceSha256": "b18094a2edb1d9fc8b75d3305506b1b6af1470782490253d045b8d727795ce47",
-      "publishedSha256": "b18094a2edb1d9fc8b75d3305506b1b6af1470782490253d045b8d727795ce47",
+      "workspaceSha256": "694146e24a1a6161ea3c1b2fb86fdf3a776fb9c1a2f9cff671f8e6b211d7bf01",
+      "publishedSha256": "694146e24a1a6161ea3c1b2fb86fdf3a776fb9c1a2f9cff671f8e6b211d7bf01",
       "publicationOverlay": false,
       "copyPolicy": "exact bytes"
     },
@@ -3952,8 +4050,8 @@
     },
     {
       "file": "webapp/tests/collection-group-actions.test.mjs",
-      "workspaceSha256": "8f3d3607d7cb7f4c62972ab641f5aa39a98248ca452bb83d6b825cbedabb8c3d",
-      "publishedSha256": "8f3d3607d7cb7f4c62972ab641f5aa39a98248ca452bb83d6b825cbedabb8c3d",
+      "workspaceSha256": "e76292164f6530ad93d71303a9e242c4ec569105de3b4c660353717b2801635d",
+      "publishedSha256": "e76292164f6530ad93d71303a9e242c4ec569105de3b4c660353717b2801635d",
       "publicationOverlay": false,
       "copyPolicy": "exact bytes"
     },
@@ -3987,8 +4085,8 @@
     },
     {
       "file": "webapp/tests/collection-item-actions.test.mjs",
-      "workspaceSha256": "f4fe6c8e6a368bb0450ddf0e8c4d6e644bd4f4c4614969f36040b5fc326928bf",
-      "publishedSha256": "f4fe6c8e6a368bb0450ddf0e8c4d6e644bd4f4c4614969f36040b5fc326928bf",
+      "workspaceSha256": "ce848ba679a8dcbfafca98b632ca696f7e9003fbdb1f191869267d80423fafea",
+      "publishedSha256": "ce848ba679a8dcbfafca98b632ca696f7e9003fbdb1f191869267d80423fafea",
       "publicationOverlay": false,
       "copyPolicy": "exact bytes"
     },
@@ -4008,8 +4106,8 @@
     },
     {
       "file": "webapp/tests/collection-save-activity.test.mjs",
-      "workspaceSha256": "099172c3427049cb42aa9d291c6a327d241b344fce49805c129f00807f87a0d7",
-      "publishedSha256": "099172c3427049cb42aa9d291c6a327d241b344fce49805c129f00807f87a0d7",
+      "workspaceSha256": "17fce1863b2ab058cfb51718122c0ba98572fb24d71d90c310fa56f8dd5d418a",
+      "publishedSha256": "17fce1863b2ab058cfb51718122c0ba98572fb24d71d90c310fa56f8dd5d418a",
       "publicationOverlay": false,
       "copyPolicy": "exact bytes"
     },
@@ -4316,8 +4414,8 @@
     },
     {
       "file": "webapp/tests/lost-certificate-response.test.mjs",
-      "workspaceSha256": "f466b3a448ab51be72c502bf4189535adfea537bd36f0b3dff4b4d70d55f1308",
-      "publishedSha256": "f466b3a448ab51be72c502bf4189535adfea537bd36f0b3dff4b4d70d55f1308",
+      "workspaceSha256": "9fa61ef39c86d289f75fc8338356e4bf7c22d80729c8282f28580e4a58625f33",
+      "publishedSha256": "9fa61ef39c86d289f75fc8338356e4bf7c22d80729c8282f28580e4a58625f33",
       "publicationOverlay": false,
       "copyPolicy": "exact bytes"
     },
@@ -4386,15 +4484,15 @@
     },
     {
       "file": "webapp/tests/lost-review-post.test.mjs",
-      "workspaceSha256": "220955990cee47b16bcb96d4cca8d07e6c404dcf4d14210785ea8feacce5e297",
-      "publishedSha256": "220955990cee47b16bcb96d4cca8d07e6c404dcf4d14210785ea8feacce5e297",
+      "workspaceSha256": "d3ca27e9ba1526266f5b2ee3b5329932292e0c9b84a8162778eedbac092b21ba",
+      "publishedSha256": "d3ca27e9ba1526266f5b2ee3b5329932292e0c9b84a8162778eedbac092b21ba",
       "publicationOverlay": false,
       "copyPolicy": "exact bytes"
     },
     {
       "file": "webapp/tests/lost-review-response.test.mjs",
-      "workspaceSha256": "cd649f37fb03d94626ffc8a3067603ffe91e9ddd4ae44bb340453f283db63ad7",
-      "publishedSha256": "cd649f37fb03d94626ffc8a3067603ffe91e9ddd4ae44bb340453f283db63ad7",
+      "workspaceSha256": "7140cf44e75d405e014423806c46e0ed0d86983a6e8d41d1af5e29025be2ee8c",
+      "publishedSha256": "7140cf44e75d405e014423806c46e0ed0d86983a6e8d41d1af5e29025be2ee8c",
       "publicationOverlay": false,
       "copyPolicy": "exact bytes"
     },
@@ -4428,8 +4526,8 @@
     },
     {
       "file": "webapp/tests/menu-integration.test.mjs",
-      "workspaceSha256": "468196fd483bac47d3d5e07a6108bf18b4c32de771f5569c26c9c0bb3cea86c3",
-      "publishedSha256": "468196fd483bac47d3d5e07a6108bf18b4c32de771f5569c26c9c0bb3cea86c3",
+      "workspaceSha256": "a763c22c1717bb3d05a82399e40568e5d4747835c2f4efefd1048f47451d7998",
+      "publishedSha256": "a763c22c1717bb3d05a82399e40568e5d4747835c2f4efefd1048f47451d7998",
       "publicationOverlay": false,
       "copyPolicy": "exact bytes"
     },
@@ -4456,8 +4554,8 @@
     },
     {
       "file": "webapp/tests/mitra-response.test.mjs",
-      "workspaceSha256": "720317490e27e8f2652eaae1b42bd96e72ad4b13db0ac0fe6e394ccadc386b0c",
-      "publishedSha256": "720317490e27e8f2652eaae1b42bd96e72ad4b13db0ac0fe6e394ccadc386b0c",
+      "workspaceSha256": "4c27f9a6d64f200735ba292ab21fc2417986e235cba7ce9508eb02c2809f8a6c",
+      "publishedSha256": "4c27f9a6d64f200735ba292ab21fc2417986e235cba7ce9508eb02c2809f8a6c",
       "publicationOverlay": false,
       "copyPolicy": "exact bytes"
     },
@@ -4547,8 +4645,8 @@
     },
     {
       "file": "webapp/tests/operations.test.mjs",
-      "workspaceSha256": "7db6d94914d34f438fc4a715e55311c90391802fa160c9370bcbf68a1b56cba2",
-      "publishedSha256": "7db6d94914d34f438fc4a715e55311c90391802fa160c9370bcbf68a1b56cba2",
+      "workspaceSha256": "905b0f4db2d062963929a8148fe0078970d8dd49f83150f50aba6d7963e5ebd4",
+      "publishedSha256": "905b0f4db2d062963929a8148fe0078970d8dd49f83150f50aba6d7963e5ebd4",
       "publicationOverlay": false,
       "copyPolicy": "exact bytes"
     },
@@ -4568,8 +4666,8 @@
     },
     {
       "file": "webapp/tests/parcel-search-backend.test.mjs",
-      "workspaceSha256": "a266c2ec573602c0b3c7562d1de48cc8c23311e4cd1ed80be0866da2690de99f",
-      "publishedSha256": "a266c2ec573602c0b3c7562d1de48cc8c23311e4cd1ed80be0866da2690de99f",
+      "workspaceSha256": "3c2c0e1181b607628a6974cb1479c5c9b7f8abdfdaabfec2e4423f840df90c07",
+      "publishedSha256": "3c2c0e1181b607628a6974cb1479c5c9b7f8abdfdaabfec2e4423f840df90c07",
       "publicationOverlay": false,
       "copyPolicy": "exact bytes"
     },
@@ -4617,8 +4715,8 @@
     },
     {
       "file": "webapp/tests/plot-read-backend.test.mjs",
-      "workspaceSha256": "f591448ca817cb4ea7cb42c904608d86b095b5001401905fe5c2b59cf356b7b5",
-      "publishedSha256": "f591448ca817cb4ea7cb42c904608d86b095b5001401905fe5c2b59cf356b7b5",
+      "workspaceSha256": "02671e4f25cf1cdaeac583f12b36aab27fcf02ca72c77d11a4ff174a14e51f99",
+      "publishedSha256": "02671e4f25cf1cdaeac583f12b36aab27fcf02ca72c77d11a4ff174a14e51f99",
       "publicationOverlay": false,
       "copyPolicy": "exact bytes"
     },
@@ -4638,8 +4736,8 @@
     },
     {
       "file": "webapp/tests/queue-booking-backend.test.mjs",
-      "workspaceSha256": "e7130de547be4b146773c635d85889adb24c5573f1eef0e1f585586bac7f3029",
-      "publishedSha256": "e7130de547be4b146773c635d85889adb24c5573f1eef0e1f585586bac7f3029",
+      "workspaceSha256": "039f1bcc8202b91cfbe14646c2fd69d5fa43de5e9c81c118c380efc3e67b1357",
+      "publishedSha256": "039f1bcc8202b91cfbe14646c2fd69d5fa43de5e9c81c118c380efc3e67b1357",
       "publicationOverlay": false,
       "copyPolicy": "exact bytes"
     },
@@ -4722,8 +4820,8 @@
     },
     {
       "file": "webapp/tests/queue-preread-backend.test.mjs",
-      "workspaceSha256": "07ada68d7a0685e436c3316bfb03f8327836827eb9b15aada3f2c3b661e84584",
-      "publishedSha256": "07ada68d7a0685e436c3316bfb03f8327836827eb9b15aada3f2c3b661e84584",
+      "workspaceSha256": "4c9673fca12bc06b86046dcb867fe3705cc0a3d81dfef25a46e1686451d8a0a7",
+      "publishedSha256": "4c9673fca12bc06b86046dcb867fe3705cc0a3d81dfef25a46e1686451d8a0a7",
       "publicationOverlay": false,
       "copyPolicy": "exact bytes"
     },
@@ -4806,15 +4904,15 @@
     },
     {
       "file": "webapp/tests/rating-ppat-post.test.mjs",
-      "workspaceSha256": "0df2cfd914725a9cbe89df5f41debc99be1d8f2310466c3614e2e378eaf8bc8f",
-      "publishedSha256": "0df2cfd914725a9cbe89df5f41debc99be1d8f2310466c3614e2e378eaf8bc8f",
+      "workspaceSha256": "dafce926e41d6e9c0a5fb6a4460cf50ca3d5bc00ff4bbc3b7d59175200e0a321",
+      "publishedSha256": "dafce926e41d6e9c0a5fb6a4460cf50ca3d5bc00ff4bbc3b7d59175200e0a321",
       "publicationOverlay": false,
       "copyPolicy": "exact bytes"
     },
     {
       "file": "webapp/tests/rating-ppat-response.test.mjs",
-      "workspaceSha256": "24c591dac8e93c8d308e06b3ea7270d1cf008b1df12c0a87be36cbcfe51dac75",
-      "publishedSha256": "24c591dac8e93c8d308e06b3ea7270d1cf008b1df12c0a87be36cbcfe51dac75",
+      "workspaceSha256": "590ac22852d24f35ef0209e907c4a17a8701ce49770f60b88e5e6d18b9ae8548",
+      "publishedSha256": "590ac22852d24f35ef0209e907c4a17a8701ce49770f60b88e5e6d18b9ae8548",
       "publicationOverlay": false,
       "copyPolicy": "exact bytes"
     },
@@ -4932,8 +5030,8 @@
     },
     {
       "file": "webapp/tests/scan-pipeline-backend.test.mjs",
-      "workspaceSha256": "78b9046c26b7deeaf143ffcfdaf939f08f24b554fb22b05dda59a40485ac047a",
-      "publishedSha256": "78b9046c26b7deeaf143ffcfdaf939f08f24b554fb22b05dda59a40485ac047a",
+      "workspaceSha256": "c03eaf0afa2cbe233b207771b066fc65e852477d28a1b8b7cbf3c553b8069c0d",
+      "publishedSha256": "c03eaf0afa2cbe233b207771b066fc65e852477d28a1b8b7cbf3c553b8069c0d",
       "publicationOverlay": false,
       "copyPolicy": "exact bytes"
     },
@@ -4960,8 +5058,8 @@
     },
     {
       "file": "webapp/tests/scan-special-maps-backend.test.mjs",
-      "workspaceSha256": "4bca3e820d88c6ac60b934016decd323a946976af23ac73e4eaa29b6e511fbd8",
-      "publishedSha256": "4bca3e820d88c6ac60b934016decd323a946976af23ac73e4eaa29b6e511fbd8",
+      "workspaceSha256": "d83d54d149d7db36d69ab0de9d1c30c60b28de1fc9bf54f3fc75a5bc444581cb",
+      "publishedSha256": "d83d54d149d7db36d69ab0de9d1c30c60b28de1fc9bf54f3fc75a5bc444581cb",
       "publicationOverlay": false,
       "copyPolicy": "exact bytes"
     },
@@ -5149,8 +5247,8 @@
     },
     {
       "file": "webapp/tests/swaplotting-read-backend.test.mjs",
-      "workspaceSha256": "a2d4f0433ad26cf8dae3f00f932e12d54453f135bbf74b4a79b1dc24bdf56821",
-      "publishedSha256": "a2d4f0433ad26cf8dae3f00f932e12d54453f135bbf74b4a79b1dc24bdf56821",
+      "workspaceSha256": "3a283c5041f146a55d604bd98de99a29a7aa0969c35e43f994433aa6229e97f9",
+      "publishedSha256": "3a283c5041f146a55d604bd98de99a29a7aa0969c35e43f994433aa6229e97f9",
       "publicationOverlay": false,
       "copyPolicy": "exact bytes"
     },
@@ -5184,8 +5282,8 @@
     },
     {
       "file": "webapp/tests/swaplotting-submit-backend.test.mjs",
-      "workspaceSha256": "990f3ce0e6d590892f5bde3a77f3ab8dbf23985259fa73d05c8181ca0167723c",
-      "publishedSha256": "990f3ce0e6d590892f5bde3a77f3ab8dbf23985259fa73d05c8181ca0167723c",
+      "workspaceSha256": "708d3b93d4b2a7b203da264cab22d0536dbe975a2213005aec77b974698422a1",
+      "publishedSha256": "708d3b93d4b2a7b203da264cab22d0536dbe975a2213005aec77b974698422a1",
       "publicationOverlay": false,
       "copyPolicy": "exact bytes"
     },
@@ -5261,8 +5359,8 @@
     },
     {
       "file": "webapp/tests/yuridis-backend.test.mjs",
-      "workspaceSha256": "42e400b8bd6658b5d74a86a88f4c195da35ca1579360a2b45586f97a3ee027e3",
-      "publishedSha256": "42e400b8bd6658b5d74a86a88f4c195da35ca1579360a2b45586f97a3ee027e3",
+      "workspaceSha256": "48880a99dc335dc4844d06681076dd0f0d47185475a33e5bacf93fe8e8eb88c2",
+      "publishedSha256": "48880a99dc335dc4844d06681076dd0f0d47185475a33e5bacf93fe8e8eb88c2",
       "publicationOverlay": false,
       "copyPolicy": "exact bytes"
     },

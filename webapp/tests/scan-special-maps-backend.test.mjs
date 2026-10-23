@@ -43,7 +43,7 @@ async function fixture(t,responder=()=>Response.json({error:false,data:{}}),{now
 }
 
 test('existing special operations retain read contracts and permit empty q only through a validated Scan context',()=>{
- assert.equal(OPERATIONS.length,176);assert.equal(OPERATIONS.filter(op=>op.enabled).length,94);
+ assert.equal(OPERATIONS.length,176);assert.equal(OPERATIONS.filter(op=>op.enabled).length,95);
  for(const [,id,path] of special){
   const op=OPERATIONS.find(item=>item.id===id);
   assert.equal(op.enabled,true);assert.equal(op.effect,'read');assert.equal(op.requiresConfirmation,false);

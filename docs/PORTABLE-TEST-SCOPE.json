@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
-  "scope": "Published source-only subset of the unchanged artifact-backed Node tests. Narrower than the full local native-evidence suite.",
+  "scope": "Published source-only subset of current artifact-backed Node tests. Narrower than the full local native-evidence suite.",
   "inventory": {
-    "testFiles": 149,
-    "fullLocalNativeTests": 2520,
+    "testFiles": 152,
+    "fullLocalNativeTests": 2553,
     "wholeFileExcludedCallbacks": 13,
-    "includedTestFiles": 147,
+    "includedTestFiles": 150,
     "exactCallbackExclusions": 19
   },
-  "policy": "All 149 test files are published unchanged. No private fixture, recovered artifact, historical preimage, or substitute baseline is fabricated. Whole-file exclusions occur only for dependencies read at module initialization. Other omissions use exact callback names. Mixed evidence/implementation callbacks are omitted in full and do not count as implementation coverage.",
+  "policy": "All 152 current test files are published byte-identical to the workspace. Twenty-two existing files were explicitly migrated for the Tanya catalog delta; no callbacks or assertions were removed. No private fixture, recovered artifact, historical preimage, or substitute baseline is fabricated. Whole-file exclusions occur only for dependencies read at module initialization. Other omissions use exact callback names. Mixed evidence/implementation callbacks are omitted in full and do not count as implementation coverage.",
   "excludedFiles": [
     {
       "file": "certificate-date-display.test.mjs",
@@ -67,7 +67,7 @@
     },
     {
       "file": "berkas-rating-post.test.mjs",
-      "name": "Berkas Rating catalog record and later Buku Tamu delta remain exact; rawclientIDs stay unavailable",
+      "name": "Berkas Rating catalog record and later Buku Tamu/Tanya deltas remain exact; rawclientIDs stay unavailable",
       "reason": "Historical catalog delta and implementation assertions share one callback; the entire callback is omitted.",
       "dependencies": [
         "analysis/webapp/berkas-rating-runtime-baseline.json"
@@ -125,7 +125,7 @@
     },
     {
       "file": "queue-booking-backend.test.mjs",
-      "name": "quota registry changes only its existing record and retains all171 other records including disabled create beside later personal Swaplotting, Berkas Rating and Buku Tamu writers",
+      "name": "quota registry changes only its existing record and retains all169 other records including disabled create beside later personal Swaplotting, Berkas Rating, Buku Tamu and Tanya records",
       "reason": "Historical catalog delta and implementation assertions share one callback; the entire callback is omitted.",
       "dependencies": [
         "analysis/webapp/queue-booking-runtime-baseline.json"
@@ -157,7 +157,7 @@
     },
     {
       "file": "rating-ppat-post.test.mjs",
-      "name": "catalog enables only the selected Rating writer, corrects GET reason only and keeps other169 records/prior14 write IDs intact beside later quota, personal Swaplotting, Berkas Rating and Buku Tamu deltas",
+      "name": "catalog enables only the selected Rating writer, corrects GET reason only and keeps other167 records/prior14 write IDs intact beside later quota, personal Swaplotting, Berkas Rating, Buku Tamu and Tanya deltas",
       "reason": "Historical catalog delta and implementation assertions share one callback; the entire callback is omitted.",
       "dependencies": [
         "analysis/webapp/rating-ppat-write-baseline.json",
@@ -182,7 +182,7 @@
     },
     {
       "file": "swaplotting-submit-backend.test.mjs",
-      "name": "catalog enables only the two scoped personal uploads and keeps172 other records including the prior generic Activity unchanged beside later Berkas Rating and Buku Tamu",
+      "name": "catalog enables only the two scoped personal uploads and keeps170 other records including the prior generic Activity unchanged beside later Berkas Rating, Buku Tamu and Tanya",
       "reason": "Historical catalog delta and implementation assertions share one callback; the entire callback is omitted.",
       "dependencies": [
         "analysis/webapp/swaplotting-submit-runtime-baseline.json"

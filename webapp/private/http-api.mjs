@@ -15,6 +15,8 @@ import {GuestbookClient,GuestbookClientError} from './guestbook-client.mjs';
 import {reviewPostFileDefinitions} from './lost-review-post.mjs';
 import {SwaplottingSubmissionSession} from './swaplotting-submit-session.mjs';
 import {SWAPLOTTING_POSTS} from './swaplotting-post.mjs';
+import {BerkasQuestionSession} from './berkas-question-session.mjs';
+import {BERKAS_QUESTION_POST_ID,BERKAS_QUESTION_POST_PATH} from './berkas-question-post.mjs';
 import {BerkasRatingSession} from './berkas-rating-session.mjs';
 import {BERKAS_RATING_ID,BERKAS_RATING_PATH} from './berkas-rating-post.mjs';
 import {GuestbookPostClient,GuestbookPostError,GUESTBOOK_POST_ID,GUESTBOOK_POST_PATH} from './guestbook-post.mjs';
@@ -118,6 +120,7 @@ export function createApiHandler(options = {}) {
   const bookingClientPromise=configurationPromise.then(config=>new QueueBookingClient(config,{transport:queueTransport,log:options.log}));
   const bookingSession=new QueueBookingSession({mainClientPromise:clientPromise,bookingClientPromise,queueReader,now:options.queueBookingNow});
   const swaplottingSession=new SwaplottingSubmissionSession({clientPromise,now:options.swaplottingNow||options.now||Date.now});
+  const berkasQuestionSession=new BerkasQuestionSession({clientPromise});
   const berkasRatingSession=new BerkasRatingSession({clientPromise,now:options.berkasRatingNow||options.now||Date.now});
   const guestbookClientPromise=configurationPromise.then(config=>new GuestbookClient(config,{transport:options.guestbookTransport||options.transport,log:options.log}));
   const guestbookPostClientPromise=configurationPromise.then(config=>new GuestbookPostClient(config,{transport:options.guestbookPostTransport||options.guestbookTransport||options.transport}));
@@ -143,7 +146,7 @@ export function createApiHandler(options = {}) {
   }
   const bhumiClientPromise=Promise.all([configurationPromise,clientPromise]).then(([config,mainClient])=>new BhumiMapClient(config,{mainClient,transport:options.bhumiTransport,now:options.now,log:options.log}));
   const stateFor = (session, config) => ({ csrfToken: session.csrfToken, authenticated: Boolean(session.user && session.tokens), user: session.user, connection: { configured: config.configured, origin: config.origin, reason: config.reason }, version: APP_VERSION, capabilities: { manualAccountLogin: config.configured, submissions: 'review-and-confirm', geotagSubmission: 'official-app-required', coordinateComparison: 'local-only', personalSwaplottingSubmission:config.configured, queueBookingReview: config.configured, queueBookingCreate: false, nativeAttestation: false, serverValidated: false } });
-  const close = () => { guestbookSubmission.close(); berkasRatingSession.close(); swaplottingSession.close(); bookingSession.close(); queueReader.close(); void bhumiClientPromise.then(client=>client.close()); for (const id of sessions.sessions.keys()) sessions.delete(id); };
+  const close = () => { berkasQuestionSession.close(); guestbookSubmission.close(); berkasRatingSession.close(); swaplottingSession.close(); bookingSession.close(); queueReader.close(); void bhumiClientPromise.then(client=>client.close()); for (const id of sessions.sessions.keys()) sessions.delete(id); };
   async function handle(req, res, requestPath) {
     if (!requestPath.startsWith('/api/')) return false;
     res.setHeader('Cache-Control', 'no-store');
@@ -201,6 +204,7 @@ export function createApiHandler(options = {}) {
         bookingSession.discard(session);
         swaplottingSession.discard(session);
         berkasRatingSession.discard(session);
+        berkasQuestionSession.discard(session);
         (await bhumiClientPromise).invalidateSession(session);
         session = bindSessionOrigin(sessions.rotate(session), expectedOrigin); res.setHeader('Set-Cookie', sessionCookie(session.id)); json(res, 200, stateFor(session, config)); return true;
       }
@@ -220,6 +224,7 @@ export function createApiHandler(options = {}) {
         bookingSession.discard(session);
         swaplottingSession.discard(session);
         berkasRatingSession.discard(session);
+        berkasQuestionSession.discard(session);
         (await bhumiClientPromise).invalidateSession(session);
         session = bindSessionOrigin(sessions.rotate(session), expectedOrigin); Object.assign(session, credentials);
         res.setHeader('Set-Cookie', sessionCookie(session.id)); json(res, 200, stateFor(session, config)); return true;
@@ -271,6 +276,14 @@ export function createApiHandler(options = {}) {
         catch (error) { throw new ApiError(error.status || 409, error.code || 'CONTRACT_NOT_READY', error.message || 'Operasi belum siap digunakan.',input.operationId===GUESTBOOK_POST_ID?{delivery:'not_sent'}:undefined); }
         if (prepared.requiresConfirmation && input.confirm !== true) throw new ApiError(409, 'CONFIRMATION_REQUIRED', 'Tinjau parameter lalu konfirmasi pengiriman.',input.operationId===GUESTBOOK_POST_ID?{delivery:'not_sent'}:undefined);
         const client = await clientPromise;
+        if(prepared.clientProfile==='berkas-question-post'){
+          if(input.operationId!==BERKAS_QUESTION_POST_ID||prepared.path!==BERKAS_QUESTION_POST_PATH||prepared.method!=='POST'||prepared.encoding!=='form'||prepared.auth!=='session'||prepared.serviceId!=='main'||prepared.service?.baseUrl!=='https://sentuh.atrbpn.go.id/'||input.files.length||Object.keys(input).sort().join(',')!=='confirm,files,operationId,values')throw new ApiError(400,'BERKAS_QUESTION_SCOPE','Buka percakapan dari detail Koleksi atau Cari Berkas.',{delivery:'not_sent'});
+          try{
+            const secrets=client.redactionValues(session),result=await berkasQuestionSession.submit(prepared.berkasQuestionInput,session,assertCurrentSession);
+            assertCurrentSession();const responseSecrets=[...secrets,...client.redactionValues(session)].sort((a,b)=>b.length-a.length);
+            json(res,200,{ok:true,operationId:input.operationId,result:{status:result.status,contentType:result.contentType,data:result.data,delivery:result.delivery,refresh:result.refresh?{success:result.refresh.success,...(result.refresh.result?{result:{status:result.refresh.result.status,contentType:result.refresh.result.contentType,data:publicData(result.refresh.result.data,0,responseSecrets)}}:{code:result.refresh.code})}:null}});return true;
+          }catch(error){const scoped=error instanceof ApiError?error:new ApiError(500,'BERKAS_QUESTION_INTERNAL_ERROR','Pesan belum dapat diproses.');scoped.details={...(scoped.details||{}),delivery:['not_sent','unknown'].includes(error.delivery)?error.delivery:'unknown'};throw scoped;}
+        }
         if(prepared.clientProfile==='berkas-rating-post'){
           if(!session.user||!session.tokens)throw new ApiError(401,'LOGIN_REQUIRED','Masuk untuk memberi penilaian Berkas.');
           if(input.operationId!==BERKAS_RATING_ID||prepared.path!==BERKAS_RATING_PATH||prepared.method!=='POST'||prepared.encoding!=='multipart'||prepared.auth!=='session'||prepared.serviceId!=='main'||prepared.service?.baseUrl!=='https://sentuh.atrbpn.go.id/'||input.files.length||Object.keys(input).sort().join(',')!=='confirm,files,operationId,values')throw new ApiError(400,'BERKAS_RATING_SCOPE','Pengiriman penilaian harus berasal dari detail Berkasku.');
@@ -384,6 +397,7 @@ export function createApiHandler(options = {}) {
         const requestSecrets = client.redactionValues(session, prepared.body);
         const swaplottingTicket=swaplottingSession.beginRead(prepared,session);
         const berkasRatingTicket=berkasRatingSession.beginRead(prepared,session);
+        const berkasQuestionTicket=berkasQuestionSession.beginRead(prepared,session);
         const berkasRatingDetailTicket=Object.hasOwn(input,'berkasRatingSourceId')?berkasRatingSession.beginDetail(prepared,input.berkasRatingSourceId,session):null;
         let result = await client.request({ base: prepared.service.baseUrl, path: prepared.path, query: prepared.query, method: prepared.method, encoding: prepared.encoding, body: prepared.body, files: input.files, auth: prepared.auth, session, clientProfile: prepared.clientProfile, scanContextValidated:prepared.scanContextValidated, scanMapContextValidated:prepared.scanMapContextValidated });
         assertCurrentSession();
@@ -392,6 +406,7 @@ export function createApiHandler(options = {}) {
         queueReader.observe(prepared, result, session);
         bookingSession.observe(prepared,result,session);
         result=swaplottingSession.observe(prepared,result,session,swaplottingTicket);
+        result=berkasQuestionSession.observe(result,session,berkasQuestionTicket);
         result=berkasRatingSession.observeList(prepared,result,session,berkasRatingTicket);
         if(berkasRatingDetailTicket)result=berkasRatingSession.observeDetail(result,session,berkasRatingDetailTicket);
         if (result.bytes) {
@@ -405,7 +420,7 @@ export function createApiHandler(options = {}) {
           // A concurrent refresh can replace credentials while this request is
           // pending. Redact both generations from the returned document data.
           const responseSecrets = [...requestSecrets, ...client.redactionValues(session, prepared.body)].sort((a, b) => b.length - a.length);
-          json(res, 200, { ok: true, operationId: input.operationId, result: { status: result.status, contentType: result.contentType, data: publicData(result.data, 0, responseSecrets),...swaplottingSource(result),...berkasRatingSources(result) } });
+          json(res, 200, { ok: true, operationId: input.operationId, result: { status: result.status, contentType: result.contentType, data: publicData(result.data, 0, responseSecrets),...swaplottingSource(result),...berkasRatingSources(result),...(result.berkasQuestionContext?{berkasQuestionContext:result.berkasQuestionContext}:{}) } });
         }
         return true;
       }

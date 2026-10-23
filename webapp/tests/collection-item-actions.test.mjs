@@ -55,7 +55,7 @@ test('collection-item supplemental actions leave the original 170-shape corpus b
   assert.equal(contracts.length, 170);
   assert.ok(contracts.every(contract => !actions.some(action => contract.endpoint.startsWith(action.prefix))));
   assert.ok(contracts.every(contract => contract.endpoint !== edit.path));
-  assert.equal(OPERATIONS.length, 176); assert.equal(OPERATIONS.filter(operation => operation.enabled).length, 94);
+  assert.equal(OPERATIONS.length, 176); assert.equal(OPERATIONS.filter(operation => operation.enabled).length, 95);
 });
 
 test('item DELETE registry exposes two exact main-session writes with required explicit String IDs and confirmation', () => {

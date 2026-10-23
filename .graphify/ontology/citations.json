@@ -1,6 +1,6 @@
 {
   "schema": "graphify_ontology_citations_v1",
-  "graph_signature": "f1a82d383d2f49b61eccab7cd25198059ad62cdd5b48044684dd305cf8acb103",
+  "graph_signature": "6132c8a94e87ca5e4835ed34a88ea008fab0f1ba53584bd087f7c721cf244993",
   "nodes": {
     "assets_session_sync_createsessionsync": {
       "count": 1,
@@ -234,6 +234,138 @@
         }
       ]
     },
+    "berkas_question_controller_authcodes": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/assets/berkas-question/controller.js",
+          "source_location": "document",
+          "quote": "import {questionRows,hasQuestionText}from'./model.js'; const authCodes=new Set(['AUTH_REQUIRED','LOGIN_REQUIRED','SESSION_EXPIRED']); export function createBerkasQuestion({read,write,isCurrent=()=>true,changed=()=>{},onSessionError=()=>{}}={}){ if(typeof read!=='function'||typeof …",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "berkas_question_controller_createberkasquestion": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/assets/berkas-question/controller.js",
+          "source_location": "document",
+          "quote": "… {questionRows,hasQuestionText}from'./model.js'; const authCodes=new Set(['AUTH_REQUIRED','LOGIN_REQUIRED','SESSION_EXPIRED']); export function createBerkasQuestion({read,write,isCurrent=()=>true,changed=()=>{},onSessionError=()=>{}}={}){ if(typeof read!=='function'||typeof write!=='function')throw new TypeError('BERK",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "berkas_question_host_createberkasquestionhost": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/assets/berkas-question/host.js",
+          "source_location": "document",
+          "quote": "… {berkasQuestionView,questionConversationView,questionNoticeView}from'./view.js'; let nextTitle=0; export function createBerkasQuestionHost({root,numberYear='',read,write,isCurrent,onSessionError=()=>{}}={}){ if(!root?.ownerDocument||typeof read!=='function'||typeof write!=='function'||typeof isCurrent!=='function')th",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "berkas_question_model_berkas_question_copy": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/assets/berkas-question/model.js",
+          "source_location": "document",
+          "quote": "export const BERKAS_QUESTION_COPY=Object.freeze({title:'Tanya Berkas',placeholder:'Ketik pesan...',empty:'Kamu belum memulai percakapan'}); const fields=['berkasId','nik','content','isTanya','tanggal','waktu','namaKantor']; …",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "berkas_question_model_fields": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/assets/berkas-question/model.js",
+          "source_location": "document",
+          "quote": "… BERKAS_QUESTION_COPY=Object.freeze({title:'Tanya Berkas',placeholder:'Ketik pesan...',empty:'Kamu belum memulai percakapan'}); const fields=['berkasId','nik','content','isTanya','tanggal','waktu','namaKantor']; export function questionRows(value){if(!Array.isArray(value))throw new TypeError('BERKAS_QUESTION_HISTORY')",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "berkas_question_model_hasquestiontext": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/assets/berkas-question/model.js",
+          "source_location": "document",
+          "quote": "… row[key]!=='string')throw new TypeError('BERKAS_QUESTION_HISTORY');item[key]=row[key];}return item;});} export function hasQuestionText(value){return typeof value==='string'&&value.replace(/^[\\u0009-\\u000D\\u0020\\u0085\\u00A0\\u1680\\u2000-\\u200A\\u2028\\u2029\\u202F\\u205F\\u3000\\uFEFF]+|[\\u0009-\\u000D\\u0020\\u0085\\u00A0\\u168",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "berkas_question_model_questiongroups": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/assets/berkas-question/model.js",
+          "source_location": "document",
+          "quote": "… (/^[\\u0009-\\u000D\\u0020\\u0085\\u00A0\\u1680\\u2000-\\u200A\\u2028\\u2029\\u202F\\u205F\\u3000\\uFEFF]+|[\\u0009-\\u000D\\u0020\\u0085\\u00A0\\u1680\\u2000-\\u200A\\u2028\\u2029\\u202F\\u205F\\u3000\\uFEFF]+$/g,'').length>0;} export function questionGroups(rows){const groups=[];for(const row of rows){let group=groups.at(-1);if(!group||group.",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "berkas_question_model_questionrows": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/assets/berkas-question/model.js",
+          "source_location": "document",
+          "quote": "… percakapan'}); const fields=['berkasId','nik','content','isTanya','tanggal','waktu','namaKantor']; export function questionRows(value){if(!Array.isArray(value))throw new TypeError('BERKAS_QUESTION_HISTORY');return Array.from(value,row=>{if(!row||typeof row!=='object'||Array.isArray(row))throw new TypeError('BERKAS_QU",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "berkas_question_view_berkasquestionview": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/assets/berkas-question/view.js",
+          "source_location": "document",
+          "quote": "… (state.readError?'<button type=\"button\" class=\"text-button\" data-bq-reload>Muat ulang riwayat</button>':'');} export function berkasQuestionView({numberYear='',titleId='berkas-question-title'}={}){return `<section class=\"berkas-question\" aria-labelledby=\"${esc(titleId)}\"><div class=\"berkas-question-heading\"><button t",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "berkas_question_view_questionconversationview": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/assets/berkas-question/view.js",
+          "source_location": "document",
+          "quote": "… (value).replace(/[&<>\"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',\"'\":'&#39;'}[ch])); export function questionConversationView(state){ if(state.readBusy)return '<div class=\"berkas-question-loading\" role=\"status\"><span class=\"bq-spinner\" aria-hidden=\"true\"></span><span>Memuat percakapan…</span></div>'; i",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "berkas_question_view_questionnoticeview": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/assets/berkas-question/view.js",
+          "source_location": "document",
+          "quote": "… (item.content)}</div><span class=\"berkas-question-time\">${esc(item.time)}</span></article>`).join('')}`).join(''); } export function questionNoticeView(state){return [state.readError,state.sendNotice].filter(Boolean).map(text=>`<p class=\"berkas-question-notice\" role=\"status\">${esc(text)}</p>`).join('')+(state.readErr",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
     "berkas_rating_controller_authcodes": {
       "count": 1,
       "citations": [
@@ -391,7 +523,7 @@
       ]
     },
     "geotag_disabled": {
-      "count": 1,
+      "count": 2,
       "citations": [
         {
           "source_file": "docs/ARCHITECTURE.md",
@@ -401,6 +533,15 @@
           "page": 1,
           "section": "Map and coordinate paths",
           "paragraph_id": "p17"
+        },
+        {
+          "source_file": "docs/ARCHITECTURE.md",
+          "source_location": "p.1 · Map and coordinate paths",
+          "quote": "… `coordinate-comparison.js` computes local comparisons. These local tools do not replace evidence of physical attendance. Geotag upload remains disabled/official-app-required, and this checkpoint does not implement a visit bypass, fabricated positioning or remote attestation.",
+          "confidence": "EXTRACTED",
+          "page": 1,
+          "section": "Map and coordinate paths",
+          "paragraph_id": "p20"
         }
       ]
     },
@@ -2515,7 +2656,7 @@
       ]
     },
     "private_api_client_apiclient_redactionvalues": {
-      "count": 2,
+      "count": 3,
       "citations": [
         {
           "source_file": "webapp/private/api-client.mjs",
@@ -2530,11 +2671,18 @@
           "quote": "… later // logout/refresh must not remove protection from a delayed error response. const requestSecrets = this.redactionValues(session, body); let response; let stage = 'request'; let networkCode = null; let failed = false; let authenticationError = null; const diagnostics = () => ({ requestId, stage, networkCode, ela",
           "confidence": "EXTRACTED",
           "paragraph_id": "p3"
+        },
+        {
+          "source_file": "webapp/private/api-client.mjs",
+          "source_location": "document",
+          "quote": "… later // logout/refresh must not remove protection from a delayed error response. const requestSecrets = this.redactionValues(session, body); let response; let stage = 'request'; let networkCode = null; let failed = false; let authenticationError = null; const diagnostics = () => ({ requestId, stage, networkCode, ela",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p4"
         }
       ]
     },
     "private_api_client_apiclient_request": {
-      "count": 2,
+      "count": 3,
       "citations": [
         {
           "source_file": "webapp/private/api-client.mjs",
@@ -2549,11 +2697,18 @@
           "quote": "… Logging must not change request outcome. */ } } } async signIn(username, password) { const result = await this.request({ path: 'auth/signin', auth: 'application', body: { devicePlatform: 'android', username, password } }); const profile = result.data?.data; if (!profile || typeof profile !== 'object' || typeof profil",
           "confidence": "EXTRACTED",
           "paragraph_id": "p3"
+        },
+        {
+          "source_file": "webapp/private/api-client.mjs",
+          "source_location": "document",
+          "quote": "… Logging must not change request outcome. */ } } } async signIn(username, password) { const result = await this.request({ path: 'auth/signin', auth: 'application', body: { devicePlatform: 'android', username, password } }); const profile = result.data?.data; if (!profile || typeof profile !== 'object' || typeof profil",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p4"
         }
       ]
     },
     "private_api_client_apierror": {
-      "count": 2,
+      "count": 3,
       "citations": [
         {
           "source_file": "webapp/private/api-client.mjs",
@@ -2568,11 +2723,18 @@
           "quote": "export class ApiError extends Error { constructor(status, code, message, details) { super(message); this.status = status; this.code = code; this.details = details; } } export const ALLOWED_ORIGINS = new Set([ 'https://sentuh …",
           "confidence": "EXTRACTED",
           "paragraph_id": "p3"
+        },
+        {
+          "source_file": "webapp/private/api-client.mjs",
+          "source_location": "document",
+          "quote": "… (files)||query!==undefined&&!emptySwaplottingQuery(query)||signal!==undefined&&!(signal instanceof AbortSignal))throw new ApiError(409,'SWAPLOTTING_SUBMIT_SCOPE','Pengiriman Swaplotting tidak sesuai kontrak sesi.'); if(signal?.aborted)throw new ApiError(409,'SWAPLOTTING_ABORTED','Pengiriman dibatalkan sebelum dikirim",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p4"
         }
       ]
     },
     "private_api_client_collectiondeleteprefixes": {
-      "count": 3,
+      "count": 4,
       "citations": [
         {
           "source_file": "webapp/private/api-client.mjs",
@@ -2594,11 +2756,18 @@
           "quote": "… koleksi tidak sesuai kontrak.'); } const collectionDeletePrefix = url.origin === new URL(MAIN_ORIGIN).origin && collectionDeletePrefixes.find(prefix => url.pathname.startsWith('/' + prefix) || path.startsWith(prefix) || path.startsWith('/' + prefix)); if (collectionDeletePrefix) { let canonicalSegment = false; try {",
           "confidence": "EXTRACTED",
           "paragraph_id": "p3"
+        },
+        {
+          "source_file": "webapp/private/api-client.mjs",
+          "source_location": "document",
+          "quote": "… koleksi tidak sesuai kontrak.'); } const collectionDeletePrefix = url.origin === new URL(MAIN_ORIGIN).origin && collectionDeletePrefixes.find(prefix => url.pathname.startsWith('/' + prefix) || path.startsWith(prefix) || path.startsWith('/' + prefix)); if (collectionDeletePrefix) { let canonicalSegment = false; try {",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p4"
         }
       ]
     },
     "private_api_client_decodeverificationstatus": {
-      "count": 2,
+      "count": 3,
       "citations": [
         {
           "source_file": "webapp/private/api-client.mjs",
@@ -2613,6 +2782,13 @@
           "quote": "… helper-local HTTP200 gate // was found, so preserve the shared accepted 2xx range without broadening it. try { data = decodeVerificationStatus(data); } catch { throw new ApiError(502, 'VERIFICATION_STATUS_RESPONSE_UNRECOGNIZED', 'Respons status verifikasi belum sesuai kontrak layanan.', { upstreamStatus: response.sta",
           "confidence": "EXTRACTED",
           "paragraph_id": "p3"
+        },
+        {
+          "source_file": "webapp/private/api-client.mjs",
+          "source_location": "document",
+          "quote": "… helper-local HTTP200 gate // was found, so preserve the shared accepted 2xx range without broadening it. try { data = decodeVerificationStatus(data); } catch { throw new ApiError(502, 'VERIFICATION_STATUS_RESPONSE_UNRECOGNIZED', 'Respons status verifikasi belum sesuai kontrak layanan.', { upstreamStatus: response.sta",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p4"
         }
       ]
     },
@@ -2636,7 +2812,7 @@
       ]
     },
     "private_api_client_idsegment": {
-      "count": 3,
+      "count": 4,
       "citations": [
         {
           "source_file": "webapp/private/api-client.mjs",
@@ -2658,11 +2834,18 @@
           "quote": "… (collectionDeletePrefix.length), suppliedId = decodeURIComponent(segment); canonicalSegment = suppliedId !== '.' && suppliedId !== '..' && idSegment(suppliedId) === segment; } catch { /* Invalid URI components never reach the transport. */ } if (clientProfile !== 'main' || method !== 'DELETE' || encoding !== 'none' |",
           "confidence": "EXTRACTED",
           "paragraph_id": "p3"
+        },
+        {
+          "source_file": "webapp/private/api-client.mjs",
+          "source_location": "document",
+          "quote": "… (collectionDeletePrefix.length), suppliedId = decodeURIComponent(segment); canonicalSegment = suppliedId !== '.' && suppliedId !== '..' && idSegment(suppliedId) === segment; } catch { /* Invalid URI components never reach the transport. */ } if (clientProfile !== 'main' || method !== 'DELETE' || encoding !== 'none' |",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p4"
         }
       ]
     },
     "private_api_client_networkfailure": {
-      "count": 2,
+      "count": 3,
       "citations": [
         {
           "source_file": "webapp/private/api-client.mjs",
@@ -2677,11 +2860,18 @@
           "quote": "… ['UND_ERR_SOCKET', null], ['EPROTO', null], ['REQUEST_TIMEOUT', null], ['REQUEST_ABORTED', null], ]); function networkFailure(error, currentStage) { // Only known symbolic codes survive. Never inspect/log error.message, stack, // request options, TLS certificate contents or arbitrary cause properties. const pending =",
           "confidence": "EXTRACTED",
           "paragraph_id": "p3"
+        },
+        {
+          "source_file": "webapp/private/api-client.mjs",
+          "source_location": "document",
+          "quote": "… ApiError(413, 'REQUEST_BODY_TOO_LARGE', 'Ukuran kiriman melebihi batas transport.', diagnostics()); const failure = networkFailure(error, stage); stage = failure.stage; networkCode = failure.networkCode; throw new ApiError(502, 'UPSTREAM_UNREACHABLE', networkMessage(failure), diagnostics()); } finally { // One struct",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p4"
         }
       ]
     },
     "private_api_client_networkmessage": {
-      "count": 2,
+      "count": 3,
       "citations": [
         {
           "source_file": "webapp/private/api-client.mjs",
@@ -2696,6 +2886,13 @@
           "quote": "… timedOut ? 'REQUEST_TIMEOUT' : aborted ? 'REQUEST_ABORTED' : 'NETWORK_ERROR', stage: currentStage }; } function networkMessage({ stage, networkCode }) { if (stage === 'dns') return 'Nama server tidak dapat ditemukan (DNS). Periksa koneksi dan DNS komputer/container.'; if (stage === 'tls') return 'Verifikasi koneksi T",
           "confidence": "EXTRACTED",
           "paragraph_id": "p3"
+        },
+        {
+          "source_file": "webapp/private/api-client.mjs",
+          "source_location": "document",
+          "quote": "… stage); stage = failure.stage; networkCode = failure.networkCode; throw new ApiError(502, 'UPSTREAM_UNREACHABLE', networkMessage(failure), diagnostics()); } finally { // One structured transport result. URL search/hash, headers, body, profile, // credentials and arbitrary error text are intentionally never logged. co",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p4"
         }
       ]
     },
@@ -2719,7 +2916,7 @@
       ]
     },
     "private_api_client_publicdata": {
-      "count": 2,
+      "count": 3,
       "citations": [
         {
           "source_file": "webapp/private/api-client.mjs",
@@ -2734,11 +2931,18 @@
           "quote": "… (?:password|authorization|access.?token|refresh.?token|fcm.?token|^token$|auth.?key|secret|credential)/i; export function publicData(value, depth = 0, secrets = []) { if (depth > 15) return '[kedalaman data dibatasi]'; if (typeof value === 'string') { for (const secret of secrets) if (typeof secret === 'string' && se",
           "confidence": "EXTRACTED",
           "paragraph_id": "p3"
+        },
+        {
+          "source_file": "webapp/private/api-client.mjs",
+          "source_location": "document",
+          "quote": "… HTML, stack traces or headers. if (/<[^>]*>|\\n\\s*at\\s|Traceback|StackTrace/i.test(text)) continue; details[key] = publicData(text, 0, requestSecrets).replace(/[\\r\\n\\t]+/g, ' ').slice(0, key === 'code' ? 100 : 400); } if (authenticationError) { authenticationError.details = details; throw authenticationError; } throw",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p4"
         }
       ]
     },
     "private_api_client_responsebytes": {
-      "count": 2,
+      "count": 3,
       "citations": [
         {
           "source_file": "webapp/private/api-client.mjs",
@@ -2753,11 +2957,18 @@
           "quote": "… return 'Permintaan jaringan ke server gagal. Gunakan ID permintaan pada log untuk pemeriksaan.'; } async function responseBytes(response, limit = 20 * 1024 * 1024) { if (Number(response.headers.get('content-length')) > limit) { await response.body?.cancel(); throw new ApiError(502, 'RESPONSE_TOO_LARGE', 'Respons serv",
           "confidence": "EXTRACTED",
           "paragraph_id": "p3"
+        },
+        {
+          "source_file": "webapp/private/api-client.mjs",
+          "source_location": "document",
+          "quote": "… === 403 ? 403 : 502, 'UPSTREAM_REJECTED', message, { upstreamStatus: response.status }); } const bytes = await responseBytes(response); stage = 'response_parse'; if(berkasQuestionPost||berkasQuestionRead){ if(authenticationError)throw authenticationError; if(berkasQuestionPost){ if(session.active===false||!session.to",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p4"
         }
       ]
     },
     "private_api_client_tokensfrom": {
-      "count": 2,
+      "count": 3,
       "citations": [
         {
           "source_file": "webapp/private/api-client.mjs",
@@ -2772,6 +2983,13 @@
           "quote": "… besar.'); } chunks.push(value); } } finally { reader.releaseLock(); } return Buffer.concat(chunks); } export function tokensFrom(value) { if (!value || typeof value !== 'object' || typeof value.accessToken !== 'string' || value.accessToken.length < 1 || value.accessToken.length > 32_768 || /[\\r\\n]/.test(value.accessT",
           "confidence": "EXTRACTED",
           "paragraph_id": "p3"
+        },
+        {
+          "source_file": "webapp/private/api-client.mjs",
+          "source_location": "document",
+          "quote": "… 'LOGIN_RESPONSE_UNRECOGNIZED', 'Respons login server belum sesuai kontrak yang dipulihkan.'); const tokens = tokensFrom(profile.token); const user = Object.fromEntries(['username', 'email', 'nomorIndukKependudukan', 'userLevel', 'isParticipatoryMapper', 'roleUser'].filter(key => ['string', 'number', 'boolean'].includ",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p4"
         }
       ]
     },
@@ -2791,6 +3009,342 @@
           "quote": "… secretKey.test(key) ? '[REDACTED]' : publicData(item, depth + 1, secrets)])); return value; } export function upstreamUrl(base, relative, query = {}) { const baseUrl = new URL(base); if (!ALLOWED_ORIGINS.has(baseUrl.origin) || baseUrl.username || baseUrl.password || baseUrl.protocol !== 'https:') throw new ApiError(4",
           "confidence": "EXTRACTED",
           "paragraph_id": "p3"
+        }
+      ]
+    },
+    "private_berkas_question_post_attempts": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/private/berkas-question-post.mjs",
+          "source_location": "document",
+          "quote": "… BERKAS_QUESTION_READ_ID='get-tanyajawab-gettanyajawabberkas-d2826c'; export const BERKAS_QUESTION_READ_PATH='TanyaJawab/GetTanyaJawabBerkas'; const attempts=new WeakSet(),dispatched=new WeakSet(); const record=value=>value!==null&&typeof value==='object'&&!Array.isArray(value)&&!JSON.isRawJSON(value)&&[Object.prototy",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "private_berkas_question_post_berkasquestionwasdispatched": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/private/berkas-question-post.mjs",
+          "source_location": "document",
+          "quote": "… ({});attempts.add(value);return value;} export const isBerkasQuestionAttempt=value=>attempts.has(value); export const berkasQuestionWasDispatched=value=>dispatched.has(value); export function markBerkasQuestionDispatched(value){if(!attempts.has(value)||dispatched.has(value))fail('Permintaan pesan ini sudah dijalankan",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "private_berkas_question_post_createberkasquestionattempt": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/private/berkas-question-post.mjs",
+          "source_location": "document",
+          "quote": "… belum dikenali.','BERKAS_QUESTION_HISTORY_INVALID');result[key]=d.value;}return result;}); } export function createBerkasQuestionAttempt(){const value=Object.freeze({});attempts.add(value);return value;} export const isBerkasQuestionAttempt=value=>attempts.has(value); export const berkasQuestionWasDispatched=value=>d",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "private_berkas_question_post_decodeberkasquestionhistory": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/private/berkas-question-post.mjs",
+          "source_location": "document",
+          "quote": "… error.value!=='boolean')return {success:false,recognized:false}; return {success:error.value===false,recognized:true}; } export function decodeBerkasQuestionHistory(bytes,contentType,status){ if(!Number.isInteger(status)||status<200||status>=300)fail('Riwayat percakapan belum dapat dimuat.','BERKAS_QUESTION_HISTORY_I",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "private_berkas_question_post_decodeberkasquestionoutcome": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/private/berkas-question-post.mjs",
+          "source_location": "document",
+          "quote": "… ('utf-8',{fatal:true}).decode(bytes); return json?(text.length?JSON.parse(text):null):text; } export function decodeBerkasQuestionOutcome(bytes,contentType,status){ // Native false is distinct from a browser delivery receipt. A typed error // flag is the only explicit business result; ambiguous results stay unknown.",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "private_berkas_question_post_dispatched": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/private/berkas-question-post.mjs",
+          "source_location": "document",
+          "quote": "… BERKAS_QUESTION_READ_ID='get-tanyajawab-gettanyajawabberkas-d2826c'; export const BERKAS_QUESTION_READ_PATH='TanyaJawab/GetTanyaJawabBerkas'; const attempts=new WeakSet(),dispatched=new WeakSet(); const record=value=>value!==null&&typeof value==='object'&&!Array.isArray(value)&&!JSON.isRawJSON(value)&&[Object.prototy",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "private_berkas_question_post_exactquestionrecord": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/private/berkas-question-post.mjs",
+          "source_location": "document",
+          "quote": "… kontrak.',code='BERKAS_QUESTION_SCOPE'){throw Object.assign(new Error(message),{code,status:400,statusCode:400});} export function exactQuestionRecord(value,keys){ if(!record(value)||Reflect.ownKeys(value).length!==keys.length||Reflect.ownKeys(value).some(key=>typeof key!=='string'||!keys.includes(key)||!Object.hasOw",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "private_berkas_question_post_fail": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/private/berkas-question-post.mjs",
+          "source_location": "document",
+          "quote": "… value==='object'&&!Array.isArray(value)&&!JSON.isRawJSON(value)&&[Object.prototype,null].includes(Object.getPrototypeOf(value)); function fail(message='Parameter Tanya Berkas tidak sesuai kontrak.',code='BERKAS_QUESTION_SCOPE'){throw Object.assign(new Error(message),{code,status:400,statusCode:400});} export function",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "private_berkas_question_post_isberkasquestionattempt": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/private/berkas-question-post.mjs",
+          "source_location": "document",
+          "quote": "… function createBerkasQuestionAttempt(){const value=Object.freeze({});attempts.add(value);return value;} export const isBerkasQuestionAttempt=value=>attempts.has(value); export const berkasQuestionWasDispatched=value=>dispatched.has(value); export function markBerkasQuestionDispatched(value){if(!attempts.has(value)||d",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "private_berkas_question_post_markberkasquestiondispatched": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/private/berkas-question-post.mjs",
+          "source_location": "document",
+          "quote": "… isBerkasQuestionAttempt=value=>attempts.has(value); export const berkasQuestionWasDispatched=value=>dispatched.has(value); export function markBerkasQuestionDispatched(value){if(!attempts.has(value)||dispatched.has(value))fail('Permintaan pesan ini sudah dijalankan.','BERKAS_QUESTION_ATTEMPT_USED');dispatched.add(val",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "private_berkas_question_post_ordinaryquestionid": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/private/berkas-question-post.mjs",
+          "source_location": "document",
+          "quote": "… proved for these // ordinary IDs; arbitrary Dart URI parser normalization remains outside proof. export const ordinaryQuestionId=value=>typeof value==='string'&&/^[A-Za-z0-9-]{1,1024}$/.test(value); export function questionHistoryPath(id){if(!ordinaryQuestionId(id))fail('Format ID berkas belum didukung oleh pembacaan",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "private_berkas_question_post_prepareberkasquestionpost": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/private/berkas-question-post.mjs",
+          "source_location": "document",
+          "quote": "… detail berkas sesi ini.');return {contextId:value.contextId,content:questionText(value.content)};} export function prepareBerkasQuestionPost(value){exactQuestionRecord(value,['berkasid','content']);if(!ordinaryQuestionId(value.berkasid))fail();return {berkasid:value.berkasid,content:questionText(value.content)};} exp",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "private_berkas_question_post_questionhistorypath": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/private/berkas-question-post.mjs",
+          "source_location": "document",
+          "quote": "… const ordinaryQuestionId=value=>typeof value==='string'&&/^[A-Za-z0-9-]{1,1024}$/.test(value); export function questionHistoryPath(id){if(!ordinaryQuestionId(id))fail('Format ID berkas belum didukung oleh pembacaan percakapan.');return BERKAS_QUESTION_READ_PATH+'?berkasid='+id;} export function questionText(value){ i",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "private_berkas_question_post_questiontext": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/private/berkas-question-post.mjs",
+          "source_location": "document",
+          "quote": "… belum didukung oleh pembacaan percakapan.');return BERKAS_QUESTION_READ_PATH+'?berkasid='+id;} export function questionText(value){ if(typeof value!=='string')fail('Pesan harus berupa teks.'); const copy=value.replace(/^[\\u0009-\\u000D\\u0020\\u0085\\u00A0\\u1680\\u2000-\\u200A\\u2028\\u2029\\u202F\\u205F\\u3000\\uFEFF]+|[\\u0009-",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "private_berkas_question_post_record": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/private/berkas-question-post.mjs",
+          "source_location": "document",
+          "quote": "… BERKAS_QUESTION_READ_PATH='TanyaJawab/GetTanyaJawabBerkas'; const attempts=new WeakSet(),dispatched=new WeakSet(); const record=value=>value!==null&&typeof value==='object'&&!Array.isArray(value)&&!JSON.isRawJSON(value)&&[Object.prototype,null].includes(Object.getPrototypeOf(value)); function fail(message='Parameter",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "private_berkas_question_post_serializeberkasquestionpost": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/private/berkas-question-post.mjs",
+          "source_location": "document",
+          "quote": "… (value.berkasid))fail();return {berkasid:value.berkasid,content:questionText(value.content)};} export function serializeBerkasQuestionPost(value){ const body=prepareBerkasQuestionPost(value); // Native mask1, UTF8 replacement, spaceToPlus=true; raw LF is preserved. const component=text=>encodeURIComponent(text.toWell",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "private_berkas_question_post_transformed": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/private/berkas-question-post.mjs",
+          "source_location": "document",
+          "quote": "… (/%20/g,'+'); return ['berkasid','content'].map(key=>component(key)+'='+component(body[key])).join('&'); } function transformed(bytes,contentType){ let json=false;try{const mime=new MIMEType(contentType||'');json=['application/json','text/json'].includes(mime.essence)||mime.subtype.endsWith('+json');}catch{} const te",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "private_berkas_question_session_berkasquestionsession": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/private/berkas-question-session.mjs",
+          "source_location": "document",
+          "quote": "… uncertainty guards are browser // adaptations. They add no fields to the original two-field BPN request. export class BerkasQuestionSession{ constructor({clientPromise,maxContexts=64}={}){this.clientPromise=clientPromise;this.maxContexts=maxContexts;this.states=new WeakMap();this.live=new Set();this.closed=false;} st",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "private_berkas_question_session_berkasquestionsession_active": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/private/berkas-question-session.mjs",
+          "source_location": "document",
+          "quote": "… (session,state);this.live.add(state);}return state;} active(session,state,assertCurrent=()=>{}){assertCurrent();if(this.closed||session?.active===false||!session?.tokens||!session.user||state.owner!==session.user||this.states.get(session)!==state||session.authenticationSignal?.aborted)throw new ApiError(401,'SESSION_",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "private_berkas_question_session_berkasquestionsession_close": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/private/berkas-question-session.mjs",
+          "source_location": "document",
+          "quote": "… ({clientPromise,maxContexts=64}={}){this.clientPromise=clientPromise;this.maxContexts=maxContexts;this.states=new WeakMap();this.live=new Set();this.closed=false;} state(session){let state=this.states.get(session);if(state&&state.owner!==session.user){this.discard(session);state=null;}if(!state){const abort=()=>this.",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "private_berkas_question_session_berkasquestionsession_discard": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/private/berkas-question-session.mjs",
+          "source_location": "document",
+          "quote": "… ();this.closed=false;} state(session){let state=this.states.get(session);if(state&&state.owner!==session.user){this.discard(session);state=null;}if(!state){const abort=()=>this.discard(session);state={owner:session.user,collection:null,contexts:new Map(),busy:new Set(),unknown:new Set(),authSignal:session.authenticat",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "private_berkas_question_session_berkasquestionsession_state": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/private/berkas-question-session.mjs",
+          "source_location": "document",
+          "quote": "… constructor({clientPromise,maxContexts=64}={}){this.clientPromise=clientPromise;this.maxContexts=maxContexts;this.states=new WeakMap();this.live=new Set();this.closed=false;} state(session){let state=this.states.get(session);if(state&&state.owner!==session.user){this.discard(session);state=null;}if(!state){const abor",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "private_berkas_question_session_dataof": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/private/berkas-question-session.mjs",
+          "source_location": "document",
+          "quote": "… value==='object'&&!Array.isArray(value)&&[Object.prototype,null].includes(Object.getPrototypeOf(value)); function dataOf(result){let value=result?.data;for(let i=0;i<3&&record(value)&&Object.hasOwn(value,'data');i++)value=value.data;return value;} function hasError(result){let value=result?.data;for(let i=0;i<4&&reco",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "private_berkas_question_session_haserror": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/private/berkas-question-session.mjs",
+          "source_location": "document",
+          "quote": "… value=result?.data;for(let i=0;i<3&&record(value)&&Object.hasOwn(value,'data');i++)value=value.data;return value;} function hasError(result){let value=result?.data;for(let i=0;i<4&&record(value);i++){if(value.error===true)return true;if(!Object.hasOwn(value,'data'))break;value=value.data;}return false;} const validRe",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "private_berkas_question_session_invalid": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/private/berkas-question-session.mjs",
+          "source_location": "document",
+          "quote": "… validResult=result=>Number.isInteger(result?.status)&&result.status>=200&&result.status<300&&!hasError(result); const invalid=()=>new ApiError(409,'BERKAS_QUESTION_CONTEXT_INVALID','Konteks percakapan berubah. Buka kembali detail Koleksi atau Cari Berkas.'); const notSent=error=>{error.delivery='not_sent';return erro",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "private_berkas_question_session_notsent": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/private/berkas-question-session.mjs",
+          "source_location": "document",
+          "quote": "… (409,'BERKAS_QUESTION_CONTEXT_INVALID','Konteks percakapan berubah. Buka kembali detail Koleksi atau Cari Berkas.'); const notSent=error=>{error.delivery='not_sent';return error;}; // Opaque detail ownership, bounded memory and uncertainty guards are browser // adaptations. They add no fields to the original two-fiel",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "private_berkas_question_session_record": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/private/berkas-question-session.mjs",
+          "source_location": "document",
+          "quote": "… {BERKAS_QUESTION_POST_PATH,ordinaryQuestionId,questionHistoryPath,prepareBerkasQuestionInput,createBerkasQuestionAttempt,berkasQuestionWasDispatched}from'./berkas-question-post.mjs'; const DETAIL='post-berkas-cariberkas-d88218'; const record=value=>value!==null&&typeof value==='object'&&!Array.isArray(value)&&[Object",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
+        }
+      ]
+    },
+    "private_berkas_question_session_validresult": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/private/berkas-question-session.mjs",
+          "source_location": "document",
+          "quote": "… (value);i++){if(value.error===true)return true;if(!Object.hasOwn(value,'data'))break;value=value.data;}return false;} const validResult=result=>Number.isInteger(result?.status)&&result.status>=200&&result.status<300&&!hasError(result); const invalid=()=>new ApiError(409,'BERKAS_QUESTION_CONTEXT_INVALID','Konteks perc",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p0"
         }
       ]
     },
@@ -13687,7 +14241,7 @@
         {
           "source_file": "webapp/app.js",
           "source_location": "document",
-          "quote": "… (m=>m.route===route)?profileSection:unavailablePage))()}`;document.title=`${op?op.label:routes[route]} · Sentuh Tanahku Workspace`;berkasBookmarkPaint();persilMapPaint();scanPaint();homeMediaPaint();if(typeof berkasJourneyPaint==='function')berkasJourneyPaint();} function navigate(){if(typeof resetBerkasRating==='fun",
+          "quote": "… (m=>m.route===route)?profileSection:unavailablePage))()}`;document.title=`${op?op.label:routes[route]} · Sentuh Tanahku Workspace`;berkasBookmarkPaint();persilMapPaint();scanPaint();homeMediaPaint();if(typeof berkasJourneyPaint==='function')berkasJourneyPaint();} function navigate(){if(typeof resetBerkasQuestion==='f",
           "confidence": "EXTRACTED",
           "paragraph_id": "p3"
         },
@@ -13796,14 +14350,14 @@
         {
           "source_file": "webapp/app.js",
           "source_location": "document",
-          "quote": "… './assets/certificate-date/formatter.js'; import {journeySnapshotFromBerkas} from './assets/berkas-journey/model.js'; import {createBerkasJourneyHost} from './assets/berkas-journey/host.js'; import {journeyTimeDisplay} from './assets/berkas-journey/time-formatter.js'; import {createHomeMediaHost} from './assets/home-",
+          "quote": "… './assets/certificate-date/formatter.js'; import {journeySnapshotFromBerkas} from './assets/berkas-journey/model.js'; import {createBerkasJourneyHost} from './assets/berkas-journey/host.js'; import {createBerkasQuestionHost} from './assets/berkas-question/host.js'; import {journeyTimeDisplay} from './assets/berkas-jo",
           "confidence": "EXTRACTED",
           "paragraph_id": "p0"
         },
         {
           "source_file": "webapp/app.js",
           "source_location": "document",
-          "quote": "… ()}`;document.title=`${op?op.label:routes[route]} · Sentuh Tanahku Workspace`;berkasBookmarkPaint();persilMapPaint();scanPaint();homeMediaPaint();if(typeof berkasJourneyPaint==='function')berkasJourneyPaint();} function navigate(){if(typeof resetBerkasRating==='function')resetBerkasRating();if(typeof disposeOfficeMap",
+          "quote": "… ()}`;document.title=`${op?op.label:routes[route]} · Sentuh Tanahku Workspace`;berkasBookmarkPaint();persilMapPaint();scanPaint();homeMediaPaint();if(typeof berkasJourneyPaint==='function')berkasJourneyPaint();} function navigate(){if(typeof resetBerkasQuestion==='function')resetBerkasQuestion();if(typeof resetBerkasR",
           "confidence": "EXTRACTED",
           "paragraph_id": "p3"
         },
@@ -13867,7 +14421,7 @@
         {
           "source_file": "webapp/app.js",
           "source_location": "document",
-          "quote": "… (row.tanggalFlow)}</p>${row.isCurrent===true?'<span class=\"berkas-current-label\">Tahap aktif</span>':''}</li>`).join('')}</ol></details>`;} function berkasJourneyOwnerCurrent(owner){if(!owner?.alive||flowResults.get('berkas:journey')!==owner||!state.authenticated||logoutPending||owner.epoch!==sessionEpoch||owner.sequ",
+          "quote": "… button=event.target.closest('[data-action=\"berkas-question-open\"]');if(button)openBerkasQuestion(button);}); function berkasJourneyOwnerCurrent(owner){if(!owner?.alive||flowResults.get('berkas:journey')!==owner||!state.authenticated||logoutPending||owner.epoch!==sessionEpoch||owner.sequence!==detailSequence||owner.ro",
           "confidence": "EXTRACTED",
           "paragraph_id": "p4"
         }
@@ -13879,14 +14433,14 @@
         {
           "source_file": "webapp/app.js",
           "source_location": "document",
-          "quote": "… ()}`;document.title=`${op?op.label:routes[route]} · Sentuh Tanahku Workspace`;berkasBookmarkPaint();persilMapPaint();scanPaint();homeMediaPaint();if(typeof berkasJourneyPaint==='function')berkasJourneyPaint();} function navigate(){if(typeof resetBerkasRating==='function')resetBerkasRating();if(typeof disposeOfficeMap",
+          "quote": "… ()}`;document.title=`${op?op.label:routes[route]} · Sentuh Tanahku Workspace`;berkasBookmarkPaint();persilMapPaint();scanPaint();homeMediaPaint();if(typeof berkasJourneyPaint==='function')berkasJourneyPaint();} function navigate(){if(typeof resetBerkasQuestion==='function')resetBerkasQuestion();if(typeof resetBerkasR",
           "confidence": "EXTRACTED",
           "paragraph_id": "p3"
         },
         {
           "source_file": "webapp/app.js",
           "source_location": "document",
-          "quote": "… belum dapat ditampilkan.';section.appendChild(unavailable);}section.appendChild(button);return owner;} function berkasJourneyPaint(){const previous=flowResults.get('berkas:journey');if(previous&&!previous.current()){flowResults.delete('berkas:journey');previous.dispose();}if(route!=='searchfile'||!state.authenticated",
+          "quote": "… (button);if(typeof berkasQuestionMount==='function')berkasQuestionMount(response,context,root);return owner;} function berkasJourneyPaint(){const previous=flowResults.get('berkas:journey');if(previous&&!previous.current()){flowResults.delete('berkas:journey');previous.dispose();}if(route!=='searchfile'||!state.authen",
           "confidence": "EXTRACTED",
           "paragraph_id": "p4"
         }
@@ -13925,6 +14479,30 @@
           "source_file": "webapp/app.js",
           "source_location": "document",
           "quote": "… (title,content){return `<section class=\"berkas-section\"><h3>${esc(title)}</h3>${content}</section>`;} function berkasParties(rows){return Array.isArray(rows)&&rows.length?`<ol class=\"berkas-parties\">${rows.map(item=>`<li><strong>${certificateText(item.nama)}</strong><span>${item.tipePemilik==='P'?'Pemohon':'Pemberi K",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p4"
+        }
+      ]
+    },
+    "webapp_app_berkasquestioncurrent": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/app.js",
+          "source_location": "document",
+          "quote": "… owner=flowResults.get('berkas:question');flowResults.delete('berkas:question');owner?.dispose?.();} function berkasQuestionCurrent(owner){if(!owner?.alive||flowResults.get('berkas:question')!==owner||!state.authenticated||logoutPending||owner.epoch!==sessionEpoch||owner.sequence!==detailSequence||owner.route!==route|",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p4"
+        }
+      ]
+    },
+    "webapp_app_berkasquestionmount": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/app.js",
+          "source_location": "document",
+          "quote": "… (owner.response)!==owner.data||owner.kind!=='search'&&!owner.root.open)return false;try{return owner.context.current()===true;}catch{return false;}} function berkasQuestionMount(response,context,root){resetBerkasQuestion();const reference=response?.berkasQuestionContext,data=flowData(response),detail=root?.querySelec",
           "confidence": "EXTRACTED",
           "paragraph_id": "p4"
         }
@@ -14623,7 +15201,7 @@
         {
           "source_file": "webapp/app.js",
           "source_location": "document",
-          "quote": "… ({label,outcome,detail:String(detail).slice(0,280),time:new Date().toISOString()});state.activity=state.activity.slice(0,100);} function clearPrivate(){if(typeof resetBerkasRating==='function')resetBerkasRating();if(typeof resetSwaplottingSubmission==='function')resetSwaplottingSubmission();if(typeof resetRatingPpatR",
+          "quote": "… ({label,outcome,detail:String(detail).slice(0,280),time:new Date().toISOString()});state.activity=state.activity.slice(0,100);} function clearPrivate(){if(typeof resetBerkasQuestion==='function')resetBerkasQuestion();if(typeof resetBerkasRating==='function')resetBerkasRating();if(typeof resetSwaplottingSubmission==='",
           "confidence": "EXTRACTED",
           "paragraph_id": "p3"
         },
@@ -16950,7 +17528,7 @@
         {
           "source_file": "webapp/app.js",
           "source_location": "document",
-          "quote": "… ()}`;document.title=`${op?op.label:routes[route]} · Sentuh Tanahku Workspace`;berkasBookmarkPaint();persilMapPaint();scanPaint();homeMediaPaint();if(typeof berkasJourneyPaint==='function')berkasJourneyPaint();} function navigate(){if(typeof resetBerkasRating==='function')resetBerkasRating();if(typeof disposeOfficeMap",
+          "quote": "… ()}`;document.title=`${op?op.label:routes[route]} · Sentuh Tanahku Workspace`;berkasBookmarkPaint();persilMapPaint();scanPaint();homeMediaPaint();if(typeof berkasJourneyPaint==='function')berkasJourneyPaint();} function navigate(){if(typeof resetBerkasQuestion==='function')resetBerkasQuestion();if(typeof resetBerkasR",
           "confidence": "EXTRACTED",
           "paragraph_id": "p3"
         }
@@ -19180,7 +19758,7 @@
         {
           "source_file": "webapp/app.js",
           "source_location": "document",
-          "quote": "… ();persilMapPaint();scanPaint();homeMediaPaint();if(typeof berkasJourneyPaint==='function')berkasJourneyPaint();} function navigate(){if(typeof resetBerkasRating==='function')resetBerkasRating();if(typeof disposeOfficeMap==='function')disposeOfficeMap();if(typeof disposeYuridis==='function')disposeYuridis();flowResul",
+          "quote": "… ();persilMapPaint();scanPaint();homeMediaPaint();if(typeof berkasJourneyPaint==='function')berkasJourneyPaint();} function navigate(){if(typeof resetBerkasQuestion==='function')resetBerkasQuestion();if(typeof resetBerkasRating==='function')resetBerkasRating();if(typeof disposeOfficeMap==='function')disposeOfficeMap()",
           "confidence": "EXTRACTED",
           "paragraph_id": "p3"
         }
@@ -19885,6 +20463,18 @@
           "source_file": "webapp/app.js",
           "source_location": "document",
           "quote": "… (button);}else if(action==='certificate-map')await loadCertificateMap(button);else if(action==='berkas-journey-open')openBerkasJourney(button);else if(action==='berkas-read')await loadBerkasSection(button);else if(action==='berkas-bookmark')await submitBerkasBookmark(button);else if(action==='sps-document')await load",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p4"
+        }
+      ]
+    },
+    "webapp_app_openberkasquestion": {
+      "count": 1,
+      "citations": [
+        {
+          "source_file": "webapp/app.js",
+          "source_location": "document",
+          "quote": "… technical=detail.querySelector('.json-details');detail.insertBefore(section,technical||null);owner.button=button;return owner;} function openBerkasQuestion(button){const owner=flowResults.get('berkas:question');if(!owner?.current()||owner.button!==button||button.disabled||!button.isConnected||button.closest('[hidden]",
           "confidence": "EXTRACTED",
           "paragraph_id": "p4"
         }
@@ -20850,7 +21440,7 @@
         {
           "source_file": "webapp/app.js",
           "source_location": "document",
-          "quote": "… (m=>m.route===route)?profileSection:unavailablePage))()}`;document.title=`${op?op.label:routes[route]} · Sentuh Tanahku Workspace`;berkasBookmarkPaint();persilMapPaint();scanPaint();homeMediaPaint();if(typeof berkasJourneyPaint==='function')berkasJourneyPaint();} function navigate(){if(typeof resetBerkasRating==='fun",
+          "quote": "… (m=>m.route===route)?profileSection:unavailablePage))()}`;document.title=`${op?op.label:routes[route]} · Sentuh Tanahku Workspace`;berkasBookmarkPaint();persilMapPaint();scanPaint();homeMediaPaint();if(typeof berkasJourneyPaint==='function')berkasJourneyPaint();} function navigate(){if(typeof resetBerkasQuestion==='f",
           "confidence": "EXTRACTED",
           "paragraph_id": "p3"
         },
@@ -21796,7 +22386,7 @@
         {
           "source_file": "webapp/app.js",
           "source_location": "document",
-          "quote": "… untuk pengujian. Belum semua alur Android tersedia.</div></section></div></div>`;} function render(){if(typeof reconcileBerkasRating==='function')reconcileBerkasRating();const journey=flowResults.get('berkas:journey');if(journey?.kind==='search'&&journey.host?.active)return;if(journey&&(journey.kind==='search'||!jour",
+          "quote": "… (question?.kind==='search'&&question.host?.active)return;if(question&&!question.current()){flowResults.delete('berkas:question');question.dispose();}if(typeof reconcileBerkasRating==='function')reconcileBerkasRating();const journey=flowResults.get('berkas:journey');if(journey?.kind==='search'&&journey.host?.active)re",
           "confidence": "EXTRACTED",
           "paragraph_id": "p3"
         },
@@ -22189,13 +22779,32 @@
         }
       ]
     },
+    "webapp_app_resetberkasquestion": {
+      "count": 2,
+      "citations": [
+        {
+          "source_file": "webapp/app.js",
+          "source_location": "document",
+          "quote": "… (0,280),time:new Date().toISOString()});state.activity=state.activity.slice(0,100);} function clearPrivate(){if(typeof resetBerkasQuestion==='function')resetBerkasQuestion();if(typeof resetBerkasRating==='function')resetBerkasRating();if(typeof resetSwaplottingSubmission==='function')resetSwaplottingSubmission();if(t",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p3"
+        },
+        {
+          "source_file": "webapp/app.js",
+          "source_location": "document",
+          "quote": "… (row.tanggalFlow)}</p>${row.isCurrent===true?'<span class=\"berkas-current-label\">Tahap aktif</span>':''}</li>`).join('')}</ol></details>`;} function resetBerkasQuestion(){const owner=flowResults.get('berkas:question');flowResults.delete('berkas:question');owner?.dispose?.();} function berkasQuestionCurrent(owner){if(",
+          "confidence": "EXTRACTED",
+          "paragraph_id": "p4"
+        }
+      ]
+    },
     "webapp_app_resetberkasrating": {
       "count": 2,
       "citations": [
         {
           "source_file": "webapp/app.js",
           "source_location": "document",
-          "quote": "… (0,280),time:new Date().toISOString()});state.activity=state.activity.slice(0,100);} function clearPrivate(){if(typeof resetBerkasRating==='function')resetBerkasRating();if(typeof resetSwaplottingSubmission==='function')resetSwaplottingSubmission();if(typeof resetRatingPpatResult==='function')resetRatingPpatResult();",
+          "quote": "… ()});state.activity=state.activity.slice(0,100);} function clearPrivate(){if(typeof resetBerkasQuestion==='function')resetBerkasQuestion();if(typeof resetBerkasRating==='function')resetBerkasRating();if(typeof resetSwaplottingSubmission==='function')resetSwaplottingSubmission();if(typeof resetRatingPpatResult==='func",
           "confidence": "EXTRACTED",
           "paragraph_id": "p3"
         },
@@ -22375,7 +22984,7 @@
         {
           "source_file": "webapp/app.js",
           "source_location": "document",
-          "quote": "… ()});state.activity=state.activity.slice(0,100);} function clearPrivate(){if(typeof resetBerkasRating==='function')resetBerkasRating();if(typeof resetSwaplottingSubmission==='function')resetSwaplottingSubmission();if(typeof resetRatingPpatResult==='function')resetRatingPpatResult();if(typeof disposeOfficeMap==='funct",
+          "quote": "… resetBerkasQuestion==='function')resetBerkasQuestion();if(typeof resetBerkasRating==='function')resetBerkasRating();if(typeof resetSwaplottingSubmission==='function')resetSwaplottingSubmission();if(typeof resetRatingPpatResult==='function')resetRatingPpatResult();if(typeof disposeOfficeMap==='function')disposeOfficeM",
           "confidence": "EXTRACTED",
           "paragraph_id": "p3"
         }
@@ -22744,7 +23353,7 @@
         {
           "source_file": "webapp/app.js",
           "source_location": "document",
-          "quote": "… ()}`;document.title=`${op?op.label:routes[route]} · Sentuh Tanahku Workspace`;berkasBookmarkPaint();persilMapPaint();scanPaint();homeMediaPaint();if(typeof berkasJourneyPaint==='function')berkasJourneyPaint();} function navigate(){if(typeof resetBerkasRating==='function')resetBerkasRating();if(typeof disposeOfficeMap",
+          "quote": "… ()}`;document.title=`${op?op.label:routes[route]} · Sentuh Tanahku Workspace`;berkasBookmarkPaint();persilMapPaint();scanPaint();homeMediaPaint();if(typeof berkasJourneyPaint==='function')berkasJourneyPaint();} function navigate(){if(typeof resetBerkasQuestion==='function')resetBerkasQuestion();if(typeof resetBerkasR",
           "confidence": "EXTRACTED",
           "paragraph_id": "p3"
         },

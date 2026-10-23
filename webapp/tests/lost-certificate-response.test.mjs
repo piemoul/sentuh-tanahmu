@@ -65,7 +65,7 @@ test('main JSON transformation permits exactly one service String decode, never 
 test('existing lost-certificate read contract stays fixed with protected submissions disabled', () => {
   const operation = OPERATIONS.find(op=>op.id===ID);
   for (const [key,value] of Object.entries({enabled:true,method:'GET',encoding:'none',auth:'optionalSession',serviceId:'main',effect:'read',mutates:false,requiresConfirmation:false,path:PATH,serverAcceptance:'untested'})) assert.equal(operation[key],value,key);
-  assert.equal(OPERATIONS.length,176); assert.equal(OPERATIONS.filter(op=>op.enabled).length,94);
+  assert.equal(OPERATIONS.length,176); assert.equal(OPERATIONS.filter(op=>op.enabled).length,95);
   const prepared = prepareOperation(ID,{kantorId:' Synthetic office '},{});
   assert.deepEqual({...prepared.query},{kantorId:' Synthetic office '}); assert.deepEqual({...prepared.body},{}); assert.deepEqual(prepared.files,[]);
   assert.throws(()=>prepareOperation(ID,{kantorId:'office',url:'https://untrusted.invalid'},{}),{code:'UNKNOWN_FIELD'});

@@ -5,7 +5,7 @@ import { OPERATIONS } from '../private/operations.mjs';
 
 test('every catalog entry reaches its intended mock transport or fails locally at its explicit boundary', async t => {
   const calls = [];
-  let quotaPreparation=false,swapPreparation=false,berkasRatingPreparation=false;
+  let quotaPreparation=false,swapPreparation=false,berkasRatingPreparation=false,questionPreparation=false;
   const configuration = { configured: true, applicationAuthorization: () => 'AtrBpn fixture-only', queueAuthorization: () => 'Bearer fixture-queue-only', calendarOfficeId: () => 'fixture-decoded-office', origin: 'https://sentuh.atrbpn.go.id/', reason: 'test fixture only' };
   const user = { username: 'fixture-user', email: 'fixture@example.invalid', nomorIndukKependudukan: '0000000000000000', roleUser: 'fixture-role' };
   const server = createServer({ configuration, log: () => {}, transport: async (url, init) => {
@@ -19,6 +19,9 @@ test('every catalog entry reaches its intended mock transport or fails locally a
     if(berkasRatingPreparation&&url.pathname==='/Berkas/GetBerkas')return Response.json({error:false,data:[{berkasId:' fixture raw Berkas ID +&/ ',readyToRating:true,nomor:42,tahun:2026,namaProsedur:'fixture-rating'}]});
     if(berkasRatingPreparation&&url.pathname==='/berkas/CariBerkas')return Response.json({error:false,data:{berkasId:' fixture raw Berkas ID +&/ ',nomor:42,tahun:2026,statusBerkas:1,namaProsedur:'fixture-rating',parapihak:[],perjalananBerkas:[],kantor:{nama:'Fixture Rating Office'}}});
     if(url.pathname==='/berkas/postratingberkas')return Response.json({error:true,message:'fixture Rating Berkas result'},{status:201});
+    if(questionPreparation&&url.pathname==='/berkas/CariBerkas')return Response.json({error:false,data:{berkasId:'fixture-question-id',nomor:42,tahun:2026,statusBerkas:1,namaProsedur:'fixture-question',parapihak:[],perjalananBerkas:[]}});
+    if(url.pathname==='/TanyaJawab/SubmitPertanyaan')return Response.json({error:true,message:'explicit synthetic rejection'});
+    if(url.pathname==='/TanyaJawab/GetTanyaJawabBerkas')return Response.json({error:true,data:[]});
     if (url.pathname === '/legacy/Wilayah') return Response.json([{Kode:'fixture-code',Nama:'Fixture Region',TipeWilayah:null,WilayahId:'fixture-WilayahId'}]);
     if (['/legacy/GetPersilId','/legacy/GetPersilIdByNibel'].includes(url.pathname)) return Response.json({error:true,PersilId:'fixture-parcel-id',Luas:123,unknownFixture:'discard'});
     if (url.pathname === '/PlotBidang/DaftarPlot') return Response.json({error:false,data:[{plotId:'fixture-plot-id',nup:'fixture-NUP',wilayah:'Fixture Region',statusVerifikasi:2,statusTerdaftar:1,tanggal:'raw-date-string',unknownFixture:'discard'}]});
@@ -78,6 +81,7 @@ test('every catalog entry reaches its intended mock transport or fails locally a
   const stageGuestbook=async()=>{
     const response=await post('/api/execute',{operationId:'get-bukutamu-d28bf4',values:{uid:' fixture guestbook kd +&/ ',unid:' fixture guestbook id +&/ '}});assert.equal(response.status,200);const result=await response.json();assert.match(result.result.guestbookContextId,/^gbc_[A-Za-z0-9_-]{32}$/);assert.deepEqual(result.result.data.data,{userId:'fixture-qr-user',kantorId:null,unitKerjaId:null,namaUnitKerja:null});return result.result.guestbookContextId;
   };
+  const stageQuestion=async()=>{questionPreparation=true;try{const response=await post('/api/execute',{operationId:'post-berkas-cariberkas-d88218',values:{nomor:'42',tahun:'2026',kantorId:'fixture-question-office',berkasId:null}});assert.equal(response.status,200);const result=await response.json();assert.equal(result.result.berkasQuestionContext.berkasId,'fixture-question-id');assert.equal(result.result.berkasQuestionContext.entry,'search');assert.match(result.result.berkasQuestionContext.contextId,/^bqc_[A-Za-z0-9_-]{32}$/);return result.result.berkasQuestionContext.contextId;}finally{questionPreparation=false;}};
   response = await post('/api/login', { username: 'fixture-user', password: 'fixture-password' });
   assert.equal(response.status, 200); cookie = response.headers.get('set-cookie').split(';')[0]; state = await response.json();
   response=await post('/api/execute',{operationId:'get-api-antrian-saya-d1eb1c',values:{}});
@@ -96,6 +100,8 @@ test('every catalog entry reaches its intended mock transport or fails locally a
     if(['post-apis-swaplottingterdaftar-d9f850','post-apis-swaplottingbelumterdaftar-da0be8'].includes(operation.id))values.reviewId=await stageSwaplotting(operation.id==='post-apis-swaplottingterdaftar-d9f850'?'registered':'unregistered');
     if(operation.id==='post-berkas-postratingberkas-d915c4')Object.assign(values,{contextId:await stageBerkasRating(),rating:3,userComment:' raw\n comment '});
     if(operation.id==='post-bukutamu-d99dd8')Object.assign(values,{contextId:await stageGuestbook(),name:' raw name ',nik:'abcdefghijklmnop',phone:' raw phone ',birthDate:' raw date ',birthPlace:' raw place ',address:' raw\naddress ',email:' @ ',institution:' raw institution ',purpose:' raw purpose '});
+    if(operation.id==='post-tanyajawab-submitpertanyaan-d994f4')Object.assign(values,{contextId:await stageQuestion(),content:' raw\n question ~!* '});
+    if(operation.id==='get-tanyajawab-gettanyajawabberkas-d2826c')values.berkasid='fixture-question-id';
     const before = calls.length;
     if(operation.endpoint==='api/antrian/{path_argument_1}')values.path_argument_1='fixture-queue-id';
     if(operation.id==='get-items-lokasi-d8a0dc')values['filter[kantor]']='fixture-office';
@@ -107,6 +113,9 @@ test('every catalog entry reaches its intended mock transport or fails locally a
       blocked++; assert.equal(response.status, 422, operation.id); assert.equal(calls.length, before, operation.id); continue;
     }
     enabled++; assert.equal(response.status, 200, `${operation.id}: ${JSON.stringify(result)}`); assert.equal(calls.length, before + (operation.id === 'post-apis-scandocument-d42440' || ['queue-booking','swaplotting-post'].includes(operation.clientProfile) ? 2 : 1), operation.id);
+    if(operation.clientProfile==='berkas-question-post'){
+      assert.deepEqual(calls.slice(before).map(row=>row.url.pathname),['/TanyaJawab/SubmitPertanyaan']);const {url,init}=calls.at(-1);assert.equal(url.origin,'https://sentuh.atrbpn.go.id');assert.equal(url.search,'');assert.equal(init.method,'POST');assert.equal(init.headers.Authorization,'Bearer fixture-token');assert.equal(init.headers['Content-Type'],'application/x-www-form-urlencoded');assert.equal(init.body,'berkasid=fixture-question-id&content=+raw%0A+question+~%21%2A+');assert.equal(operation.effect,'write');assert.equal(operation.requiresConfirmation,true);assert.equal(result.result.delivery,'received');assert.deepEqual(result.result.data,{success:false});assert.equal(result.result.refresh,null);continue;
+    }
     if(operation.clientProfile==='guestbook-post'){
       assert.deepEqual(calls.slice(before).map(row=>row.url.pathname),['/bukutamu']);const {url,init}=calls.at(-1);assert.equal(url.origin,'https://sentuh.atrbpn.go.id');assert.equal(url.search,'');assert.equal(init.method,'POST');assert.equal(init.redirect,'manual');assert.equal(init.headers.Authorization,'AtrBpn fixture-only');assert.equal(operation.auth,'session');assert.equal(operation.upstreamAuthentication,'application');assert.equal(operation.requiresConfirmation,true);const form=await new Request('http://localhost/',{method:'POST',headers:{'Content-Type':init.headers['Content-Type']},body:init.body}).formData();assert.deepEqual([...form],[['kantorId',''],['unitKerjaId',''],['userId','fixture-qr-user'],['nik','abcdefghijklmnop'],['alamat',' raw\naddress '],['namaLengkap',' raw name '],['tempatLahir',' raw place '],['tanggalLahir',' raw date '],['noTelp',' raw phone '],['email',' @ '],['instansi',' raw institution '],['keperluan',' raw purpose ']]);assert.equal(result.result.status,200);assert.equal(result.result.delivery,'received');assert.deepEqual(result.result.data,{error:false});continue;
     }
@@ -141,6 +150,7 @@ test('every catalog entry reaches its intended mock transport or fails locally a
       assert.match(result.result.scanContextId,/^[A-Za-z0-9_-]{32}$/);
     }
     else if (operation.path === 'account/CheckVerifStatusPerorangan') assert.deepEqual(result.result.data,{error:true,message:'1',data:''});
+    else if(operation.path==='TanyaJawab/GetTanyaJawabBerkas'){assert.deepEqual(result.result.data,[]);assert.equal(calls.at(-1).url.search,'?berkasid=fixture-question-id');assert.equal(calls.at(-1).init.body,undefined);}
     else if (operation.path === 'Map/GetDisclaimer') assert.deepEqual(result.result.data,{message:'fixture disclaimer',message2:null,message3:'',url:'raw-string-url'});
     else if (operation.path === 'PeruriLivenessSdk/ValidateKTPDataV2') {
       assert.deepEqual(result.result.data,{error:true,message:'fixture identity Info'});
@@ -185,6 +195,6 @@ test('every catalog entry reaches its intended mock transport or fails locally a
     if (operation.auth === 'application') assert.equal(init.headers.Authorization, 'AtrBpn fixture-only');
     else if (['session', 'optionalSession'].includes(operation.auth)) assert.equal(init.headers.Authorization, 'Bearer fixture-token');
   }
-  assert.equal(enabled, 94); assert.equal(blocked, 82);
-  assert.equal(calls.length, 115, 'Previous113 mock calls plus one actual QR lookup preparation and one standalone Buku Tamu POST; no provider network');
+  assert.equal(enabled, 95); assert.equal(blocked, 81);
+  assert.equal(calls.length, 117, 'Previous115 mock calls plus one native search-detail context preparation and one Tanya POST; explicit rejection does not refresh; no provider network');
 });

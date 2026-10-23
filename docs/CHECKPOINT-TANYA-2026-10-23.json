@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-23T09:44:07.924Z",
+  "sourceParentCommit": "a255dcdec452f85adf21c51935d4cc874654b9dd",
+  "scope": "Progress checkpoint with Tanya implementation, tests, geotag audit follow-ups, Graphify update and localhost rebuild. Not a full-parity or production-acceptance release.",
+  "applicationChanged": true,
+  "sourceManifestFiles": 774,
+  "validation": "docs/VALIDATION.json",
+  "fullNodeTests": 2553,
+  "portableTests": 2521,
+  "runtimeFiles": 147,
+  "containerFiles": 142,
+  "localhostAssets": 93,
+  "newAuditReports": [
+    {
+      "file": "analysis/GEOTAG-CAPTURE-MEDIA-FOLLOWUP-20261023.md",
+      "sha256": "44764ed226c1d1e688a496cb2b5a71ada73dde6794db287537fd7ba4208b07ec"
+    },
+    {
+      "file": "analysis/GEOTAG-PREVIEW-RESULT-FOLLOWUP-20261023.md",
+      "sha256": "b8257cf314460c5d798a6717a0f498627b3f8e58d86d9a7d4865409e31f7159f"
+    },
+    {
+      "file": "analysis/GEOTAG-PREVIEW-RESULT-CORRECTION-20261023.md",
+      "sha256": "744896af9ebd60cf61119a67e5821521025228e46f4c0d0e2af0f2b02de39b04"
+    }
+  ],
+  "graphifyFreshness": ".graphify/FRESHNESS-TANYA-2026-10-23.json",
+  "productionRequests": 0,
+  "productionWrites": 0,
+  "featureE2EComplete": false
+}

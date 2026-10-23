@@ -20,6 +20,7 @@ import {RATING_PPAT_READ_PATH,prepareRatingPpatRead,decodeRatingPpatBytes} from 
 import {RATING_PPAT_POST_PATH,prepareRatingPpatPostValues,serializeRatingPpatPost,decodeRatingPpatPostBytes} from './rating-ppat-post.mjs';
 import {YURIDIS_PATH,YURIDIS_REVIEW_PATH,prepareYuridisFeed,prepareYuridisLastReview,decodeYuridisJson,decodeYuridisLastReviewJson} from './yuridis-response.mjs';
 import {SWAPLOTTING_POSTS,prepareSwaplottingPostValues,serializeSwaplottingPost,prepareSwaplottingActivityValues,serializeSwaplottingActivity,swaplottingPostOutcome,isSwaplottingAttempt,markSwaplottingDispatched} from './swaplotting-post.mjs';
+import {BERKAS_QUESTION_POST_PATH,BERKAS_QUESTION_READ_PATH,ordinaryQuestionId,prepareBerkasQuestionPost,serializeBerkasQuestionPost,decodeBerkasQuestionOutcome,decodeBerkasQuestionHistory,isBerkasQuestionAttempt,markBerkasQuestionDispatched} from './berkas-question-post.mjs';
 import {BERKAS_RATING_PATH,prepareBerkasRatingPost,serializeBerkasRatingPost,decodeBerkasRatingBytes,isBerkasRatingAttempt,markBerkasRatingDispatched} from './berkas-rating-post.mjs';
 
 const collectionDeletePrefixes = ['Collection/DeletePersilCollectionGroup/', 'Collection/DeletePersilCollectionFromGroup/', 'Collection/DeleteCollectionPersil/', 'Collection/DeleteCollectionBerkas/'];
@@ -128,7 +129,14 @@ export class ApiClient {
     return [application, application?.replace(/^\S+\s+/, ''), session?.tokens?.accessToken, session?.tokens?.refreshToken,
       ...Object.entries(body || {}).filter(([key]) => secretKey.test(key)).map(([, value]) => typeof value === 'string' ? value : null)].filter(Boolean).sort((a,b) => b.length-a.length);
   }
-  async request({ base = MAIN_ORIGIN, path, query, method = 'POST', encoding = 'form', body = {}, files = [], auth = 'none', session, clientProfile = 'main', scanContextValidated = false, scanMapContextValidated = false, queueCalendarDirect = false,swaplottingAttempt,swaplottingBoundary,berkasRatingAttempt,berkasRatingBoundary,signal }) {
+  async request({ base = MAIN_ORIGIN, path, query, method = 'POST', encoding = 'form', body = {}, files = [], auth = 'none', session, clientProfile = 'main', scanContextValidated = false, scanMapContextValidated = false, queueCalendarDirect = false,swaplottingAttempt,swaplottingBoundary,berkasRatingAttempt,berkasRatingBoundary,berkasQuestionAttempt,signal }) {
+    const questionPath=value=>{if(typeof value!=='string')return '';let name=value.replace(/^\/+/, '').split(/[?#]/,1)[0];try{name=decodeURIComponent(name);}catch{}return name.toLowerCase();};
+    const questionPostCandidate=questionPath(path)===BERKAS_QUESTION_POST_PATH.toLowerCase(),questionReadCandidate=questionPath(path)===BERKAS_QUESTION_READ_PATH.toLowerCase();
+    const emptyQuestionRecord=value=>value!==null&&typeof value==='object'&&!Array.isArray(value)&&[Object.prototype,null].includes(Object.getPrototypeOf(value))&&Reflect.ownKeys(value).length===0;
+    if((questionPostCandidate||questionReadCandidate)&&(query!==undefined&&!emptyQuestionRecord(query)||!Array.isArray(files)||files.length||questionReadCandidate&&!emptyQuestionRecord(body)))throw new ApiError(409,'BERKAS_QUESTION_SCOPE','Percakapan tidak menerima query tambahan, body GET, atau lampiran.');
+    if((clientProfile==='berkas-question-post'||berkasQuestionAttempt!==undefined)&&!questionPostCandidate)throw new ApiError(409,'BERKAS_QUESTION_SCOPE','Profil percakapan tidak sesuai layanan.');
+    let questionPostBody;
+    if(questionPostCandidate){try{questionPostBody=prepareBerkasQuestionPost(body);}catch{throw new ApiError(409,'BERKAS_QUESTION_SCOPE','Parameter pesan tidak sesuai kontrak.');}}
     const berkasRatingPath=value=>{if(typeof value!=='string')return false;let name=value.replace(/^\/+/, '').split(/[?#]/,1)[0];try{name=decodeURIComponent(name);}catch{}return name.toLowerCase()===BERKAS_RATING_PATH.toLowerCase();};
     const berkasRatingCandidate=berkasRatingPath(path),emptyBerkasRatingQuery=value=>value!==null&&typeof value==='object'&&!Array.isArray(value)&&[Object.prototype,null].includes(Object.getPrototypeOf(value))&&Reflect.ownKeys(value).length===0;
     let berkasRatingBody;
@@ -210,6 +218,10 @@ export class ApiClient {
     // never evaluate browser/model getters while validating a fixed read.
     if (parcelCandidate && (!query || typeof query!=='object' || Array.isArray(query) || ![Object.prototype,null].includes(Object.getPrototypeOf(query)) || Reflect.ownKeys(query).some(key=>typeof key!=='string'||!Object.hasOwn(Object.getOwnPropertyDescriptor(query,key),'value')))) throw new ApiError(409,'PARCEL_SEARCH_SCOPE','Parameter pencarian bidang tidak sesuai kontrak pembacaan.');
     const url = upstreamUrl(base, path, query);
+    const berkasQuestionPost=questionPostCandidate||questionPath(url.pathname)===BERKAS_QUESTION_POST_PATH.toLowerCase(),berkasQuestionRead=questionReadCandidate||questionPath(url.pathname)===BERKAS_QUESTION_READ_PATH.toLowerCase();
+    if(berkasQuestionPost&&(url.origin!==new URL(MAIN_ORIGIN).origin||path!==BERKAS_QUESTION_POST_PATH||url.pathname!=='/'+BERKAS_QUESTION_POST_PATH||url.search||url.hash||method!=='POST'||encoding!=='form'||auth!=='session'||clientProfile!=='berkas-question-post'||!isBerkasQuestionAttempt(berkasQuestionAttempt)||!Array.isArray(files)||files.length||query!==undefined&&!emptyQuestionRecord(query)))throw new ApiError(409,'BERKAS_QUESTION_SCOPE','Pengiriman pesan tidak sesuai konteks percakapan.');
+    if(berkasQuestionRead){const prefix=BERKAS_QUESTION_READ_PATH+'?berkasid=',id=typeof path==='string'&&path.startsWith(prefix)?path.slice(prefix.length):null;if(url.origin!==new URL(MAIN_ORIGIN).origin||!ordinaryQuestionId(id)||url.pathname!=='/'+BERKAS_QUESTION_READ_PATH||url.search!=='?berkasid='+id||url.hash||method!=='GET'||encoding!=='none'||auth!=='session'||clientProfile!=='main'||!emptyQuestionRecord(body)||query!==undefined&&!emptyQuestionRecord(query)||!Array.isArray(files)||files.length)throw new ApiError(409,'BERKAS_QUESTION_SCOPE','Pembacaan percakapan tidak sesuai kontrak.');}
+
     const swaplottingPost=swaplottingCandidate||swaplottingKind(url.pathname);
     const swaplottingActivity=swaplottingActivityCandidate||swaplottingActivityScope&&activityCandidate(url.pathname),swaplottingWrite=swaplottingPost||swaplottingActivity;
     if(swaplottingPost){
@@ -371,7 +383,7 @@ export class ApiClient {
       }
       if(officeCalendar&&queueCalendarDirect&&(typeof body.kantorId!=='string'||!body.kantorId.trim()||body.kantorId.length>1024||typeof body.tahun!=='string'||!/^\d{4}$/.test(body.tahun)||body.tahun==='0000'))throw new ApiError(409,'QUEUE_CALENDAR_SCOPE','Referensi kalender antrean tidak sesuai kontrak.');
     }
-    if (!['main', 'sps-document-viewer',...(swaplottingPost?['swaplotting-post']:[]),...(swaplottingActivity?['swaplotting-activity']:[]),...(berkasRatingPost?['berkas-rating-post']:[])].includes(clientProfile) || (documentViewer && (url.origin !== new URL(MAIN_ORIGIN).origin || path !== 'dokumen/GetDokumen' || method !== 'GET' || encoding !== 'none' || auth !== 'session' || files.length || Object.keys(body || {}).length || Object.keys(query || {}).length !== 2 || !['id', 'tipe'].every(key => typeof query?.[key] === 'string' && query[key].length > 0)))) throw new ApiError(409, 'CLIENT_PROFILE_SCOPE', 'Profil transport tidak sesuai dengan kontrak operasi.');
+    if (!['main', 'sps-document-viewer',...(swaplottingPost?['swaplotting-post']:[]),...(swaplottingActivity?['swaplotting-activity']:[]),...(berkasRatingPost?['berkas-rating-post']:[]),...(berkasQuestionPost?['berkas-question-post']:[])].includes(clientProfile) || (documentViewer && (url.origin !== new URL(MAIN_ORIGIN).origin || path !== 'dokumen/GetDokumen' || method !== 'GET' || encoding !== 'none' || auth !== 'session' || files.length || Object.keys(body || {}).length || Object.keys(query || {}).length !== 2 || !['id', 'tipe'].every(key => typeof query?.[key] === 'string' && query[key].length > 0)))) throw new ApiError(409, 'CLIENT_PROFILE_SCOPE', 'Profil transport tidak sesuai dengan kontrak operasi.');
     // SPS uses a separate HttpClient viewer, without the main LRb interceptor.
     // Keep its request free of the main client's JSON Accept/form Content-Type.
     const headers = { ...(!documentViewer ? { Accept: 'application/json' } : {}), 'User-Agent': 'Sentuh-Browser-Reconstruction/0.1' };
@@ -379,6 +391,7 @@ export class ApiClient {
     const reviewPostOwner=reviewPost?session?.user:undefined;
     const ratingPpatPostOwner=ratingPpatPost?session?.user:undefined;
     const berkasRatingOwner=berkasRatingPost?session?.user:undefined;
+    const berkasQuestionOwner=berkasQuestionPost?session?.user:undefined;
     const swaplottingOwner=swaplottingWrite?session?.user:undefined;
     let sessionAuthorized = false;
     if (auth === 'application' || auth === 'app') {
@@ -436,7 +449,10 @@ export class ApiClient {
         }
         }
       } else if (encoding === 'form' || encoding === 'urlencoded') {
-        if (berkasSearch || lostReviewRead || yuridisReviewRead) {
+        if(berkasQuestionPost){
+          payload=serializeBerkasQuestionPost(questionPostBody);
+          if(session.active===false||session.tokens!==requestTokens||session.user!==berkasQuestionOwner)throw new ApiError(409,'SESSION_CHANGED','Sesi berubah sebelum pengiriman pesan.');
+        }else if (berkasSearch || lostReviewRead || yuridisReviewRead) {
           // Dio's audited form transformer emits a present null as a bare key,
           // while an empty String has '='. URLSearchParams conflates the two.
           // Its query-component encoder also preserves '~', encodes '*', and
@@ -464,6 +480,7 @@ export class ApiClient {
     let response; let stage = 'request'; let networkCode = null; let failed = false; let authenticationError = null;
     const diagnostics = () => ({ requestId, stage, networkCode, elapsedMs: Math.max(0, Math.round(this.clock() - started)) });
     try {
+    if(berkasQuestionPost){try{markBerkasQuestionDispatched(berkasQuestionAttempt);}catch(error){throw new ApiError(error.status||409,error.code,error.message);}}
     if(berkasRatingPost){try{markBerkasRatingDispatched(berkasRatingAttempt);}catch(error){throw new ApiError(error.status||409,error.code,error.message);}}
     if(swaplottingWrite){if(signal?.aborted)throw new ApiError(409,'SWAPLOTTING_ABORTED','Pengiriman dibatalkan sebelum dikirim.');markSwaplottingDispatched(swaplottingAttempt);}
     response = await this.transport(url, { method, headers, body: payload,...(swaplottingWrite?{signal}:{}) });
@@ -556,6 +573,17 @@ export class ApiClient {
     }
     const bytes = await responseBytes(response);
     stage = 'response_parse';
+    if(berkasQuestionPost||berkasQuestionRead){
+      if(authenticationError)throw authenticationError;
+      if(berkasQuestionPost){
+        if(session.active===false||!session.tokens||!session.user)throw new ApiError(401,'SESSION_EXPIRED','Sesi percakapan sudah berakhir. Silakan masuk kembali.');
+        if(session.active===false||session.tokens!==requestTokens||session.user!==berkasQuestionOwner)throw new ApiError(409,'SESSION_CHANGED','Sesi berubah saat pengiriman pesan. Periksa riwayat percakapan.');
+        const data=decodeBerkasQuestionOutcome(bytes,response.headers.get('content-type'),response.status);failed=!data.success;stage='response';return {status:response.status,data,contentType:'application/json'};
+      }
+      if(!response.ok)throw new ApiError(response.status===403?403:502,'UPSTREAM_REJECTED','Riwayat percakapan belum dapat dimuat.',{upstreamStatus:response.status});
+      let data;try{data=decodeBerkasQuestionHistory(bytes,response.headers.get('content-type'),response.status);}catch(error){throw new ApiError(502,error.code,error.message,{upstreamStatus:response.status});}
+      stage='response';return {status:response.status,data,contentType:'application/json'};
+    }
     if(swaplottingWrite){
       if(authenticationError)throw authenticationError;
       if(signal?.aborted||session.active===false||session.tokens!==requestTokens||session.user!==swaplottingOwner)throw new ApiError(409,'SESSION_CHANGED','Sesi berubah saat pengiriman Swaplotting. Periksa hasil melalui aplikasi resmi.');

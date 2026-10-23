@@ -57,10 +57,10 @@ test('MIME transform accepts strict2xx JSON objects only and never calls control
  assert.deepEqual(bytes(Buffer.concat([Buffer.from([239,187,191]),raw]),'application/json'),{error:false,message:'SINTETIS'});
 });
 
-test('Berkas Rating catalog record and later Buku Tamu delta remain exact; rawclientIDs stay unavailable',()=>{
+test('Berkas Rating catalog record and later Buku Tamu/Tanya deltas remain exact; rawclientIDs stay unavailable',()=>{
  const baseline=JSON.parse(fs.readFileSync(new URL('../../analysis/webapp/berkas-rating-runtime-baseline.json',import.meta.url))),before=new Map(baseline.catalog.operations.map(row=>[row.id,row.sha256]));
- const changed=OPERATIONS.filter(op=>createHash('sha256').update(JSON.stringify(op)).digest('hex')!==before.get(op.id)).map(op=>op.id);assert.deepEqual(changed,[ID,'post-bukutamu-d99dd8']);
- assert.equal(OPERATIONS.length,176);assert.equal(OPERATIONS.filter(op=>op.enabled).length,94);assert.equal(OPERATIONS.filter(op=>op.enabled&&op.effect==='read').length,74);assert.equal(OPERATIONS.filter(op=>op.enabled&&op.effect==='write').length,20);
+ const changed=OPERATIONS.filter(op=>createHash('sha256').update(JSON.stringify(op)).digest('hex')!==before.get(op.id)).map(op=>op.id);assert.deepEqual(changed,['post-tanyajawab-submitpertanyaan-d994f4',ID,'post-bukutamu-d99dd8','get-tanyajawab-gettanyajawabberkas-d2826c']);
+ assert.equal(OPERATIONS.length,176);assert.equal(OPERATIONS.filter(op=>op.enabled).length,95);assert.equal(OPERATIONS.filter(op=>op.enabled&&op.effect==='read').length,74);assert.equal(OPERATIONS.filter(op=>op.enabled&&op.effect==='write').length,21);
  const op=getOperation(ID);assert.deepEqual(op.fields.map(field=>field.path),['contextId','rating','userComment']);assert.deepEqual(op.nativeFields.map(field=>field.path),['Berkasid','rating','userComment']);assert.equal(op.encoding,'multipart');assert.equal(op.serverAcceptance,'untested');
  assert.throws(()=>prepareOperation(ID,{contextId,rating:3,userComment:'x'}),{code:'LOGIN_REQUIRED'});
  const prepared=prepareOperation(ID,{contextId,rating:3,userComment:' x '},{authenticated:true});assert.equal(prepared.clientProfile,'berkas-rating-post');assert.deepEqual(prepared.berkasRatingInput,{contextId,rating:3,userComment:'x'});assert.deepEqual(prepared.body,{});assert.equal(prepared.requiresConfirmation,true);

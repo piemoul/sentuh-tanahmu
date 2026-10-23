@@ -1,8 +1,8 @@
 # Sentuh Tanahku — workspace analisis
 
-**Checkpoint 22 Oktober 2026:** source saat ini mencakup Buku Tamu/Simpan, Rating Berkas, Perjalanan Berkas, Rating PPAT, personal Swaplotting, Sertipikat Hilang/ulasan, Yuridis, pencarian bidang, integrasi Koleksi/PERSIL dan sinkronisasi sesi. Katalog **176 record / 94 aktif** bukan jumlah fitur yang sudah setara penuh dengan APK.
+**Checkpoint 23 Oktober 2026:** Tanya Berkas kini terhubung pada detail Koleksi BERKAS dan hasil Cari Berkas, dengan riwayat percakapan, dua field kiriman asli dan refresh riwayat setelah respons yang diterima. Katalog **176 record / 95 aktif** (74 baca, 21 tulis) bukan jumlah fitur yang sudah setara penuh dengan APK.
 
-Suite lengkap pada workspace analisis lulus **2.520/2.520 tes**. Uji Buku Tamu terbaru mencakup **14 pemeriksaan browser**, termasuk 11 kelompok DOM fungsional, menggunakan data dan transport sintetis. Penerimaan transaksi produksi dan seluruh menu 1:1 belum terbukti. [Status checkpoint](analysis/CHECKPOINT-2026-10-22.md), [arsitektur](docs/ARCHITECTURE.md), [validasi](docs/VALIDATION.md), dan [peta Graphify](.graphify/GRAPH_REPORT.md).
+Suite lengkap workspace lulus **2.553/2.553 tes**. Uji browser Tanya masih parsial dan memakai transport sintetis; penerimaan pesan produksi, geotag dan seluruh menu 1:1 belum terbukti. [Arsitektur](docs/ARCHITECTURE.md), [validasi](docs/VALIDATION.md), dan [peta Graphify](.graphify/GRAPH_REPORT.md).
 
 Tes clone source: `cd webapp` lalu `npm run test:portable`. Runner menerapkan pengecualian bernama untuk bukti privat/historis yang tidak dipublikasikan; cakupannya lebih sempit daripada suite penuh. Seluruh source tes tetap disertakan. Lihat [scope portable](docs/PORTABLE-TEST-SCOPE.md).
 

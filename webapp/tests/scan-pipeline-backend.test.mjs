@@ -49,7 +49,7 @@ async function fixture(t,responder=defaultUpstream,{now}={}){
 }
 
 test('classifier enables one existing shape with explicit confirmation and server-profile name source',()=>{
- assert.equal(OPERATIONS.length,176);assert.equal(OPERATIONS.filter(op=>op.enabled).length,94);
+ assert.equal(OPERATIONS.length,176);assert.equal(OPERATIONS.filter(op=>op.enabled).length,95);
  const op=OPERATIONS.find(op=>op.id===CLASSIFY);
  assert.equal(op.enabled,true);assert.equal(op.effect,'write');assert.equal(op.requiresConfirmation,true);assert.equal(op.serverEffects,'unknown');
  assert.equal(op.evidence.nativeProofSha256,'bfa3cdc5257b0ca57b3d9ee881a2cac4c9ecd243cf81c1493e9885fe4c823ab4');

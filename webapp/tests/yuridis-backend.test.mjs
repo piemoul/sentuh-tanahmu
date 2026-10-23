@@ -26,9 +26,9 @@ test('catalog retains the Yuridis read/feed/post plus later Rating writer and GE
  const baseline=JSON.parse(fs.readFileSync(new URL('../../analysis/webapp/yuridis-runtime-baseline.json',import.meta.url)));
  const before=new Map(baseline.catalog.operations.map(op=>[op.id,op.sha256]));
  const changed=registry.OPERATIONS.filter(op=>createHash('sha256').update(json(op)).digest('hex')!==before.get(op.id)).map(op=>op.id).sort();
- assert.deepEqual(changed,[YURIDIS_READ_ID,YURIDIS_REVIEW_ID,POST,'post-ratingppat-postratingppat-d86e10','get-ratingppat-getratingquestions-d1d6bc','post-api-booking-limit-d8bf80','post-apis-swaplottingterdaftar-d9f850','post-apis-swaplottingbelumterdaftar-da0be8','post-berkas-postratingberkas-d915c4','post-bukutamu-d99dd8'].sort());
- assert.equal(registry.OPERATIONS.length,176);assert.equal(registry.OPERATIONS.filter(op=>op.enabled).length,94);
- assert.equal(registry.OPERATIONS.filter(op=>op.enabled&&op.effect==='read').length,74);assert.equal(registry.OPERATIONS.filter(op=>op.enabled&&op.effect==='write').length,20);
+ assert.deepEqual(changed,[YURIDIS_READ_ID,YURIDIS_REVIEW_ID,POST,'post-ratingppat-postratingppat-d86e10','get-ratingppat-getratingquestions-d1d6bc','post-api-booking-limit-d8bf80','post-apis-swaplottingterdaftar-d9f850','post-apis-swaplottingbelumterdaftar-da0be8','post-berkas-postratingberkas-d915c4','post-bukutamu-d99dd8','post-tanyajawab-submitpertanyaan-d994f4','get-tanyajawab-gettanyajawabberkas-d2826c'].sort());
+ assert.equal(registry.OPERATIONS.length,176);assert.equal(registry.OPERATIONS.filter(op=>op.enabled).length,95);
+ assert.equal(registry.OPERATIONS.filter(op=>op.enabled&&op.effect==='read').length,74);assert.equal(registry.OPERATIONS.filter(op=>op.enabled&&op.effect==='write').length,21);
  const prepared=registry.prepareOperation(YURIDIS_REVIEW_ID,{contentId:' raw '},{authenticated:true});
  assert.deepEqual(Object.entries(prepared.body),[['reviewType',YURIDIS_REVIEW_TYPE],['contentId',' raw ']]);assert.equal(prepared.effect,'read');assert.equal(prepared.requiresConfirmation,false);
  assert.throws(()=>registry.prepareOperation(YURIDIS_REVIEW_ID,{contentId:'x'}),{code:'LOGIN_REQUIRED'});

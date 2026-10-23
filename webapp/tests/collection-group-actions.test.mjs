@@ -47,7 +47,7 @@ async function fixture(t, responder) {
 }
 
 test('group action registry has exact scoped fields and keeps every write behind confirmation', () => {
-  assert.equal(OPERATIONS.length, 176); assert.equal(OPERATIONS.filter(item => item.enabled).length, 94);
+  assert.equal(OPERATIONS.length, 176); assert.equal(OPERATIONS.filter(item => item.enabled).length, 95);
   for (const action of actions) {
     const operation = OPERATIONS.find(item => item.id === action.id);
     for (const [key, value] of Object.entries({ enabled: true, serviceId: 'main', auth: 'session', method: action.method, path: action.path, encoding: action.encoding, effect: 'write', mutates: true, requiresConfirmation: true })) assert.equal(operation[key], value);

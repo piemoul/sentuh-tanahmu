@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-10-23T16:09:12.623Z",
+  "status": "FULL_ARCHITECTURE_REFRESH_TANYA",
+  "sourceParentCommit": "a255dcdec452f85adf21c51935d4cc874654b9dd",
+  "runtime": "@sentropic/graphify 0.17.1 TypeScript",
+  "scope": "tracked",
+  "mappedFiles": 152,
+  "codeFiles": 142,
+  "documentFiles": 10,
+  "corpusWords": 119633,
+  "addedFiles": [
+    "webapp/assets/berkas-question/controller.js",
+    "webapp/assets/berkas-question/host.js",
+    "webapp/assets/berkas-question/model.js",
+    "webapp/assets/berkas-question/view.js",
+    "webapp/private/berkas-question-post.mjs",
+    "webapp/private/berkas-question-session.mjs"
+  ],
+  "changedFiles": [
+    "webapp/app.js",
+    "webapp/private/api-client.mjs",
+    "webapp/private/build-operations.py",
+    "webapp/private/http-api.mjs",
+    "webapp/private/operations-runtime.mjs",
+    "webapp/private/operations.mjs",
+    "README.md",
+    "docs/ARCHITECTURE.md",
+    "docs/PORTABLE-TEST-SCOPE.md",
+    "docs/VALIDATION.md"
+  ],
+  "deletedFiles": [],
+  "nodes": 1849,
+  "relationships": 4824,
+  "communities": 99,
+  "semanticExtraction": {
+    "method": "required Agent fragment plus semantic cache",
+    "cachedDocuments": 6,
+    "extractedDocuments": 4,
+    "newFragmentNodes": 53,
+    "newFragmentEdges": 164
+  },
+  "descriptions": {
+    "method": "assistant-authored instruction answers ingested by Graphify describe",
+    "batches": 47,
+    "language": "en",
+    "full": 1849,
+    "total": 1849
+  },
+  "citations": {
+    "newlyGrounded": 2327,
+    "nodes": 1558,
+    "storedEntries": 2787,
+    "inlineEntries": 2786
+  },
+  "benchmark": {
+    "naiveCorpusTokens": 159510,
+    "averageGraphQueryTokens": 9431,
+    "estimatedReduction": 16.9,
+    "billingMeasurement": false
+  },
+  "structuredSourceReferences": {
+    "occurrences": 29128,
+    "distinctFiles": 144,
+    "absoluteOrEscapingPaths": 0,
+    "missingFiles": 0
+  },
+  "portableCheck": {
+    "exitCode": 1,
+    "passed": false,
+    "findings": 597,
+    "allFindingsInQuotes": false,
+    "rawToolReceiptSha256": "1a24ff60ede0705823594a9bfcb681adefd1f263a625aa053bcafd026db377b0",
+    "previousReportArchivedOutsidePublication": true,
+    "quoteFindings": 595,
+    "rationaleApiRouteFindings": 2,
+    "sourceLiteralFindingsReviewed": true
+  },
+  "retainedLimits": {
+    "powershellParserUnavailableFiles": 8,
+    "architectureOnly": true,
+    "provesServerAcceptance": false,
+    "collectionReadCanRevokeEarlierTanyaContextsAcrossTabs": true
+  },
+  "tokens": {
+    "newSemanticExtractionPerformed": true,
+    "assistantUsageMetered": false
+  },
+  "artifactSha256": {
+    "graph.json": "86b30c33c403f4b0117bb42193c8e0c0c240e1cee4088db948801e1dfa44dbb5",
+    "manifest.json": "3c8acfa962c156318b9a44c5be1d73e57f19cae488b2805e275ca3fa940976ed",
+    "studio/graph.json": "86b30c33c403f4b0117bb42193c8e0c0c240e1cee4088db948801e1dfa44dbb5",
+    "studio/scene.json": "4226534711e3d694ebfe347a4be6ffae434008a6e9f331a6732190ac7c488466",
+    "studio/entities.json": "5653667ee95436aa37654c695559812d9c451447dce3d6bff575b249e77282af",
+    "studio/studio.html": "d76379005be8547c43d41967dcc831b9a0ded08ad2515493342ae7410090448b",
+    "ontology/citations.json": "c84a18503cc956296daa51c2ce16585f4bf949d37d186a321cd2513dc5037a92"
+  },
+  "provenance": "Actual full bounded extraction; old freshness receipt remains historical. Base HEAD predates the containing commit; current source freshness is established by the 152 matching manifest hashes.",
+  "viewer": {
+    "graphAndEntitiesDescriptionDataPresent": true,
+    "cliExportDescriptions": 1849,
+    "smokeExampleEntity": "berkas_question_wire",
+    "recommendedViewer": "studio/index.html served on loopback",
+    "indexRenderedDescriptionVisible": true,
+    "indexBrowserWarningOrErrorCount": 0,
+    "legacyOfflineStudioRenderedDescriptionVisible": false,
+    "sceneOnlyOfflineExportEmbedsDescriptionData": false,
+    "limitation": "Root browser smoke confirmed the served index.html displays the Tanya description with correct source, community and four relations. The legacy scene-only offline studio.html omits description data and did not display it. No renderer or runtime code was patched."
+  }
+}

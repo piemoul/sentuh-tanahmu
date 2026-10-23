@@ -63,6 +63,14 @@ The generated catalog has 176 records, 94 enabled (74 reads and 20 writes). Dedi
 
 All write controllers separate pre-dispatch failure from uncertain delivery after handoff, retain current-owner guards and require an explicit user action. These browser lifecycle/duplicate/context guards are documented adaptations. A local success state does not certify legal registration, officer verification or physical presence.
 
+## Tanya Berkas checkpoint
+
+`assets/berkas-question/` separates seven-String history parsing, adjacent raw-date grouping, controller state, escaped bubbles and a host that restores the original detail DOM. The entry is enabled only for server-proven Collection BERKAS or Cari Berkas results; Berkasku and unproven Activity entry points do not expose it. The original server berkasId remains distinct from the displayed number/year.
+
+`private/berkas-question-session.mjs` mints opaque session-owned contexts from the successful source/detail reads. `private/berkas-question-post.mjs` enforces the two native ordered wire fields, berkasid and untrimmed content, with the recovered UTF-8 form codec. HTTP 200 with typed error=false accepts the send, followed by the same-ID history GET. The editor clears immediately and preserves a subsequent draft during the pending send.
+
+Current browser adaptations include ordinary-ID validation, explicit read/uncertain-delivery errors, no automatic POST replay, and context/duplicate guards. A later Collection read currently revokes earlier Collection chat contexts, including another tab; reopening the detail mints a new context. This conservative behavior and further browser cases remain follow-up work. Synthetic local tests do not establish production message acceptance or full APK parity.
+
 ## Map and coordinate paths
 
 `parcel-map.js` derives an initial camera, bounds and reference pin from server feature data. `webapp/assets/maps/official-map.js` mounts the raster OpenStreetMap base and the Bhumi WMS boundary overlay, fitting the extent and limiting the initial zoom. The displayed pin is an acuan/reference point from returned geometry, not a survey boundary or independent accuracy certificate.

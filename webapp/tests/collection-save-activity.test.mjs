@@ -65,7 +65,7 @@ test('save/activity batch keeps original corpus, six prior ledgers and 225 histo
     assert.equal(createHash('sha256').update(bytes).digest('hex'), entry.sha256, entry.file);
     if (entry === baseline.requestCorpus) assert.equal(JSON.parse(bytes).contracts.length, 170);
   }
-  assert.equal(OPERATIONS.length, 176); assert.equal(OPERATIONS.filter(item => item.enabled).length, 94);
+  assert.equal(OPERATIONS.length, 176); assert.equal(OPERATIONS.filter(item => item.enabled).length, 95);
 });
 
 test('Activity registry retains two existing IDs with native evidence, read-only GET and confirmed String multipart POST', () => {

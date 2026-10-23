@@ -50,7 +50,7 @@ test('all five integer fields use exact nullable signed64 values, with no rating
 test('catalog scopes the read POST to lost-announcement constants and keeps unrelated review paths disabled',()=>{
   const op=OPERATIONS.find(op=>op.id===ID);
   for(const [key,value]of Object.entries({enabled:true,effect:'read',mutates:false,requiresConfirmation:false,method:'POST',path:'review/all',encoding:'form',auth:'session',serviceId:'main',serverAcceptance:'untested'}))assert.equal(op[key],value,key);
-  assert.equal(OPERATIONS.length,176);assert.equal(OPERATIONS.filter(op=>op.enabled).length,94);assert.equal(OPERATIONS.filter(op=>op.enabled&&op.effect==='read').length,74);assert.equal(OPERATIONS.filter(op=>op.enabled&&op.effect==='write').length,20);
+  assert.equal(OPERATIONS.length,176);assert.equal(OPERATIONS.filter(op=>op.enabled).length,95);assert.equal(OPERATIONS.filter(op=>op.enabled&&op.effect==='read').length,74);assert.equal(OPERATIONS.filter(op=>op.enabled&&op.effect==='write').length,21);
   for(const op of OPERATIONS.filter(op=>op.path.startsWith('review/')&&![ID,'post-review-post-deb030','post-review-last-user-review-dad1dc'].includes(op.id)))assert.equal(op.enabled,false,op.id);
   for(const contentId of ['', '   ', ' file+&/é ']){
     const prepared=prepareOperation(ID,{contentId},{authenticated:true});assert.deepEqual({...prepared.body},{reviewType:TYPE,contentId,pageNumber:'1',pageSize:'10'});assert.equal(prepared.requiresConfirmation,false);assert.equal(prepared.effect,'read');
