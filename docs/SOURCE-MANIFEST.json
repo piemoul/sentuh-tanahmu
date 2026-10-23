@@ -150,6 +150,13 @@
       "copyPolicy": "relative documentation links and LF"
     },
     {
+      "file": "analysis/BERKAS-QUESTION-CODEC-20261023.md",
+      "workspaceSha256": "db3486a83f21b1ab76305cfff0636bf04b3d06fdc073a750852136682c48b345",
+      "publishedSha256": "db3486a83f21b1ab76305cfff0636bf04b3d06fdc073a750852136682c48b345",
+      "publicationOverlay": false,
+      "copyPolicy": "relative documentation links and LF"
+    },
+    {
       "file": "analysis/BERKAS-QUESTION-FOLLOWUP-20261022.md",
       "workspaceSha256": "69b48436d0cfc7ffd46c413f2cd6d5383cac86ce5ae5fe3a1a3ddbc743d29e7a",
       "publishedSha256": "69b48436d0cfc7ffd46c413f2cd6d5383cac86ce5ae5fe3a1a3ddbc743d29e7a",
@@ -476,6 +483,13 @@
       "workspaceSha256": "6f4002029f812d0c8d02f482641e2b0d839bcee5083e14ba8a988b3e637fe1cc",
       "publishedSha256": "7499ce860c276d855381454b073d6441ff6903b81ec5e89cd88e148e9744f448",
       "publicationOverlay": true,
+      "copyPolicy": "relative documentation links and LF"
+    },
+    {
+      "file": "analysis/GEOTAG-LEGITIMATE-WORKFLOW-GAP-20261023.md",
+      "workspaceSha256": "6f50e41ecd59c3a4afb5e3d24f7c69502943196e5adfaa09a01cafb67d41f533",
+      "publishedSha256": "6f50e41ecd59c3a4afb5e3d24f7c69502943196e5adfaa09a01cafb67d41f533",
+      "publicationOverlay": false,
       "copyPolicy": "relative documentation links and LF"
     },
     {

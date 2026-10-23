@@ -1,5 +1,7 @@
 # Graphify project map
 
+**Freshness checked 23 October 2026:** the incremental update found zero changed or deleted files after verifying all 146 mapped content hashes. The existing 1,776-node / 4,656-relationship graph and Studio remain current. [Freshness receipt](FRESHNESS-2026-10-23.json) records the Windows path compatibility step, fresh portability result, and retained limitations.
+
 Refreshed on 22 October 2026 with installed `@sentropic/graphify` 0.17.1 and its TypeScript runtime. The portable runtime summary and hash of the raw local proof are in `.graphify_runtime.json`; full workstation-specific proof remains outside this publication.
 
 - `graph.json`: 1,776 entities, 4,656 relationships and 101 named communities.

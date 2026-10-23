@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-10-23T07:56:15.010Z",
+  "sourceParentCommit": "1f33529b08f51662d98353dddc8cbd2736e2e886",
+  "status": "CURRENT_UNCHANGED_CORPUS",
+  "runtime": "@sentropic/graphify 0.17.1 TypeScript",
+  "updateMode": "incremental",
+  "mappedFiles": 146,
+  "changedFiles": 0,
+  "deletedFiles": 0,
+  "nodes": 1776,
+  "relationships": 4656,
+  "communities": 101,
+  "graphSha256": "2f46aec7622b6ad3a7515f78bef51b110e4e888d6d8f60901323c4c4692aa58c",
+  "manifestSha256": "2b3f81df91b9c152ee7a59b2adef329aebae087eab425f7a387f641826250615",
+  "structuredSourceReferences": {
+    "occurrences": 28293,
+    "distinctFiles": 138,
+    "absoluteOrEscapingPaths": 0,
+    "missingFiles": 0
+  },
+  "portableCheck": {
+    "exitCode": 1,
+    "passed": false,
+    "findings": 595,
+    "classification": "Citation quote strings containing source code imports/API/container path literals; no structured source-file or personal-machine path findings.",
+    "rawToolReceiptSha256": "f60d2991394fad03343a0d846da1099ae177907ce24334ade2db419061df0ad9",
+    "priorTrackedReportPreserved": true,
+    "priorReportTemporarilyOutsideScan": true
+  },
+  "windowsIncrementalCompatibility": {
+    "required": true,
+    "reason": "Installed 0.17.1 manifestKeyForFile preserves absolute Windows detection keys while the published manifest uses relative keys.",
+    "rawDirectResultChangedFiles": 146,
+    "rawDirectResultSha256": "71d50625ddbdbb5fb4482126efaae02d65e653d485554cf23ceb50c37e0a1251",
+    "compatibility": "A temporary machine-local absolute-key view of the verified same 146 MD5 entries was supplied to the unmodified detect-incremental command. Published manifest and graph were not rewritten.",
+    "compatibilityResultSha256": "d3619be89d4675265efd9d9aacbbc6f2c3ba36c146c7bf4eb70c6675bea133f9"
+  },
+  "retainedLimits": {
+    "powershellParserUnavailableFiles": 8,
+    "fullNodeDescriptions": 0,
+    "provisionalRationaleDescriptions": 33,
+    "architectureOnly": true,
+    "provesServerAcceptance": false
+  },
+  "tokens": {
+    "newSemanticExtractionPerformed": false,
+    "assistantUsageMetered": false
+  },
+  "scope": "No production code or mapped document content changed; retained graph/Studio bytes remain current. Update checks and their limitations are recorded instead of re-extracting identical inputs."
+}

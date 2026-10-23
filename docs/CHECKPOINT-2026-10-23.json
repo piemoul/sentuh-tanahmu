@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-23T07:56:15.010Z",
+  "sourceParentCommit": "1f33529b08f51662d98353dddc8cbd2736e2e886",
+  "scope": "Documentation, static native audit follow-up, Graphify freshness, and localhost rebuild checkpoint. Application behavior remains exactly the published 22 October runtime.",
+  "applicationChanged": false,
+  "runtimeFilesVerified": 141,
+  "testInputsVerified": 227,
+  "newAuditReports": [
+    {
+      "file": "analysis/BERKAS-QUESTION-CODEC-20261023.md",
+      "sha256": "db3486a83f21b1ab76305cfff0636bf04b3d06fdc073a750852136682c48b345"
+    },
+    {
+      "file": "analysis/GEOTAG-LEGITIMATE-WORKFLOW-GAP-20261023.md",
+      "sha256": "6f50e41ecd59c3a4afb5e3d24f7c69502943196e5adfaa09a01cafb67d41f533"
+    }
+  ],
+  "fullNodeSuite": {
+    "tests": 2520,
+    "passed": 2520,
+    "failed": 0,
+    "runDate": "2026-10-22T06:05:26.772Z",
+    "receiptSha256": "0b18ea1475705665f5346aa775446c48d3521de16eb80229102d33af18e6c6df",
+    "rerunForThisCheckpoint": false,
+    "currentRuntimeAndTestInputsMatch": true
+  },
+  "previousPortableSuite": {
+    "tests": 2488,
+    "passed": 2488,
+    "excludedCallbacks": 32,
+    "rerunForThisCheckpoint": false,
+    "details": "PORTABLE-TEST-SCOPE.json"
+  },
+  "graphify": {
+    "receipt": ".graphify/FRESHNESS-2026-10-23.json",
+    "receiptSha256": "16cf3083b717467baf87db91be048c565eabd39582160f260c5e25d6c98bcb66",
+    "files": 146,
+    "changedFiles": 0,
+    "nodes": 1776,
+    "relationships": 4656,
+    "portableCheckPassed": false
+  },
+  "localhost": {
+    "rebuilt": true,
+    "buildExitCode": 0,
+    "applyExitCode": 0,
+    "url": "http://localhost:4173/#/account",
+    "health": {
+      "status": "ok",
+      "app": "sentuh-tanahku-local",
+      "upstreamConfigured": true
+    },
+    "containerFilesMatched": 136,
+    "publicAssetsMatched": 89,
+    "containerRecreated": true,
+    "publicOriginPreserved": "https://sentuh.davay.space",
+    "validationReceiptSha256": "21d5b3132460f217bd984cee25c8dd0b183546612c1424b6e740bc419ce130d7",
+    "browserObserved": "Account page loaded in the in-app browser with the login form; no credentials entered."
+  },
+  "privacy": {
+    "apkAndRecoveredArtifactsPublished": false,
+    "credentialsPublished": false,
+    "liveAccountDataPublished": false,
+    "localEnvironmentPublished": false
+  },
+  "productionRequests": 0,
+  "productionWrites": 0,
+  "limits": "Retained test results are not new executions. Graphify portable-check still reports quoted-source path findings. This checkpoint does not establish Tanya submission, geotag end-to-end acceptance, or full APK parity."
+}
